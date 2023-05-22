@@ -1,0 +1,32 @@
+//=== navigator style =====//
+.navigator-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  background: rgb(92, 80, 231);
+  background: linear-gradient(
+    0deg,
+    rgba(92, 80, 231, 1) 50%,
+    rgba(9, 1, 77, 1) 100%
+  );
+  place-items: center;
+  .MuiToolbar-root{
+    width: 100%;
+  }
+}
+.logo-container{
+  flex-grow: 1;
+}
+.link-container{
+  flex-grow: 2;
+  display: flex;
+  justify-content: space-between;
+  a{
+    margin: 0px 10px;
+    color: #fff;
+    transition: color 0.2s ease-in;
+    &:hover{
+      color:#e76712;
+    }
+  }
+}
