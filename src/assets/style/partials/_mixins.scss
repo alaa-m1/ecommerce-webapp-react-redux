@@ -1,0 +1,7 @@
+@mixin custom-box-shadow-with-border{
+    border: 1px soild #ccc;
+    box-shadow: 4px 4px 8px #ccc;
+}
+@mixin soft-box-shadow{
+    box-shadow: 2px 2px 4px #ccc;
+}

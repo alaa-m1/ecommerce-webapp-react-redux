@@ -1,0 +1,91 @@
+@import "./partials/mixins";
+
+//=== navigator style =====//
+.navigator-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  background: rgb(92, 80, 231);
+  background: linear-gradient(
+    0deg,
+    rgba(92, 80, 231, 1) 50%,
+    rgba(9, 1, 77, 1) 100%
+  );
+  place-items: center;
+  .MuiToolbar-root {
+    width: 100%;
+  }
+}
+.logo-container {
+  flex-grow: 1;
+}
+.link-container {
+  flex-grow: 2;
+  display: flex;
+  justify-content: space-between;
+  a {
+    margin: 0px 10px;
+    color: #fff;
+    transition: color 0.2s ease-in;
+    &:hover {
+      color: #e76712;
+    }
+  }
+}
+
+//=== categories style =====//
+.category-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+.category-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @include custom-box-shadow-with-border;
+  width: 300px;
+  height: 400px;
+  margin: 20px;
+  .right-button {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transition: right 0.2s ease-in;
+    @include soft-box-shadow;
+    &:hover {
+      right: 3px;
+    }
+  }
+  .left-button {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transition: left 0.2s ease-in;
+    @include soft-box-shadow;
+    &:hover {
+      left: 3px;
+    }
+  }
+}
+.category-images {
+  flex-grow: 1;
+  img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1;
+  }
+}
+.category-info {
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  line-height: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-top: 1px solid #ccc;
+  text-transform: capitalize;
+}
