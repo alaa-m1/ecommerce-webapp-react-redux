@@ -1,3 +1,4 @@
-export * from './linksDetails';
-export * from './StyledLink';
-export * from './categoriesDetails';
+export * from './components/StyledLink';
+export * from './constants/categoriesDetails';
+export * from './constants/linksDetails';
+export * from './hooks/useUrlQuery';

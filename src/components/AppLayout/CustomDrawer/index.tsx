@@ -55,7 +55,7 @@ const CustomDrawer = ({ links, isSmallScreen }: CustomDrawerProps) => {
                       </Link>
                     </ListItemButton>
                   );
-                return <div>&nbsp;</div>;
+                return <div key={index}>&nbsp;</div>;
               })}
             </StyledList>
           </Drawer>

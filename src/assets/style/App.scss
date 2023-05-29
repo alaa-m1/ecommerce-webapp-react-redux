@@ -89,3 +89,10 @@
   border-top: 1px solid #ccc;
   text-transform: capitalize;
 }
+
+.central-box {
+  @include custom-box-shadow-with-border;
+  width: 600px;
+  margin: 40px auto auto;
+  text-align: center;
+}
