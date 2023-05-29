@@ -36,8 +36,6 @@ export const TextField = ({
     setShowPassword((p) => !p);
   };
   const labelShrinkStyle: React.CSSProperties = { top: "-15px", left: "5px" };
-  console.log("name=",name)
-  console.log("getValues(name)==",getValues(name))
   const labelStyle: React.CSSProperties =
     getValues(name) && getValues(name).length > 0
       ? labelShrinkStyle

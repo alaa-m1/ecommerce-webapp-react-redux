@@ -4,11 +4,13 @@ import SignIn from "./components/SignIn";
 import { useSearchParams } from "react-router-dom";
 import { ColoredDevider, LinkButton } from "shared/components";
 import GoogleIcon from "@mui/icons-material/Google";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import {
   signInWithGooglePopup,
   createUserDocFromAuth,
   signInWithGoogleRedirect,
   auth,
+  signInWithFacebookPopup,
 } from "utils/firebase";
 import { useEffect } from "react";
 import { getRedirectResult } from "firebase/auth";
@@ -29,6 +31,10 @@ const Auth = () => {
   const signIn = async (provider: string) => {
     if (provider === "google") {
       const response = await signInWithGooglePopup();
+      const userDataRef=createUserDocFromAuth(response.user);
+    }else
+    if (provider === "facebook") {
+      const response = await signInWithFacebookPopup();
       const userDataRef=createUserDocFromAuth(response.user);
     }
   };
@@ -103,19 +109,20 @@ const Auth = () => {
                 Google redirect
               </Button>
             </Grid>
-            {/* {(providers || []).map((provider, index) => {
-          if (provider.id !== "credentials")
-            return (
-              <SocialButton
-                key={provider.id}
-                provider={provider}
-                page={p}
-                csrfToken={csrfToken}
-                index={index}
-              ></SocialButton>
-            );
-          else return;
-        })} */}
+            <Grid
+              item
+              xs={6}
+              md={3}
+              sx={{ button: { textTransform: "unset !important" } }}
+            >
+              <Button
+                startIcon={<FacebookIcon sx={{ color: "#4285f4" }} />}
+                sx={{ color: "#1877f2" }}
+                onClick={()=>signIn("facebook")}
+              >
+                Facebook
+              </Button>
+            </Grid>
           </Grid>
         </>
       )}
