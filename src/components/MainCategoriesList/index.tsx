@@ -12,11 +12,11 @@ const MainCategoriesList = ({
 }: MainCategoriesListProps) => {
   return (
     <Box className="category-container">
-      {mainCategories.map((categoryLabel) => {
+      {mainCategories.map((categoryLabel,index) => {
         const categoryDetails = categories.filter(
           (item) => item.categoryLabel === categoryLabel
         );
-        return <MainCategoryCard currentCategoryLabel={categoryLabel} subCategories={categoryDetails}></MainCategoryCard>;
+        return <MainCategoryCard key={index} currentCategoryLabel={categoryLabel} subCategories={categoryDetails}></MainCategoryCard>;
       })}
     </Box>
   );

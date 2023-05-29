@@ -18,12 +18,14 @@ type TextFieldProps = DetailedHTMLProps<
   icon: JSX.Element;
   register: any;
   errors: any;
+  getValues: any;
 };
 export const TextField = ({
   name,
   label,
   icon,
   register,
+  getValues,
   errors,
   type,
   ...props
@@ -33,6 +35,13 @@ export const TextField = ({
   const handleOnShowIconClick = () => {
     setShowPassword((p) => !p);
   };
+  const labelShrinkStyle: React.CSSProperties = { top: "-15px", left: "5px" };
+  console.log("name=",name)
+  console.log("getValues(name)==",getValues(name))
+  const labelStyle: React.CSSProperties =
+    getValues(name) && getValues(name).length > 0
+      ? labelShrinkStyle
+      : { top: "10px", left: "30px" };
   return (
     <Box
       sx={{
@@ -50,6 +59,11 @@ export const TextField = ({
             borderWidth: "1px",
             borderColor: errors ? "#d32f2f" : "#ccc",
             outlineColor: errors ? "#d32f2f" : "#ccc",
+            "~label": {
+              top: "-15px !important",
+              left: "5px !important",
+              transition: "top 0.2s, left 0.2s",
+            },
           },
         }}
       >
@@ -63,10 +77,6 @@ export const TextField = ({
         >
           {icon}
         </Box>
-        <label htmlFor={`input-${id}`} style={{ marginLeft: "5px" }}>
-          {label}
-        </label>
-        <br />
         <input
           id={`input-${id}`}
           type={showPassword ? "text" : type}
@@ -83,7 +93,14 @@ export const TextField = ({
             width: "100%",
             boxSizing: "border-box",
           }}
+          placeholder=""
         />
+        <label
+          htmlFor={`input-${id}`}
+          style={{ position: "absolute", marginLeft: "5px", ...labelStyle }}
+        >
+          {label}
+        </label>
         {(name === "password" || name === "confirmPassword") && (
           <Box
             sx={{

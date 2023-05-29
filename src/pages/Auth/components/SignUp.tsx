@@ -1,4 +1,4 @@
-import { Alert, Box, Grid, Typography } from "@mui/material";
+import { Alert, Box, Grid, Typography, Link } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import BusinessIcon from "@mui/icons-material/Business";
 import EmailIcon from "@mui/icons-material/Email";
@@ -10,11 +10,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
 import { useEffect, useState } from "react";
-// import axios from "axios";
+import { toast } from "react-toastify";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
-// import { default as NextLink } from "next/link";
 import { TextField } from "shared/components";
+import {
+  createAuthenticatedUserWithEmailAndPassword,
+  createUserDocFromAuth,
+} from "utils/firebase";
 
 const UserSchema = z
   .object({
@@ -64,12 +67,34 @@ const SignUp = () => {
   const [passwordScore, setPasswordScore] = useState(0);
   const {
     register,
+    getValues,
     handleSubmit,
     watch,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<UserSchemaType>({ resolver: zodResolver(UserSchema) });
   const onSubmit: SubmitHandler<UserSchemaType> = async (formData) => {
+    try {
+      const { email, password, firstName, lastName, address, mobile } =
+        formData;
+      await createAuthenticatedUserWithEmailAndPassword(email, password)
+        .then((response) => {
+          const { user } = response;
+          const userDatatRef = createUserDocFromAuth(user, {
+            name: `${firstName} ${lastName}`,
+            mobile,
+            address,
+          });
+          reset();
+        })
+        .catch((error) => {
+          if (error.code === "auth/email-already-in-use") {
+            toast.error("This email is already existed");
+          }
+        });
+    } catch (error: any) {
+      toast.error("Error in connection, please try again");
+    }
   };
 
   const { password } = watch();
@@ -88,45 +113,50 @@ const SignUp = () => {
         <TextField
           name="firstName"
           label="First Name"
-          placeholder="First name"
+          // placeholder="First name"
           icon={<PersonIcon />}
           register={register}
+          getValues={getValues}
           errors={errors.firstName?.message}
           disabled={isSubmitting}
         ></TextField>
         <TextField
           name="lastName"
           label="Last Name"
-          placeholder="Last name"
+          // placeholder="Last name"
           icon={<PersonIcon />}
           register={register}
+          getValues={getValues}
           errors={errors.lastName?.message}
           disabled={isSubmitting}
         ></TextField>
         <TextField
           name="address"
           label="Address"
-          placeholder="Address"
+          // placeholder="Address"
           icon={<BusinessIcon />}
           register={register}
+          getValues={getValues}
           errors={errors.address?.message}
           disabled={isSubmitting}
         ></TextField>
         <TextField
           name="email"
           label="Email"
-          placeholder="Email"
+          // placeholder="Email"
           icon={<EmailIcon />}
           register={register}
+          getValues={getValues}
           errors={errors.email?.message}
           disabled={isSubmitting}
         ></TextField>
         <TextField
           name="mobile"
           label="Mobile number"
-          placeholder="Mobile number"
+          // placeholder="Mobile number"
           icon={<SmartphoneIcon />}
           register={register}
+          getValues={getValues}
           errors={errors.mobile?.message}
           disabled={isSubmitting}
         ></TextField>
@@ -137,10 +167,10 @@ const SignUp = () => {
           icon={<LockIcon />}
           type="password"
           register={register}
+          getValues={getValues}
           errors={errors.password?.message}
           disabled={isSubmitting}
           autoComplete="off"
-          defaultValue=""
         ></TextField>
         {watch().password && watch().password.length > 0 && (
           <Grid container sx={{ margin: "0px 0px 15px 10px" }}>
@@ -172,6 +202,7 @@ const SignUp = () => {
           icon={<LockIcon />}
           type="password"
           register={register}
+          getValues={getValues}
           errors={errors.confirmPassword?.message}
           disabled={isSubmitting}
           autoComplete="off"
@@ -179,6 +210,15 @@ const SignUp = () => {
         <br />
         <Box sx={{ textAlign: "left", marginBottom: "20px" }}>
           <input type="checkbox" id="accept" {...register("accept")} />
+          <label htmlFor="id">
+            I accept &nbsp;
+            <Link
+              href="/terms"
+              sx={{ textDecoration: "none" }}
+            >
+              terms and conditions
+            </Link>
+          </label>
           {errors.accept && (
             <Alert severity="error" sx={{ marginTop: "2px" }}>
               {errors.accept?.message}

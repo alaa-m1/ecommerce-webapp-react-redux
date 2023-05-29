@@ -21,8 +21,7 @@ const Auth = () => {
     const signInAfterRedirect = async () => {
       const response = await getRedirectResult(auth);
       if (response) {
-        const userDataRef = createUserDocFromAuth(response.user);
-        console.log("userDataRef=", userDataRef);
+        const userDataRef=createUserDocFromAuth(response.user);
       }
     };
     signInAfterRedirect();
@@ -30,8 +29,7 @@ const Auth = () => {
   const signIn = async (provider: string) => {
     if (provider === "google") {
       const response = await signInWithGooglePopup();
-      const userDataRef = createUserDocFromAuth(response.user);
-      console.log("userDataRef=", userDataRef);
+      const userDataRef=createUserDocFromAuth(response.user);
     }
   };
   return (
@@ -105,6 +103,19 @@ const Auth = () => {
                 Google redirect
               </Button>
             </Grid>
+            {/* {(providers || []).map((provider, index) => {
+          if (provider.id !== "credentials")
+            return (
+              <SocialButton
+                key={provider.id}
+                provider={provider}
+                page={p}
+                csrfToken={csrfToken}
+                index={index}
+              ></SocialButton>
+            );
+          else return;
+        })} */}
           </Grid>
         </>
       )}

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithRedirect, createUserWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithRedirect, createUserWithEmailAndPassword, UserCredential, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -14,9 +14,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
-// googleProvider.setCustomParameters({
-//   prompt: "select_account",
-// });
+googleProvider.setCustomParameters({
+  prompt: "select_account",
+});
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
@@ -24,12 +24,10 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 
 export const db = getFirestore(app);
 
-export const createUserDocFromAuth = async (userAuth: any) => {
+export const createUserDocFromAuth = async (userAuth: any, aditionalInfo = {}) => {
   const userDocRef = doc(db, 'users', userAuth.uid);
-  console.log(userDocRef);
 
   const userData = await getDoc(userDocRef);
-  console.log('userData=', userData);
 
   if (!userData.exists()) {
     const { email, displayName } = userAuth;
@@ -37,9 +35,10 @@ export const createUserDocFromAuth = async (userAuth: any) => {
 
     try {
       await setDoc(userDocRef, {
-        displayName,
+        name: displayName,
         email,
-        createdAt
+        createdAt,
+        ...aditionalInfo
       })
     }
     catch (error: any) {
@@ -50,6 +49,9 @@ export const createUserDocFromAuth = async (userAuth: any) => {
   return userDocRef;
 }
 
-export const createAuthenticatedUserWithEmailAndPassword = async (email: string, password: string) => {
+export const createAuthenticatedUserWithEmailAndPassword = async (email: string, password: string): Promise<UserCredential> => {
   return await createUserWithEmailAndPassword(auth, email, password);
+}
+export const signInAuthenticatedUserWithEmailAndPassword = async (email: string, password: string): Promise<UserCredential> => {
+  return await signInWithEmailAndPassword(auth, email, password);
 }

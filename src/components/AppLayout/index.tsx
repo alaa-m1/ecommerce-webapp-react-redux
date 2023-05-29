@@ -14,7 +14,6 @@ const AppLayout = ({ links }: NavigationProps) => {
   const { pathname } = useLocation();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  console.log("pathname==", pathname);
   return (
     <Fragment>
       <AppBar className="navigator-container" sx={{position: "relative"}}>
@@ -36,6 +35,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                 <Box className="general-links">
                   {links.map((link, index) => (
                     <StyledLink
+                      key={index}
                       to={link.path}
                       isactive={pathname === link.path ? "active" : "inActive"}
                     >
