@@ -1,10 +1,12 @@
 import { Box, AppBar, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { LinkInfo } from "types";
 import { StyledLink } from "shared";
 import CustomDrawer from "./CustomDrawer";
+import { UserContext } from "utils/context/userContext";
+import { signOutUser } from "utils/firebase";
 
 type NavigationProps = {
   links: Array<LinkInfo>;
@@ -14,9 +16,11 @@ const AppLayout = ({ links }: NavigationProps) => {
   const { pathname } = useLocation();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const { currentUser } = useContext(UserContext);
+  console.log('currentUser=',currentUser)
   return (
     <Fragment>
-      <AppBar className="navigator-container" sx={{position: "relative"}}>
+      <AppBar className="navigator-container" sx={{ position: "relative" }}>
         <Toolbar>
           {isSmallScreen ? (
             <Box className="logo-container">
@@ -43,14 +47,25 @@ const AppLayout = ({ links }: NavigationProps) => {
                     </StyledLink>
                   ))}
                 </Box>
-                <Box className="auth-links">
-                  <StyledLink
-                    to="auth"
-                    isactive={pathname === "/auth" ? "active" : "inActive"}
-                  >
-                    Login
-                  </StyledLink>
-                </Box>
+                {currentUser ? (
+                  <Box className="auth-links" onClick={ () =>  signOutUser()}>
+                    <StyledLink
+                      to="auth"
+                      isactive={pathname === "/auth" ? "active" : "inActive"}
+                    >
+                      Sign Out
+                    </StyledLink>
+                  </Box>
+                ) : (
+                  <Box className="auth-links">
+                    <StyledLink
+                      to="auth"
+                      isactive={pathname === "/auth" ? "active" : "inActive"}
+                    >
+                      Sign In
+                    </StyledLink>
+                  </Box>
+                )}
               </Box>
             </>
           )}

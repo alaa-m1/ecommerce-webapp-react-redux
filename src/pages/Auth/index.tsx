@@ -21,21 +21,15 @@ const Auth = () => {
   const theme = useTheme();
   useEffect(() => {
     const signInAfterRedirect = async () => {
-      const response = await getRedirectResult(auth);
-      if (response) {
-        const userDataRef=createUserDocFromAuth(response.user);
-      }
+      await getRedirectResult(auth);
     };
     signInAfterRedirect();
   }, []);
   const signIn = async (provider: string) => {
     if (provider === "google") {
-      const response = await signInWithGooglePopup();
-      const userDataRef=createUserDocFromAuth(response.user);
-    }else
-    if (provider === "facebook") {
-      const response = await signInWithFacebookPopup();
-      const userDataRef=createUserDocFromAuth(response.user);
+      await signInWithGooglePopup();
+    } else if (provider === "facebook") {
+      await signInWithFacebookPopup();
     }
   };
   return (
@@ -118,7 +112,7 @@ const Auth = () => {
               <Button
                 startIcon={<FacebookIcon sx={{ color: "#4285f4" }} />}
                 sx={{ color: "#1877f2" }}
-                onClick={()=>signIn("facebook")}
+                onClick={() => signIn("facebook")}
               >
                 Facebook
               </Button>

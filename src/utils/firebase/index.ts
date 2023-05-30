@@ -1,7 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithRedirect, createUserWithEmailAndPassword, UserCredential, signInWithEmailAndPassword, FacebookAuthProvider } from "firebase/auth";
+import {
+  GoogleAuthProvider, getAuth, signInWithPopup, signInWithRedirect,
+  createUserWithEmailAndPassword, UserCredential, signInWithEmailAndPassword,
+  FacebookAuthProvider, signOut, onAuthStateChanged, NextOrObserver, User
+} from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-console.log('process.env.API_KEY=',process.env.REACT_APP_API_KEY)
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -60,3 +64,8 @@ export const signInAuthenticatedUserWithEmailAndPassword = async (email: string,
   return await signInWithEmailAndPassword(auth, email, password);
 }
 
+
+export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
+  onAuthStateChanged(auth, callback);
