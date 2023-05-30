@@ -31,7 +31,6 @@ const SignIn = () => {
     const { email, password } = formData;
     await signInAuthenticatedUserWithEmailAndPassword(email, password)
       .then((response) => {
-        console.log("response=", response);
         reset();
       })
       .catch((error) => {

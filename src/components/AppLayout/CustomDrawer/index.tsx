@@ -1,11 +1,13 @@
 import Drawer from "@mui/material/Drawer";
 import { IconButton, Box, Typography, ListItemButton } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Link } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { StyledList } from "./StyledList";
 import { LinkInfo } from "types";
+import { UserContext } from "utils/context/userContext";
+import { signOutUser } from "utils/firebase";
 
 type CustomDrawerProps = {
   links: Array<LinkInfo>;
@@ -13,12 +15,9 @@ type CustomDrawerProps = {
 };
 
 const CustomDrawer = ({ links, isSmallScreen }: CustomDrawerProps) => {
+  const { currentUser } = useContext(UserContext);
   const [open, setOpen] = useState(false);
-  const drawerLinks: Array<LinkInfo> = [
-    ...links,
-    { path: "", label: "" },
-    { path: "/auth", label: "Login" },
-  ];
+  const drawerLinks: Array<LinkInfo> = [...links, { path: "", label: "" }];
   return (
     <>
       {isSmallScreen ? (
@@ -57,6 +56,24 @@ const CustomDrawer = ({ links, isSmallScreen }: CustomDrawerProps) => {
                   );
                 return <div key={index}>&nbsp;</div>;
               })}
+              {currentUser ? (
+                <ListItemButton
+                  onClick={() => {
+                    signOutUser();
+                    setOpen(false);
+                  }}
+                >
+                  <Link style={{ width: "100%" }} to={"/auth"}>
+                    Sign Out
+                  </Link>
+                </ListItemButton>
+              ) : (
+                <ListItemButton onClick={() => setOpen(false)}>
+                  <Link style={{ width: "100%" }} to={"/auth"}>
+                    Sign In
+                  </Link>
+                </ListItemButton>
+              )}
             </StyledList>
           </Drawer>
         </>
