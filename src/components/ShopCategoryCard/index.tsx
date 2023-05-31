@@ -16,6 +16,9 @@ const ShopCategoryCard = ({ catInfo }: ShopCategoryCardProps) => {
           loading="lazy"
         />
       </Box>
+      <Box className="shopping-btn">
+        <Button variant="contained">Add to Cart</Button>
+      </Box>
       <Box className="shop-category-info">
         {catInfo.categoryDetails.price}
       </Box>

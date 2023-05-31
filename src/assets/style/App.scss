@@ -19,6 +19,12 @@
 .logo-container {
   flex-grow: 1;
 }
+.shopping-cart-logo {
+  flex-grow: 0;
+  svg {
+    width: 32px;
+  }
+}
 .link-container {
   flex-grow: 2;
   display: flex;
@@ -185,9 +191,11 @@
     height: 100%;
     aspect-ratio: 1;
   }
+  :hover{
+    opacity: 0.8;
+  }
 }
 .shop-category-info {
-  cursor: pointer;
   text-align: center;
   vertical-align: middle;
   font-weight: bold;
@@ -197,7 +205,13 @@
   border-top: 1px solid #ccc;
   text-transform: capitalize;
 }
-
+.shopping-btn{
+  position: absolute;
+  top: 80%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+//=== shop page navbar =====//
 .shop-nav {
   background-color: #ddd;
   padding: 5px;
@@ -208,4 +222,28 @@
   a:hover {
     text-decoration: underline;
   }
+}
+//=== shoping cart =====//
+.shopping-cart {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  width: 350px;
+  height: 500px;
+  background-color: #eee;
+  @include soft-box-shadow;
+  display: flex;
+  flex-direction: column;
+  z-index: 10000;
+}
+.shopping-cart-logo {
+  position: relative;
+  cursor: pointer;
+}
+.shopping-cart-logo-counter {
+  position: absolute;
+  top: 0px;
+  left: 11px;
+  color: #fff;
+  cursor: pointer;
 }
