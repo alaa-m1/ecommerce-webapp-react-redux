@@ -8,6 +8,7 @@ import Auth from "pages/Auth";
 import { linksDetails } from "shared";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Checkout from "pages/Checkout";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
           <Route path="auth" element={<Auth />} />
+          <Route path="checkout" element={<Checkout />} />
         </Route>
       </Routes>
       <ToastContainer

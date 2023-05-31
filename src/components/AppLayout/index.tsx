@@ -9,17 +9,18 @@ import { UserContext } from "utils/context/userContext";
 import { signOutUser } from "utils/firebase";
 import ShoppingCart from "components/ShoppingCart";
 import ShoppingCartLogo from "assets/images/shoppingCartLogo";
+import { ShoppingCartContext } from "utils/context/shoppingCartContext";
 
 type NavigationProps = {
   links: Array<LinkInfo>;
 };
 
 const AppLayout = ({ links }: NavigationProps) => {
-  const [showShopingCart, setShowShopingCart] = useState(false);
   const { pathname } = useLocation();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const { currentUser } = useContext(UserContext);
+  const {showCart, setShowCart}=useContext(ShoppingCartContext);
   return (
     <Fragment>
       <AppBar className="navigator-container" sx={{ position: "relative" }}>
@@ -71,7 +72,7 @@ const AppLayout = ({ links }: NavigationProps) => {
               </Box>
               <Box
                 className="shopping-cart-logo"
-                onClick={() => setShowShopingCart((p) => !p)}
+                onClick={() => setShowCart(!showCart)}
               >
                 <ShoppingCartLogo counter={0} />
               </Box>
@@ -80,7 +81,7 @@ const AppLayout = ({ links }: NavigationProps) => {
           <CustomDrawer links={links} isSmallScreen={isSmallScreen} />
         </Toolbar>
       </AppBar>
-      {showShopingCart && <ShoppingCart />}
+      {showCart && <ShoppingCart />}
       <main>
         <Outlet />
       </main>
