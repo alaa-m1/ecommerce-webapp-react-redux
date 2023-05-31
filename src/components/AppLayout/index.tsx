@@ -17,7 +17,6 @@ const AppLayout = ({ links }: NavigationProps) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const { currentUser } = useContext(UserContext);
-  console.log('currentUser=',currentUser)
   return (
     <Fragment>
       <AppBar className="navigator-container" sx={{ position: "relative" }}>

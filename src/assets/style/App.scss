@@ -33,14 +33,14 @@
   }
 }
 
-//=== categories style =====//
-.category-container {
+//=== main page categories style =====//
+.main-category-container {
   display: flex;
   justify-content: space-evenly;
   padding: 10px;
   flex-wrap: wrap;
 }
-.category-card {
+.main-category-card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -70,7 +70,7 @@
     }
   }
 }
-.category-images {
+.main-category-images {
   flex-grow: 1;
   img {
     width: 100%;
@@ -78,7 +78,7 @@
     aspect-ratio: 1;
   }
 }
-.category-info {
+.main-category-info {
   cursor: pointer;
   text-align: center;
   vertical-align: middle;
@@ -95,4 +95,117 @@
   width: 600px;
   margin: 40px auto auto;
   text-align: center;
+}
+
+//=== shop page categories style =====//
+.shop-category-container {
+  margin: 10px 0xp;
+}
+.shop-sub-category-section {
+  display: flex;
+  flex-direction: column;
+  @include custom-box-shadow-with-border;
+  margin: 20px 0px;
+  position: relative;
+  .right-button {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transition: right 0.2s ease-in;
+    @include soft-box-shadow;
+    &:hover {
+      right: 3px;
+    }
+  }
+  .left-button {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transition: left 0.2s ease-in;
+    @include soft-box-shadow;
+    &:hover {
+      left: 3px;
+    }
+  }
+}
+.shop-sub-category-section-title {
+  padding: 2px 10px;
+  font-weight: bold;
+  text-transform: capitalize;
+  height: 25px;
+  background-color: #eee;
+  border: 1px solid #000;
+}
+.shop-sub-category-section-cards {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.shop-category-section {
+  display: flex;
+  flex-direction: column;
+  @include custom-box-shadow-with-border;
+  margin: 20px 0px;
+  width: 100%;
+}
+.shop-category-section-title {
+  padding: 2px 10px;
+  font-weight: bold;
+  text-transform: capitalize;
+  height: 25px;
+  background-color: #eee;
+  border: 1px solid #000;
+}
+.shop-category-section-cards {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+//=== shop page category card style =====//
+.shop-category-card {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  @include soft-box-shadow;
+  width: 300px;
+  height: 400px;
+  margin: 10px;
+}
+.shop-category-images {
+  flex-grow: 1;
+  img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1;
+  }
+}
+.shop-category-info {
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  line-height: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-top: 1px solid #ccc;
+  text-transform: capitalize;
+}
+
+.shop-nav {
+  background-color: #ddd;
+  padding: 5px;
+  text-align: center;
+  a {
+    text-transform: capitalize;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 }

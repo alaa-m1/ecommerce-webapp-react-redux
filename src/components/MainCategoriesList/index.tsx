@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import MainCategoryCard from "components/MainCategoriesList/MainCategoryCard";
+import MainCategoryCard from "components/MainCategoriesList/components/MainCategoryCard";
 import { Category } from "types";
 
 type MainCategoriesListProps = {
@@ -11,7 +11,7 @@ const MainCategoriesList = ({
   categories,
 }: MainCategoriesListProps) => {
   return (
-    <Box className="category-container">
+    <Box className="main-category-container">
       {mainCategories.map((categoryLabel,index) => {
         const categoryDetails = categories.filter(
           (item) => item.categoryLabel === categoryLabel
