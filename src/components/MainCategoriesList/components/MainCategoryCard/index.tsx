@@ -16,11 +16,11 @@ const MainCategoryCard = ({
   const [imageIndex, setImageIndex] = useState(1);
   const subCatLength = subCategories.length;
   return (
-    <Box className="category-card">
-      <Box className="category-images">
+    <Box className="main-category-card">
+      <Box className="main-category-images">
         <img
           src={`${window.location.origin}/images/categories/${currentCategoryLabel}/${imageIndex}.jpeg`}
-          alt={`${currentCategoryLabel} image`}
+          alt={`${currentCategoryLabel}`}
           loading="lazy"
         />
       </Box>
@@ -51,7 +51,7 @@ const MainCategoryCard = ({
         />
       </Box>
       <Link to={`shop?category=${currentCategoryLabel}`}>
-        <Box className="category-info">{currentCategoryLabel}</Box>
+        <Box className="main-category-info">{currentCategoryLabel}</Box>
       </Link>
     </Box>
   );

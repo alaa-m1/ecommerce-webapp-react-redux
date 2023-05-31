@@ -4,7 +4,20 @@ export type LinkInfo = {
 };
 
 export type Category = {
-  categoryLabel: "accessories"|"dresses"|"hats"|"jackets"|"shoes";
+  id: number;
+  categoryLabel: "accessories" | "dresses" | "hats" | "jackets" | "shoes";
+  categoryDetails: {
+    title: string;
+    price: string;
+    description: string;
+    imagePath: string;
+  };
+};
+
+export type CartCategory = {
+  id: number;
+  categoryLabel: "accessories" | "dresses" | "hats" | "jackets" | "shoes";
+  quantity: number;
   categoryDetails: {
     title: string;
     price: string;

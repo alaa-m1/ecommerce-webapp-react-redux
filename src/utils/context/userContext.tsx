@@ -20,7 +20,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const value: any = { currentUser, setCurrentUser };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: any) => {
-      console.log('dddddddddddddddddddddddddddddddddddddddddddd user=',user)
+    
       if (user) {
         createUserDocFromAuth(user);
       }
