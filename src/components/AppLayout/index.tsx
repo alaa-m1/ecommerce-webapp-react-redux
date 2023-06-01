@@ -74,7 +74,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                 className="shopping-cart-logo"
                 onClick={() => setShowCart(!showCart)}
               >
-                <ShoppingCartLogo counter={0} />
+                <ShoppingCartLogo/>
               </Box>
             </>
           )}
