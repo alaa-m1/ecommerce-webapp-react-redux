@@ -252,6 +252,7 @@
   display: flex;
   border-bottom: 1px solid #ccc;
   margin: 4px 0px;
+  padding-left: 2px;
   place-items: center;
   .cart-card-img {
     width: 50px;
@@ -272,8 +273,10 @@
 }
 .shopping-cart-logo-counter {
   position: absolute;
-  top: 0px;
-  left: 11px;
+  top: 30%;
+  left: 55%;
+  font-size: 12px;
+  transform: translate(-50%, -50%);
   color: #fff;
   cursor: pointer;
 }

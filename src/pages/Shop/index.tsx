@@ -1,36 +1,34 @@
 import { Box } from "@mui/material";
 import ShopCategoriesList from "components/ShopCategoriesList";
 import ShopCategory from "components/ShopCategory";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { categoriesRes } from "shared";
+import { CategoryContext } from "utils/context/categoryContext";
 
 const Shop = () => {
+  const { categories } = useContext(CategoryContext);
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("category");
-  const mainCategories = useMemo(
+  const mainCategoriesLabels = useMemo(
     () =>
-      categoriesRes.reduce<Array<string>>((res, category) => {
+      categories.reduce<Array<string>>((res, category) => {
         if (!res.includes(category.categoryLabel)) {
           res.push(category.categoryLabel);
         }
         return res;
       }, []),
-    []
+    [categories]
   );
 
   const targetCategory = useMemo(
-    () =>
-      categoriesRes.filter((cat, index) => cat.categoryLabel === searchQuery),
-    [searchQuery]
+    () => categories.filter((cat, index) => cat.categoryLabel === searchQuery),
+    [categories, searchQuery]
   );
 
   return (
     <Box className="mainContainer">
-      <Box
-        className="shop-nav"
-      >
-        {mainCategories.map((item) => (
+      <Box className="shop-nav">
+        {mainCategoriesLabels.map((item) => (
           <Link to={`?category=${item}`} style={{ margin: "0px 15px" }}>
             {item}
           </Link>
@@ -46,8 +44,8 @@ const Shop = () => {
         />
       ) : (
         <ShopCategoriesList
-          mainCategories={mainCategories}
-          categories={categoriesRes}
+          mainCategoriesLabels={mainCategoriesLabels}
+          categories={categories}
         />
       )}
     </Box>

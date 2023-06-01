@@ -1,5 +1,5 @@
 import { Box, AppBar, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { LinkInfo } from "types";
@@ -74,7 +74,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                 className="shopping-cart-logo"
                 onClick={() => setShowCart(!showCart)}
               >
-                <ShoppingCartLogo counter={0} />
+                <ShoppingCartLogo/>
               </Box>
             </>
           )}

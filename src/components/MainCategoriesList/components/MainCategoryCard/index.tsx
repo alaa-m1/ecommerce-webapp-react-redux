@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { useState } from "react";
 import { Category } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";

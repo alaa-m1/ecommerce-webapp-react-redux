@@ -1,12 +1,23 @@
-import { Box, Button, Link } from "@mui/material";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Box, Button } from "@mui/material";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { ShoppingCartContext } from "utils/context/shoppingCartContext";
 
-const CartFooter=()=>{
-    const navigate=useNavigate();
-    return (
+const CartFooter = () => {
+  const { setShowCart } = useContext(ShoppingCartContext);
+  const navigate = useNavigate();
+  return (
     <Box>
-        <Button variant="contained" onClick={()=>navigate({pathname:'/checkout'})}>Checkout</Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setShowCart(false);
+          navigate({ pathname: "/checkout" });
+        }}
+      >
+        Checkout
+      </Button>
     </Box>
-)
-}
+  );
+};
 export default CartFooter;

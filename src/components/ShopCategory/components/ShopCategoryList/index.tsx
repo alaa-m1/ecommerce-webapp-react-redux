@@ -1,11 +1,6 @@
-import { Box, Button } from "@mui/material";
-import { useRef, useState } from "react";
+import { Box } from "@mui/material";
 import { Category } from "types";
-import { Link } from "react-router-dom";
 import ShopCategoryCard from "../../../ShopCategoryCard";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 type ShopCategoryListProps = {
   subCategories: Array<Category>;

@@ -3,16 +3,16 @@ import ShopSubCategoryList from "components/ShopCategoriesList/components/ShopSu
 import { Category } from "types";
 
 type ShopCategoriesListProps = {
-  mainCategories: Array<string>;
+  mainCategoriesLabels: Array<string>;
   categories: Array<Category>;
 };
 const ShopCategoriesList = ({
-  mainCategories,
+  mainCategoriesLabels,
   categories,
 }: ShopCategoriesListProps) => {
   return (
     <Box className="shop-category-container">
-      {mainCategories.map((categoryLabel,index) => {
+      {mainCategoriesLabels.map((categoryLabel,index) => {
         const categoryDetails = categories.filter(
           (item) => item.categoryLabel === categoryLabel
         );
