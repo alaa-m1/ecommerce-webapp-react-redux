@@ -7,12 +7,18 @@ const CartCard = ({ cartItemInfo }: { cartItemInfo: CartCategory }) => {
       <Box className="cart-card-img">
         <img
           style={{ height: "50px" }}
-          src={`${window.location.origin}/images/categories/${cartItemInfo.categoryLabel}/${cartItemInfo.categoryDetails.imagePath}`}
+          src={`${window.location.origin}/images/categories/${cartItemInfo.categoryLabel}/${cartItemInfo.imagePath}`}
           alt={`${cartItemInfo.categoryLabel}`}
           loading="lazy"
         />
       </Box>
-      <Box className="cart-card-info"><span>{cartItemInfo.categoryDetails.title}</span><br/><span>{cartItemInfo.quantity}x ${cartItemInfo.categoryDetails.price}</span></Box>
+      <Box className="cart-card-info">
+        <span>{cartItemInfo.title}</span>
+        <br />
+        <span>
+          {cartItemInfo.quantity}x ${cartItemInfo.price}
+        </span>
+      </Box>
     </Box>
   );
 };

@@ -1,24 +1,25 @@
 import { Box } from "@mui/material";
 import MainCategoriesList from "components/MainCategoriesList";
-import { useMemo } from "react";
-import { categoriesRes } from "shared";
+import { useContext, useMemo } from "react";
+import { CategoryContext } from "utils/context/categoryContext";
 
 const Home = () => {
-  const mainCategories = useMemo(
+  const { categories } = useContext(CategoryContext);
+  const mainCategoriesLabels = useMemo(
     () =>
-      categoriesRes.reduce<Array<string>>((res, category) => {
+      categories.reduce<Array<string>>((res, category) => {
         if (!res.includes(category.categoryLabel)) {
           res.push(category.categoryLabel);
         }
         return res;
       }, []),
-    []
+    [categories]
   );
   return (
     <Box className="mainContainer">
       <MainCategoriesList
-        mainCategories={mainCategories}
-        categories={categoriesRes}
+        mainCategories={mainCategoriesLabels}
+        categories={categories}
       />
     </Box>
   );

@@ -1,7 +1,6 @@
 import { Box, Button } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Category } from "types";
-import { Link } from "react-router-dom";
 import { ShoppingCartContext } from "utils/context/shoppingCartContext";
 
 type ShopCategoryCardProps = {
@@ -17,7 +16,7 @@ const ShopCategoryCard = ({ catInfo }: ShopCategoryCardProps) => {
     <Box className="shop-category-card">
       <Box className="shop-category-images">
         <img
-          src={`${window.location.origin}/images/categories/${catInfo.categoryLabel}/${catInfo.categoryDetails.imagePath}`}
+          src={`${window.location.origin}/images/categories/${catInfo.categoryLabel}/${catInfo.imagePath}`}
           alt={`${catInfo.categoryLabel}`}
           loading="lazy"
         />
@@ -27,7 +26,7 @@ const ShopCategoryCard = ({ catInfo }: ShopCategoryCardProps) => {
           Add to Cart
         </Button>
       </Box>
-      <Box className="shop-category-info">{catInfo.categoryDetails.price}</Box>
+      <Box className="shop-category-info">{catInfo.price}</Box>
     </Box>
   );
 };

@@ -1,6 +1,5 @@
-import { Category } from "types";
-type Categories = Array<Category>
-export const categoriesRes: Categories = [
+import { CategoriesResponse } from "types";
+export const categoriesRes: CategoriesResponse = [
     { id:1, categoryLabel: "accessories", categoryDetails: { title: "accessories 1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ornare turpis non tortor aliquam,", imagePath: "1.jpeg", price: "300" } },
     { id:2, categoryLabel: "accessories", categoryDetails: { title: "accessories 2", description: "Lorem ipsum dolor sit amet. Nullam ornare turpis non tortor aliquam,", imagePath: "2.jpeg", price: "150" } },
     { id:3, categoryLabel: "accessories", categoryDetails: { title: "accessories 3", description: "Lorem ipsum dolor sit amet non tortor aliquam,", imagePath: "3.jpeg", price: "500" } },

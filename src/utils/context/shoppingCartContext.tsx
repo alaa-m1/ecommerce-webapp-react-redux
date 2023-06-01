@@ -5,7 +5,14 @@ type CartProviderProps = {
   children: React.ReactNode;
 };
 
-export const ShoppingCartContext = createContext({
+type ShoppingCartContextType = {
+  showCart: boolean;
+  setShowCart: (show: boolean) => null;
+  cartItems: Array<CartCategory>;
+  addToCart: (item: Category) => null;
+  cartCounter: number;
+};
+export const ShoppingCartContext = createContext<ShoppingCartContextType>({
   showCart: false,
   setShowCart: (show: boolean) => null,
   cartItems: [],
@@ -21,7 +28,6 @@ const addItemToCart = (
     (cartItem) => cartItem.id === itemToAdd.id
   );
   if (existedCategory) {
-    console.log("existedCategory=", existedCategory);
     return cartItems.map((cartItem) =>
       cartItem.id === itemToAdd.id
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
