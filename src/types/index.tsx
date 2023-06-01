@@ -9,7 +9,7 @@ export type CategoryResponse = {
   categoryLabel: "accessories" | "dresses" | "hats" | "jackets" | "shoes";
   categoryDetails: {
     title: string;
-    price: string;
+    price: number;
     description: string;
     imagePath: string;
   };
@@ -20,7 +20,7 @@ export type Category = {
   id: number;
   categoryLabel: "accessories" | "dresses" | "hats" | "jackets" | "shoes";
   title: string;
-  price: string;
+  price: number;
   description: string;
   imagePath: string;
 };
