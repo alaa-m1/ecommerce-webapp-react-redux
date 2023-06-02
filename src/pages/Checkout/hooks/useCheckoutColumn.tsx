@@ -43,11 +43,11 @@ export const useCheckoutColumn = (): GridColDef[] => {
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
         return (
           <Box sx={{ display: "flex", justifyContent: "center",placeItems:"center" }}>
-            <IconButton onClick={() => decreaseCartItem(params.row)}>
+            <IconButton onClick={() => setTimeout(()=>{decreaseCartItem(params.row)}) }>
               <RemoveIcon />
             </IconButton>
             {` ${params.row.quantity} `}
-            <IconButton onClick={() => addToCart(params.row)}>
+            <IconButton onClick={() => {addToCart(params.row)}}>
               <AddIcon />
             </IconButton>
           </Box>
@@ -62,7 +62,7 @@ export const useCheckoutColumn = (): GridColDef[] => {
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
         return (
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <IconButton onClick={() => removeFromCart(params.row)}>
+            <IconButton onClick={() =>  setTimeout(()=>removeFromCart(params.row))}>
               <CloseIcon />
             </IconButton>
           </Box>
