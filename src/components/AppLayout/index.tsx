@@ -5,12 +5,11 @@ import Logo from "assets/images/logo";
 import { LinkInfo } from "types";
 import { StyledLink } from "shared";
 import CustomDrawer from "./CustomDrawer";
-import { UserContext } from "utils/context/userContext";
 import { signOutUser } from "utils/firebase";
 import ShoppingCart from "components/ShoppingCart";
 import ShoppingCartLogo from "assets/images/shoppingCartLogo";
 import { ShoppingCartContext } from "utils/context/shoppingCartContext";
-
+import { useAppSelector } from "utils/redux/hooks";
 type NavigationProps = {
   links: Array<LinkInfo>;
 };
@@ -19,7 +18,7 @@ const AppLayout = ({ links }: NavigationProps) => {
   const { pathname } = useLocation();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const { currentUser } = useContext(UserContext);
+  const currentUser =useAppSelector((state)=>state.user.currentUser);
   const {showCart, setShowCart}=useContext(ShoppingCartContext);
   return (
     <Fragment>
@@ -78,7 +77,7 @@ const AppLayout = ({ links }: NavigationProps) => {
               </Box>
             </>
           )}
-          <CustomDrawer links={links} isSmallScreen={isSmallScreen} />
+          <CustomDrawer links={links} isSmallScreen={isSmallScreen} currentUser={currentUser}/>
         </Toolbar>
       </AppBar>
       {showCart && <ShoppingCart />}

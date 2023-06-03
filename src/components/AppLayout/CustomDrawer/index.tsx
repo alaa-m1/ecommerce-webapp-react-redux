@@ -1,21 +1,21 @@
 import Drawer from "@mui/material/Drawer";
 import { IconButton, Box, Typography, ListItemButton } from "@mui/material";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Link } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { StyledList } from "./StyledList";
 import { LinkInfo } from "types";
-import { UserContext } from "utils/context/userContext";
 import { signOutUser } from "utils/firebase";
+import { User } from "firebase/auth";
 
 type CustomDrawerProps = {
   links: Array<LinkInfo>;
   isSmallScreen: boolean;
+  currentUser: null|User;
 };
 
-const CustomDrawer = ({ links, isSmallScreen }: CustomDrawerProps) => {
-  const { currentUser } = useContext(UserContext);
+const CustomDrawer = ({ links, isSmallScreen,currentUser }: CustomDrawerProps) => {
   const [open, setOpen] = useState(false);
   const drawerLinks: Array<LinkInfo> = [...links, { path: "", label: "" }];
   return (

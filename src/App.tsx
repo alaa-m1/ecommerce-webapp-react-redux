@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./assets/style/App.scss";
 import { Route, Routes } from "react-router-dom";
 import AppLayout from "components/AppLayout";
@@ -9,8 +9,23 @@ import { linksDetails } from "shared";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Checkout from "pages/Checkout";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, createUserDocFromAuth } from "utils/firebase";
+import { setCurrentUser } from "store/user/userActions";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user: any) => {
+      if (user) {
+        createUserDocFromAuth(user);
+      }
+      dispatch(setCurrentUser(user));
+    });
+    return unsubscribe;
+  }, [dispatch]);
+
   return (
     <>
       <Routes>
