@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
 import MainCategoriesList from "components/MainCategoriesList";
-import { useContext, useMemo } from "react";
-import { CategoryContext } from "utils/context/categoryContext";
+import { useMemo } from "react";
+import { useAppSelector } from "utils/redux/hooks";
 
 const Home = () => {
-  const { categories } = useContext(CategoryContext);
+  const  categories  = useAppSelector((state)=>state.categories.categories)
   const mainCategoriesLabels = useMemo(
     () =>
       categories.reduce<Array<string>>((res, category) => {
