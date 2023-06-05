@@ -68,6 +68,7 @@
   },
   "devDependencies": {
     "@types/redux-logger": "^3.0.9",
+    "@types/redux-persist": "^4.3.1",
     "@types/styled-components": "^5.1.26",
     "@types/validator": "^13.7.17",
     "@types/zxcvbn": "^4.4.1"
