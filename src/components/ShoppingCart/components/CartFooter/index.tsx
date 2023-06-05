@@ -1,17 +1,17 @@
 import { Box, Button } from "@mui/material";
-import { useContext } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ShoppingCartContext } from "utils/context/shoppingCartContext";
+import { setShowCart } from "store/shoppingCart/shoppingCartActions";
 
 const CartFooter = () => {
-  const { setShowCart } = useContext(ShoppingCartContext);
+  const dispatch=useDispatch();
   const navigate = useNavigate();
   return (
     <Box>
       <Button
         variant="contained"
         onClick={() => {
-          setShowCart(false);
+          dispatch(setShowCart(false));
           navigate({ pathname: "/checkout" });
         }}
       >

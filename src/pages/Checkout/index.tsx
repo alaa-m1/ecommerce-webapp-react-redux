@@ -1,8 +1,9 @@
 import { Box } from "@mui/material";
 import { DataGridPro, GridSlotsComponentsProps } from "@mui/x-data-grid-pro";
 import { useContext } from "react";
-import { ShoppingCartContext } from "utils/context/shoppingCartContext";
 import { useCheckoutColumn } from "./hooks";
+import { useAppSelector } from "utils/redux/hooks";
+import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 
 declare module "@mui/x-data-grid" {
   interface FooterPropsOverrides {
@@ -18,27 +19,34 @@ export function CustomFooterStatusComponent(
 }
 
 const Checkout = () => {
-  const { cartTotal } = useContext(ShoppingCartContext);
   const columns = useCheckoutColumn();
-  const { cartItems } = useContext(ShoppingCartContext);
+  const { cartItems, cartTotal } = useAppSelector(selectShoopingCartItemsDetails);
   return (
     <>
-    <h2 style={{textAlign:"center", textTransform:"capitalize", color:"#00f"}}>Checkout your order</h2>
+      <h2
+        style={{
+          textAlign: "center",
+          textTransform: "capitalize",
+          color: "#00f",
+        }}
+      >
+        Checkout your order
+      </h2>
 
-    <Box>
-      <DataGridPro
-        rows={cartItems}
-        columns={columns}
-        autoHeight
-        disableRowSelectionOnClick
-        slots={{
-          footer: CustomFooterStatusComponent,
-        }}
-        slotProps={{
-          footer: { cartTotal },
-        }}
-      />
-    </Box>
+      <Box>
+        <DataGridPro
+          rows={cartItems}
+          columns={columns}
+          autoHeight
+          disableRowSelectionOnClick
+          slots={{
+            footer: CustomFooterStatusComponent,
+          }}
+          slotProps={{
+            footer: { cartTotal },
+          }}
+        />
+      </Box>
     </>
   );
 };

@@ -136,11 +136,9 @@
 }
 .shop-sub-category-section-title {
   padding: 2px 10px;
-  font-weight: bold;
   text-transform: capitalize;
   height: 25px;
   background-color: #eee;
-  border: 1px solid #000;
 }
 .shop-sub-category-section-cards {
   flex-grow: 1;
@@ -159,11 +157,9 @@
 }
 .shop-category-section-title {
   padding: 2px 10px;
-  font-weight: bold;
   text-transform: capitalize;
   height: 25px;
   background-color: #eee;
-  border: 1px solid #000;
 }
 .shop-category-section-cards {
   flex-grow: 1;
@@ -216,6 +212,8 @@
   background-color: #ddd;
   padding: 5px;
   text-align: center;
+  font-weight: 500;
+  @include soft-box-shadow;
   a {
     text-transform: capitalize;
   }

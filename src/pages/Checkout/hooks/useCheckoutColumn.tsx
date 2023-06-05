@@ -1,15 +1,17 @@
 import { Box, IconButton } from "@mui/material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid-pro";
-import { useContext } from "react";
 import { CartCategory } from "types";
-import { ShoppingCartContext } from "utils/context/shoppingCartContext";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { addToCart, decreaseCartItem, removeFromCart } from "store/shoppingCart/shoppingCartActions";
+import { useAppSelector } from "utils/redux/hooks";
+import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
+import { useDispatch } from "react-redux";
 
 export const useCheckoutColumn = (): GridColDef[] => {
-  const { addToCart, decreaseCartItem, removeFromCart } =
-    useContext(ShoppingCartContext);
+  const {cartItems}=useAppSelector(selectShoopingCartItemsDetails);
+  const dispatch=useDispatch();
   return [
     { field: "id", headerName: "ID", width: 90 },
     {
@@ -43,11 +45,11 @@ export const useCheckoutColumn = (): GridColDef[] => {
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
         return (
           <Box sx={{ display: "flex", justifyContent: "center",placeItems:"center" }}>
-            <IconButton onClick={() => setTimeout(()=>{decreaseCartItem(params.row)}) }>
+            <IconButton onClick={() => setTimeout(()=>{dispatch(decreaseCartItem(cartItems,params.row))}) }>
               <RemoveIcon />
             </IconButton>
             {` ${params.row.quantity} `}
-            <IconButton onClick={() => {addToCart(params.row)}}>
+            <IconButton onClick={() => {dispatch(addToCart(cartItems,params.row))}}>
               <AddIcon />
             </IconButton>
           </Box>
@@ -62,7 +64,7 @@ export const useCheckoutColumn = (): GridColDef[] => {
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
         return (
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <IconButton onClick={() =>  setTimeout(()=>removeFromCart(params.row))}>
+            <IconButton onClick={() =>  setTimeout(()=>dispatch(removeFromCart(cartItems,params.row)))}>
               <CloseIcon />
             </IconButton>
           </Box>

@@ -1,12 +1,13 @@
 import { Box } from "@mui/material";
 import ShopCategoriesList from "components/ShopCategoriesList";
 import ShopCategory from "components/ShopCategory";
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { CategoryContext } from "utils/context/categoryContext";
+import { selectCategoriesMap } from "store/categories/categoriesSelector";
+import { useAppSelector } from "utils/redux/hooks";
 
 const Shop = () => {
-  const { categories } = useContext(CategoryContext);
+  const  categories  = useAppSelector(selectCategoriesMap)
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("category");
   const mainCategoriesLabels = useMemo(
