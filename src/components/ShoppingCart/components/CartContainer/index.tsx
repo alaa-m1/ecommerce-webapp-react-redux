@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import { useContext } from "react";
-import { ShoppingCartContext } from "utils/context/shoppingCartContext";
 import CartCard from "../CartCard";
+import { useAppSelector } from "utils/redux/hooks";
+import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 
 const CartContainer = () => {
-  const { cartItems } = useContext(ShoppingCartContext);
+  const { cartItems } = useAppSelector(selectShoopingCartItemsDetails)
   return (
     <Box>
       {cartItems.map((cartItem) => (

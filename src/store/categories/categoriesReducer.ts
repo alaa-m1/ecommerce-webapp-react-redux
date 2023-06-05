@@ -1,13 +1,13 @@
 import { categoriesActionTypes } from "./categoriesActionTypes"
-import { Categories } from "types";
+import { CategoriesResponse } from "types";
 
 type CategoryState={
-    categories: Categories;
+    categories: CategoriesResponse;
 }
 
 interface CategoriesAction {
     type: any,
-    payload: Categories
+    payload: CategoriesResponse
 }
 
 const initailState: CategoryState = {
@@ -17,6 +17,7 @@ export const categoriesReducer = (state = initailState, action: CategoriesAction
     const { type, payload } = action;
     switch (type) {
         case categoriesActionTypes.SET_CATEGORIES:
+            console.log('SET_CATEGORIES')
             return {
                 ...state,
                 categories: payload

@@ -1,7 +1,8 @@
 import * as React from "react";
-import { ShoppingCartContext } from "utils/context/shoppingCartContext";
+import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
+import { useAppSelector } from "utils/redux/hooks";
 const ShoppingCartLogo = (props) => {
-  const {cartCounter}=React.useContext(ShoppingCartContext);
+  const {cartCounter}=useAppSelector(selectShoopingCartItemsDetails) ;
 return(
     <>
     <svg

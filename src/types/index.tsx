@@ -28,3 +28,4 @@ export type Category = {
 export type CartCategory = Category & {
   quantity: number;
 };
+export type CartCategories= Array<CartCategory>;

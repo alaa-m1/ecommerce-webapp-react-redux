@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { ShoppingCartProvider } from "utils/context/shoppingCartContext";
 import { Provider } from "react-redux";
 import { store } from "store/store";
 const root = ReactDOM.createRoot(
@@ -13,11 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ShoppingCartProvider>
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </ShoppingCartProvider>
     </Provider>
   </React.StrictMode>
 );

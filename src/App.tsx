@@ -28,8 +28,8 @@ function App() {
     return unsubscribe;
   }, [dispatch]);
   useEffect(() => {
-    const mappedRest = mapCategory(categoriesRes);
-    dispatch(setCategories(mappedRest));
+    // const mappedRest = mapCategory(categoriesRes);
+    dispatch(setCategories(categoriesRes));
   }, [dispatch]);
   return (
     <>

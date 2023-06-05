@@ -1,16 +1,19 @@
 import { Box, Button } from "@mui/material";
-import { useContext } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart, setShowCart } from "store/shoppingCart/shoppingCartActions";
+import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { Category } from "types";
-import { ShoppingCartContext } from "utils/context/shoppingCartContext";
+import { useAppSelector } from "utils/redux/hooks";
 
 type ShopCategoryCardProps = {
   catInfo: Category;
 };
 const ShopCategoryCard = ({ catInfo }: ShopCategoryCardProps) => {
-  const { setShowCart, addToCart } = useContext(ShoppingCartContext);
+  const {cartItems}=useAppSelector(selectShoopingCartItemsDetails) ;
+  const dispatch=useDispatch();
   const handleAddToCart = () => {
-    addToCart(catInfo);
-    setShowCart(true);
+    dispatch(addToCart(cartItems,catInfo));
+    dispatch(setShowCart(true));
   };
   return (
     <Box className="shop-category-card">
