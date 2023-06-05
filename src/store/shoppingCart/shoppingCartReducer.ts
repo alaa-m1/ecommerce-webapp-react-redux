@@ -27,7 +27,6 @@ export const shoppingCartReducer = (state = initailState, action: ShoppingCartAc
                 cartItems: payload as CartCategories
             }
         case shoppingCartActionTypes.SET_IS_CART_OPEN:
-            console.log('SET_IS_CART_OPEN')
             return {
                 ...state,
                 isCartOpen: payload as boolean

@@ -22,7 +22,6 @@ const AppLayout = ({ links }: NavigationProps) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const currentUser =useAppSelector((state)=>state.user.currentUser);
   const  isCartOpen  = useAppSelector(selectShoopingCartStatus);
-  console.log('isCartOpenisCartOpenisCartOpen=',isCartOpen)
   const dispatch=useDispatch();
   return (
     <Fragment>
