@@ -4,6 +4,7 @@ import logger from 'redux-logger';
 import { rootReducer } from './rootReducer';
 import storage from 'redux-persist/es/storage';
 import { persistReducer, persistStore } from 'redux-persist';
+import thunk from 'redux-thunk';
 
 // declare global {
 //     interface Window {
@@ -19,7 +20,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 //The dispatch action will trigger the middleware before the the action trigger the reducer
-const middleWares = process.env.MODE_ENV === 'development' ? [logger] : [];
+const middleWares = process.env.MODE_ENV === 'development' ? [logger,thunk] : [thunk];
 
 const composeEnhancers = (process.env.MODE_ENV !== 'production' && typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 

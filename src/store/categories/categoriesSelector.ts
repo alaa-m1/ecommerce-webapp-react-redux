@@ -10,3 +10,6 @@ export const selectCategoriesMap = createSelector([selectCategoriesResponse],
     (categoriesRes) => mapCategory(categoriesRes)
 
 )
+
+export const selectCategoriesStatus = createSelector([selectCategoriesReducer],
+    (categoriesReducer) => ({loading: categoriesReducer.loading, error: categoriesReducer.error}))

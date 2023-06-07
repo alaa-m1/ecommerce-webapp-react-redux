@@ -1,12 +1,14 @@
 import { Box } from "@mui/material";
 import MainCategoriesList from "components/MainCategoriesList";
 import { useMemo } from "react";
-import { selectCategoriesMap } from "store/categories/categoriesSelector";
+import { selectCategoriesMap, selectCategoriesStatus } from "store/categories/categoriesSelector";
 import { useAppSelector } from "utils/redux/hooks";
+import {LoadingSpinner} from "shared/components";
 
 const Home = () => {
   // const  categories  = useAppSelector((state)=>state.categories.categories)
   const  categories  = useAppSelector(selectCategoriesMap)
+  const {loading, error}= useAppSelector(selectCategoriesStatus);
   const mainCategoriesLabels = useMemo(
     () =>
       categories.reduce<Array<string>>((res, category) => {
@@ -19,6 +21,7 @@ const Home = () => {
   );
   return (
     <Box className="mainContainer">
+      {loading && <LoadingSpinner/>}
       <MainCategoriesList
         mainCategories={mainCategoriesLabels}
         categories={categories}
