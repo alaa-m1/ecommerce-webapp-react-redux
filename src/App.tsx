@@ -5,7 +5,7 @@ import AppLayout from "components/AppLayout";
 import Home from "pages/Home";
 import Shop from "pages/Shop";
 import Auth from "pages/Auth";
-import { categoriesRes, linksDetails } from "shared";
+import { linksDetails } from "shared";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Checkout from "pages/Checkout";
@@ -13,8 +13,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, createUserDocFromAuth } from "utils/firebase";
 import { setCurrentUser } from "store/user/userActions";
 import { useDispatch } from "react-redux";
-import { mapCategory } from "utils/mappingFunctions/mapCategory";
-import { setCategories } from "store/categories/categoriesActions";
+import { fetchCategoriesAsync } from "store/categories/categoriesActions";
+import { AnyAction } from "redux";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,8 +28,7 @@ function App() {
     return unsubscribe;
   }, [dispatch]);
   useEffect(() => {
-    // const mappedRest = mapCategory(categoriesRes);
-    dispatch(setCategories(categoriesRes));
+    dispatch(fetchCategoriesAsync() as any);
   }, [dispatch]);
   return (
     <>
