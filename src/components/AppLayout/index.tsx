@@ -7,7 +7,7 @@ import { StyledLink } from "shared";
 import CustomDrawer from "./CustomDrawer";
 import { signOutUser } from "utils/firebase";
 import ShoppingCart from "components/ShoppingCart";
-import ShoppingCartLogo from "components/shoppingCartLogo";
+import ShoppingCartLogo from "components/ShoppingCartLogo";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartStatus } from "store/shoppingCart/shoppingCartSelector";
 import { setShowCart } from "store/shoppingCart/shoppingCartActions";
