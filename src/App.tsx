@@ -14,7 +14,7 @@ import { auth, createUserDocFromAuth } from "utils/firebase";
 import { setCurrentUser } from "store/user/userActions";
 import { useDispatch } from "react-redux";
 import { fetchCategoriesAsync } from "store/categories/categoriesActions";
-import { AnyAction } from "redux";
+import GlobalStyle from "assets/style/GlobalStyle";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ function App() {
   }, [dispatch]);
   return (
     <>
+      <GlobalStyle />
       <Routes>
         <Route path="/" element={<AppLayout links={linksDetails} />}>
           <Route index element={<Home />} />
