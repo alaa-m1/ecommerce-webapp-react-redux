@@ -1,5 +1,6 @@
 import { categoriesActionTypes } from "./categoriesActionTypes"
 import { CategoriesResponse } from "types";
+import { CategoriesAction } from "./categoriesActions";
 
 export type CategoryState = {
     categories: CategoriesResponse;
@@ -7,10 +8,6 @@ export type CategoryState = {
     error: any;
 }
 
-interface CategoriesAction {
-    type: any,
-    payload: CategoriesResponse,
-}
 
 const initailState: CategoryState = {
     categories: [],
@@ -18,8 +15,7 @@ const initailState: CategoryState = {
     error: null
 }
 export const categoriesReducer = (state = initailState, action: CategoriesAction) => {
-    const { type, payload } = action;
-    switch (type) {
+    switch (action.type) {
         case categoriesActionTypes.FETCHING_CATEGORIES_START:
             return {
                 ...state,
@@ -28,17 +24,16 @@ export const categoriesReducer = (state = initailState, action: CategoriesAction
         case categoriesActionTypes.FETCHING_CATEGORIES_FAILED:
             return {
                 ...state,
-                error: payload,
+                error: action.payload,
                 loading: false
             }
         case categoriesActionTypes.FETCHING_CATEGORIES_SUCCESS:
-            console.log('FETCHING_CATEGORIES_SUCCESS===',payload)
             return {
                 ...state,
-                categories: payload,
+                categories: action.payload,
                 loading: false
             }
         default:
-            return state
+            return state;
     }
 }

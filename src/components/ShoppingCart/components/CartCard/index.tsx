@@ -1,7 +1,12 @@
 import { Box } from "@mui/material";
+import { memo } from "react";
 import { CartCategory } from "types";
 
-const CartCard = ({ cartItemInfo }: { cartItemInfo: CartCategory }) => {
+type CartCardProps = {
+  cartItemInfo: CartCategory;
+};
+
+const CartCard = memo(({ cartItemInfo }: CartCardProps) => {
   return (
     <Box className="cart-card">
       <Box className="cart-card-img">
@@ -21,6 +26,6 @@ const CartCard = ({ cartItemInfo }: { cartItemInfo: CartCategory }) => {
       </Box>
     </Box>
   );
-};
+});
 
 export default CartCard;

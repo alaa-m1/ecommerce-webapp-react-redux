@@ -1,4 +1,5 @@
 import { Box, Button } from "@mui/material";
+import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart, setShowCart } from "store/shoppingCart/shoppingCartActions";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
@@ -8,11 +9,11 @@ import { useAppSelector } from "utils/redux/hooks";
 type ShopCategoryCardProps = {
   catInfo: Category;
 };
-const ShopCategoryCard = ({ catInfo }: ShopCategoryCardProps) => {
-  const {cartItems}=useAppSelector(selectShoopingCartItemsDetails) ;
-  const dispatch=useDispatch();
+const ShopCategoryCard = memo(({ catInfo }: ShopCategoryCardProps) => {
+  const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
+  const dispatch = useDispatch();
   const handleAddToCart = () => {
-    dispatch(addToCart(cartItems,catInfo));
+    dispatch(addToCart(cartItems, catInfo));
     dispatch(setShowCart(true));
   };
   return (
@@ -32,5 +33,5 @@ const ShopCategoryCard = ({ catInfo }: ShopCategoryCardProps) => {
       <Box className="shop-category-info">{catInfo.price}</Box>
     </Box>
   );
-};
+});
 export default ShopCategoryCard;

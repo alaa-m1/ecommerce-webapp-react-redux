@@ -18,6 +18,7 @@ import {
   createAuthenticatedUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from "utils/firebase";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 const UserSchema = z
   .object({
@@ -88,7 +89,8 @@ const SignUp = () => {
           reset();
         })
         .catch((error) => {
-          if (error.code === "auth/email-already-in-use") {
+          if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
+            //"auth/email-already-in-use"
             toast.error("This email is already existed");
           }
         });
@@ -212,10 +214,7 @@ const SignUp = () => {
           <input type="checkbox" id="accept" {...register("accept")} />
           <label htmlFor="id">
             I accept &nbsp;
-            <Link
-              href="/terms"
-              sx={{ textDecoration: "none" }}
-            >
+            <Link href="/terms" sx={{ textDecoration: "none" }}>
               terms and conditions
             </Link>
           </label>

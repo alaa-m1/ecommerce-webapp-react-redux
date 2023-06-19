@@ -9,6 +9,7 @@ import { ScaleLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { TextField, LinkButton } from "shared/components";
 import { signInAuthenticatedUserWithEmailAndPassword } from "utils/firebase";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 const UserSchema = z.object({
   email: z.string().email("You must enter a valid Email"),
@@ -34,14 +35,14 @@ const SignIn = () => {
         reset();
       })
       .catch((error) => {
-        switch (error.code) {
-          case "auth/network-request-failed":
+        switch ((error as AuthError).code) {
+          case AuthErrorCodes.NETWORK_REQUEST_FAILED://"auth/network-request-failed"
             toast.error("Error in connection, try again");
             break;
-          case "auth/wrong-password":
+          case AuthErrorCodes.INVALID_PASSWORD://"auth/wrong-password"
             toast.error("The password is not correct");
             break;
-          case "auth/user-not-found":
+          case AuthErrorCodes.USER_MISMATCH://"auth/user-not-found"
             toast.error("This user (email) doesn't exist");
             break;
           default:
