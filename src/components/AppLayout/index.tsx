@@ -1,5 +1,5 @@
 import { Box, AppBar, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import { Fragment, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { LinkInfo } from "types";
@@ -23,15 +23,23 @@ const AppLayout = ({ links }: NavigationProps) => {
   const currentUser = useAppSelector((state) => state.user.currentUser);
   const isCartOpen = useAppSelector(selectShoopingCartStatus);
   const dispatch = useDispatch();
-  
+
   const shoppingCartRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    dispatch(setShowCart(false));
+  }, []);
 
   const handleClose = (event: Event) => {
-    if (shoppingCartRef.current?.contains(event?.target as HTMLElement) || (event?.target as HTMLElement)?.id==='shopping-add-btn') {
+    if (
+      shoppingCartRef.current?.contains(event?.target as HTMLElement) ||
+      (event?.target as HTMLElement)?.id === "shopping-add-btn"
+    ) {
       return;
     }
     dispatch(setShowCart(false));
   };
+
 
   return (
     <Fragment>

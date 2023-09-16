@@ -1,13 +1,13 @@
 import { Box, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setShowCart } from "store/shoppingCart/shoppingCartActions";
+import { emptyCart, setShowCart } from "store/shoppingCart/shoppingCartActions";
 
 const CartFooter = () => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
-    <Box>
+    <Box sx={{ display: "flex", height:"100%", justifyContent: "space-around" , alignItems: "center"}}>
       <Button
         variant="contained"
         onClick={() => {
@@ -16,6 +16,9 @@ const CartFooter = () => {
         }}
       >
         Checkout
+      </Button>
+      <Button variant="contained" onClick={() => dispatch(emptyCart())}>
+        Remove all
       </Button>
     </Box>
   );

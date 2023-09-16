@@ -227,9 +227,18 @@
     text-decoration: underline;
   }
 }
-//=== shoping cart =====//
+//=== shoping cart =====/
+.shopping-cart {
+    width: 250px;
+    height: 300px;
+    background-color: #fff;
+    @include soft-box-shadow;
+    display: flex;
+    flex-direction: column;
+    z-index: 10000;
+  }
 .cart-container {
-  flex-grow: 1;
+  height: 250px;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -253,9 +262,7 @@
   }
 }
 .cart-footer {
-  text-align: center;
-  flex-grow: 0;
-  height: 65px;
+  height: 50px;
 }
 .shopping-cart-logo {
   position: relative;
