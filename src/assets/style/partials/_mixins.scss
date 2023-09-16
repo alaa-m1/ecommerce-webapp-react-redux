@@ -2,6 +2,15 @@
     border: 1px soild #ccc;
     box-shadow: 4px 4px 8px #ccc;
 }
+
 @mixin soft-box-shadow{
     box-shadow: 2px 2px 4px #ccc;
+}
+
+@mixin category-images-hover($opacity, $scale){
+    transform: none;
+    opacity: $opacity;
+    @media (min-width:575px) {
+        transform: scale($scale);
+    }
 }
