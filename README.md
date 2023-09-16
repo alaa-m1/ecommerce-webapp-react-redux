@@ -1,9 +1,21 @@
-
 ecommerce-website-react-reactquery-redux
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+Install project dependencies.
+
+To run this project locally, you need to add .env file with the following parameters (From your firebase account):
+```
+REACT_APP_API_KEY=
+REACT_APP_AUTH_DOMAIN=
+REACT_APP_PROJECT_ID=
+REACT_APP_STORAGE_BUCKET=
+REACT_APP_MESSAGING_SENDER_ID=
+REACT_APP_APP_ID=
+```
 
 ### `npm start`
 
@@ -25,4 +37,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 
 ## Production Link
-Production link: [https://stupendous-brioche-e07e07.netlify.app/](https://stupendous-brioche-e07e07.netlify.app/).
+Production link: .
