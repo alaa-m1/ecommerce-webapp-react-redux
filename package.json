@@ -68,6 +68,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.198",
     "@types/redux-logger": "^3.0.9",
     "@types/redux-persist": "^4.3.1",
     "@types/styled-components": "^5.1.26",
