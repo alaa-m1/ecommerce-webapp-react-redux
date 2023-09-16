@@ -228,20 +228,6 @@
   }
 }
 //=== shoping cart =====//
-.shopping-cart {
-  position: absolute;
-  top: 50px;
-  right: 50px;
-  width: 250px;
-  height: 300px;
-  background-color: #fff;
-  @include soft-box-shadow;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  z-index: 10000;
-  overflow: hidden;
-}
 .cart-container {
   flex-grow: 1;
   display: flex;

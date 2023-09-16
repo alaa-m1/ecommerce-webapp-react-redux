@@ -26,7 +26,7 @@ const ShopCategoryCard = memo(({ catInfo }: ShopCategoryCardProps) => {
         />
       </Box>
       <Box className="shopping-btn">
-        <Button variant="contained" onClick={handleAddToCart}>
+        <Button id="shopping-add-btn" variant="contained" onClick={handleAddToCart}>
           Add to Cart
         </Button>
       </Box>
