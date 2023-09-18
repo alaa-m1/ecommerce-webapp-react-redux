@@ -44,6 +44,7 @@
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

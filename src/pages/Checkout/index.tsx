@@ -5,7 +5,7 @@ import { useCheckoutColumn } from "./hooks";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 
-declare module "@mui/x-data-grid" {
+declare module "@mui/x-data-grid-pro" {
   interface FooterPropsOverrides {
     cartTotal: number;
   }
