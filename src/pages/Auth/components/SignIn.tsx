@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import { TextField, LinkButton } from "shared/components";
+import { TextField, LinkButton } from "shared";
 import { signInAuthenticatedUserWithEmailAndPassword } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 

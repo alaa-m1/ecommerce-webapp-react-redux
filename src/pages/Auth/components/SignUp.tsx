@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
-import { TextField } from "shared/components";
+import { TextField } from "shared";
 import {
   createAuthenticatedUserWithEmailAndPassword,
   createUserDocFromAuth,

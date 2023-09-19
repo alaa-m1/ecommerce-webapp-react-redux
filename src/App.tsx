@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import "./assets/style/App.scss";
 import { Route, Routes } from "react-router-dom";
-import AppLayout from "components/AppLayout";
-import Home from "pages/Home";
-import Shop from "pages/Shop";
-import Auth from "pages/Auth";
+import HomeDashboard from "pages/Home/HomeDashboard";
+import ShopDashboard from "pages/Shop/ShopDashboard";
+import AuthDashboard from "pages/Auth/AuthDashboard";
+import NotFoundDashboard from "pages/NotFound/NotFoundDashboard";
+import AppLayout from "pages/AppLayout/AppLayout";
 import { linksDetails } from "shared";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Checkout from "pages/Checkout";
+import Checkout from "pages/Checkout/CheckoutDashboard";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, createUserDocFromAuth } from "utils/firebase";
 import { setCurrentUser } from "store/user/userActions";
@@ -35,10 +36,11 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<AppLayout links={linksDetails} />}>
-          <Route index element={<Home />} />
-          <Route path="shop" element={<Shop />} />
-          <Route path="auth" element={<Auth />} />
+          <Route index element={<HomeDashboard />} />
+          <Route path="shop" element={<ShopDashboard />} />
+          <Route path="auth" element={<AuthDashboard />} />
           <Route path="checkout" element={<Checkout />} />
+          <Route path="*" element={<NotFoundDashboard />} />
         </Route>
       </Routes>
       <ToastContainer
