@@ -19,12 +19,6 @@
 .logo-container {
   flex-grow: 1;
 }
-.shopping-cart-logo {
-  flex-grow: 0;
-  svg {
-    width: 32px;
-  }
-}
 .link-container {
   flex-grow: 2;
   display: flex;
@@ -232,31 +226,32 @@
     width: 250px;
     height: 300px;
     background-color: #fff;
+    border: 1px solid #ddd;
     @include soft-box-shadow;
     display: flex;
     flex-direction: column;
     z-index: 10000;
+    padding: 2px;
   }
 .cart-container {
   height: 250px;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
-  // width: 100%;
-  //   height: 100%;
-  //   padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
-  //   box-sizing: content-box;
+  overflow-y: auto;
 }
 .cart-card {
   display: flex;
   border-bottom: 1px solid #ccc;
   margin: 4px 0px;
   padding-left: 2px;
-  place-items: center;
+  align-items: center;
   .cart-card-img {
+    display: flex;
+    padding: 2px 0px;
     width: 50px;
     flex-grow: 1;
   }
+  
   .cart-card-info {
     flex-grow: 1;
   }

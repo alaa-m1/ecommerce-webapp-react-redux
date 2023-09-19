@@ -9,11 +9,15 @@ import _ from "lodash";
 const ShoppingCart = ({ open, anchorEl, handleClose }: ShoppingCartProps) => {
   const cartContainerRef = useRef<HTMLDivElement | null>(null);
   const { cartCounter } = useAppSelector(selectShoopingCartItemsDetails);
+
   useEffect(() => {
-    if (cartContainerRef.current)
-      cartContainerRef.current.scrollTop =
-        cartContainerRef.current?.scrollHeight;
+    //To move shopping cart scroll bar to the bottom of shopping cart panel
+    // if (cartContainerRef.current)
+    //   cartContainerRef.current.scrollTop =
+    //     cartContainerRef.current?.scrollHeight;
   }, [cartCounter]);
+
+
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <Popper
@@ -26,7 +30,7 @@ const ShoppingCart = ({ open, anchorEl, handleClose }: ShoppingCartProps) => {
         <Box
           className="cart-container"
           ref={(ref: any) => {
-            if (!_.isNull(ref)) ref.scrollTop = ref.scrollHeight;
+            // if (!_.isNull(ref)) ref.scrollTop = ref.scrollHeight;
             cartContainerRef.current = ref;
           }}
         >
