@@ -216,6 +216,7 @@
   @include soft-box-shadow;
   a {
     text-transform: capitalize;
+    display: inline-block;
   }
   a:hover {
     text-decoration: underline;

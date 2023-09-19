@@ -16,11 +16,13 @@ const MainCategoryCard = memo(
     return (
       <Box className="main-category-card">
         <Box className="main-category-images">
-          <img
-            src={`${window.location.origin}/images/categories/${currentCategoryLabel}/${imageIndex}.jpeg`}
-            alt={`${currentCategoryLabel}`}
-            loading="lazy"
-          />
+          <Link to={`shop?category=${currentCategoryLabel}`}>
+            <img
+              src={`${window.location.origin}/images/categories/${currentCategoryLabel}/${imageIndex}.jpeg`}
+              alt={`${currentCategoryLabel}`}
+              loading="lazy"
+            />
+          </Link>
         </Box>
         <Box className="right-button">
           <ArrowForwardIosIcon

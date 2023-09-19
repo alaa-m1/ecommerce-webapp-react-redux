@@ -1,21 +1,22 @@
 import { Box } from "@mui/material";
 import { Category } from "types";
 import ShopCategoryCard from "../../../ShopCategoryCard";
+import _ from "lodash";
 
 type ShopCategoryListProps = {
   subCategories: Array<Category>;
-  currentCategoryLabel: string;
+  categoryLabel: string;
 };
 const ShopCategoryList = ({
   subCategories,
-  currentCategoryLabel,
+  categoryLabel,
 }: ShopCategoryListProps) => {
   return (
     <Box className="shop-category-section">
-      <Box className="shop-category-section-title">{currentCategoryLabel}</Box>
+      <Box className="shop-category-section-title">{categoryLabel}</Box>
       <Box className="shop-category-section-cards">
-        {subCategories.map((item, index) => (
-          <ShopCategoryCard key={index} catInfo={item}></ShopCategoryCard>
+        {subCategories.map((item) => (
+          <ShopCategoryCard key={_.uniqueId()} catInfo={item}></ShopCategoryCard>
         ))}
       </Box>
     </Box>

@@ -2,15 +2,15 @@ import { Box, Grid } from "@mui/material";
 import ShopCategoriesList from "components/ShopCategoriesList";
 import ShopCategory from "components/ShopCategory";
 import { useMemo } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { selectCategoriesMap } from "store/categories/categoriesSelector";
 import { useAppSelector } from "utils/redux/hooks";
-import _ from "lodash";
+import ShopNav from "components/ShopNav";
 
 const Shop = () => {
   const categories = useAppSelector(selectCategoriesMap);
   const [searchParams] = useSearchParams();
-  const searchQuery = searchParams.get("category");
+  const activeCategoryLabel = searchParams.get("category");
   const mainCategoriesLabels = useMemo(
     () =>
       categories.reduce<Array<string>>((res, category) => {
@@ -22,29 +22,29 @@ const Shop = () => {
     [categories]
   );
 
-  const targetCategory = useMemo(
-    () => categories.filter((cat, index) => cat.categoryLabel === searchQuery),
-    [categories, searchQuery]
+  const activeCategoryItems = useMemo(
+    () => categories.filter((cat, index) => cat.categoryLabel === activeCategoryLabel),
+    [categories, activeCategoryLabel]
   );
 
   return (
-    <Box className="mainContainer">
-      <Box className="shop-nav">
-        {mainCategoriesLabels.map((item) => (
-          <Link key={_.uniqueId()} to={`?category=${item}`} style={{ margin: "0px 15px" }}>
-            {item}
-          </Link>
-        ))}
-        <Link to={``} style={{ margin: "0px 15px" }}>
-          All categories
-        </Link>
-      </Box>
-      <Grid container sx={{ height: "85vh"}}>
-        <Grid item sx={{ height: "inherit", overflow: "auto", width:"100%", mt: 1, pr: 1 }}>
-          {searchQuery ? (
+    <Box>
+      <ShopNav mainCategoriesLabels={mainCategoriesLabels} activeCategoryLabel={activeCategoryLabel ?? ''}/>
+      <Grid container sx={{ height: "85vh" }}>
+        <Grid
+          item
+          sx={{
+            height: "inherit",
+            overflow: "auto",
+            width: "100%",
+            mt: 1,
+            pr: 1,
+          }}
+        >
+          {activeCategoryLabel ? (
             <ShopCategory
-              categoryLabel={searchQuery}
-              targetCategory={targetCategory}
+              activeCategoryLabel={activeCategoryLabel}
+              activeCategoryItems={activeCategoryItems}
             />
           ) : (
             <ShopCategoriesList

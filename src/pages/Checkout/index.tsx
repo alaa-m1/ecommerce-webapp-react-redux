@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { DataGridPro, GridSlotsComponentsProps } from "@mui/x-data-grid-pro";
-import { useContext } from "react";
 import { useCheckoutColumn } from "./hooks";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
