@@ -254,6 +254,8 @@
   
   .cart-card-info {
     flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
   }
 }
 .cart-footer {
