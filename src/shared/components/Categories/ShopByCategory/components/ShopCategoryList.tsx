@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import { Category } from "types";
+import { Product } from "types";
 import _ from "lodash";
-import { ShopCategoryCard } from "../../ShopCategoryCard";
+import { ShopCategoryCard } from "../../../../../shared/components/ShopCategoryCard";
 
 type ShopCategoryListProps = {
-  subCategories: Array<Category>;
+  subCategories: Array<Product>;
   categoryLabel: string;
 };
 export const ShopCategoryList = ({

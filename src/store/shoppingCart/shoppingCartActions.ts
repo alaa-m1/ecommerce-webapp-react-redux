@@ -1,10 +1,10 @@
 import { createAction } from "utils/redux/reduxUtils";
 import { shoppingCartActionTypes } from "./shoppingCartActionTypes";
-import { CartCategories, CartCategory, Category } from "types";
+import { CartCategories, CartCategory, Product } from "types";
 
 const addItemToCart = (
     cartItems: Array<CartCategory>,
-    itemToAdd: Category
+    itemToAdd: Product
 ): Array<CartCategory> => {
     const existedCategory = cartItems.find(
         (cartItem) => cartItem.id === itemToAdd.id
@@ -20,7 +20,7 @@ const addItemToCart = (
 };
 const decreaseItemInCart = (
     cartItems: Array<CartCategory>,
-    itemToDecrease: Category
+    itemToDecrease: Product
 ): Array<CartCategory> => {
     const existedCategory = cartItems.find(
         (cartItem) => cartItem.id === itemToDecrease.id
@@ -43,17 +43,17 @@ const removeItemFromCart = (
 
 
 
-export const addToCart = (cartItems: CartCategories, item: Category) => {
+export const addToCart = (cartItems: CartCategories, item: Product) => {
     const updatedCartItems = addItemToCart(cartItems, item);
     return createAction(shoppingCartActionTypes.SET_CART_ITEMS, updatedCartItems);
 };
 
-export const decreaseCartItem = (cartItems: CartCategories, item: Category) => {
+export const decreaseCartItem = (cartItems: CartCategories, item: Product) => {
     const updatedCartItems = decreaseItemInCart(cartItems, item);
     return createAction(shoppingCartActionTypes.SET_CART_ITEMS, updatedCartItems);
 };
 
-export const removeFromCart = (cartItems: CartCategories, item: Category) => {
+export const removeFromCart = (cartItems: CartCategories, item: Product) => {
     const updatedCartItems = removeItemFromCart(cartItems, item.id);
     return createAction(shoppingCartActionTypes.SET_CART_ITEMS, updatedCartItems);
 };

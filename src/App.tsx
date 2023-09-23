@@ -16,9 +16,12 @@ import { setCurrentUser } from "store/user/userActions";
 import { useDispatch } from "react-redux";
 import { fetchCategoriesAsync } from "store/categories/categoriesActions";
 import GlobalStyle from "assets/style/GlobalStyle";
+import OnlineShopDashboard from "pages/OnlineShop/OnlineShopDashboard";
+import { ReactQueryProvider } from "utils/reactQuery/ReactQueryProvider";
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: any) => {
       if (user) {
@@ -28,21 +31,26 @@ function App() {
     });
     return unsubscribe;
   }, [dispatch]);
+
   useEffect(() => {
     dispatch(fetchCategoriesAsync() as any);
   }, [dispatch]);
+  
   return (
     <>
       <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<AppLayout links={linksDetails} />}>
-          <Route index element={<HomeDashboard />} />
-          <Route path="shop" element={<ShopDashboard />} />
-          <Route path="auth" element={<AuthDashboard />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="*" element={<NotFoundDashboard />} />
-        </Route>
-      </Routes>
+      <ReactQueryProvider>
+        <Routes>
+          <Route path="/" element={<AppLayout links={linksDetails} />}>
+            <Route index element={<HomeDashboard />} />
+            <Route path="shop" element={<ShopDashboard />} />
+            <Route path="online-shop" element={<OnlineShopDashboard />} />
+            <Route path="auth" element={<AuthDashboard />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="*" element={<NotFoundDashboard />} />
+          </Route>
+        </Routes>
+      </ReactQueryProvider>
       <ToastContainer
         position="bottom-left"
         autoClose={5000}

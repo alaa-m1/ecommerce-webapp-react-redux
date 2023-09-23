@@ -3,7 +3,7 @@ export type LinkInfo = {
   path: string;
 };
 
-export type CategoriesResponse= Array<CategoryResponse>;
+export type CategoriesResponse = Array<CategoryResponse>;
 export type CategoryResponse = {
   id: number;
   categoryLabel: "accessories" | "dresses" | "hats" | "jackets" | "shoes";
@@ -15,17 +15,37 @@ export type CategoryResponse = {
   };
 };
 
-export type Categories= Array<Category>;
-export type Category = {
+export type Products = Array<Product>;
+export type Product = {
   id: number;
-  categoryLabel: "accessories" | "dresses" | "hats" | "jackets" | "shoes";
+  categoryLabel: string;
   title: string;
   price: number;
   description: string;
   imagePath: string;
+  rating?: Rating;
 };
 
-export type CartCategory = Category & {
+
+export type CartCategory = Product & {
   quantity: number;
 };
-export type CartCategories= Array<CartCategory>;
+
+export type CartCategories = Array<CartCategory>;
+
+export type ProductsResponse = Array<ProductResponse>;
+export type ProductResponse = {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: Rating;
+};
+
+type Rating = {
+  rate: number;
+  count: number;
+};
+

@@ -6,7 +6,7 @@ const selectCategoriesReducer = (state: RootState) => state.categories;
 const selectCategoriesResponse = createSelector([selectCategoriesReducer],
     (categoriesReducer) => categoriesReducer.categories)
 
-export const selectCategoriesMap = createSelector([selectCategoriesResponse],
+export const selectMappedCategories = createSelector([selectCategoriesResponse],
     (categoriesRes) => mapCategory(categoriesRes)
 
 )

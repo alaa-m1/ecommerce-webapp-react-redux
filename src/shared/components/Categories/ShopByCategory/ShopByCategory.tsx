@@ -1,15 +1,15 @@
 import { Box } from "@mui/material";
-import { Category } from "types";
+import { Product } from "types";
 import { ShopCategoryList } from "./components";
 
-type ShopCategoryProps = {
-  activeCategoryItems: Array<Category>;
+type ShopByCategoryProps = {
+  activeCategoryItems: Array<Product>;
   activeCategoryLabel: string;
 };
-export const ShopCategory = ({
+export const ShopByCategory = ({
   activeCategoryItems,
   activeCategoryLabel
-}: ShopCategoryProps) => {
+}: ShopByCategoryProps) => {
   return (
     <Box className="shop-category-container">
       <ShopCategoryList categoryLabel={activeCategoryLabel} subCategories={activeCategoryItems}></ShopCategoryList>;

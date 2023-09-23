@@ -251,12 +251,16 @@
     padding: 2px 0px;
     width: 50px;
     flex-grow: 1;
+    img{
+      width: 50px
+    }
   }
   
   .cart-card-info {
     flex-grow: 1;
     display: flex;
     justify-content: space-around;
+    width:100%;
   }
 }
 .cart-footer {

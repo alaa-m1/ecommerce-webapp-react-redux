@@ -8,11 +8,11 @@ const shoppingCartItems = createSelector([shoppingCartReducer],
 export const selectShoopingCartItemsDetails = createSelector([shoppingCartItems],
     (cartItems) => {
         const cartItemsTotal = cartItems.reduce(
-            (total, item) => (total = total + item.quantity * item.price),
+            (total, item) => Math.round((total + item.quantity * item.price)*100)/100,
             0
         );
         const cartItemsCount = cartItems.reduce(
-            (total, item) => (total = total + item.quantity),
+            (total, item) => total + item.quantity,
             0
         );
         return {

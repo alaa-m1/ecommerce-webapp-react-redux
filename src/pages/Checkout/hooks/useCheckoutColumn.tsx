@@ -16,7 +16,7 @@ export const useCheckoutColumn = (): GridColDef[] => {
     { field: "id", headerName: "ID", width: 90 },
     {
       field: "categoryLabel",
-      headerName: "Category Label",
+      headerName: "Product Label",
       width: 150,
     },
     {

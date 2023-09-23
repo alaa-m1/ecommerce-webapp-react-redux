@@ -1,15 +1,15 @@
 import { Box } from "@mui/material";
-import { Category } from "types";
+import { Product } from "types";
 import { ShopSubCategoryList } from "./components";
 
-type ShopCategoriesListProps = {
+type ShopByAllCategoriesProps = {
   mainCategoriesLabels: Array<string>;
-  categories: Array<Category>;
+  categories: Array<Product>;
 };
-export const ShopCategoriesList = ({
+export const ShopByAllCategories = ({
   mainCategoriesLabels,
   categories,
-}: ShopCategoriesListProps) => {
+}: ShopByAllCategoriesProps) => {
   return (
     <Box className="shop-category-container">
       {mainCategoriesLabels.map((categoryLabel,index) => {

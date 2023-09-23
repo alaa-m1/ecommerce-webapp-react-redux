@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import { useRef } from "react";
-import { Category } from "types";
+import { Product } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { ShopCategoryCard } from "../../ShopCategoryCard";
+import { ShopCategoryCard } from "../../../../../shared/components/ShopCategoryCard";
 
 type ShopSubCategoryListProps = {
-  subCategories: Array<Category>;
+  subCategories: Array<Product>;
   currentCategoryLabel: string;
 };
 export const ShopSubCategoryList = ({

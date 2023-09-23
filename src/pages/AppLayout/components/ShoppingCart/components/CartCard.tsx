@@ -1,5 +1,5 @@
 import { Box, IconButton } from "@mui/material";
-import { forwardRef, memo, useEffect, useState } from "react";
+import { forwardRef, memo, useEffect, useMemo, useState } from "react";
 import { CartCategory } from "types";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch } from "react-redux";
@@ -27,6 +27,14 @@ export const CartCard = memo(
     const handleDeleteItem = () =>
       dispatch(removeFromCart(cartItems, cartItemInfo));
 
+    const imagePath: string = useMemo(
+      () =>
+        cartItemInfo.imagePath.includes("https")
+          ? cartItemInfo.imagePath
+          : `${window.location.origin}/images/categories/${cartItemInfo.categoryLabel}/${cartItemInfo.imagePath}`,
+      [cartItemInfo.categoryLabel, cartItemInfo.imagePath]
+    );
+
     return (
       <Box
         className="cart-card"
@@ -36,14 +44,14 @@ export const CartCard = memo(
         <Box className="cart-card-img">
           <img
             style={{ height: "50px" }}
-            src={`${window.location.origin}/images/categories/${cartItemInfo.categoryLabel}/${cartItemInfo.imagePath}`}
+            src={imagePath}
             alt={`${cartItemInfo.categoryLabel}`}
             loading="lazy"
           />
         </Box>
         <Box className="cart-card-info">
           <Box>
-            <span>{cartItemInfo.title}</span>
+            <span style={{display:"inline-block", width:"110px", whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{cartItemInfo.title}</span>
             <br />
             <span>
               {cartItemInfo.quantity}x ${cartItemInfo.price}

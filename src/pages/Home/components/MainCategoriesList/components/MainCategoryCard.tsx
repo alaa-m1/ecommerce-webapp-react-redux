@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import { memo, useState } from "react";
-import { Category } from "types";
+import { Product } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Link } from "react-router-dom";
 
 type MainCategoryCardProps = {
-  subCategories: Array<Category>;
+  subCategories: Array<Product>;
   currentCategoryLabel: string;
 };
 export const MainCategoryCard = memo(

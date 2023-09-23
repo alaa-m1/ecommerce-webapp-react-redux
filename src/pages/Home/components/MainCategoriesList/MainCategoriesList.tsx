@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import { Categories } from "types";
+import { Products } from "types";
 import { MainCategoryCard } from "./components";
 
 type MainCategoriesListProps = {
   mainCategories: Array<string>;
-  categories: Categories;
+  categories: Products;
 };
 export const MainCategoriesList = ({
   mainCategories,

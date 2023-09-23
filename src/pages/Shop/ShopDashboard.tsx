@@ -1,12 +1,12 @@
 import { Box, Grid } from "@mui/material";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { selectCategoriesMap } from "store/categories/categoriesSelector";
+import { selectMappedCategories } from "store/categories/categoriesSelector";
 import { useAppSelector } from "utils/redux/hooks";
-import {ShopCategoriesList, ShopCategory, ShopNav} from "./components";
+import { ShopByAllCategories, ShopByCategory, ShopNav } from "shared/components";
 
 const ShopDashboard = () => {
-  const categories = useAppSelector(selectCategoriesMap);
+  const categories = useAppSelector(selectMappedCategories);
   const [searchParams] = useSearchParams();
   const activeCategoryLabel = searchParams.get("category");
   const mainCategoriesLabels = useMemo(
@@ -40,12 +40,12 @@ const ShopDashboard = () => {
           }}
         >
           {activeCategoryLabel ? (
-            <ShopCategory
+            <ShopByCategory
               activeCategoryLabel={activeCategoryLabel}
               activeCategoryItems={activeCategoryItems}
             />
           ) : (
-            <ShopCategoriesList
+            <ShopByAllCategories
               mainCategoriesLabels={mainCategoriesLabels}
               categories={categories}
             />
