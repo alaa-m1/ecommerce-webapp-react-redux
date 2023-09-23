@@ -3,7 +3,6 @@ import { productsActionTypes } from "./productsActionTypes";
 import { ProductsResponse } from "types";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "store/store";
-import { useGetProducts } from "pages/OnlineShop/hooks/useProducts";
 import { getProducts } from "utils/actions/productActions";
 
 type FetchProductsStart = Action<productsActionTypes.FETCHING_PRODUCTS_START>
