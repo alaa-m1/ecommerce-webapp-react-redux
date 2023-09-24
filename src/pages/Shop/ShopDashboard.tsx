@@ -28,7 +28,7 @@ const ShopDashboard = () => {
   return (
     <Box>
       <ShopNav mainCategoriesLabels={mainCategoriesLabels} activeCategoryLabel={activeCategoryLabel ?? ''}/>
-      <Grid container sx={{ height: "83vh" }}>
+      <Grid container>
         <Grid
           item
           sx={{

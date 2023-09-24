@@ -70,7 +70,7 @@ const OnlineShopDashboard = () => {
         mainCategoriesLabels={mainCategoriesLabels}
         activeCategoryLabel={activeCategoryLabel ?? ""}
       />
-      <Grid container sx={{ position: "relative", height: "83vh" }}>
+      <Grid container sx={{ position: "relative"}}>
         {loading ? (
           <FullScreenSpinner />
         ) : (
