@@ -5,12 +5,14 @@ const FullScreenSpinner = () => {
   return (
     <Box
       sx={{
-        position: "fixed",
+        position: "absolute",
         top: 0,
         bottom: 0,
         left: 0,
         right: 0,
-        background: "rgba(90, 90, 90, 0.5)",
+        // background: "rgba(90, 90, 90, 0.2)",
+        background: "#fff",
+
         zIndex: "9999",
       }}
     >

@@ -7,9 +7,9 @@ export const CartFooter = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
-    <Box sx={{ display: "flex", height:"100%", justifyContent: "space-around" , alignItems: "center"}}>
+    <>
       <Button
-        variant="text"
+        variant="outlined"
         onClick={() => {
           dispatch(setShowCart(false));
           navigate({ pathname: "/checkout" });
@@ -17,9 +17,9 @@ export const CartFooter = () => {
       >
         Checkout
       </Button>
-      <Button variant="text" onClick={() => dispatch(emptyCart())}>
+      <Button variant="outlined" onClick={() => dispatch(emptyCart())}>
         Remove all
       </Button>
-    </Box>
+    </>
   );
 };
