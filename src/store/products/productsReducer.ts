@@ -33,6 +33,12 @@ export const productsReducer = (state = initailState, action: ProductsAction) =>
                 products: action.payload,
                 loading: false
             }
+        case productsActionTypes.SET_PRODUCTS:
+            return {
+                ...state,
+                products: action.payload,
+                loading: false
+            }
         default:
             return state;
     }

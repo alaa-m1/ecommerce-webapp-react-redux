@@ -224,16 +224,16 @@
 }
 //=== shoping cart =====/
 .shopping-cart {
-    width: 250px;
-    height: 300px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    @include soft-box-shadow;
-    display: flex;
-    flex-direction: column;
-    z-index: 10000;
-    padding: 2px;
-  }
+  width: 250px;
+  height: 300px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  @include soft-box-shadow;
+  display: flex;
+  flex-direction: column;
+  z-index: 10000;
+  padding: 2px;
+}
 .cart-container {
   height: 250px;
   display: flex;
@@ -251,21 +251,35 @@
     padding: 2px 0px;
     width: 50px;
     flex-grow: 1;
-    img{
-      width: 50px
+    img {
+      width: 50px;
     }
   }
-  
+
   .cart-card-info {
     flex-grow: 1;
     display: flex;
     justify-content: space-around;
-    width:100%;
+    width: 100%;
+    padding-left: 5px;
+    .cart-card-title {
+      display: inline-block;
+      width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
 .cart-footer {
+  display: flex;
+  height: 100%;
   height: 50px;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #ccc;
 }
+
 .shopping-cart-logo {
   position: relative;
   cursor: pointer;
@@ -278,4 +292,39 @@
   transform: translate(-50%, -50%);
   color: #fff;
   cursor: pointer;
+}
+
+/** Scroll */
+.cart-container {
+  scrollbar-color: #8a84e0 transparent;
+  scrollbar-width: thin;
+}
+.cart-container::-webkit-scrollbar {
+  width: 20px;
+}
+
+.cart-container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.cart-container::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 22px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+  transition: color 0.3s ease;
+}
+.cart-container:hover::-webkit-scrollbar-thumb {
+  background-color: #b8bfc1;
+}
+.cart-container::-webkit-scrollbar-thumb:hover {
+  background-color: #7874bc;
+}
+
+.footer-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px;
+  background-color: #5c50e7;
 }

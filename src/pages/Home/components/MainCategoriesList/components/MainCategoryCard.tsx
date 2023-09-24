@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { memo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { Product } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -13,12 +13,21 @@ export const MainCategoryCard = memo(
   ({ subCategories, currentCategoryLabel }: MainCategoryCardProps) => {
     const [imageIndex, setImageIndex] = useState(1);
     const subCatLength = subCategories.length;
+    console.log('subCategories=',subCategories)
+    const imagePath: string = useMemo(
+      () =>
+      subCategories[0].imagePath.includes("https")
+          ? subCategories[imageIndex-1].imagePath
+          : `${window.location.origin}/images/categories/${currentCategoryLabel}/${imageIndex}.jpeg`,
+      [currentCategoryLabel, imageIndex, subCategories]
+    );
+
     return (
       <Box className="main-category-card">
         <Box className="main-category-images">
           <Link to={`shop?category=${currentCategoryLabel}`}>
             <img
-              src={`${window.location.origin}/images/categories/${currentCategoryLabel}/${imageIndex}.jpeg`}
+              src={imagePath}
               alt={`${currentCategoryLabel}`}
               loading="lazy"
             />
