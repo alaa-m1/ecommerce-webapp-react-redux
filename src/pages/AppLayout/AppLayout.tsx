@@ -39,89 +39,89 @@ const AppLayout = ({ links }: NavigationProps) => {
   };
 
   return (
-      <Box sx={{display:"felx", flexDirection:"column"}}>
-        <Box sx={{flexGrow:0}}>
-      <AppBar
-        className="navigator-container"
-        sx={{ position: "relative", paddingRight: "0px !important" }}
-      >
-        <Toolbar>
-          {isSmallScreen ? (
-            <Box className="logo-container">
-              <Link to="/">
-                <Logo />
-              </Link>
-            </Box>
-          ) : (
-            <>
+    <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100vh" }}>
+      <Box sx={{ flexGrow: 0 }}>
+        <AppBar
+          className="navigator-container"
+          sx={{ position: "relative", paddingRight: "0px !important" }}
+        >
+          <Toolbar>
+            {isSmallScreen ? (
               <Box className="logo-container">
                 <Link to="/">
                   <Logo />
                 </Link>
               </Box>
-              <Box className="link-container">
-                <Box className="general-links">
-                  {links.map((link, index) => (
-                    <StyledLink
-                      key={index}
-                      to={link.path}
-                      isactive={pathname === link.path ? "active" : "inActive"}
-                    >
-                      {link.label}
-                    </StyledLink>
-                  ))}
+            ) : (
+              <>
+                <Box className="logo-container">
+                  <Link to="/">
+                    <Logo />
+                  </Link>
                 </Box>
-                {currentUser ? (
-                  <Box className="auth-links" onClick={() => signOutUser()}>
-                    <StyledLink
-                      to="auth"
-                      isactive={pathname === "/auth" ? "active" : "inActive"}
-                    >
-                      Sign Out
-                    </StyledLink>
+                <Box className="link-container">
+                  <Box className="general-links">
+                    {links.map((link, index) => (
+                      <StyledLink
+                        key={index}
+                        to={link.path}
+                        isactive={pathname === link.path ? "active" : "inActive"}
+                      >
+                        {link.label}
+                      </StyledLink>
+                    ))}
                   </Box>
-                ) : (
-                  <Box className="auth-links">
-                    <StyledLink
-                      to="auth"
-                      isactive={pathname === "/auth" ? "active" : "inActive"}
-                    >
-                      Sign In
-                    </StyledLink>
-                  </Box>
-                )}
-              </Box>
-              <Box
-                className="shopping-cart-logo"
-                onClick={(e) => dispatch(setShowCart(!isCartOpen))}
-                ref={shoppingCartRef}
-              >
-                <ShoppingCartLogo />
-              </Box>
-            </>
-          )}
-          <CustomDrawer
-            links={links}
-            isSmallScreen={isSmallScreen}
-            currentUser={currentUser}
-          />
-        </Toolbar>
-      </AppBar>
-      <ShoppingCart
-        open={isCartOpen}
-        anchorEl={shoppingCartRef.current}
-        handleClose={handleClose}
-      />
+                  {currentUser ? (
+                    <Box className="auth-links" onClick={() => signOutUser()}>
+                      <StyledLink
+                        to="auth"
+                        isactive={pathname === "/auth" ? "active" : "inActive"}
+                      >
+                        Sign Out
+                      </StyledLink>
+                    </Box>
+                  ) : (
+                    <Box className="auth-links">
+                      <StyledLink
+                        to="auth"
+                        isactive={pathname === "/auth" ? "active" : "inActive"}
+                      >
+                        Sign In
+                      </StyledLink>
+                    </Box>
+                  )}
+                </Box>
+                <Box
+                  className="shopping-cart-logo"
+                  onClick={(e) => dispatch(setShowCart(!isCartOpen))}
+                  ref={shoppingCartRef}
+                >
+                  <ShoppingCartLogo />
+                </Box>
+              </>
+            )}
+            <CustomDrawer
+              links={links}
+              isSmallScreen={isSmallScreen}
+              currentUser={currentUser}
+            />
+          </Toolbar>
+        </AppBar>
+        <ShoppingCart
+          open={isCartOpen}
+          anchorEl={shoppingCartRef.current}
+          handleClose={handleClose}
+        />
       </Box>
-      <Box sx={{flexGrow:1}}>
-      <main>
-        <Outlet />
-      </main>
+      <Box sx={{ flexGrow: 1 }}>
+        <main>
+          <Outlet />
+        </main>
       </Box>
-      <Box sx={{flexGrow:0}}>
-        <Footer/>
+      <Box sx={{ flexGrow: 0 }}>
+        <Footer />
       </Box>
-      </Box>
+    </Box>
   );
 };
 
