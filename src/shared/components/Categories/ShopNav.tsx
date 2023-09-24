@@ -20,7 +20,7 @@ export const ShopNav = ({ mainCategoriesLabels,activeCategoryLabel }: ShopNavPro
         </Link>
       ))}
       <Link to={``} style={{ margin: "0px 15px" }}>
-        All categories
+        {!_.isEmpty(mainCategoriesLabels)?`All categories`:``}
       </Link>
     </Box>
   );

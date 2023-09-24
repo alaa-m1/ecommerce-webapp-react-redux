@@ -5,7 +5,7 @@ import Logo from "assets/images/logo";
 import { LinkInfo } from "types";
 import { StyledLink } from "shared";
 import { signOutUser } from "utils/firebase";
-import { CustomDrawer, ShoppingCart, ShoppingCartLogo } from "./components";
+import { CustomDrawer, Footer, ShoppingCart, ShoppingCartLogo } from "./components";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartStatus } from "store/shoppingCart/shoppingCartSelector";
 import { setShowCart } from "store/shoppingCart/shoppingCartActions";
@@ -14,7 +14,7 @@ type NavigationProps = {
   links: Array<LinkInfo>;
 };
 
-  const AppLayout = ({ links }: NavigationProps) => {
+const AppLayout = ({ links }: NavigationProps) => {
   const { pathname } = useLocation();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -39,7 +39,8 @@ type NavigationProps = {
   };
 
   return (
-    <Fragment>
+      <Box sx={{display:"felx", flexDirection:"column"}}>
+        <Box sx={{flexGrow:0}}>
       <AppBar
         className="navigator-container"
         sx={{ position: "relative", paddingRight: "0px !important" }}
@@ -111,10 +112,16 @@ type NavigationProps = {
         anchorEl={shoppingCartRef.current}
         handleClose={handleClose}
       />
+      </Box>
+      <Box sx={{flexGrow:1}}>
       <main>
         <Outlet />
       </main>
-    </Fragment>
+      </Box>
+      <Box sx={{flexGrow:0}}>
+        <Footer/>
+      </Box>
+      </Box>
   );
 };
 

@@ -51,13 +51,13 @@ export const CartCard = memo(
         </Box>
         <Box className="cart-card-info">
           <Box>
-            <span style={{display:"inline-block", width:"110px", whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{cartItemInfo.title}</span>
+            <span className="cart-card-title">{cartItemInfo.title}</span>
             <br />
             <span>
               {cartItemInfo.quantity}x ${cartItemInfo.price}
             </span>
           </Box>
-          <IconButton onClick={handleDeleteItem}>
+          <IconButton onClick={handleDeleteItem} sx={{width:"35px",height:"35px"}}>
             <ClearIcon />
           </IconButton>
         </Box>
