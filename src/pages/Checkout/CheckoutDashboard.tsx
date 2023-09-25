@@ -36,6 +36,7 @@ const CheckoutDashboard = () => {
         <DataGridPro
           rows={cartItems}
           columns={columns}
+          isRowSelectable={(data) => data.row !== undefined}
           autoHeight
           disableRowSelectionOnClick
           slots={{

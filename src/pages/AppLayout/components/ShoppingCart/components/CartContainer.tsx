@@ -3,11 +3,12 @@ import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { CartCard } from "./CartCard";
 import { useShoppingCartScroller } from "../hooks";
+import { selectShoopingActiveCartId } from "store/shoppingState/shoppingStateSelector";
 
 export const CartContainer = () => {
   const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
-
-  const { updatedCart, shoppingCartRefs } = useShoppingCartScroller({
+const activateCartId=useAppSelector(selectShoopingActiveCartId);
+  const { shoppingCartRefs } = useShoppingCartScroller({
     cartItems,
   });
 
@@ -18,7 +19,7 @@ export const CartContainer = () => {
           key={cartItem.id}
           cartItemInfo={cartItem}
           ref={shoppingCartRefs[cartItem.id]}
-          isUpdated={updatedCart?.id === cartItem.id}
+          isUpdated={activateCartId === cartItem.id}
         />
       ))}
     </Box>

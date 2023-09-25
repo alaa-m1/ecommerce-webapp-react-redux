@@ -1,11 +1,11 @@
 import { Alert, Box } from "@mui/material";
 import { useEffect, useMemo } from "react";
-import { selectMappedCategories, selectCategoriesStatus } from "store/categories/categoriesSelector";
+import { selectMappedCategories } from "store/localProducts/localProductsSelector";
 import { useAppSelector } from "utils/redux/hooks";
 import { LoadingSpinner } from "shared";
 import { MainCategoriesList } from "./components";
 import { useProducts } from "pages/OnlineShop/hooks";
-import { setProducts } from "store/products/productsActions";
+import { fetchProductsAsync, setProducts } from "store/products/productsActions";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
 import { selectMappedProducts, selectProductsStatus } from "store/products/productsSelector";
