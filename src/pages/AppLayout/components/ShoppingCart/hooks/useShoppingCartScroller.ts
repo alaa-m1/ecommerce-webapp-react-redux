@@ -3,19 +3,19 @@ import {
   createRef,
   useEffect,
   useMemo,
-  useRef,
-  useState,
+  useRef
 } from "react";
-import { CartCategories, CartCategory } from "types";
+import { CartCategories } from "types";
 import _ from "lodash";
+import { useDispatch } from "react-redux";
+import { setActiveCartElement } from "store/shoppingState/shoppingStateActions";
 
 type Props = {
   cartItems: CartCategories;
 };
 export const useShoppingCartScroller = ({ cartItems }: Props) => {
-  const [updatedCart, setUpdatedCart] = useState<CartCategory>();
   const previouscartItems = useRef<CartCategories>([]);
-
+  const dispatch = useDispatch();
   const shoppingCartRefs = useMemo(
     () =>
       cartItems.reduce<{ [x: number]: RefObject<HTMLDivElement> }>(
@@ -36,15 +36,19 @@ export const useShoppingCartScroller = ({ cartItems }: Props) => {
         _.isEqual
       );
       if (!_.isEmpty(diff)) {
-        setUpdatedCart(diff[0]);
-        shoppingCartRefs[diff[0].id].current?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+        const activeCart = shoppingCartRefs[diff[0].id].current;
+        if (activeCart)
+          dispatch(setActiveCartElement(activeCart))
+        
+        // shoppingCartRefs[diff[0].id].current?.scrollIntoView({
+        //   behavior: "smooth",
+        //   block: "nearest",
+        //   inline: "start"
+        // });
       }
     }
     previouscartItems.current = cartItems;
   }, [cartItems, shoppingCartRefs]);
 
-  return { updatedCart, shoppingCartRefs };
+  return { shoppingCartRefs };
 };

@@ -14,7 +14,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, createUserDocFromAuth } from "utils/firebase";
 import { setCurrentUser } from "store/user/userActions";
 import { useDispatch } from "react-redux";
-import { fetchCategoriesAsync } from "store/categories/categoriesActions";
+import { fetchCategoriesAsync } from "store/localProducts/localProductsActions";
 import GlobalStyle from "assets/style/GlobalStyle";
 import OnlineShopDashboard from "pages/OnlineShop/OnlineShopDashboard";
 import { ReactQueryProvider } from "utils/reactQuery/ReactQueryProvider";

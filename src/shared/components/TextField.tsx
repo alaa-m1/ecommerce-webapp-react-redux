@@ -1,6 +1,5 @@
 import { Alert, Box } from "@mui/material";
 import {
-  ChangeEvent,
   DetailedHTMLProps,
   InputHTMLAttributes,
   useId,

@@ -1,22 +1,42 @@
 import { Box, ClickAwayListener, Popper } from "@mui/material";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useAppSelector } from "utils/redux/hooks";
-import { useEffect, useRef } from "react";
-import _ from "lodash";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { CartContainer, CartFooter } from "./components";
+import { useSelector } from "react-redux";
+import _ from "lodash";
+import {
+  selectShoopingActiveCart,
+  selectShoopingActiveCartIndex,
+} from "store/shoppingState/shoppingStateSelector";
 
-export const ShoppingCart = ({ open, anchorEl, handleClose }: ShoppingCartProps) => {
+export const ShoppingCart = ({
+  open,
+  anchorEl,
+  handleClose,
+}: ShoppingCartProps) => {
   const cartContainerRef = useRef<HTMLDivElement | null>(null);
   const { cartCounter } = useAppSelector(selectShoopingCartItemsDetails);
+  //To move shopping cart scroll bar to the bottom of shopping cart panel
+  // useEffect(() => {
+  //   if (cartContainerRef.current)
+  //     cartContainerRef.current.scrollTop =
+  //       cartContainerRef.current?.scrollHeight;
+  // }, [cartCounter]);
 
+  const activeCart = useSelector(selectShoopingActiveCart);
+  const activeCartIndex = useSelector(selectShoopingActiveCartIndex);
   useEffect(() => {
-    //To move shopping cart scroll bar to the bottom of shopping cart panel
-    // if (cartContainerRef.current)
-    //   cartContainerRef.current.scrollTop =
-    //     cartContainerRef.current?.scrollHeight;
-  }, [cartCounter]);
-
-
+    if (activeCart) {
+      const containerRef = cartContainerRef.current;
+      if (containerRef !== null)
+        containerRef.scrollTo({
+          top: activeCart.offsetTop,
+          behavior: "smooth",
+        });
+    }
+  }, [activeCart]);
+  console.log('2222',cartContainerRef.current)
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <Popper
@@ -29,7 +49,11 @@ export const ShoppingCart = ({ open, anchorEl, handleClose }: ShoppingCartProps)
         <Box
           className="cart-container"
           ref={(ref: any) => {
-            // if (!_.isNull(ref)) ref.scrollTop = ref.scrollHeight;
+            if (!_.isNull(ref) && activeCartIndex >= 0 && _.isNull(cartContainerRef.current))
+            {
+              console.log('11111111111111',cartContainerRef.current)
+              ref.scrollTop = activeCartIndex * 54.8;
+            }
             cartContainerRef.current = ref;
           }}
         >
