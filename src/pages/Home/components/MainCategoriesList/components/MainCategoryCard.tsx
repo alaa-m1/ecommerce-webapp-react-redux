@@ -13,11 +13,11 @@ export const MainCategoryCard = memo(
   ({ subCategories, currentCategoryLabel }: MainCategoryCardProps) => {
     const [imageIndex, setImageIndex] = useState(1);
     const subCatLength = subCategories.length;
-    console.log('subCategories=',subCategories)
+    const remoteContent = subCategories[0].imagePath.includes("https");
     const imagePath: string = useMemo(
       () =>
-      subCategories[0].imagePath.includes("https")
-          ? subCategories[imageIndex-1].imagePath
+        remoteContent
+          ? subCategories[imageIndex - 1].imagePath
           : `${window.location.origin}/images/categories/${currentCategoryLabel}/${imageIndex}.jpeg`,
       [currentCategoryLabel, imageIndex, subCategories]
     );
@@ -59,9 +59,15 @@ export const MainCategoryCard = memo(
             }
           />
         </Box>
-        <Link to={`shop?category=${currentCategoryLabel}`}>
-          <Box className="main-category-info">{currentCategoryLabel}</Box>
-        </Link>
+        {remoteContent ? (
+          <Link to={`online-shop?category=${currentCategoryLabel}`}>
+            <Box className="main-category-info">{currentCategoryLabel}</Box>
+          </Link>
+        ) : (
+          <Link to={`shop?category=${currentCategoryLabel}`}>
+            <Box className="main-category-info">{currentCategoryLabel}</Box>
+          </Link>
+        )}
       </Box>
     );
   }

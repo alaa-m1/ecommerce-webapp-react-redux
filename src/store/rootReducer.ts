@@ -1,12 +1,14 @@
 import {combineReducers} from "redux";
 import { userReducer } from "./user/userReducer";
-import { categoriesReducer } from "./categories/categoriesReducer";
+import { localProductsReducer } from "./localProducts/localProductsReducer";
 import { shoppingCartReducer } from "./shoppingCart/shoppingCartReducer";
 import { productsReducer } from "./products/productsReducer";
+import { shoppingStateReducer } from "./shoppingState/shoppingStateReducer";
 
 export const rootReducer = combineReducers({
     user: userReducer,
-    categories: categoriesReducer,
+    categories: localProductsReducer,
     shoppingCart: shoppingCartReducer,
     products: productsReducer,
+    shoppingState: shoppingStateReducer
 })

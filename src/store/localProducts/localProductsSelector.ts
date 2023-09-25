@@ -4,7 +4,7 @@ import { mapCategory } from 'utils/mappingFunctions/mapCategory';
 
 const selectCategoriesReducer = (state: RootState) => state.categories;
 const selectCategoriesResponse = createSelector([selectCategoriesReducer],
-    (categoriesReducer) => categoriesReducer.categories)
+    (localProductsReducer) => localProductsReducer.categories)
 
 export const selectMappedCategories = createSelector([selectCategoriesResponse],
     (categoriesRes) => mapCategory(categoriesRes)
@@ -12,4 +12,4 @@ export const selectMappedCategories = createSelector([selectCategoriesResponse],
 )
 
 export const selectCategoriesStatus = createSelector([selectCategoriesReducer],
-    (categoriesReducer) => ({loading: categoriesReducer.loading, error: categoriesReducer.error}))
+    (localProductsReducer) => ({loading: localProductsReducer.loading, error: localProductsReducer.error}))

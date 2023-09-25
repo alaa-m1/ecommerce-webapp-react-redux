@@ -1,7 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { selectMappedCategories } from "store/categories/categoriesSelector";
+import { selectMappedCategories } from "store/localProducts/localProductsSelector";
 import { useAppSelector } from "utils/redux/hooks";
 import { ShopByAllCategories, ShopByCategory, ShopNav } from "shared/components";
 

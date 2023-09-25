@@ -1,5 +1,5 @@
 import { Box, AppBar, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import { Fragment, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { LinkInfo } from "types";

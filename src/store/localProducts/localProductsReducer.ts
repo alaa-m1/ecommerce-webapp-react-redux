@@ -1,6 +1,6 @@
-import { categoriesActionTypes } from "./categoriesActionTypes"
+import { localProductsActionTypes } from "./localProductsActionTypes"
 import { CategoriesResponse } from "types";
-import { CategoriesAction } from "./categoriesActions";
+import { CategoriesAction } from "./localProductsActions";
 
 export type CategoryState = {
     categories: CategoriesResponse;
@@ -14,20 +14,20 @@ const initailState: CategoryState = {
     loading: false,
     error: null
 }
-export const categoriesReducer = (state = initailState, action: CategoriesAction) => {
+export const localProductsReducer = (state = initailState, action: CategoriesAction) => {
     switch (action.type) {
-        case categoriesActionTypes.FETCHING_CATEGORIES_START:
+        case localProductsActionTypes.FETCHING_CATEGORIES_START:
             return {
                 ...state,
                 loading: true
             }
-        case categoriesActionTypes.FETCHING_CATEGORIES_FAILED:
+        case localProductsActionTypes.FETCHING_CATEGORIES_FAILED:
             return {
                 ...state,
                 error: action.payload,
                 loading: false
             }
-        case categoriesActionTypes.FETCHING_CATEGORIES_SUCCESS:
+        case localProductsActionTypes.FETCHING_CATEGORIES_SUCCESS:
             return {
                 ...state,
                 categories: action.payload,

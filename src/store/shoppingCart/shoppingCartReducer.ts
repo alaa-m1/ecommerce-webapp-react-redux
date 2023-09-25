@@ -6,17 +6,19 @@ type ShoppingCartState = {
     isCartOpen: boolean;
     cartCounter: number;
     cartTotal: number;
+    activeCart: HTMLDivElement | null;
 }
 
 type ShoppingCartAction = {
     type: any,
-    payload: CartCategories | boolean
+    payload: CartCategories | boolean | HTMLDivElement
 }
 const initailState: ShoppingCartState = {
     isCartOpen: false,
     cartItems: [],
     cartCounter: 0,
     cartTotal: 0,
+    activeCart: null
 }
 export const shoppingCartReducer = (state = initailState, action: ShoppingCartAction) => {
     const { type, payload } = action;

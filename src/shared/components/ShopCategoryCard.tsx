@@ -1,8 +1,9 @@
 import { Box, Button } from "@mui/material";
-import { memo, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart, setShowCart } from "store/shoppingCart/shoppingCartActions";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
+import { setActiveCartId, setActiveCartIndex } from "store/shoppingState/shoppingStateActions";
 import { Product } from "types";
 import { useAppSelector } from "utils/redux/hooks";
 
@@ -13,10 +14,15 @@ export const ShopCategoryCard = memo(
   ({ catInfo }: ShopCategoryCardProps) => {
     const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
     const dispatch = useDispatch();
-    const handleAddToCart = () => {
+
+    const handleAddToCart = useCallback(() => {
       dispatch(addToCart(cartItems, catInfo));
       dispatch(setShowCart(true));
-    };
+      const activeCartIndex=cartItems.findIndex((item)=>item.id===catInfo.id)
+      dispatch(setActiveCartIndex(activeCartIndex))
+      dispatch(setActiveCartId(catInfo.id))
+    },[cartItems, catInfo]);
+
     const imagePath: string = useMemo(
       () =>
       catInfo.imagePath.includes("https")
