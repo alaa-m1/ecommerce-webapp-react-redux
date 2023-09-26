@@ -1,13 +1,13 @@
-import { User } from "firebase/auth"
+import { UserInfo } from "firebase/auth"
 import { userActionTypes } from "./userActionTypes"
 
 type UserState={
-    currentUser: null | User;
+    currentUser: null | UserInfo;
 }
 
 interface UserAction {
     type: any,
-    payload: null | User
+    payload: null | UserInfo
 }
 
 const initailState: UserState = {

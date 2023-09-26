@@ -26,7 +26,6 @@ export type Product = {
   rating?: Rating;
 };
 
-
 export type CartCategory = Product & {
   quantity: number;
 };
@@ -49,3 +48,10 @@ type Rating = {
   count: number;
 };
 
+export type UserDetails = {
+  displayName: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  createdAt: string;
+};
