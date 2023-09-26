@@ -12,12 +12,13 @@ import {
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useDispatch } from "react-redux";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useCheckoutColumn = (): GridColDef[] => {
   const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
+  const { cartCounter } = useAppSelector(selectShoopingCartItemsDetails);
   const dispatch = useDispatch();
-
+  const [disabled, setDisabled] = useState(false);
   const decreaseQuantity = useCallback(
     (params: GridRenderCellParams<CartCategory>) => {
       setTimeout(() => {
@@ -26,7 +27,9 @@ export const useCheckoutColumn = (): GridColDef[] => {
     },
     [cartItems, dispatch]
   );
-
+  useEffect(() => {
+    setDisabled(false);
+  }, [cartCounter]);
   return [
     { field: "id", headerName: "ID", width: 90 },
     {
@@ -66,7 +69,16 @@ export const useCheckoutColumn = (): GridColDef[] => {
               placeItems: "center",
             }}
           >
-            <IconButton onClick={() =>  setTimeout(()=> decreaseQuantity(params))}>
+            <IconButton
+              disabled={disabled}
+              onClick={() => {
+                if (params.row.quantity === 1) setDisabled(true);
+                setTimeout(
+                  () => decreaseQuantity(params),
+                  params.row.quantity > 1 ? 0 : 2000
+                );
+              }}
+            >
               <RemoveIcon />
             </IconButton>
             {` ${params.row.quantity} `}
@@ -88,7 +100,11 @@ export const useCheckoutColumn = (): GridColDef[] => {
         return (
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <IconButton
-              onClick={() =>  setTimeout(()=> dispatch(removeFromCart(cartItems, params.row)))}
+              onClick={() =>
+                setTimeout(() =>
+                  dispatch(removeFromCart(cartItems, params.row))
+                )
+              }
             >
               <CloseIcon />
             </IconButton>
