@@ -1,22 +1,25 @@
 import { Box, ClickAwayListener, Popper } from "@mui/material";
-import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
-import { useAppSelector } from "utils/redux/hooks";
-import { useEffect, useLayoutEffect, useRef } from "react";
+// import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
+// import { useAppSelector } from "utils/redux/hooks";
+import { useRef } from "react";
 import { CartContainer, CartFooter } from "./components";
-import { useSelector } from "react-redux";
 import _ from "lodash";
 import {
-  selectShoopingActiveCart,
+  // selectShoopingActiveCart,
   selectShoopingActiveCartIndex,
 } from "store/shoppingState/shoppingStateSelector";
+import { clsx } from 'clsx';
+import { useAppSelector } from "utils/redux/hooks";
 
 export const ShoppingCart = ({
   open,
   anchorEl,
   handleClose,
+  isScrolling
 }: ShoppingCartProps) => {
   const cartContainerRef = useRef<HTMLDivElement | null>(null);
-  const { cartCounter } = useAppSelector(selectShoopingCartItemsDetails);
+  // const { cartCounter } = useAppSelector(selectShoopingCartItemsDetails);
+
   //To move shopping cart scroll bar to the bottom of shopping cart panel
   // useEffect(() => {
   //   if (cartContainerRef.current)
@@ -24,19 +27,20 @@ export const ShoppingCart = ({
   //       cartContainerRef.current?.scrollHeight;
   // }, [cartCounter]);
 
-  const activeCart = useSelector(selectShoopingActiveCart);
-  const activeCartIndex = useSelector(selectShoopingActiveCartIndex);
-  useEffect(() => {
-    if (activeCart) {
-      const containerRef = cartContainerRef.current;
-      if (containerRef !== null)
-        containerRef.scrollTo({
-          top: activeCart.offsetTop,
-          behavior: "smooth",
-        });
-    }
-  }, [activeCart]);
-  console.log('2222',cartContainerRef.current)
+  const activeCartIndex = useAppSelector(selectShoopingActiveCartIndex);
+  // const activeCart = useAppSelector(selectShoopingActiveCart);
+  // useEffect(() => {
+  //   if (activeCart) {
+  //     const containerRef = cartContainerRef.current;
+  //     if (containerRef !== null)
+  //       containerRef.scrollTop = activeCartIndex * 54.8;
+  //     containerRef.scrollTo({
+  //       top: activeCart.offsetTop,
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // }, [activeCart, activeCartIndex]);
+
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <Popper
@@ -44,23 +48,22 @@ export const ShoppingCart = ({
         open={open}
         anchorEl={anchorEl}
         placement="bottom-end"
-        className="shopping-cart"
+        className={clsx({ "shopping-cart-mini": isScrolling }, { "shopping-cart": !isScrolling })}
+        sx={{ position: "fixed !important" }}
       >
         <Box
           className="cart-container"
           ref={(ref: any) => {
-            if (!_.isNull(ref) && activeCartIndex >= 0 && _.isNull(cartContainerRef.current))
-            {
-              console.log('11111111111111',cartContainerRef.current)
+            if (!_.isNull(ref) && activeCartIndex >= 0)
               ref.scrollTop = activeCartIndex * 54.8;
-            }
+
             cartContainerRef.current = ref;
           }}
         >
           <CartContainer />
         </Box>
         <Box className="cart-footer">
-          <CartFooter />
+          <CartFooter isScrolling={isScrolling} />
         </Box>
       </Popper>
     </ClickAwayListener>
@@ -70,4 +73,5 @@ type ShoppingCartProps = {
   open: boolean;
   anchorEl: HTMLElement | null;
   handleClose: (event: Event) => void;
+  isScrolling: boolean;
 };

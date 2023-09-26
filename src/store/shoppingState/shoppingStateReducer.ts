@@ -1,28 +1,29 @@
 import { shoppingStateActionTypes } from "./shoppingStateActionTypes"
 
 type ShoppingCartState = {
-    activeCart: HTMLDivElement | null;
+    // activeCart: HTMLDivElement | null;
     activeCartIndex: number;
     activeCartId: number;
 }
 
 type ShoppingCartAction = {
     type: any,
-    payload: HTMLDivElement | number
+    // payload: HTMLDivElement | number
+    payload:  number
 }
 const initailState: ShoppingCartState = {
-    activeCart: null,
+    // activeCart: null,
     activeCartIndex: 0,
     activeCartId: 0
 }
 export const shoppingStateReducer = (state = initailState, action: ShoppingCartAction) => {
     const { type, payload } = action;
     switch (type) {
-        case shoppingStateActionTypes.SET_ACTIVE_CART:
-            return {
-                ...state,
-                activeCart: payload as HTMLDivElement
-            }
+        // case shoppingStateActionTypes.SET_ACTIVE_CART:
+        //     return {
+        //         ...state,
+        //         activeCart: payload as HTMLDivElement
+        //     }
         case shoppingStateActionTypes.SET_ACTIVE_CART_INDEX:
             return {
                 ...state,
