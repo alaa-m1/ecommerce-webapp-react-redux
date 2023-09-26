@@ -19,7 +19,7 @@ export const ShopCategoryCard = memo(
       dispatch(addToCart(cartItems, catInfo));
       dispatch(setShowCart(true));
       const activeCartIndex=cartItems.findIndex((item)=>item.id===catInfo.id)
-      dispatch(setActiveCartIndex(activeCartIndex))
+      dispatch(setActiveCartIndex(activeCartIndex!==-1?activeCartIndex:cartItems.length))
       dispatch(setActiveCartId(catInfo.id))
     },[cartItems, catInfo]);
 

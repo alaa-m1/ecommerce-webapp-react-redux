@@ -1,5 +1,5 @@
 import { Box, AppBar, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { LinkInfo } from "types";
@@ -18,6 +18,7 @@ const AppLayout = ({ links }: NavigationProps) => {
   const { pathname } = useLocation();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [isScrolling, setIsScrolling] = useState(false);
   const currentUser = useAppSelector((state) => state.user.currentUser);
   const isCartOpen = useAppSelector(selectShoopingCartStatus);
   const dispatch = useDispatch();
@@ -37,9 +38,29 @@ const AppLayout = ({ links }: NavigationProps) => {
     }
     dispatch(setShowCart(false));
   };
+  useEffect(() => {
+    const handleOnScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 90 && isScrolling === false)
+        setIsScrolling(true)
+
+      if (scrollPosition < 90 && isScrolling === true)
+        setIsScrolling(false)
+    };
+    window.addEventListener("scroll", handleOnScroll);
+    return () => {
+      window.removeEventListener("scroll", handleOnScroll);
+    };
+  }, [isScrolling]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height:"100vh" }}>
+    <Box sx={{ position: "relative", display: "flex", flexDirection: "column",minHeight:"100vh", justifyContent: "space-between" }}>
+      <ShoppingCart
+        open={isCartOpen}
+        anchorEl={shoppingCartRef.current}
+        handleClose={handleClose}
+        isScrolling={isScrolling}
+      />
       <Box sx={{ flexGrow: 0 }}>
         <AppBar
           className="navigator-container"
@@ -91,13 +112,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                     </Box>
                   )}
                 </Box>
-                <Box
-                  className="shopping-cart-logo"
-                  onClick={(e) => dispatch(setShowCart(!isCartOpen))}
-                  ref={shoppingCartRef}
-                >
-                  <ShoppingCartLogo />
-                </Box>
+
               </>
             )}
             <CustomDrawer
@@ -105,13 +120,16 @@ const AppLayout = ({ links }: NavigationProps) => {
               isSmallScreen={isSmallScreen}
               currentUser={currentUser}
             />
+            <Box
+              className="shopping-cart-logo"
+              onClick={(e) => dispatch(setShowCart(!isCartOpen))}
+              ref={shoppingCartRef}
+            >
+              <ShoppingCartLogo />
+            </Box>
           </Toolbar>
         </AppBar>
-        <ShoppingCart
-          open={isCartOpen}
-          anchorEl={shoppingCartRef.current}
-          handleClose={handleClose}
-        />
+
       </Box>
       <Box sx={{ flexGrow: 1 }}>
         <main>
