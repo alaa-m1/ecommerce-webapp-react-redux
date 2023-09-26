@@ -7,9 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import { TextField, LinkButton } from "shared";
+import { TextField } from "shared";
 import { signInAuthenticatedUserWithEmailAndPassword } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UserSchema = z.object({
   email: z.string().email("You must enter a valid Email"),
@@ -20,6 +21,8 @@ const UserSchema = z.object({
 type UserSchemaType = z.infer<typeof UserSchema>;
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     getValues,
@@ -30,19 +33,22 @@ const SignIn = () => {
   } = useForm<UserSchemaType>({ resolver: zodResolver(UserSchema) });
   const onSubmit: SubmitHandler<UserSchemaType> = async (formData) => {
     const { email, password } = formData;
+
     await signInAuthenticatedUserWithEmailAndPassword(email, password)
       .then((response) => {
         reset();
+        const redirectTo = location.state?.from;
+        navigate(redirectTo);
       })
       .catch((error) => {
         switch ((error as AuthError).code) {
-          case AuthErrorCodes.NETWORK_REQUEST_FAILED://"auth/network-request-failed"
+          case AuthErrorCodes.NETWORK_REQUEST_FAILED: //"auth/network-request-failed"
             toast.error("Error in connection, try again");
             break;
-          case AuthErrorCodes.INVALID_PASSWORD://"auth/wrong-password"
+          case AuthErrorCodes.INVALID_PASSWORD: //"auth/wrong-password"
             toast.error("The password is not correct");
             break;
-          case AuthErrorCodes.USER_MISMATCH://"auth/user-not-found"
+          case AuthErrorCodes.USER_MISMATCH: //"auth/user-not-found"
             toast.error("This user (email) doesn't exist");
             break;
           default:
@@ -67,7 +73,7 @@ const SignIn = () => {
           getValues={getValues}
           errors={errors.email?.message}
           disabled={isSubmitting}
-          // autoComplete="off"
+        // autoComplete="off"
         ></TextField>
         <TextField
           name="password"
@@ -93,13 +99,6 @@ const SignIn = () => {
           Sign In
         </LoadingButton>
       </form>
-      <Box
-        sx={{
-          a: { textDecoration: "none" },
-        }}
-      >
-        <LinkButton query="forgetpassword" label="Forget your password" />
-      </Box>
     </Box>
   );
 };
