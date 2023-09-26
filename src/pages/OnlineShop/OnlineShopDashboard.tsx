@@ -70,32 +70,31 @@ const OnlineShopDashboard = () => {
         mainCategoriesLabels={mainCategoriesLabels}
         activeCategoryLabel={activeCategoryLabel ?? ""}
       />
-      <Grid container sx={{ position: "relative"}}>
-        {loading ? (
+      <Grid container sx={{ position: "relative" }}>
+        <Grid
+          item
+          sx={{
+            height: "inherit",
+            overflow: "auto",
+            width: "100%",
+            mt: 1,
+            pr: 1,
+          }}
+        >
+          {activeCategoryLabel ? (
+            <ShopByCategory
+              activeCategoryLabel={activeCategoryLabel}
+              activeCategoryItems={activeCategoryItems}
+            />
+          ) : (
+            <ShopByAllCategories
+              mainCategoriesLabels={mainCategoriesLabels}
+              categories={onlineCategories}
+            />
+          )}
+        </Grid>
+        {loading && (
           <FullScreenSpinner />
-        ) : (
-          <Grid
-            item
-            sx={{
-              height: "inherit",
-              overflow: "auto",
-              width: "100%",
-              mt: 1,
-              pr: 1,
-            }}
-          >
-            {activeCategoryLabel ? (
-              <ShopByCategory
-                activeCategoryLabel={activeCategoryLabel}
-                activeCategoryItems={activeCategoryItems}
-              />
-            ) : (
-              <ShopByAllCategories
-                mainCategoriesLabels={mainCategoriesLabels}
-                categories={onlineCategories}
-              />
-            )}
-          </Grid>
         )}
       </Grid>
     </Box>

@@ -1,21 +1,19 @@
 import {
   RefObject,
   createRef,
-  useEffect,
-  useMemo,
-  useRef
+  useMemo
 } from "react";
 import { CartCategories } from "types";
 import _ from "lodash";
-import { useDispatch } from "react-redux";
-import { setActiveCartElement } from "store/shoppingState/shoppingStateActions";
+// import { useDispatch } from "react-redux";
+// import { setActiveCartElement } from "store/shoppingState/shoppingStateActions";
 
 type Props = {
   cartItems: CartCategories;
 };
 export const useShoppingCartScroller = ({ cartItems }: Props) => {
-  const previouscartItems = useRef<CartCategories>([]);
-  const dispatch = useDispatch();
+  // const previouscartItems = useRef<CartCategories>([]);
+  // const dispatch = useDispatch();
   const shoppingCartRefs = useMemo(
     () =>
       cartItems.reduce<{ [x: number]: RefObject<HTMLDivElement> }>(
@@ -28,27 +26,27 @@ export const useShoppingCartScroller = ({ cartItems }: Props) => {
     [cartItems]
   );
 
-  useEffect(() => {
-    if (!_.isEmpty(previouscartItems.current)) {
-      const diff = _.differenceWith(
-        cartItems,
-        previouscartItems.current,
-        _.isEqual
-      );
-      if (!_.isEmpty(diff)) {
-        const activeCart = shoppingCartRefs[diff[0].id].current;
-        if (activeCart)
-          dispatch(setActiveCartElement(activeCart))
+  // useEffect(() => {
+  //   if (!_.isEmpty(previouscartItems.current)) {
+  //     const diff = _.differenceWith(
+  //       cartItems,
+  //       previouscartItems.current,
+  //       _.isEqual
+  //     );
+  //     if (!_.isEmpty(diff)) {
+  //       const activeCart = shoppingCartRefs[diff[0].id].current;
+  //       if (activeCart)
+  //         dispatch(setActiveCartElement(activeCart))
         
-        // shoppingCartRefs[diff[0].id].current?.scrollIntoView({
-        //   behavior: "smooth",
-        //   block: "nearest",
-        //   inline: "start"
-        // });
-      }
-    }
-    previouscartItems.current = cartItems;
-  }, [cartItems, shoppingCartRefs]);
+  //       // shoppingCartRefs[diff[0].id].current?.scrollIntoView({
+  //       //   behavior: "smooth",
+  //       //   block: "nearest",
+  //       //   inline: "start"
+  //       // });
+  //     }
+  //   }
+  //   previouscartItems.current = cartItems;
+  // }, [cartItems, shoppingCartRefs]);
 
   return { shoppingCartRefs };
 };
