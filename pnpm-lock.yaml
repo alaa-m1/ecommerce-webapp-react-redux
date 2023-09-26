@@ -32,6 +32,9 @@ importers:
       '@mui/x-data-grid-pro':
         specifier: ^6.5.0
         version: 6.5.0(@mui/material@5.13.1)(@mui/system@5.14.10)(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)
+      '@reduxjs/toolkit':
+        specifier: ^1.9.6
+        version: 1.9.6(react-redux@8.0.7)(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^4.29.7
         version: 4.29.7(react-dom@18.2.0)(react@18.2.0)
@@ -85,7 +88,7 @@ importers:
         version: 3.39.3(react-dom@18.2.0)(react@18.2.0)
       react-redux:
         specifier: ^8.0.7
-        version: 8.0.7(@types/react-dom@18.2.4)(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
+        version: 8.0.7(@reduxjs/toolkit@1.9.6)(@types/react-dom@18.2.4)(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
       react-router-dom:
         specifier: ^6.11.2
         version: 6.11.2(react-dom@18.2.0)(react@18.2.0)
@@ -3167,6 +3170,25 @@ packages:
 
   /@protobufjs/utf8@1.1.0:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
+    dev: false
+
+  /@reduxjs/toolkit@1.9.6(react-redux@8.0.7)(react@18.2.0):
+    resolution: {integrity: sha512-Gc4ikl90ORF4viIdAkY06JNUnODjKfGxZRwATM30EdHq8hLSVoSrwXne5dd739yenP5bJxAX7tLuOWK5RPGtrw==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.0 || ^18
+      react-redux: ^7.2.1 || ^8.0.2
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-redux:
+        optional: true
+    dependencies:
+      immer: 9.0.21
+      react: 18.2.0
+      react-redux: 8.0.7(@reduxjs/toolkit@1.9.6)(@types/react-dom@18.2.4)(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
+      redux: 4.2.1
+      redux-thunk: 2.4.2(redux@4.2.1)
+      reselect: 4.1.8
     dev: false
 
   /@remix-run/router@1.6.2:
@@ -9957,7 +9979,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /react-redux@8.0.7(@types/react-dom@18.2.4)(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1):
+  /react-redux@8.0.7(@reduxjs/toolkit@1.9.6)(@types/react-dom@18.2.4)(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1):
     resolution: {integrity: sha512-1vRQuCQI5Y2uNmrMXg81RXKiBHY3jBzvCvNmZF437O/Z9/pZ+ba2uYHbemYXb3g8rjsacBGo+/wmfrQKzMhJsg==}
     peerDependencies:
       '@reduxjs/toolkit': ^1 || ^2.0.0-beta.0
@@ -9982,6 +10004,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.22.15
+      '@reduxjs/toolkit': 1.9.6(react-redux@8.0.7)(react@18.2.0)
       '@types/hoist-non-react-statics': 3.3.2
       '@types/react': 18.2.6
       '@types/react-dom': 18.2.4

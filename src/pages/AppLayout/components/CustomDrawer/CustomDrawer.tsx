@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { LinkInfo } from "types";
 import { signOutUser } from "utils/firebase";
-import { User } from "firebase/auth";
+import { UserInfo } from "firebase/auth";
 import { StyledList } from "./components";
 
 type CustomDrawerProps = {
   links: Array<LinkInfo>;
   isSmallScreen: boolean;
-  currentUser: null|User;
+  currentUser: null|UserInfo;
 };
 
 export const CustomDrawer = ({ links, isSmallScreen,currentUser }: CustomDrawerProps) => {

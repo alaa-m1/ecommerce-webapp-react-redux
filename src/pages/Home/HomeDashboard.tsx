@@ -51,7 +51,7 @@ const HomeDashboard = () => {
         mainCategories={mainCategoriesLabels}
         categories={allCategories}
       />
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box sx={{ display: "flex", justifyContent: "left" }}>
         <Alert sx={{ mb: 1 }} severity="info">
           I am using <a href="https://fakestoreapi.com/">fakestoreapi</a> to fetch some products
         </Alert>

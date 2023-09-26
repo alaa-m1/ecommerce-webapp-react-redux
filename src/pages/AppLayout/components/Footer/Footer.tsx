@@ -7,7 +7,7 @@ export const Footer = () => {
         <Box className="footer-section">
             <Box>
                 <Link to={"/"}>
-                    Home
+                E-commerce
                 </Link>
             </Box>
             <Box sx={{display:"flex"}}><EmailIcon/> <a href="mailto:alaa85a@gmail.com">alaa85a@gmail.com</a></Box>

@@ -35,91 +35,91 @@ const AuthDashboard = () => {
   return (
     <Box className="central-box">
       <Box>{searchQuery === "signup" ? <SignUp /> : <SignIn />}</Box>
-      {searchQuery !== "forgetpassword" && (
-        <>
+
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "0px 10px",
+            marginBottom: "10px",
+          }}
+        >
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "0px 10px",
-              marginBottom: "10px",
+              width: "30%",
+              backgroundColor: "#ccc",
+              height: "2px",
+              margin: "7px 5px",
             }}
+          />
+          <Box
+            component="span"
+            sx={{ width: "30%", color: "#ccc", fontWeight: "bold" }}
           >
-            <Box
-              sx={{
-                width: "30%",
-                backgroundColor: "#ccc",
-                height: "2px",
-                margin: "7px 5px",
-              }}
-            />
-            <Box
-              component="span"
-              sx={{ width: "30%", color: "#ccc", fontWeight: "bold" }}
-            >
-              Or continue with
-            </Box>
-            <Box
-              sx={{
-                width: "30%",
-                backgroundColor: "#ccc",
-                height: "2px",
-                margin: "7px 5px",
-              }}
-            />
+            Or continue with
           </Box>
+          <Box
+            sx={{
+              width: "30%",
+              backgroundColor: "#ccc",
+              height: "2px",
+              margin: "7px 5px",
+            }}
+          />
+        </Box>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          columnSpacing={2}
+          rowSpacing={0.5}
+        >
           <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            columnSpacing={2}
-            rowSpacing={0.5}
+            item
+            xs={6}
+            md={3}
+            sx={{ button: { textTransform: "unset !important" } }}
           >
-            <Grid
-              item
-              xs={6}
-              md={3}
-              sx={{ button: { textTransform: "unset !important" } }}
+            <Button
+              startIcon={<GoogleIcon sx={{ color: "#4285f4" }} />}
+              sx={{ color: "#4285f4" }}
+              onClick={() => signIn("google")}
             >
-              <Button
-                startIcon={<GoogleIcon sx={{ color: "#4285f4" }} />}
-                sx={{ color: "#4285f4" }}
-                onClick={() => signIn("google")}
-              >
-                Google
-              </Button>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              md={3}
-              sx={{ button: { textTransform: "unset !important" } }}
-            >
-              <Button
-                startIcon={<GoogleIcon sx={{ color: "#4285f4" }} />}
-                sx={{ color: "#4285f4" }}
-                onClick={signInWithGoogleRedirect}
-              >
-                Google redirect
-              </Button>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              md={3}
-              sx={{ button: { textTransform: "unset !important" } }}
-            >
-              <Button
-                startIcon={<FacebookIcon sx={{ color: "#4285f4" }} />}
-                sx={{ color: "#1877f2" }}
-                onClick={() => signIn("facebook")}
-              >
-                Facebook
-              </Button>
-            </Grid>
+              Google
+            </Button>
           </Grid>
-        </>
-      )}
+          <Grid
+            item
+            xs={6}
+            md={3}
+            sx={{ button: { textTransform: "unset !important" } }}
+          >
+            <Button
+              startIcon={<GoogleIcon sx={{ color: "#4285f4" }} />}
+              sx={{ color: "#4285f4" }}
+              onClick={signInWithGoogleRedirect}
+            >
+              Google redirect
+            </Button>
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            md={3}
+            sx={{ button: { textTransform: "unset !important" } }}
+          >
+            <Button
+              startIcon={<FacebookIcon sx={{ color: "#4285f4" }} />}
+              sx={{ color: "#1877f2" }}
+              onClick={() => signIn("facebook")}
+            >
+              Facebook
+            </Button>
+          </Grid>
+        </Grid>
+      </>
+
       <ColoredDevider />
       {searchQuery === "signup" || searchQuery === "forgetpassword" ? (
         <Box sx={{ "button:hover": { backgroundColor: "transparent" } }}>
