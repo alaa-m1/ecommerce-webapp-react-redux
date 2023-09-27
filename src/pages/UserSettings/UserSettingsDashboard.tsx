@@ -1,8 +1,5 @@
-import { Box, Grid, Typography } from "@mui/material";
-import { UserInfo } from "firebase/auth";
+import { Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setCurrentUser } from "store/user/userActions";
 import { UserDetails } from "types";
 import { getUserDocFromAuth } from "utils/firebase";
 import { mapUserDetails } from "utils/mappingFunctions/mapUserDetails";
