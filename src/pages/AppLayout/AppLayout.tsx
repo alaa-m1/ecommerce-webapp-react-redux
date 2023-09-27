@@ -1,20 +1,43 @@
-import { Box, AppBar, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import {
+  Box,
+  AppBar,
+  Toolbar,
+  useMediaQuery,
+  useTheme,
+  Button,
+} from "@mui/material";
+import {
+  MouseEvent,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { LinkInfo } from "types";
 import { StyledLink } from "shared";
 import { signOutUser } from "utils/firebase";
-import { CustomDrawer, Footer, ShoppingCart, ShoppingCartLogo } from "./components";
+import {
+  CustomDrawer,
+  Footer,
+  ShoppingCart,
+  ShoppingCartLogo,
+  LanguageMenu
+} from "./components";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartStatus } from "store/shoppingCart/shoppingCartSelector";
 import { setShowCart } from "store/shoppingCart/shoppingCartActions";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+
 type NavigationProps = {
   links: Array<LinkInfo>;
 };
 
 const AppLayout = ({ links }: NavigationProps) => {
+  const { t, i18n } = useTranslation();
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const { pathname } = useLocation();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -41,11 +64,9 @@ const AppLayout = ({ links }: NavigationProps) => {
   useEffect(() => {
     const handleOnScroll = () => {
       const scrollPosition = window.scrollY;
-      if (scrollPosition > 90 && isScrolling === false)
-        setIsScrolling(true)
+      if (scrollPosition > 90 && isScrolling === false) setIsScrolling(true);
 
-      if (scrollPosition < 90 && isScrolling === true)
-        setIsScrolling(false)
+      if (scrollPosition < 90 && isScrolling === true) setIsScrolling(false);
     };
     window.addEventListener("scroll", handleOnScroll);
     return () => {
@@ -53,14 +74,34 @@ const AppLayout = ({ links }: NavigationProps) => {
     };
   }, [isScrolling]);
 
+  const handleLanguageMenuClick = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleOnLnaguageMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <Box sx={{ position: "relative", display: "flex", flexDirection: "column",minHeight:"100vh", justifyContent: "space-between" }}>
+
+    <Box
+      sx={{
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        justifyContent: "space-between",
+      }}
+    >
       <ShoppingCart
         open={isCartOpen}
         anchorEl={shoppingCartRef.current}
         handleClose={handleClose}
         isScrolling={isScrolling}
       />
+<LanguageMenu
+    anchorEl={anchorEl}
+    handleClose={handleOnLnaguageMenuClose}
+  />
       <Box sx={{ flexGrow: 0 }}>
         <AppBar
           className="navigator-container"
@@ -86,19 +127,25 @@ const AppLayout = ({ links }: NavigationProps) => {
                       <StyledLink
                         key={index}
                         to={link.path}
-                        isactive={pathname === link.path ? "active" : "inActive"}
+                        isactive={
+                          pathname === link.path ? "active" : "inActive"
+                        }
                       >
-                        {link.label}
+                        {t(link.label)}
                       </StyledLink>
                     ))}
                   </Box>
+                    <Button className="language-menu-btn" onClick={handleLanguageMenuClick}>
+                      {t("languages.language")}
+                    </Button>
+
                   {currentUser ? (
                     <Box className="auth-links" onClick={() => signOutUser()}>
                       <StyledLink
                         to="auth"
                         isactive={pathname === "/auth" ? "active" : "inActive"}
                       >
-                        Sign Out
+                        {t("auth.signout")}
                       </StyledLink>
                     </Box>
                   ) : (
@@ -107,18 +154,18 @@ const AppLayout = ({ links }: NavigationProps) => {
                         to="auth"
                         isactive={pathname === "/auth" ? "active" : "inActive"}
                       >
-                        Sign In
+                        {t("auth.signin")}
                       </StyledLink>
                     </Box>
                   )}
                 </Box>
-
               </>
             )}
             <CustomDrawer
               links={links}
               isSmallScreen={isSmallScreen}
               currentUser={currentUser}
+              handleCloseLnaguageMenu={handleLanguageMenuClick}
             />
             <Box
               className="shopping-cart-logo"
@@ -129,7 +176,6 @@ const AppLayout = ({ links }: NavigationProps) => {
             </Box>
           </Toolbar>
         </AppBar>
-
       </Box>
       <Box sx={{ flexGrow: 1 }}>
         <main>

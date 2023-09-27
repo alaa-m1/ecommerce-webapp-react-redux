@@ -19,6 +19,7 @@ import {
   createUserDocFromAuth,
 } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
+import { useTranslation } from "react-i18next";
 
 const UserSchema = z
   .object({
@@ -65,6 +66,7 @@ const UserSchema = z
 type UserSchemaType = z.infer<typeof UserSchema>;
 
 const SignUp = () => {
+  const { t }=useTranslation();
   const [passwordScore, setPasswordScore] = useState(0);
   const {
     register,
@@ -109,7 +111,7 @@ const SignUp = () => {
   return (
     <Box>
       <Typography variant="h4" color="primary">
-        Sign Up
+      {t('auth.signup')}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>
         <TextField
@@ -232,7 +234,7 @@ const SignUp = () => {
           type="submit"
           sx={{ width: "50%", margin: "0px auto" }}
         >
-          Sign Up
+          {t('auth.signup')}
         </LoadingButton>
       </form>
     </Box>

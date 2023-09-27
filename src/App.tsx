@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import "./assets/style/App.scss";
 import { Route, Routes } from "react-router-dom";
 import HomeDashboard from "pages/Home/HomeDashboard";
@@ -6,7 +6,7 @@ import ShopDashboard from "pages/Shop/ShopDashboard";
 import AuthDashboard from "pages/Auth/AuthDashboard";
 import NotFoundDashboard from "pages/NotFound/NotFoundDashboard";
 import AppLayout from "pages/AppLayout/AppLayout";
-import { linksDetails } from "shared";
+import { LoadingSpinner, linksDetails } from "shared";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Checkout from "pages/Checkout/CheckoutDashboard";
@@ -31,7 +31,10 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: any) => {
-      if (user) {createUserDocFromAuth(user); getUserDocFromAuth(user);}
+      if (user) {
+        createUserDocFromAuth(user);
+        getUserDocFromAuth(user);
+      }
       if (user) {
         const userInfo: UserInfo = {
           displayName: (user as User).displayName,
@@ -54,26 +57,36 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <ReactQueryProvider>
-        <Routes>
-          <Route path="/" element={<AppLayout links={linksDetails} />}>
-            <Route index element={<HomeDashboard />} />
-            <Route path="shop" element={<ShopDashboard />} />
-            <Route path="online-shop" element={<OnlineShopDashboard />} />
-            <Route path="auth" element={<UnAuthorizedRoute><AuthDashboard /></UnAuthorizedRoute>} />
-            <Route path="checkout" element={<Checkout />} />
-            <Route
-              path="user-settings"
-              element={
-                <ProtectedRoute>
-                  <UserSettingsDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<NotFoundDashboard />} />
-          </Route>
-        </Routes>
-      </ReactQueryProvider>
+      <Suspense fallback={<LoadingSpinner />}>
+        <ReactQueryProvider>
+          <Routes>
+            <Route path="/" element={<AppLayout links={linksDetails} />}>
+              <Route index element={<HomeDashboard />} />
+              <Route path="shop" element={<ShopDashboard />} />
+              <Route path="online-shop" element={<OnlineShopDashboard />} />
+              <Route
+                path="auth"
+                element={
+                  <UnAuthorizedRoute>
+                    <AuthDashboard />
+                  </UnAuthorizedRoute>
+                }
+              />
+              <Route path="checkout" element={<Checkout />} />
+              <Route
+                path="user-settings"
+                element={
+                  <ProtectedRoute>
+                    <UserSettingsDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<NotFoundDashboard />} />
+            </Route>
+          </Routes>
+        </ReactQueryProvider>
+      </Suspense>
+
       <ToastContainer
         position="bottom-left"
         autoClose={5000}

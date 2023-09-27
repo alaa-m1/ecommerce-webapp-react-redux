@@ -3,6 +3,7 @@ import { DataGridPro, GridSlotsComponentsProps } from "@mui/x-data-grid-pro";
 import { useCheckoutColumn } from "./hooks";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
+import { useTranslation } from "react-i18next";
 
 declare module "@mui/x-data-grid-pro" {
   interface FooterPropsOverrides {
@@ -12,14 +13,20 @@ declare module "@mui/x-data-grid-pro" {
 export function CustomFooterStatusComponent(
   props: NonNullable<GridSlotsComponentsProps["footer"]>
 ) {
+  const { t } = useTranslation();
   return (
-    <Box sx={{ p: 1, display: "flex" }}>Total {`$${props.cartTotal}`}</Box>
+    <Box sx={{ p: 1, display: "flex" }}>
+      {t("checkout.total")} {`$${props.cartTotal}`}
+    </Box>
   );
 }
 
 const CheckoutDashboard = () => {
   const columns = useCheckoutColumn();
-  const { cartItems, cartTotal } = useAppSelector(selectShoopingCartItemsDetails);
+  const { t } = useTranslation();
+  const { cartItems, cartTotal } = useAppSelector(
+    selectShoopingCartItemsDetails
+  );
   return (
     <>
       <h2
@@ -29,7 +36,7 @@ const CheckoutDashboard = () => {
           color: "#00f",
         }}
       >
-        Checkout your order
+        {t("checkout.check_your_order")}
       </h2>
 
       <Box>

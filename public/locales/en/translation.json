@@ -1,0 +1,29 @@
+{
+  "home": "Home",
+  "let_us_shopping": "Let's Shopping",
+  "online_shopping": "Online Shopping",
+  "settings": "Settings",
+  "languages": {
+    "language": "Language",
+    "english": "English",
+    "german": "German"
+  },
+  "auth": {
+    "signin": "Sign In",
+    "signout": "Sign Out",
+    "signup": "Sign Up"
+  },
+  "shopping_cart": { "checkout": "Checkout", "remove.all": "Remove all" },
+  "home_api_info": "I am using fakestoreapi to fetch some products",
+  "home_translation_info": "The website has been partially translated into German",
+  "checkout": {
+    "product_label": "Product Label",
+    "title": "Title",
+    "price": "Price",
+    "quantity": "Quantity",
+    "remove": "Remove",
+    "description": "Description",
+    "total":"Total",
+    "check_your_order":"Checkout Your Order"
+  }
+}
