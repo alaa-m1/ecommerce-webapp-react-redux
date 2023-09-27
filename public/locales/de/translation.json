@@ -1,0 +1,29 @@
+{
+  "home": "Heim",
+  "let_us_shopping": "Lass uns einkaufen",
+  "online_shopping": "Online Einkaufen",
+  "settings": "Einstellungen",
+  "languages": {
+    "language": "Sprache",
+    "english": "Englisch",
+    "german": "Deutsch"
+  },
+  "auth": {
+    "signin": "Anmelden",
+    "signout": "Abmelden",
+    "signup": "Benutzerkonto erstellen"
+  },
+  "shopping_cart": { "checkout": "Kasse", "remove.all": "Alles entfernen" },
+  "home_api_info": "Ich verwende fakestoreapi, um einige Produkte abzurufen",
+  "home_translation_info": "Die Website wurde teilweise ins Deutsche übersetzt",
+  "checkout": {
+    "product_label": "Produktetikett",
+    "title": "Titel",
+    "price": "Preis",
+    "quantity": "Menge",
+    "remove": "Entfernen",
+    "description": "Beschreibung",
+    "total":"Gesamt",
+    "check_your_order":"Bezahlen Sie Ihre Bestellung"
+  }
+}

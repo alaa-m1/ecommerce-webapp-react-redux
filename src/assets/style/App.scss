@@ -21,6 +21,7 @@
 }
 .link-container {
   flex-grow: 2;
+  place-items: center;
   display: flex;
   justify-content: space-between;
   a {
@@ -32,7 +33,10 @@
     }
   }
 }
-
+.language-menu-btn {
+    display: inline;
+    color: #fff !important;
+}
 //=== main page categories style =====//
 .main-category-container {
   display: flex;
@@ -279,12 +283,12 @@
     justify-content: space-around;
     align-items: center;
     border-top: 1px solid #ccc;
-    button{
-     font-size: small;   
-     display: inline-block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    button {
+      font-size: small;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
@@ -349,7 +353,7 @@
       height: 35px;
     }
     path {
-      color: #176CC7;
+      color: #176cc7;
     }
   }
 }

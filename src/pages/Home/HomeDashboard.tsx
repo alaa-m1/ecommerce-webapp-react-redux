@@ -5,13 +5,21 @@ import { useAppSelector } from "utils/redux/hooks";
 import { LoadingSpinner } from "shared";
 import { MainCategoriesList } from "./components";
 import { useProducts } from "pages/OnlineShop/hooks";
-import { fetchProductsAsync, setProducts } from "store/products/productsActions";
+import {
+  fetchProductsAsync,
+  setProducts,
+} from "store/products/productsActions";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
-import { selectMappedProducts, selectProductsStatus } from "store/products/productsSelector";
+import {
+  selectMappedProducts,
+  selectProductsStatus,
+} from "store/products/productsSelector";
+import { useTranslation } from "react-i18next";
 
 const HomeDashboard = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   /// Using react-query to manage request state with caching (The other good solution to use with Redux is RTK Query)
   const { data, isLoading } = useProducts(100);
   useEffect(() => {
@@ -32,8 +40,11 @@ const HomeDashboard = () => {
     [isLoading, status.loading]
   );
 
-  const categories1 = useAppSelector(selectMappedCategories)
-  const allCategories = useMemo(() => [...onlineCategories, ...categories1], [categories1, onlineCategories])
+  const categories1 = useAppSelector(selectMappedCategories);
+  const allCategories = useMemo(
+    () => [...onlineCategories, ...categories1],
+    [categories1, onlineCategories]
+  );
   const mainCategoriesLabels = useMemo(
     () =>
       allCategories.reduce<Array<string>>((res, category) => {
@@ -51,9 +62,19 @@ const HomeDashboard = () => {
         mainCategories={mainCategoriesLabels}
         categories={allCategories}
       />
-      <Box sx={{ display: "flex", justifyContent: "left" }}>
-        <Alert sx={{ mb: 1 }} severity="info">
-          I am using <a href="https://fakestoreapi.com/">fakestoreapi</a> to fetch some products
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "left",
+        }}
+      >
+        <Alert sx={{ mb: 1, width: "60%" }} severity="info">
+          {t("home_api_info")}:
+          <a href="https://fakestoreapi.com/">fakestoreapi</a>
+        </Alert>
+        <Alert sx={{ mb: 1, width: "60%" }} severity="info">
+          {t("home_translation_info")}
         </Alert>
       </Box>
     </Box>

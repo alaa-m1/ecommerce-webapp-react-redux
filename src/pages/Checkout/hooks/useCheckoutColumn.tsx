@@ -13,10 +13,12 @@ import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useDispatch } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const useCheckoutColumn = (): GridColDef[] => {
   const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
   const { cartCounter } = useAppSelector(selectShoopingCartItemsDetails);
+  const { t }=useTranslation()
   const dispatch = useDispatch();
   const [disabled, setDisabled] = useState(false);
   const decreaseQuantity = useCallback(
@@ -34,17 +36,17 @@ export const useCheckoutColumn = (): GridColDef[] => {
     { field: "id", headerName: "ID", width: 90 },
     {
       field: "categoryLabel",
-      headerName: "Product Label",
+      headerName: t('checkout.product_label'),
       width: 150,
     },
     {
       field: "title",
-      headerName: "Title",
+      headerName: t('checkout.title'),
       width: 150,
     },
     {
       field: "price",
-      headerName: "Price",
+      headerName: t('checkout.price'),
       width: 110,
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
         return (
@@ -57,7 +59,7 @@ export const useCheckoutColumn = (): GridColDef[] => {
 
     {
       field: "Quentity",
-      headerName: "quantity",
+      headerName: t('checkout.quantity'),
       sortable: false,
       width: 130,
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
@@ -93,7 +95,7 @@ export const useCheckoutColumn = (): GridColDef[] => {
     },
     {
       field: "",
-      headerName: "Remove",
+      headerName: t('checkout.remove'),
       sortable: false,
       width: 100,
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
@@ -114,7 +116,7 @@ export const useCheckoutColumn = (): GridColDef[] => {
     },
     {
       field: "description",
-      headerName: "Description",
+      headerName: t('checkout.description'),
       sortable: false,
       flex: 1,
     },

@@ -14,8 +14,10 @@ import {
 } from "utils/firebase";
 import { useEffect } from "react";
 import { getRedirectResult } from "firebase/auth";
+import { useTranslation } from "react-i18next";
 
 const AuthDashboard = () => {
+  const {t}=useTranslation();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("p");
   const theme = useTheme();
@@ -130,7 +132,7 @@ const AuthDashboard = () => {
           >
             If you already have an account &nbsp;
           </Typography>
-          <LinkButton label="SIGN In" />
+          <LinkButton label={t('auth.signin')}/>
         </Box>
       ) : (
         <Box sx={{ "button:hover": { backgroundColor: "transparent" } }}>
@@ -141,7 +143,7 @@ const AuthDashboard = () => {
           >
             If you do not have an account &nbsp;
           </Typography>
-          <LinkButton query="signup" label="SIGN UP" />
+          <LinkButton query="signup" label={t('auth.signup')}/>
         </Box>
       )}
     </Box>
