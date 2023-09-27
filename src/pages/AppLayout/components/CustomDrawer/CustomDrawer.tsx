@@ -3,8 +3,7 @@ import {
   IconButton,
   Box,
   Typography,
-  ListItemButton,
-  Button,
+  ListItemButton
 } from "@mui/material";
 import { MouseEvent, useState } from "react";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
