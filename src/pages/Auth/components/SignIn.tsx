@@ -11,6 +11,7 @@ import { TextField } from "shared";
 import { signInAuthenticatedUserWithEmailAndPassword } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const UserSchema = z.object({
   email: z.string().email("You must enter a valid Email"),
@@ -21,6 +22,7 @@ const UserSchema = z.object({
 type UserSchemaType = z.infer<typeof UserSchema>;
 
 const SignIn = () => {
+  const { t }=useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const {
@@ -61,7 +63,7 @@ const SignIn = () => {
   return (
     <Box>
       <Typography variant="h4" color="primary">
-        Sign In
+        {t('auth.signin')}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>
         <TextField
@@ -96,7 +98,7 @@ const SignIn = () => {
           type="submit"
           sx={{ width: "50%", margin: "0px auto" }}
         >
-          Sign In
+          {t('auth.signin')}
         </LoadingButton>
       </form>
     </Box>

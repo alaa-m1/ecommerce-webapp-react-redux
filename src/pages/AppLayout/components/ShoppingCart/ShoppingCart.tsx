@@ -44,7 +44,7 @@ export const ShoppingCart = ({
   return (
     <ClickAwayListener onClickAway={handleClose}>
       <Popper
-        id="shopping-cart-popover"
+        id="shopping-cart-popper"
         open={open}
         anchorEl={anchorEl}
         placement="bottom-end"
