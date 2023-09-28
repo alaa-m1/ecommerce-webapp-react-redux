@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { memo, useMemo, useState } from "react";
 import { Product } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -23,7 +23,7 @@ export const MainCategoryCard = memo(
     );
 
     return (
-      <Box className="main-category-card">
+      <Box className="main-category-card" sx={{ color: "secondary.dark" }}>
         <Box className="main-category-images">
           <Link to={`shop?category=${currentCategoryLabel}`}>
             <img
@@ -33,7 +33,7 @@ export const MainCategoryCard = memo(
             />
           </Link>
         </Box>
-        <Box className="right-button">
+        <Box className="right-button" sx={{"& path":{color:"secondary.main"}}}>
           <ArrowForwardIosIcon
             onClick={() =>
               setImageIndex((p) => {
@@ -46,7 +46,7 @@ export const MainCategoryCard = memo(
             }
           />
         </Box>
-        <Box className="left-button">
+        <Box className="left-button" sx={{"& path":{color:"secondary.main"}}}>
           <ArrowBackIosNewIcon
             onClick={() =>
               setImageIndex((p) => {
@@ -61,11 +61,11 @@ export const MainCategoryCard = memo(
         </Box>
         {remoteContent ? (
           <Link to={`online-shop?category=${currentCategoryLabel}`}>
-            <Box className="main-category-info">{currentCategoryLabel}</Box>
+            <Box className="main-category-info"><Typography fontSize="18px" color="primary.light">{currentCategoryLabel}</Typography></Box>
           </Link>
         ) : (
           <Link to={`shop?category=${currentCategoryLabel}`}>
-            <Box className="main-category-info">{currentCategoryLabel}</Box>
+            <Box className="main-category-info"><Typography fontSize="18px" color="primary.light">{currentCategoryLabel}</Typography></Box>
           </Link>
         )}
       </Box>
