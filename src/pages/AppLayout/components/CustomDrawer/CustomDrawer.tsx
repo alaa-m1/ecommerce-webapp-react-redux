@@ -1,10 +1,5 @@
 import Drawer from "@mui/material/Drawer";
-import {
-  IconButton,
-  Box,
-  Typography,
-  ListItemButton
-} from "@mui/material";
+import { IconButton, Box, Typography, ListItemButton } from "@mui/material";
 import { MouseEvent, useState } from "react";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Link } from "react-router-dom";
@@ -47,7 +42,7 @@ export const CustomDrawer = ({
             open={open}
             anchor="left"
             onClose={() => setOpen(false)}
-            PaperProps={{ sx: { backgroundColor: "rgb(92, 80, 231)" } }}
+            PaperProps={{ sx: { backgroundColor: "secondary.light" } }}
           >
             <Box sx={{ textAlign: "center" }}>
               <Typography sx={{ marginTop: "5px", color: "#fff" }}>
@@ -63,7 +58,9 @@ export const CustomDrawer = ({
                   return (
                     <ListItemButton key={index} onClick={() => setOpen(false)}>
                       <Link style={{ width: "100%" }} to={link.path}>
-                        {t(link.label)}
+                        <Typography sx={{ color: "primary.main" }}>
+                          {t(link.label)}
+                        </Typography>
                       </Link>
                     </ListItemButton>
                   );
@@ -73,7 +70,9 @@ export const CustomDrawer = ({
                 onClick={handleCloseLnaguageMenu}
                 className="language-menu-btn"
               >
-                {t("languages.language")}
+                <Typography sx={{ color: "primary.main" }}>
+                  {t("languages.language")}
+                </Typography>
               </ListItemButton>
 
               {currentUser ? (
@@ -84,13 +83,17 @@ export const CustomDrawer = ({
                   }}
                 >
                   <Link style={{ width: "100%" }} to={"/auth"}>
-                    {t("auth.signout")}
+                    <Typography sx={{ color: "primary.main" }}>
+                      {t("auth.signout")}
+                    </Typography>
                   </Link>
                 </ListItemButton>
               ) : (
                 <ListItemButton onClick={() => setOpen(false)}>
                   <Link style={{ width: "100%" }} to={"/auth"}>
-                    {t("auth.signin")}
+                    <Typography sx={{ color: "primary.main" }}>
+                      {t("auth.signin")}
+                    </Typography>
                   </Link>
                 </ListItemButton>
               )}

@@ -4,6 +4,7 @@ import { useCheckoutColumn } from "./hooks";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useTranslation } from "react-i18next";
+import { PaymentForm } from "./components";
 
 declare module "@mui/x-data-grid-pro" {
   interface FooterPropsOverrides {
@@ -57,6 +58,7 @@ const CheckoutDashboard = () => {
           }}
         />
       </Box>
+      <PaymentForm/>
     </>
   );
 };

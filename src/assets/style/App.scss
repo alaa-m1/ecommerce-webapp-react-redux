@@ -402,3 +402,17 @@
   align-items: center;
   height: 50px;
 }
+
+
+//payment
+.payment-container{
+  width:auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid #ccc;
+  padding:15px 25px;
+  margin-top: 10px;
+}
