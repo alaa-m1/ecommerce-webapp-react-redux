@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { DataGridPro, GridSlotsComponentsProps } from "@mui/x-data-grid-pro";
 import { useCheckoutColumn } from "./hooks";
 import { useAppSelector } from "utils/redux/hooks";
@@ -16,7 +16,10 @@ export function CustomFooterStatusComponent(
   const { t } = useTranslation();
   return (
     <Box sx={{ p: 1, display: "flex" }}>
-      {t("checkout.total")} {`$${props.cartTotal}`}
+      <Typography color="primary.light">
+        {t("checkout.total")}{" "}
+        <Typography component="span" color="secondary.main">{`$${props.cartTotal}`}</Typography>
+      </Typography>
     </Box>
   );
 }

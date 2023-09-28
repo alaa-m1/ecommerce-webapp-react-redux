@@ -66,7 +66,7 @@ const UserSchema = z
 type UserSchemaType = z.infer<typeof UserSchema>;
 
 const SignUp = () => {
-  const { t }=useTranslation();
+  const { t } = useTranslation();
   const [passwordScore, setPasswordScore] = useState(0);
   const {
     register,
@@ -110,8 +110,8 @@ const SignUp = () => {
   }, [password]);
   return (
     <Box>
-      <Typography variant="h4" color="primary">
-      {t('auth.signup')}
+      <Typography fontSize="16px" color="primary.light">
+        {t("auth.signup")}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>
         <TextField
@@ -214,12 +214,17 @@ const SignUp = () => {
         <br />
         <Box sx={{ textAlign: "left", marginBottom: "20px" }}>
           <input type="checkbox" id="accept" {...register("accept")} />
-          <label htmlFor="id">
-            I accept &nbsp;
+          <label htmlFor="accept" style={{ color: "primary.light" }}>
+            <Typography component="span" sx={{ color: "primary.light" }}>
+              I accept &nbsp;
+            </Typography>
+            </label>
             <Link href="/terms" sx={{ textDecoration: "none" }}>
-              terms and conditions
+              <Typography component="span" sx={{ color: "primary.light" }}>
+                terms and conditions
+              </Typography>
             </Link>
-          </label>
+          
           {errors.accept && (
             <Alert severity="error" sx={{ marginTop: "2px" }}>
               {errors.accept?.message}
@@ -229,12 +234,11 @@ const SignUp = () => {
         <LoadingButton
           loading={isSubmitting}
           loadingIndicator={<ScaleLoader color="#36d7b7" />}
-          variant="contained"
-          color="primary"
+          variant="outlined"
           type="submit"
           sx={{ width: "50%", margin: "0px auto" }}
         >
-          {t('auth.signup')}
+          {t("auth.signup")}
         </LoadingButton>
       </form>
     </Box>

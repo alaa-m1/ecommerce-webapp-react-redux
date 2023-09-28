@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useRef } from "react";
 import { Product } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -33,17 +33,19 @@ export const ShopSubCategoryList = ({
     }
   };
   return (
-    <Box className="shop-sub-category-section">
-      <Box className="shop-sub-category-section-title">{currentCategoryLabel}</Box>
+    <Box className="shop-sub-category-section" sx={{color:"secondary.dark"}}>
+      <Box className="shop-sub-category-section-title">
+        <Typography color="primary.light">{currentCategoryLabel}</Typography>
+      </Box>
       <Box ref={catRef} className="shop-sub-category-section-cards">
         {subCategories.map((item, index) => (
           <ShopCategoryCard key={index} catInfo={item}></ShopCategoryCard>
         ))}
       </Box>
-      <Box className="right-button">
+      <Box className="right-button" sx={{"& path":{color:"secondary.main"}}}>
         <ArrowForwardIosIcon onClick={() => handleMoveRight()} />
       </Box>
-      <Box className="left-button">
+      <Box className="left-button" sx={{"& path":{color:"secondary.main"}}}>
         <ArrowBackIosNewIcon onClick={() => handleMoveLeft()} />
       </Box>
     </Box>

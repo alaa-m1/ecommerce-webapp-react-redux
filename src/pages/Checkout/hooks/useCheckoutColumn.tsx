@@ -1,4 +1,4 @@
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid-pro";
 import { CartCategory } from "types";
 import CloseIcon from "@mui/icons-material/Close";
@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 export const useCheckoutColumn = (): GridColDef[] => {
   const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
   const { cartCounter } = useAppSelector(selectShoopingCartItemsDetails);
-  const { t }=useTranslation()
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [disabled, setDisabled] = useState(false);
   const decreaseQuantity = useCallback(
@@ -36,30 +36,30 @@ export const useCheckoutColumn = (): GridColDef[] => {
     { field: "id", headerName: "ID", width: 90 },
     {
       field: "categoryLabel",
-      headerName: t('checkout.product_label'),
+      headerName: t("checkout.product_label"),
       width: 150,
     },
     {
       field: "title",
-      headerName: t('checkout.title'),
+      headerName: t("checkout.title"),
       width: 150,
     },
     {
       field: "price",
-      headerName: t('checkout.price'),
+      headerName: t("checkout.price"),
       width: 110,
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
         return (
-          <strong>{`${params.row.quantity || ""} * $${
+          <Typography color="primary.light">{`${params.row.quantity || ""} * $${
             params.row.price || ""
-          }`}</strong>
+          }`}</Typography>
         );
       },
     },
 
     {
       field: "Quentity",
-      headerName: t('checkout.quantity'),
+      headerName: t("checkout.quantity"),
       sortable: false,
       width: 130,
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
@@ -81,13 +81,15 @@ export const useCheckoutColumn = (): GridColDef[] => {
                 );
               }}
             >
-              <RemoveIcon />
+              <RemoveIcon sx={{ "& path": { color: "secondary.main" } }} />
             </IconButton>
-            {` ${params.row.quantity} `}
+            <Typography color="secondary.main">
+              {` ${params.row.quantity} `}
+            </Typography>
             <IconButton
               onClick={() => dispatch(addToCart(cartItems, params.row))}
             >
-              <AddIcon />
+              <AddIcon sx={{ "& path": { color: "secondary.main" } }} />
             </IconButton>
           </Box>
         );
@@ -95,7 +97,7 @@ export const useCheckoutColumn = (): GridColDef[] => {
     },
     {
       field: "",
-      headerName: t('checkout.remove'),
+      headerName: t("checkout.remove"),
       sortable: false,
       width: 100,
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
@@ -108,7 +110,7 @@ export const useCheckoutColumn = (): GridColDef[] => {
                 )
               }
             >
-              <CloseIcon />
+              <CloseIcon sx={{ "& path": { color: "secondary.main" } }} />
             </IconButton>
           </Box>
         );
@@ -116,7 +118,7 @@ export const useCheckoutColumn = (): GridColDef[] => {
     },
     {
       field: "description",
-      headerName: t('checkout.description'),
+      headerName: t("checkout.description"),
       sortable: false,
       flex: 1,
     },

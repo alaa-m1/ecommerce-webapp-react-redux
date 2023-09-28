@@ -5,6 +5,8 @@ import {
   useMediaQuery,
   useTheme,
   Button,
+  FormControlLabel,
+  Typography,
 } from "@mui/material";
 import {
   MouseEvent,
@@ -23,7 +25,8 @@ import {
   Footer,
   ShoppingCart,
   ShoppingCartLogo,
-  LanguageMenu
+  LanguageMenu,
+  ThemeSwitch
 } from "./components";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartStatus } from "store/shoppingCart/shoppingCartSelector";
@@ -74,7 +77,9 @@ const AppLayout = ({ links }: NavigationProps) => {
     };
   }, [isScrolling]);
 
-  const handleLanguageMenuClick = (e: MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+  const handleLanguageMenuClick = (
+    e: MouseEvent<HTMLButtonElement | HTMLDivElement>
+  ) => {
     setAnchorEl(e.currentTarget);
   };
   const handleOnLnaguageMenuClose = () => {
@@ -82,7 +87,6 @@ const AppLayout = ({ links }: NavigationProps) => {
   };
 
   return (
-
     <Box
       sx={{
         position: "relative",
@@ -98,10 +102,10 @@ const AppLayout = ({ links }: NavigationProps) => {
         handleClose={handleClose}
         isScrolling={isScrolling}
       />
-<LanguageMenu
-    anchorEl={anchorEl}
-    handleClose={handleOnLnaguageMenuClose}
-  />
+      <LanguageMenu
+        anchorEl={anchorEl}
+        handleClose={handleOnLnaguageMenuClose}
+      />
       <Box sx={{ flexGrow: 0 }}>
         <AppBar
           className="navigator-container"
@@ -122,7 +126,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                   </Link>
                 </Box>
                 <Box className="link-container">
-                  <Box className="general-links">
+                  <Box>
                     {links.map((link, index) => (
                       <StyledLink
                         key={index}
@@ -135,12 +139,16 @@ const AppLayout = ({ links }: NavigationProps) => {
                       </StyledLink>
                     ))}
                   </Box>
-                    <Button className="language-menu-btn" onClick={handleLanguageMenuClick}>
-                      {t("languages.language")}
-                    </Button>
+                  <Typography
+                    className="language-menu-btn"
+                    onClick={handleLanguageMenuClick}
+                    color="primary.main"
+                  >
+                    {t("languages.language")}
+                  </Typography>
 
                   {currentUser ? (
-                    <Box className="auth-links" onClick={() => signOutUser()}>
+                    <Box onClick={() => signOutUser()}>
                       <StyledLink
                         to="auth"
                         isactive={pathname === "/auth" ? "active" : "inActive"}
@@ -149,7 +157,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                       </StyledLink>
                     </Box>
                   ) : (
-                    <Box className="auth-links">
+                    <Box>
                       <StyledLink
                         to="auth"
                         isactive={pathname === "/auth" ? "active" : "inActive"}
@@ -174,6 +182,7 @@ const AppLayout = ({ links }: NavigationProps) => {
             >
               <ShoppingCartLogo />
             </Box>
+            <ThemeSwitch />
           </Toolbar>
         </AppBar>
       </Box>

@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from "@mui/material";
+import { Menu, MenuItem, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -15,6 +15,7 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
       open={open}
       anchorEl={anchorEl}
       onClose={handleClose}
+      sx={{"& .MuiList-root":{backgroundColor:"secondary.light"}}}
     >
       <MenuItem
         selected={activatedLanguage === "en"}
@@ -23,7 +24,9 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
           handleClose();
         }}
       >
+        <Typography color="primary.main">
         {t("languages.english")}
+        </Typography>
       </MenuItem>
       <MenuItem
         selected={activatedLanguage === "de"}
@@ -32,7 +35,9 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
           handleClose();
         }}
       >
+        <Typography color="primary.main">
         {t("languages.german")}
+        </Typography>
       </MenuItem>
     </Menu>
   );

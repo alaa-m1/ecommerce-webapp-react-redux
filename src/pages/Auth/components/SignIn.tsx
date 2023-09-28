@@ -62,7 +62,7 @@ const SignIn = () => {
   const { password } = watch();
   return (
     <Box>
-      <Typography variant="h4" color="primary">
+      <Typography fontSize="16px" color="primary.light">
         {t('auth.signin')}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>
@@ -93,8 +93,7 @@ const SignIn = () => {
         <LoadingButton
           loading={isSubmitting}
           loadingIndicator={<ScaleLoader color="#36d7b7" />}
-          variant="contained"
-          color="primary"
+          variant="outlined"
           type="submit"
           sx={{ width: "50%", margin: "0px auto" }}
         >

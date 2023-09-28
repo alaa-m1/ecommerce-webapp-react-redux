@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 const HomeDashboard = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const currentThemeMode = useAppSelector((state) => state.user.themeMode);
   /// Using react-query to manage request state with caching (The other good solution to use with Redux is RTK Query)
   const { data, isLoading } = useProducts(100);
   useEffect(() => {
@@ -69,11 +70,11 @@ const HomeDashboard = () => {
           justifyContent: "left",
         }}
       >
-        <Alert sx={{ mb: 1, width: "60%" }} severity="info">
+        <Alert sx={{ mb: 1, width: "60%" }} severity="info" style={{backgroundColor:currentThemeMode==="dark"?"#e65100":"#0288d1"}}>
           {t("home_api_info")}:
           <a href="https://fakestoreapi.com/">fakestoreapi</a>
         </Alert>
-        <Alert sx={{ mb: 1, width: "60%" }} severity="info">
+        <Alert sx={{ mb: 1, width: "60%" }} severity="info" style={{backgroundColor:currentThemeMode==="dark"?"#e65100":"#0288d1"}}>
           {t("home_translation_info")}
         </Alert>
       </Box>
