@@ -24,6 +24,7 @@
     "remove": "Entfernen",
     "description": "Beschreibung",
     "total":"Gesamt",
-    "check_your_order":"Bezahlen Sie Ihre Bestellung"
+    "check_your_order":"Bezahlen Sie Ihre Bestellung",
+    "process_your_payment":"Verarbeiten Sie Ihre Zahlung"
   }
 }

@@ -24,6 +24,7 @@
     "remove": "Remove",
     "description": "Description",
     "total":"Total",
-    "check_your_order":"Checkout Your Order"
+    "check_your_order":"Checkout Your Order",
+    "process_your_payment":"Process your payment"
   }
 }
