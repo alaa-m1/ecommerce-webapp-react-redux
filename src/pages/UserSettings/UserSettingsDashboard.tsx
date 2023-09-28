@@ -17,40 +17,42 @@ const UserSettingsDashboard = () => {
   }, [currentUser]);
   return (
     <>
-      <h2
-        style={{
+      <Typography
+        sx={{
           textAlign: "center",
           textTransform: "capitalize",
-          color: "#00f",
+          color:"primary.light",
+          fontSize:"larger",
+          marginBottom: "20px"
         }}
       >
         User Dashboard
-      </h2>
+      </Typography>
 
       <Grid container>
-        <Grid item xs={12} md={4}>
-          <Typography>Name:</Typography>
+        <Grid item xs={12} md={3}>
+          <Typography sx={{color:"primary.light"}}>Name:</Typography>
         </Grid>
-        <Grid item xs={12} md={8}>
-          <Typography>{userInfo?.displayName}</Typography>
+        <Grid item xs={12} md={9}>
+          <Typography sx={{color:"secondary.main"}}>{userInfo?.displayName}</Typography>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Typography>Mobile:</Typography>
+        <Grid item xs={12} md={3}>
+          <Typography sx={{color:"primary.light"}}>Mobile:</Typography>
         </Grid>
-        <Grid item xs={12} md={8}>
-          <Typography>{userInfo?.phoneNumber}</Typography>
+        <Grid item xs={12} md={9}>
+          <Typography sx={{color:"secondary.main"}}>{userInfo?.phoneNumber}</Typography>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Typography>Address:</Typography>
+        <Grid item xs={12} md={3}>
+          <Typography sx={{color:"primary.light"}}>Address:</Typography>
         </Grid>
-        <Grid item xs={12} md={8}>
-          <Typography>{userInfo?.address}</Typography>
+        <Grid item xs={12} md={9}>
+          <Typography sx={{color:"secondary.main"}}>{userInfo?.address}</Typography>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Typography>Email:</Typography>
+        <Grid item xs={12} md={3}>
+          <Typography sx={{color:"primary.light"}}>Email:</Typography>
         </Grid>
-        <Grid item xs={12} md={8}>
-          <Typography>{userInfo?.email}</Typography>
+        <Grid item xs={12} md={9}>
+          <Typography sx={{color:"secondary.main"}}>{userInfo?.email}</Typography>
         </Grid>
       </Grid>
     </>
