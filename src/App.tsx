@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from "react";
 import "./assets/style/App.scss";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomeDashboard from "pages/Home/HomeDashboard";
 import ShopDashboard from "pages/Shop/ShopDashboard";
 import AuthDashboard from "pages/Auth/AuthDashboard";
@@ -81,7 +81,8 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="*" element={<NotFoundDashboard />} />
+              <Route path="/404" element={<NotFoundDashboard />} />
+              <Route path="*" element={<Navigate replace to="/404" />} />
             </Route>
           </Routes>
         </ReactQueryProvider>
