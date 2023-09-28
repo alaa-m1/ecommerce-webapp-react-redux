@@ -35,6 +35,12 @@ importers:
       '@reduxjs/toolkit':
         specifier: ^1.9.6
         version: 1.9.6(react-redux@8.0.7)(react@18.2.0)
+      '@stripe/react-stripe-js':
+        specifier: ^2.3.0
+        version: 2.3.0(@stripe/stripe-js@2.1.6)(react-dom@18.2.0)(react@18.2.0)
+      '@stripe/stripe-js':
+        specifier: ^2.1.6
+        version: 2.1.6
       '@tanstack/react-query':
         specifier: ^4.29.7
         version: 4.29.7(react-dom@18.2.0)(react@18.2.0)
@@ -65,6 +71,9 @@ importers:
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.3.1
       firebase:
         specifier: ^9.22.1
         version: 9.22.1
@@ -134,6 +143,9 @@ importers:
       selector:
         specifier: ^2.1.1
         version: 2.1.1
+      stripe:
+        specifier: ^13.7.0
+        version: 13.7.0
       styled-components:
         specifier: ^5.3.10
         version: 5.3.10(@babel/core@7.22.20)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
@@ -3282,6 +3294,23 @@ packages:
       '@sinonjs/commons': 1.8.6
     dev: false
 
+  /@stripe/react-stripe-js@2.3.0(@stripe/stripe-js@2.1.6)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-AOxsvRIXfIh0WkebAfITfCQY6NgnEDg3jOH7KfHGQPjPmcxJ+HFj/EZOEuyflDjlB1iTGPDCqK0MqiQ8LjLbag==}
+    peerDependencies:
+      '@stripe/stripe-js': ^1.44.1 || ^2.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@stripe/stripe-js': 2.1.6
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@stripe/stripe-js@2.1.6:
+    resolution: {integrity: sha512-QSzqQIcowgap7a40f3a7oUR+59Xet/i8fp1EsnzzwxK5oPRQsCbbLQ4Cd6qM0y1pdZMonFnCrAWayWdE9Lr0iA==}
+    dev: false
+
   /@surma/rollup-plugin-off-main-thread@2.2.3:
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
     dependencies:
@@ -5694,6 +5723,11 @@ packages:
   /dotenv@10.0.0:
     resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
     engines: {node: '>=10'}
+    dev: false
+
+  /dotenv@16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
     dev: false
 
   /duplexer@0.1.2:
@@ -11088,6 +11122,14 @@ packages:
   /strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
+    dev: false
+
+  /stripe@13.7.0:
+    resolution: {integrity: sha512-0cbUNl5aDwt5rIZeE/WgyTxZN/PtwyeA5KcVJrHj260tjN4IOo2BZikN+dxhKoeBfI4aSRAd3E5vHRKmjjaSbA==}
+    engines: {node: '>=12.*'}
+    dependencies:
+      '@types/node': 16.18.32
+      qs: 6.11.0
     dev: false
 
   /style-loader@3.3.3(webpack@5.88.2):
