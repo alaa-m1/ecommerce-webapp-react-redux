@@ -11,12 +11,18 @@ export const ShopByAllCategories = ({
   categories,
 }: ShopByAllCategoriesProps) => {
   return (
-    <Box className="shop-category-container">
-      {mainCategoriesLabels.map((categoryLabel,index) => {
+    <Box className="shop-category-container" >
+      {mainCategoriesLabels.map((categoryLabel, index) => {
         const categoryDetails = categories.filter(
           (item) => item.categoryLabel === categoryLabel
         );
-        return <ShopSubCategoryList key={index} currentCategoryLabel={categoryLabel} subCategories={categoryDetails}></ShopSubCategoryList>;
+        return (
+          <ShopSubCategoryList
+            key={index}
+            currentCategoryLabel={categoryLabel}
+            subCategories={categoryDetails}
+          ></ShopSubCategoryList>
+        );
       })}
     </Box>
   );

@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 
@@ -7,20 +7,35 @@ type ShopNavProps = {
   activeCategoryLabel: string;
 };
 
-export const ShopNav = ({ mainCategoriesLabels,activeCategoryLabel }: ShopNavProps) => {
+export const ShopNav = ({
+  mainCategoriesLabels,
+  activeCategoryLabel,
+}: ShopNavProps) => {
   return (
-    <Box className="shop-nav">
+    <Box className="shop-nav" sx={{color:"secondary.dark"}}>
       {mainCategoriesLabels.map((item) => (
         <Link
           key={_.uniqueId()}
           to={`?category=${item}`}
-          style={{ margin: "0px 15px", color:activeCategoryLabel===item?"#00f":"#000" }}
+          style={{ margin: "0px 15px" }}
         >
-          {item}
+          <Typography
+            color={
+              activeCategoryLabel === item ? "secondary.main" : "primary.light"
+            }
+          >
+            {item}
+          </Typography>
         </Link>
       ))}
       <Link to={``} style={{ margin: "0px 15px" }}>
-        {!_.isEmpty(mainCategoriesLabels)?`All categories`:``}
+        <Typography
+          color={
+            activeCategoryLabel === "" ? "secondary.main" : "primary.light"
+          }
+        >
+          {!_.isEmpty(mainCategoriesLabels) ? `All categories` : ``}
+        </Typography>
       </Link>
     </Box>
   );

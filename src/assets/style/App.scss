@@ -35,7 +35,7 @@
 }
 .language-menu-btn {
     display: inline;
-    color: #fff !important;
+    cursor: pointer;
 }
 //=== main page categories style =====//
 .main-category-container {
@@ -367,7 +367,6 @@
   left: 55%;
   font-size: 12px;
   transform: translate(-50%, -50%);
-  color: #fff;
   cursor: pointer;
 }
 
@@ -403,5 +402,4 @@
   justify-content: space-around;
   align-items: center;
   height: 50px;
-  background-color: #5c50e7;
 }

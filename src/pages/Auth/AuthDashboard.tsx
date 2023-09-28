@@ -35,7 +35,7 @@ const AuthDashboard = () => {
     }
   };
   return (
-    <Box className="central-box">
+    <Box className="central-box" sx={{color:"secondary.dark"}}>
       <Box>{searchQuery === "signup" ? <SignUp /> : <SignIn />}</Box>
 
       <>
@@ -85,7 +85,6 @@ const AuthDashboard = () => {
           >
             <Button
               startIcon={<GoogleIcon sx={{ color: "#4285f4" }} />}
-              sx={{ color: "#4285f4" }}
               onClick={() => signIn("google")}
             >
               Google
@@ -99,7 +98,6 @@ const AuthDashboard = () => {
           >
             <Button
               startIcon={<GoogleIcon sx={{ color: "#4285f4" }} />}
-              sx={{ color: "#4285f4" }}
               onClick={signInWithGoogleRedirect}
             >
               Google redirect
@@ -113,7 +111,6 @@ const AuthDashboard = () => {
           >
             <Button
               startIcon={<FacebookIcon sx={{ color: "#4285f4" }} />}
-              sx={{ color: "#1877f2" }}
               onClick={() => signIn("facebook")}
             >
               Facebook
@@ -132,7 +129,7 @@ const AuthDashboard = () => {
           >
             If you already have an account &nbsp;
           </Typography>
-          <LinkButton label={t('auth.signin')}/>
+          <LinkButton label={t('auth.signin')} sx={{color:"primary.light", fontSize:"15px"}}/>
         </Box>
       ) : (
         <Box sx={{ "button:hover": { backgroundColor: "transparent" } }}>
@@ -143,7 +140,7 @@ const AuthDashboard = () => {
           >
             If you do not have an account &nbsp;
           </Typography>
-          <LinkButton query="signup" label={t('auth.signup')}/>
+        <LinkButton query="signup" label={t('auth.signup')} sx={{color:"primary.light", fontSize:"15px"}}/>
         </Box>
       )}
     </Box>
