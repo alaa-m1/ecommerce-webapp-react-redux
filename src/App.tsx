@@ -28,7 +28,6 @@ import UnAuthorizedRoute from "utils/routes/UnAuthorizedRoute";
 
 function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: any) => {
       if (user) {
