@@ -1,10 +1,5 @@
 import { Alert, Box } from "@mui/material";
-import {
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  useId,
-  useState,
-} from "react";
+import { DetailedHTMLProps, InputHTMLAttributes, useId, useState } from "react";
 import ErrorIcon from "@mui/icons-material/Error";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -134,7 +129,16 @@ export const TextField = ({
           </Box>
         )}
       </Box>
-      {errors && <Alert severity="error">{errors}</Alert>}
+      {errors && (
+        <Alert
+          severity="error"
+          style={{
+            backgroundColor: "#FDEDED",
+          }}
+        >
+          {errors}
+        </Alert>
+      )}
     </Box>
   );
 };

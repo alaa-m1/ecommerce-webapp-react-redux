@@ -71,7 +71,7 @@ const HomeDashboard = () => {
         }}
       >
         <Alert sx={{ mb: 1, width: "60%" }} severity="info" style={{backgroundColor:currentThemeMode==="dark"?"#e65100":"#0288d1"}}>
-          {t("home_api_info")}:
+          {t("home_api_info")}:&nbsp;
           <a href="https://fakestoreapi.com/">fakestoreapi</a>
         </Alert>
         <Alert sx={{ mb: 1, width: "60%" }} severity="info" style={{backgroundColor:currentThemeMode==="dark"?"#e65100":"#0288d1"}}>
