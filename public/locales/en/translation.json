@@ -25,6 +25,9 @@
     "description": "Description",
     "total":"Total",
     "check_your_order":"Checkout Your Order",
-    "process_your_payment":"Process your payment"
+    "process_your_payment":"Process your payment",
+    "successfully_payment":"Payment completed successfully",
+    "login_before_pay":"You must log in before paying for your purchases",
+    "use_test_card_number":"You can use the following card number for testing: 4242 4242 4242 4242"
   }
 }

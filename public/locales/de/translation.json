@@ -25,6 +25,9 @@
     "description": "Beschreibung",
     "total":"Gesamt",
     "check_your_order":"Bezahlen Sie Ihre Bestellung",
-    "process_your_payment":"Verarbeiten Sie Ihre Zahlung"
+    "process_your_payment":"Verarbeiten Sie Ihre Zahlung",
+    "successfully_payment":"Die Zahlung wurde erfolgreich abgeschlossen",
+    "login_before_pay":"Sie müssen sich anmelden, bevor Sie Ihre Einkäufe bezahlen können",
+    "use_test_card_number":"Zum Testen können Sie die folgende Kartennummer verwenden: 4242 4242 4242 4242"
   }
 }

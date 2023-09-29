@@ -1,45 +1,156 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Alert, Box, Button } from "@mui/material";
 import {
   PaymentElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
+import { LoadingSpinner } from "shared";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useAppSelector } from "utils/redux/hooks";
-import { stripeOptions } from "utils/stripe/stripe";
 
 export const PaymentForm = () => {
-    const { cartTotal } = useAppSelector(
-        selectShoopingCartItemsDetails
-      );
+  const { cartTotal } = useAppSelector(selectShoopingCartItemsDetails);
+  const [searchParams] = useSearchParams();
   const { t } = useTranslation();
+  const currentUser = useAppSelector((state) => state.user.currentUser);
   const stripe = useStripe();
-  const element = useElements();
+  const elements = useElements();
+  const [errorMessage, setErrorMessage] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const handleError = (error: any) => {
+    setLoading(false);
+    setErrorMessage(error.message);
+  };
+
+  const makePayment = async (clientSecret: string) => {
+    if (!stripe || !elements) return;
+    await stripe
+      .confirmPayment({
+        clientSecret,
+        elements,
+        // redirect: 'if_required',
+        confirmParams: {
+          return_url: `${window.location.origin}/checkout?payment_status=success`,
+          payment_method_data: {
+            billing_details: {
+              name: currentUser?.displayName ?? "Guest user",
+              email: currentUser?.email!,
+            },
+          },
+        },
+      })
+      .then((res) => {
+        setLoading(false);
+        if (res?.error) {
+          console.log("Payment Error=", res.error);
+        } else {
+          console.log("Paymernt is successful");
+        }
+      });
+  };
+
   const handlePayment = useCallback(
     async (e: any) => {
       e.preventDefault();
-      if (!stripe || !element) return;
-      const res = await fetch("/netlify/functions/create-payment", {
+      if (!stripe || !elements) return;
+
+      setLoading(true);
+
+      const { error: submitError } = await elements.submit();
+      if (submitError) {
+        handleError(submitError);
+        return;
+      }
+
+      const res = await fetch("/.netlify/functions/create-payment-intent", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ amount: cartTotal }),
-      }).then((res) => res.json());
-      console.log("res=", res);
+      });
+      await res.json().then((r) => makePayment(r.client_secret));
+      //     await stripe.confirmCardPayment(clientSecret, {
+      //       payment_method: {
+      //         card: elements.getElement(CardElement),
+      //         billing_details: {
+      //           name: "Faruq Yusuff",
+      //         },
+      //       },
+      // });
+
+      // if(paymentRes?.error){
+      //   console.log(paymentRes.error)
+      // }else
+      // if(paymentRes?.paymentIntent?.status==='succeeded'){
+      //   console.log('Paymernt successful')
+
+      // }
     },
-    [cartTotal, element, stripe]
+    [cartTotal, elements, stripe]
   );
   return (
-    <Box sx={{ display: "flex", justifyContent: "start" }}>
-      <form className="payment-container" onSubmit={handlePayment}>
-        <PaymentElement />
-        <Button variant="outlined" type="submit">
-          {t("checkout.process_your_payment")}
-        </Button>
-      </form>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", justifyContent: "start" }}
+    >
+      {currentUser ? (
+        <>
+          {searchParams.get("payment_status") === "success" &&
+          searchParams.get("redirect_status") === "succeeded" ? (
+            <Alert
+              sx={{ mb: 1, width: "60%" }}
+              severity="info"
+              style={{
+                backgroundColor: "#2e7d32",
+              }}
+            >
+              {t("checkout.successfully_payment")}
+            </Alert>
+          ) : (
+            <form className="payment-container" onSubmit={handlePayment}>
+              {loading && <LoadingSpinner />}
+              <Alert
+                sx={{ mb: 1, width: "60%" }}
+                severity="info"
+                style={{
+                  backgroundColor: "#0288d1",
+                }}
+              >
+                {t("checkout.use_test_card_number")}
+              </Alert>
+              <PaymentElement />
+              <Button disabled={loading} variant="outlined" type="submit">
+                {t("checkout.process_your_payment")}
+              </Button>
+            </form>
+          )}
+        </>
+      ) : (
+        <Alert
+          sx={{ mb: 1, width: "60%" }}
+          severity="info"
+          style={{
+            backgroundColor: "#e65100",
+          }}
+        >
+          {t("login_before_pay")}
+        </Alert>
+      )}
+      {errorMessage && (
+        <Alert
+          sx={{ mb: 1, width: "60%" }}
+          severity="info"
+          style={{
+            backgroundColor: "#d32f2f",
+          }}
+        >
+          {errorMessage}
+        </Alert>
+      )}
     </Box>
   );
 };
