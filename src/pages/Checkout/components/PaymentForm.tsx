@@ -137,7 +137,7 @@ export const PaymentForm = () => {
             backgroundColor: "#e65100",
           }}
         >
-          {t("login_before_pay")}
+          {t("checkout.login_before_pay")}
         </Alert>
       )}
       {errorMessage && (
