@@ -19,13 +19,19 @@ export const MainCategoryCard = memo(
         remoteContent
           ? subCategories[imageIndex - 1].imagePath
           : `${window.location.origin}/images/categories/${currentCategoryLabel}/${imageIndex}.jpeg`,
-      [currentCategoryLabel, imageIndex, subCategories]
+      [currentCategoryLabel, imageIndex, remoteContent, subCategories]
     );
 
     return (
       <Box className="main-category-card" sx={{ color: "secondary.dark" }}>
         <Box className="main-category-images">
-          <Link to={`shop?category=${currentCategoryLabel}`}>
+          <Link
+            to={
+              remoteContent
+                ? `online-shop?category=${currentCategoryLabel}`
+                : `shop?category=${currentCategoryLabel}`
+            }
+          >
             <img
               src={imagePath}
               alt={`${currentCategoryLabel}`}
@@ -33,7 +39,10 @@ export const MainCategoryCard = memo(
             />
           </Link>
         </Box>
-        <Box className="right-button" sx={{"& path":{color:"secondary.main"}}}>
+        <Box
+          className="right-button"
+          sx={{ "& path": { color: "secondary.main" } }}
+        >
           <ArrowForwardIosIcon
             onClick={() =>
               setImageIndex((p) => {
@@ -46,7 +55,10 @@ export const MainCategoryCard = memo(
             }
           />
         </Box>
-        <Box className="left-button" sx={{"& path":{color:"secondary.main"}}}>
+        <Box
+          className="left-button"
+          sx={{ "& path": { color: "secondary.main" } }}
+        >
           <ArrowBackIosNewIcon
             onClick={() =>
               setImageIndex((p) => {
@@ -59,15 +71,19 @@ export const MainCategoryCard = memo(
             }
           />
         </Box>
-        {remoteContent ? (
-          <Link to={`online-shop?category=${currentCategoryLabel}`}>
-            <Box className="main-category-info"><Typography fontSize="18px" color="primary.light">{currentCategoryLabel}</Typography></Box>
-          </Link>
-        ) : (
-          <Link to={`shop?category=${currentCategoryLabel}`}>
-            <Box className="main-category-info"><Typography fontSize="18px" color="primary.light">{currentCategoryLabel}</Typography></Box>
-          </Link>
-        )}
+        <Link
+          to={
+            remoteContent
+              ? `online-shop?category=${currentCategoryLabel}`
+              : `shop?category=${currentCategoryLabel}`
+          }
+        >
+          <Box className="main-category-info">
+            <Typography fontSize="18px" color="primary.light">
+              {currentCategoryLabel}
+            </Typography>
+          </Box>
+        </Link>
       </Box>
     );
   }
