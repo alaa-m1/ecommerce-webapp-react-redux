@@ -106,7 +106,7 @@ const AppLayout = ({ links }: NavigationProps) => {
         anchorEl={anchorEl}
         handleClose={handleOnLnaguageMenuClose}
       />
-      <Box sx={{ flexGrow: 0 }}>
+      <Box className="navigator-main-container" sx={{ flexGrow: 0,color: "secondary.dark" }}>
         <AppBar
           className="navigator-container"
           sx={{ position: "relative", paddingRight: "0px !important" }}
