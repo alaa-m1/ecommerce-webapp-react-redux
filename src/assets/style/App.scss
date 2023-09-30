@@ -1,6 +1,9 @@
 @import "./partials/mixins";
 
 //=== navigator style =====//
+.navigator-main-container {
+  @include custom-box-shadow-with-border;
+}
 .navigator-container {
   display: flex;
   justify-content: space-between;
