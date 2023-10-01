@@ -33,19 +33,29 @@ export const ShopSubCategoryList = ({
     }
   };
   return (
-    <Box className="shop-sub-category-section" sx={{color:"secondary.dark"}}>
+    <Box className="shop-sub-category-section" sx={{ color: "secondary.dark" }}>
       <Box className="shop-sub-category-section-title">
-        <Typography color="primary.light">{currentCategoryLabel}</Typography>
+        <Typography color="primary.light">
+          {`${currentCategoryLabel} ${
+            subCategories.length > 0 ? `(${subCategories.length})` : ""
+          }`}
+        </Typography>
       </Box>
       <Box ref={catRef} className="shop-sub-category-section-cards">
         {subCategories.map((item, index) => (
           <ShopCategoryCard key={index} catInfo={item}></ShopCategoryCard>
         ))}
       </Box>
-      <Box className="right-button" sx={{"& path":{color:"secondary.main"}}}>
+      <Box
+        className="right-button"
+        sx={{ "& path": { color: "secondary.main" } }}
+      >
         <ArrowForwardIosIcon onClick={() => handleMoveRight()} />
       </Box>
-      <Box className="left-button" sx={{"& path":{color:"secondary.main"}}}>
+      <Box
+        className="left-button"
+        sx={{ "& path": { color: "secondary.main" } }}
+      >
         <ArrowBackIosNewIcon onClick={() => handleMoveLeft()} />
       </Box>
     </Box>

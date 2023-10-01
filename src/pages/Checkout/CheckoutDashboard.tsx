@@ -18,8 +18,8 @@ export function CustomFooterStatusComponent(
   return (
     <Box sx={{ p: 1, display: "flex" }}>
       <Typography color="primary.light">
-        {t("checkout.total")}{" "}
-        <Typography component="span" color="secondary.main">{`$${props.cartTotal}`}</Typography>
+        {t("checkout.total")}:{" "}
+        <Typography component="span" color="secondary.main">{`€${props.cartTotal}`}</Typography>
       </Typography>
     </Box>
   );
