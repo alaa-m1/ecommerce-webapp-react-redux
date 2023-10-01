@@ -54,7 +54,7 @@ export const CartCard = memo(
           <Box>
             <div className="cart-card-title">{cartItemInfo.title}</div>
             <div className="cart-card-quantity">
-              {cartItemInfo.quantity}x ${cartItemInfo.price}
+              {`${cartItemInfo.quantity} x €${cartItemInfo.price}`}
             </div>
           </Box>
           <IconButton onClick={handleDeleteItem} sx={{ width: "35px", height: "35px" }}>

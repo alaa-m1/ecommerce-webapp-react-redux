@@ -29,5 +29,11 @@
     "successfully_payment":"Payment completed successfully",
     "login_before_pay":"You must log in before paying for your purchases",
     "use_test_card_number":"You can use the following card number for testing: 4242 4242 4242 4242"
+  },
+  "search":{
+    "search_for_products": "Search for products",
+    "search_label":"Search",
+    "no_items":"No items",
+    "no_categories":"No categories"
   }
 }

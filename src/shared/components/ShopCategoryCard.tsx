@@ -43,7 +43,13 @@ export const ShopCategoryCard = memo(({ catInfo }: ShopCategoryCardProps) => {
       <Box className="shop-category-images">
         <img src={imagePath} alt={`${catInfo.categoryLabel}`} loading="lazy" />
       </Box>
-      <Box className="shopping-btn">
+      <Box className="shopping-title">
+        <Typography color="primary.light">{catInfo.title}</Typography>
+      </Box>
+      <Box className="shop-category-info">
+        <Typography fontSize="18px" color="primary.light">
+          {`€${catInfo.price}`}
+        </Typography>
         <Button
           id="shopping-add-btn"
           variant="contained"
@@ -51,11 +57,6 @@ export const ShopCategoryCard = memo(({ catInfo }: ShopCategoryCardProps) => {
         >
           Add to Cart
         </Button>
-      </Box>
-      <Box className="shop-category-info">
-        <Typography fontSize="18px" color="primary.light">
-          {catInfo.price}
-        </Typography>
       </Box>
     </Box>
   );

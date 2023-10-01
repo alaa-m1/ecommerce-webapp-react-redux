@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 
 type ShopNavProps = {
   mainCategoriesLabels: Array<string>;
@@ -11,12 +12,19 @@ export const ShopNav = ({
   mainCategoriesLabels,
   activeCategoryLabel,
 }: ShopNavProps) => {
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const { t } = useTranslation();
   return (
-    <Box className="shop-nav" sx={{color:"secondary.dark"}}>
+    <Box className="shop-nav" sx={{ color: "secondary.dark" }}>
       {mainCategoriesLabels.map((item) => (
         <Link
           key={_.uniqueId()}
-          to={`?category=${item}`}
+          to={`?category=${item}${
+            searchParams.get("search")
+              ? `&search=${searchParams.get("search")}`
+              : ""
+          }`}
           style={{ margin: "0px 15px" }}
         >
           <Typography
@@ -28,15 +36,32 @@ export const ShopNav = ({
           </Typography>
         </Link>
       ))}
-      <Link to={``} style={{ margin: "0px 15px" }}>
+      {mainCategoriesLabels.length === 0 ? (
         <Typography
           color={
             activeCategoryLabel === "" ? "secondary.main" : "primary.light"
           }
         >
-          {!_.isEmpty(mainCategoriesLabels) ? `All categories` : ``}
+          {t("search.no_categories")}
         </Typography>
-      </Link>
+      ) : (
+        <Link
+          to={`${location.pathname}${
+            searchParams.get("search")
+              ? `?search=${searchParams.get("search")}`
+              : ""
+          }`}
+          style={{ margin: "0px 15px" }}
+        >
+          <Typography
+            color={
+              activeCategoryLabel === "" ? "secondary.main" : "primary.light"
+            }
+          >
+            {!_.isEmpty(mainCategoriesLabels) ? `All categories` : ""}
+          </Typography>
+        </Link>
+      )}
     </Box>
   );
 };

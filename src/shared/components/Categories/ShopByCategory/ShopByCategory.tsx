@@ -8,11 +8,14 @@ type ShopByCategoryProps = {
 };
 export const ShopByCategory = ({
   activeCategoryItems,
-  activeCategoryLabel
+  activeCategoryLabel,
 }: ShopByCategoryProps) => {
   return (
-    <Box className="shop-category-container" >
-      <ShopCategoryList categoryLabel={activeCategoryLabel} subCategories={activeCategoryItems}></ShopCategoryList>;
+    <Box className="shop-category-container">
+      <ShopCategoryList
+        categoryLabel={activeCategoryLabel}
+        subCategories={activeCategoryItems}
+      ></ShopCategoryList>
     </Box>
   );
 };

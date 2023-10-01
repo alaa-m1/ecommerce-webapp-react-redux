@@ -1,33 +1,56 @@
 import { Box, Grid } from "@mui/material";
-import { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useMemo } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { selectMappedCategories } from "store/localProducts/localProductsSelector";
 import { useAppSelector } from "utils/redux/hooks";
-import { ShopByAllCategories, ShopByCategory, ShopNav } from "shared/components";
+import {
+  SearchForProducts,
+  ShopByAllCategories,
+  ShopByCategory,
+  ShopNav,
+} from "shared/components";
+import _ from "lodash";
 
 const ShopDashboard = () => {
   const categories = useAppSelector(selectMappedCategories);
   const [searchParams] = useSearchParams();
   const activeCategoryLabel = searchParams.get("category");
+  const searchBy = searchParams.get("search");
+  const filteredCategories = useMemo(
+    () =>
+      categories.filter((category) =>
+        _.isNull(searchBy)
+          ? category
+          : category.title.toLowerCase().includes(searchBy.toLowerCase())
+      ),
+    [categories, searchBy]
+  );
   const mainCategoriesLabels = useMemo(
     () =>
-      categories.reduce<Array<string>>((res, category) => {
+      filteredCategories.reduce<Array<string>>((res, category) => {
         if (!res.includes(category.categoryLabel)) {
           res.push(category.categoryLabel);
         }
         return res;
       }, []),
-    [categories]
+    [filteredCategories]
   );
 
   const activeCategoryItems = useMemo(
-    () => categories.filter((cat, index) => cat.categoryLabel === activeCategoryLabel),
-    [categories, activeCategoryLabel]
+    () =>
+      filteredCategories.filter(
+        (cat, index) => cat.categoryLabel === activeCategoryLabel
+      ),
+    [filteredCategories, activeCategoryLabel]
   );
 
   return (
     <Box>
-      <ShopNav mainCategoriesLabels={mainCategoriesLabels} activeCategoryLabel={activeCategoryLabel ?? ''}/>
+      <ShopNav
+        mainCategoriesLabels={mainCategoriesLabels}
+        activeCategoryLabel={activeCategoryLabel ?? ""}
+      />
+      <SearchForProducts />
       <Grid container>
         <Grid
           item
@@ -35,7 +58,6 @@ const ShopDashboard = () => {
             height: "inherit",
             overflow: "auto",
             width: "100%",
-            mt: 1,
             pr: 1,
           }}
         >
@@ -47,7 +69,7 @@ const ShopDashboard = () => {
           ) : (
             <ShopByAllCategories
               mainCategoriesLabels={mainCategoriesLabels}
-              categories={categories}
+              categories={filteredCategories}
             />
           )}
         </Grid>

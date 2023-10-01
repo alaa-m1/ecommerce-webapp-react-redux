@@ -13,6 +13,7 @@ import {
 import { useDispatch } from "react-redux";
 import { FullScreenSpinner } from "shared";
 import {
+  SearchForProducts,
   ShopByAllCategories,
   ShopByCategory,
   ShopNav,
@@ -23,6 +24,7 @@ import _ from "lodash";
 const OnlineShopDashboard = () => {
   const [searchParams] = useSearchParams();
   const activeCategoryLabel = searchParams.get("category");
+  const searchBy = searchParams.get("search");
   const dispatch = useDispatch();
 
   /// Using react-query to manage request state with caching (The other good solution to use with Redux is RTK Query)
@@ -40,6 +42,16 @@ const OnlineShopDashboard = () => {
   const onlineCategories = useAppSelector(selectMappedProducts);
   const status = useAppSelector(selectProductsStatus);
 
+  const filteredCategories = useMemo(
+    () =>
+      onlineCategories.filter((category) =>
+        _.isNull(searchBy)
+          ? category
+          : category.title.toLowerCase().includes(searchBy.toLowerCase())
+      ),
+    [onlineCategories, searchBy]
+  );
+
   const loading = useMemo(
     () => isLoading || status.loading,
     [isLoading, status.loading]
@@ -47,21 +59,21 @@ const OnlineShopDashboard = () => {
 
   const mainCategoriesLabels = useMemo(
     () =>
-      onlineCategories.reduce<Array<string>>((res, product) => {
+      filteredCategories.reduce<Array<string>>((res, product) => {
         if (!res.includes(product.categoryLabel)) {
           res.push(product.categoryLabel);
         }
         return res;
       }, []),
-    [onlineCategories]
+    [filteredCategories]
   );
 
   const activeCategoryItems = useMemo(
     () =>
-      onlineCategories.filter(
+      filteredCategories.filter(
         (cat, index) => cat.categoryLabel === activeCategoryLabel
       ),
-    [onlineCategories, activeCategoryLabel]
+    [filteredCategories, activeCategoryLabel]
   );
 
   return (
@@ -70,6 +82,7 @@ const OnlineShopDashboard = () => {
         mainCategoriesLabels={mainCategoriesLabels}
         activeCategoryLabel={activeCategoryLabel ?? ""}
       />
+      <SearchForProducts />
       <Grid container sx={{ position: "relative" }}>
         <Grid
           item
@@ -77,7 +90,6 @@ const OnlineShopDashboard = () => {
             height: "inherit",
             overflow: "auto",
             width: "100%",
-            mt: 1,
             pr: 1,
           }}
         >
@@ -89,13 +101,11 @@ const OnlineShopDashboard = () => {
           ) : (
             <ShopByAllCategories
               mainCategoriesLabels={mainCategoriesLabels}
-              categories={onlineCategories}
+              categories={filteredCategories}
             />
           )}
         </Grid>
-        {loading && (
-          <FullScreenSpinner />
-        )}
+        {loading && <FullScreenSpinner />}
       </Grid>
     </Box>
   );
