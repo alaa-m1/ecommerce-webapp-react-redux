@@ -2,7 +2,7 @@ import React, { Suspense, useEffect } from "react";
 import "./assets/style/App.scss";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomeDashboard from "pages/Home/HomeDashboard";
-import ShopDashboard from "pages/Shop/ShopDashboard";
+import ClassicCollectionDashboard from "pages/ClassicCollection/ClassicCollectionDashboard";
 import AuthDashboard from "pages/Auth/AuthDashboard";
 import NotFoundDashboard from "pages/NotFound/NotFoundDashboard";
 import AppLayout from "pages/AppLayout/AppLayout";
@@ -20,7 +20,7 @@ import { setCurrentUser } from "store/user/userActions";
 import { useDispatch } from "react-redux";
 import { fetchCategoriesAsync } from "store/localProducts/localProductsActions";
 import GlobalStyle from "assets/style/GlobalStyle";
-import OnlineShopDashboard from "pages/OnlineShop/OnlineShopDashboard";
+import ModernCollectionDashboard from "pages/ModernCollection/ModernCollectionDashboard";
 import { ReactQueryProvider } from "utils/reactQuery/ReactQueryProvider";
 import ProtectedRoute from "utils/routes/ProtectedRoute";
 import UserSettingsDashboard from "pages/UserSettings/UserSettingsDashboard";
@@ -61,8 +61,8 @@ function App() {
           <Routes>
             <Route path="/" element={<AppLayout links={linksDetails} />}>
               <Route index element={<HomeDashboard />} />
-              <Route path="shop" element={<ShopDashboard />} />
-              <Route path="online-shop" element={<OnlineShopDashboard />} />
+              <Route path="classic-collection" element={<ClassicCollectionDashboard />} />
+              <Route path="modern-collection" element={<ModernCollectionDashboard />} />
               <Route
                 path="auth"
                 element={
