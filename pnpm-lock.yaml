@@ -158,6 +158,42 @@ importers:
       web-vitals:
         specifier: ^2.1.4
         version: 2.1.4
+      workbox-background-sync:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-broadcast-update:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-cacheable-response:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-core:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-expiration:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-google-analytics:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-navigation-preload:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-precaching:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-range-requests:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-routing:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-strategies:
+        specifier: ^6.6.0
+        version: 6.6.0
+      workbox-streams:
+        specifier: ^6.6.0
+        version: 6.6.0
       zod:
         specifier: ^3.21.4
         version: 3.21.4
