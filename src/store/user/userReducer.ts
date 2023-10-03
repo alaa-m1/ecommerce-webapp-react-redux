@@ -4,6 +4,7 @@ import { userActionTypes } from "./userActionTypes"
 type UserState={
     currentUser: null | UserInfo;
     themeMode: "light" | "dark";
+    notificationDate: string | null
 }
 
 interface UserAction {
@@ -13,7 +14,8 @@ interface UserAction {
 
 const initailState: UserState = {
     currentUser: null,
-    themeMode: "light"
+    themeMode: "light",
+    notificationDate: null
 }
 export const userReducer = (state = initailState, action: UserAction) => {
     const { type, payload } = action;
@@ -27,6 +29,11 @@ export const userReducer = (state = initailState, action: UserAction) => {
             return {
                 ...state,
                 themeMode: payload as "light" | "dark"
+            }
+        case userActionTypes.SET_NOTIFICATION_DATE:
+            return {
+                ...state,
+                notificationDate: payload as string
             }
         default:
             return state
