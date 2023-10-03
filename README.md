@@ -15,6 +15,8 @@ REACT_APP_PROJECT_ID=
 REACT_APP_STORAGE_BUCKET=
 REACT_APP_MESSAGING_SENDER_ID=
 REACT_APP_APP_ID=
+REACT_APP_STRIPE_PUBLISHABLE_KEY=
+REACT_APP_STRIPE_SK=
 ```
 
 ### `pnpm start`
@@ -37,4 +39,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 
 ## Production Link
-Production link: [https://willowy-jalebi-8d25f0.netlify.app/](https://willowy-jalebi-8d25f0.netlify.app/).
+Production link: [https://phoenix-ecommerce.netlify.app/](https://phoenix-ecommerce.netlify.app/).
