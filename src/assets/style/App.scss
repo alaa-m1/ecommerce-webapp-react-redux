@@ -102,7 +102,7 @@
 
 .central-box {
   @include custom-box-shadow-with-border;
-  max-width: 600px;
+  width: 600px;
   margin: 40px auto auto;
   text-align: center;
 }
@@ -144,7 +144,7 @@
 .shop-sub-category-section-cards {
   flex-grow: 1;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   overflow-x: scroll;
   width: 100%;
 }
