@@ -9,6 +9,8 @@ import "./i18n";
 import ThemedApp from "ThemedApp";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripeOptions, stripePromise } from "utils/stripe/stripe";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -25,6 +27,8 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

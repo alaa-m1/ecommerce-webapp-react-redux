@@ -6,7 +6,7 @@ import ShopDashboard from "pages/Shop/ShopDashboard";
 import AuthDashboard from "pages/Auth/AuthDashboard";
 import NotFoundDashboard from "pages/NotFound/NotFoundDashboard";
 import AppLayout from "pages/AppLayout/AppLayout";
-import { LoadingSpinner, linksDetails } from "shared";
+import { LoadingSpinner, linksDetails, useCheckOneDayPassed } from "shared";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Checkout from "pages/Checkout/CheckoutDashboard";
@@ -28,6 +28,38 @@ import UnAuthorizedRoute from "utils/routes/UnAuthorizedRoute";
 
 function App() {
   const dispatch = useDispatch();
+  const isOneDayPassed = useCheckOneDayPassed();
+  useEffect(() => {
+    if (Notification.permission === "granted" && isOneDayPassed) {
+      navigator.serviceWorker
+        .getRegistration()
+        .then((reg: ServiceWorkerRegistration | undefined) => {
+          console.log("reg=", reg);
+          var options = {
+            body: "Shopping is a joy with Phoenixe E-commerce",
+            icon: `${window.location.origin}/favicon-32x32.png`,
+            vibrate: [100, 50, 100],
+            data: {
+              dateOfArrival: Date.now(),
+              primaryKey: 1,
+            },
+            actions: [
+              {
+                action: "close",
+                title: "Close notification",
+                icon: `${window.location.origin}/images/close.png`,
+              },
+            ],
+          };
+          reg?.showNotification("Phoenixe E-commerce", options);
+        });
+    }
+  }, [isOneDayPassed]);
+
+  useEffect(() => {
+    if (Notification.permission !== "granted") Notification.requestPermission();
+  }, []);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: any) => {
       if (user) {
