@@ -28,8 +28,8 @@ export const MainCategoryCard = memo(
           <Link
             to={
               remoteContent
-                ? `online-shop?category=${currentCategoryLabel}`
-                : `shop?category=${currentCategoryLabel}`
+                ? `modern-collection?category=${currentCategoryLabel}`
+                : `classic-collection?category=${currentCategoryLabel}`
             }
           >
             <img
@@ -74,8 +74,8 @@ export const MainCategoryCard = memo(
         <Link
           to={
             remoteContent
-              ? `online-shop?category=${currentCategoryLabel}`
-              : `shop?category=${currentCategoryLabel}`
+              ? `modern-collection?category=${currentCategoryLabel}`
+              : `classic-collection?category=${currentCategoryLabel}`
           }
         >
           <Box className="main-category-info">

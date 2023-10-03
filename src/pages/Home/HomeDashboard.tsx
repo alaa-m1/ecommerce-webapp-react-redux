@@ -4,7 +4,7 @@ import { selectMappedCategories } from "store/localProducts/localProductsSelecto
 import { useAppSelector } from "utils/redux/hooks";
 import { LoadingSpinner } from "shared";
 import { MainCategoriesList } from "./components";
-import { useProducts } from "pages/OnlineShop/hooks";
+import { useProducts } from "pages/ModernCollection/hooks";
 import {
   fetchProductsAsync,
   setProducts,
