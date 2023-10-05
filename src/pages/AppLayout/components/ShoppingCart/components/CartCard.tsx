@@ -1,4 +1,4 @@
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { forwardRef, memo, useEffect, useMemo, useState } from "react";
 import { CartCategory } from "types";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -39,7 +39,9 @@ export const CartCard = memo(
       <Box
         className="cart-card"
         ref={ref}
-        sx={{ backgroundColor: changeColor && isUpdated ? "#ddd" : "#fff" }}
+        sx={{
+          backgroundColor: changeColor && isUpdated ? "#ddd" : "info.light"
+        }}
       >
         <Box className="cart-card-img">
           <Tooltip title={cartItemInfo.title}>
@@ -52,12 +54,19 @@ export const CartCard = memo(
         </Box>
         <Box className="cart-card-info">
           <Box>
-            <div className="cart-card-title">{cartItemInfo.title}</div>
+            <div className="cart-card-title">
+              <Typography color="primary.light">
+                {cartItemInfo.title}
+              </Typography>
+            </div>
             <div className="cart-card-quantity">
-              {`${cartItemInfo.quantity} x €${cartItemInfo.price}`}
+              <Typography color="primary.light">{`${cartItemInfo.quantity} x €${cartItemInfo.price}`}</Typography>
             </div>
           </Box>
-          <IconButton onClick={handleDeleteItem} sx={{ width: "35px", height: "35px" }}>
+          <IconButton
+            onClick={handleDeleteItem}
+            sx={{ width: "35px", height: "35px" }}
+          >
             <ClearIcon />
           </IconButton>
         </Box>

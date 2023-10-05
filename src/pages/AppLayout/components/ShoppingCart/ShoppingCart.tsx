@@ -8,14 +8,14 @@ import {
   // selectShoopingActiveCart,
   selectShoopingActiveCartIndex,
 } from "store/shoppingState/shoppingStateSelector";
-import { clsx } from 'clsx';
+import { clsx } from "clsx";
 import { useAppSelector } from "utils/redux/hooks";
 
 export const ShoppingCart = ({
   open,
   anchorEl,
   handleClose,
-  isScrolling
+  isScrolling,
 }: ShoppingCartProps) => {
   const cartContainerRef = useRef<HTMLDivElement | null>(null);
   // const { cartCounter } = useAppSelector(selectShoopingCartItemsDetails);
@@ -48,8 +48,15 @@ export const ShoppingCart = ({
         open={open}
         anchorEl={anchorEl}
         placement="bottom-end"
-        className={clsx({ "shopping-cart-mini": isScrolling }, { "shopping-cart": !isScrolling })}
-        sx={{ position: "fixed !important" }}
+        className={clsx(
+          { "shopping-cart-mini": isScrolling },
+          { "shopping-cart": !isScrolling }
+        )}
+        sx={{
+          position: "fixed !important",
+          backgroundColor: "info.light",
+          borderColor: "primary.main",
+        }}
       >
         <Box
           className="cart-container"
@@ -59,6 +66,7 @@ export const ShoppingCart = ({
 
             cartContainerRef.current = ref;
           }}
+          sx={{ backgroundColor: "info.light" }}
         >
           <CartContainer />
         </Box>
