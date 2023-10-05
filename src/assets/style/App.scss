@@ -250,10 +250,12 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    overflow-x: hidden;
   }
   .cart-card {
     display: flex;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid;
+    border-color: inherit;
     margin: 4px 0px;
     padding-left: 2px;
     align-items: center;
@@ -316,10 +318,12 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    overflow-x: hidden;
   }
   .cart-card {
     display: flex;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid;
+    border-color: inherit;
     margin: 4px 0px;
     padding-left: 2px;
     align-items: center;
@@ -359,14 +363,12 @@
       width: 35px;
       height: 35px;
     }
-    path {
-      color: #176cc7;
-    }
   }
 }
 .shopping-cart-logo {
   position: relative;
   cursor: pointer;
+  overflow: hidden;
 }
 .shopping-cart-logo-counter {
   position: absolute;
@@ -431,9 +433,10 @@
   margin: 5px 0px;
 }
 
-
-.no-items-panel{
-  display: flex; justify-content: center; padding:10px;
+.no-items-panel {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
   padding: 10px;
   margin: 20px;
   @include soft-box-shadow;

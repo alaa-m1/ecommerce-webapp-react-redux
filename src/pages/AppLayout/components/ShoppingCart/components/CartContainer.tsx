@@ -13,7 +13,7 @@ const activateCartId=useAppSelector(selectShoopingActiveCartId);
   });
 
   return (
-    <Box>
+    <Box sx={{borderColor: "primary.light"}}>
       {cartItems.map((cartItem) => (
         <CartCard
           key={cartItem.id}
