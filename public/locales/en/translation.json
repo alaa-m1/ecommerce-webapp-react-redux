@@ -1,7 +1,7 @@
 {
   "home": "Home",
-  "let_us_shopping": "Classic collection",
-  "online_shopping": "Modern collection",
+  "classic_collection": "Classic collection",
+  "modern_collection": "Modern collection",
   "settings": "Settings",
   "languages": {
     "language": "Language",
