@@ -1,5 +1,5 @@
 import { Box, Grid } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAppSelector } from "utils/redux/hooks";
 import {
@@ -11,20 +11,22 @@ import {
   setProducts,
 } from "store/products/productsActions";
 import { useDispatch } from "react-redux";
-import { FullScreenSpinner } from "shared";
+import { FullScreenSpinner, useSortOptions } from "shared";
 import {
-  SearchForProducts,
+  FilterPanel,
   ShopByAllCategories,
   ShopByCategory,
   ShopNav,
 } from "shared/components";
 import { useProducts } from "./hooks";
 import _ from "lodash";
+import { Product } from "types";
 
 const ModernCollectionDashboard = () => {
   const [searchParams] = useSearchParams();
   const activeCategoryLabel = searchParams.get("category");
   const searchBy = searchParams.get("search");
+  const sortBy = searchParams.get("sort") ?? "default";
   const dispatch = useDispatch();
 
   /// Using react-query to manage request state with caching (The other good solution to use with Redux is RTK Query)
@@ -52,6 +54,19 @@ const ModernCollectionDashboard = () => {
     [onlineCategories, searchBy]
   );
 
+  const comparisonFn = useCallback(
+    (a: Product, b: Product) => {
+      if (sortBy === "asc") return a.price - b.price;
+      return b.price - a.price;
+    },
+    [sortBy]
+  );
+
+  const SortedCategories =
+    sortBy === "default"
+      ? filteredCategories
+      : _.cloneDeep(filteredCategories).sort(comparisonFn);
+
   const loading = useMemo(
     () => isLoading || status.loading,
     [isLoading, status.loading]
@@ -70,19 +85,19 @@ const ModernCollectionDashboard = () => {
 
   const activeCategoryItems = useMemo(
     () =>
-      filteredCategories.filter(
+    SortedCategories.filter(
         (cat, index) => cat.categoryLabel === activeCategoryLabel
       ),
-    [filteredCategories, activeCategoryLabel]
+    [SortedCategories, activeCategoryLabel]
   );
-
+  const sortOptions = useSortOptions();
   return (
     <Box>
       <ShopNav
         mainCategoriesLabels={mainCategoriesLabels}
         activeCategoryLabel={activeCategoryLabel ?? ""}
       />
-      <SearchForProducts />
+      <FilterPanel sortOptions={sortOptions} />
       <Grid container sx={{ position: "relative" }}>
         <Grid
           item
@@ -101,7 +116,7 @@ const ModernCollectionDashboard = () => {
           ) : (
             <ShopByAllCategories
               mainCategoriesLabels={mainCategoriesLabels}
-              categories={filteredCategories}
+              categories={SortedCategories}
             />
           )}
         </Grid>

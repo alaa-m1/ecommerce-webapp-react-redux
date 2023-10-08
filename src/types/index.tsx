@@ -55,3 +55,5 @@ export type UserDetails = {
   address: string;
   createdAt: string;
 };
+
+export type SortOptions = Array<{ value: string; label: string }>;

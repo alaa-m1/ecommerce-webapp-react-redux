@@ -56,6 +56,16 @@ export const getTheme = (themeMode: "light" | "dark"): Theme =>
           fontSize: "15px",
         },
       },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: ({ ownerState, theme }) => ({
+            color: theme.palette.primary.light,
+            "&.Mui-focused": {
+              color: "#00f",
+            },
+          }),
+        },
+      },
       MuiIconButton: {
         defaultProps: {
           size: "medium",

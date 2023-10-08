@@ -425,18 +425,10 @@
   padding: 15px 25px;
   margin-top: 10px;
 }
-///////Search panel
-.search-panel {
-  display: flex;
-  justify-content: center;
-  padding: 8px 0px;
-  margin: 5px 0px;
-}
 
 .no-items-panel {
   display: flex;
   justify-content: center;
-  padding: 10px;
   padding: 10px;
   margin: 20px;
   @include soft-box-shadow;
