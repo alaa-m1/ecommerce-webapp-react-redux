@@ -1,13 +1,17 @@
-import { Box, IconButton, Stack, TextField } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { useCallback, useMemo, useState } from "react";
 import _ from "lodash";
+import { FormControl } from "@mui/material";
+import { InputLabel } from "@mui/material";
+import { Input } from "@mui/material";
+import { InputAdornment } from "@mui/material";
 
 export const SearchForProducts = () => {
   const { t } = useTranslation();
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [searchValue, setSearchValue] = useState(() => {
     const searchValue = searchParams.get("search");
@@ -28,8 +32,13 @@ export const SearchForProducts = () => {
   const searchDebounceFn = useMemo(
     () =>
       _.debounce((searchValue: string) => {
-        searchParams.set("search", searchValue);
-        setSearchParams(searchParams);
+        if (_.isEmpty(searchValue)) {
+          if (searchParams.has("search")) searchParams.delete("search");
+          setSearchParams(searchParams);
+        } else {
+          searchParams.set("search", searchValue);
+          setSearchParams(searchParams);
+        }
       }, 1000),
     [searchParams, setSearchParams]
   );
@@ -46,7 +55,8 @@ export const SearchForProducts = () => {
       if (_.isEmpty(newSearch)) {
         if (searchParams.has("search")) searchParams.delete("search");
         setSearchParams(searchParams);
-      } else handleDebouncedSearchChange(newSearch);
+      }
+      handleDebouncedSearchChange(newSearch);
     },
     [handleDebouncedSearchChange, searchParams, setSearchParams]
   );
@@ -66,26 +76,28 @@ export const SearchForProducts = () => {
     },
     [searchParams, setSearchParams]
   );
-
   return (
-    <Box className="search-panel">
-      <TextField
-        id="supplier_dashboard_textfield_search"
-        placeholder={t("search.search_for_products")}
-        size="small"
-        variant="standard"
-        type="search"
-        InputProps={{
-          endAdornment: (
-            <IconButton size="small" onClick={handleApplySearch}>
-              <SearchIcon sx={{ path: { color: "secondary.main" } }} />
-            </IconButton>
-          ),
-        }}
-        value={searchValue}
-        onChange={handleSearchChange}
-        onKeyDown={handleKeyDown}
-      />
+    <Box>
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+        <InputLabel htmlFor="search_box_id">
+          {t("search.search_for_products")}:
+        </InputLabel>
+        <Input
+          id="search_box_id"
+          type="search"
+          startAdornment={<InputAdornment position="end"></InputAdornment>}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton size="small" onClick={handleApplySearch}>
+                <SearchIcon sx={{ path: { color: "secondary.main" } }} />
+              </IconButton>
+            </InputAdornment>
+          }
+          value={searchValue}
+          onChange={handleSearchChange}
+          onKeyDown={handleKeyDown}
+        />
+      </FormControl>
     </Box>
   );
 };

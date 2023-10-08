@@ -35,5 +35,11 @@
     "search_label":"Suchen",
     "no_items":"Keine Gegenstände",
     "no_categories":"Keine Gegenstände"
+  },
+  "sort":{
+    "sort_by": "Sortiere nach",
+    "default":"Standard",
+    "ascending":"Aufsteigend",
+    "descending":"Absteigend"
   }
 }
