@@ -1,5 +1,5 @@
 import { Theme, createTheme } from "@mui/material";
-import type {} from "@mui/x-data-grid-pro/themeAugmentation";
+import type {} from "@mui/x-data-grid/themeAugmentation";
 
 const primaryColor = "#1976d2";
 const secondaryColor = "#9c27b0";

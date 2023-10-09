@@ -13,7 +13,7 @@ const FullScreenSpinner = () => {
         // background: "rgba(90, 90, 90, 0.2)",
         background: "#fff",
 
-        zIndex: "9999",
+        zIndex: "1099",
       }}
     >
       <Box
