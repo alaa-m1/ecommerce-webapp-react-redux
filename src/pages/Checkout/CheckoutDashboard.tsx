@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import { DataGridPro, GridSlotsComponentsProps } from "@mui/x-data-grid-pro";
+import { DataGrid, GridSlotsComponentsProps } from "@mui/x-data-grid";
 import { useCheckoutColumn } from "./hooks";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useTranslation } from "react-i18next";
 import { PaymentForm } from "./components";
 
-declare module "@mui/x-data-grid-pro" {
+declare module "@mui/x-data-grid" {
   interface FooterPropsOverrides {
     cartTotal: number;
   }
@@ -44,7 +44,7 @@ const CheckoutDashboard = () => {
       </h2>
 
       <Box>
-        <DataGridPro
+        <DataGrid
           rows={cartItems}
           columns={columns}
           isRowSelectable={(params) => params.row !== undefined}

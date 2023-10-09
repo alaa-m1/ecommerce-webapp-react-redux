@@ -1,5 +1,5 @@
 import { Box, IconButton, Typography } from "@mui/material";
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid-pro";
+import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { CartCategory } from "types";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
