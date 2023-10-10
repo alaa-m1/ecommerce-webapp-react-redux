@@ -78,7 +78,7 @@ export const SearchForProducts = () => {
   );
   return (
     <Box>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+      <FormControl variant="standard" sx={{ m: 1, width: 210 }}>
         <InputLabel htmlFor="search_box_id">
           {t("search.search_for_products")}:
         </InputLabel>
