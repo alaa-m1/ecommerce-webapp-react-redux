@@ -39,7 +39,7 @@
   "sort":{
     "sort_by": "Sortiere nach",
     "default":"Standard",
-    "ascending":"Aufsteigend",
-    "descending":"Absteigend"
+    "ascending":"Niedrigster Preis zuerst",
+    "descending":"Höchste Preise zuerst"
   }
 }

@@ -26,7 +26,7 @@ export const SortTypeSelect = (props: SortTypeSelectProps) => {
   );
 
   return (
-    <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+    <FormControl variant="standard" sx={{ m: 1, width: 210 }}>
       <InputLabel htmlFor="sort_select_id" disableAnimation>
         {t("sort.sort_by")}:
       </InputLabel>
