@@ -3,6 +3,7 @@ import { DetailedHTMLProps, InputHTMLAttributes, useId, useState } from "react";
 import ErrorIcon from "@mui/icons-material/Error";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import {clsx} from "clsx";
 
 type TextFieldProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -49,8 +50,8 @@ export const TextField = ({
           textAlign: "left",
           ">input:focus": {
             borderWidth: "1px",
-            borderColor: errors ? "#d32f2f" : "#ccc",
-            outlineColor: errors ? "#d32f2f" : "#ccc",
+            borderColor: "#ccc",
+            outlineColor: "#ccc",
             "~label": {
               top: "-15px !important",
               left: "5px !important",
@@ -58,6 +59,7 @@ export const TextField = ({
             },
           },
         }}
+        className={clsx({"error-border" :errors})}
       >
         <Box
           sx={{

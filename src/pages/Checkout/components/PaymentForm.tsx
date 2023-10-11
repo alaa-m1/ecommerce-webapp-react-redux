@@ -123,22 +123,35 @@ export const PaymentForm = () => {
                 {t("checkout.use_test_card_number")}
               </Alert>
               <PaymentElement />
-              <Button disabled={loading} variant="outlined" type="submit">
+              <Button
+                disabled={loading}
+                variant="outlined"
+                type="submit"
+              >
                 {t("checkout.process_your_payment")}
               </Button>
             </form>
           )}
         </>
       ) : (
-        <Alert
-          sx={{ mb: 1, width: "60%" }}
-          severity="info"
-          style={{
-            backgroundColor: "#e65100",
-          }}
-        >
-          {t("checkout.login_before_pay")}
-        </Alert>
+        <Box className="payment-container">
+          <Alert
+            sx={{ mb: 1, width: "60%" }}
+            severity="info"
+            style={{
+              backgroundColor: "#e65100",
+            }}
+          >
+            {t("checkout.login_before_pay")}
+          </Alert>
+          <Button
+            disabled
+            variant="outlined"
+            type="submit"
+          >
+            {t("checkout.process_your_payment")}
+          </Button>
+        </Box>
       )}
       {errorMessage && (
         <Alert
