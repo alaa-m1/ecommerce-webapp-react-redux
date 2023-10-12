@@ -8,7 +8,7 @@ const {
 
 describe("Test signin process", () => {
   beforeEach(() => {
-    cy.fixture("user-credentials").as("userCredentials");
+    // cy.fixture("user-credentials").as("userCredentials");
     cy.signOut();
     //change language to English
     cy.getTestElement("AppLayout-link-language").click();
@@ -108,15 +108,17 @@ describe("Test signin process", () => {
 
     //Navigate to signin page
     cy.getTestElement("AppLayout-link-signin").click();
-    cy.get("@userCredentials").then((userCred) => {
-      cy.getTestElement("Auth-SignIn-text-email").click();
-      cy.getTestElement("Auth-SignIn-text-email").type(userCred.email);
-      cy.getTestElement("Auth-SignIn-text-password").type(userCred.password);
-      cy.getTestElement("Auth-SignIn-btn-signin").click();
-      cy.wait("@signInWithPassword").then(() =>
-        cy.getTestElement("AppLayout-link-signout").should("exist")
-      );
-    });
+    // cy.get("@userCredentials").then((userCred) => {
+    cy.getTestElement("Auth-SignIn-text-email").click();
+    cy.getTestElement("Auth-SignIn-text-email").type(Cypress.env("user_email"));
+    cy.getTestElement("Auth-SignIn-text-password").type(
+      Cypress.env("user_password")
+    );
+    cy.getTestElement("Auth-SignIn-btn-signin").click();
+    cy.wait("@signInWithPassword").then(() =>
+      cy.getTestElement("AppLayout-link-signout").should("exist")
+    );
+    // });
   });
 
   it("Should verify signing in with valid credentials (stubbing the response)", () => {
