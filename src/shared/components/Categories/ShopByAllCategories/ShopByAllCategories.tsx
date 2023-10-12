@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { Product } from "types";
 import { ShopSubCategoryList } from "./components";
 import { useTranslation } from "react-i18next";
+import { NoItemsFound } from "shared/components/NoItemsFound";
 
 type ShopByAllCategoriesProps = {
   mainCategoriesLabels: Array<string>;
@@ -13,7 +14,7 @@ export const ShopByAllCategories = ({
 }: ShopByAllCategoriesProps) => {
   const { t } = useTranslation();
   return (
-    <Box className="shop-category-container">
+    <Box className="shop-category-container" data-testid="ShopByAllCategories-div">
       {mainCategoriesLabels.map((categoryLabel, index) => {
         const categoryDetails = categories.filter(
           (item) => item.categoryLabel === categoryLabel
@@ -29,9 +30,7 @@ export const ShopByAllCategories = ({
         );
       })}
       {categories.length === 0 && (
-        <Box className="no-items-panel">
-          <Typography color="primary.light">{t("search.no_items")}</Typography>
-        </Box>
+        <NoItemsFound/>
       )}
     </Box>
   );

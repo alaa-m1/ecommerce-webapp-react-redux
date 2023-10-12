@@ -18,6 +18,7 @@ export const CartFooter = ({ isScrolling }: { isScrolling: boolean }) => {
           dispatch(setShowCart(false));
           navigate({ pathname: "/checkout" });
         }}
+        data-testid="ShoppingCart-CartFooter-btn-checkout"
       >
         {t("shopping_cart.checkout")}
       </Button>

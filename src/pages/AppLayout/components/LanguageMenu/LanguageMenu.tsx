@@ -23,6 +23,7 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
           i18n.changeLanguage("en");
           handleClose();
         }}
+        data-testid="AppLayout-LanguageMenu-menuItem-en"
       >
         <Typography color="primary.main">
         {t("languages.english")}
@@ -34,6 +35,7 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
           i18n.changeLanguage("de");
           handleClose();
         }}
+        data-testid="AppLayout-LanguageMenu-menuItem-de"
       >
         <Typography color="primary.main">
         {t("languages.german")}

@@ -95,6 +95,7 @@ const AppLayout = ({ links }: NavigationProps) => {
         minHeight: "100vh",
         justifyContent: "space-between",
       }}
+      data-testid="AppLayout-div"
     >
       <ShoppingCart
         open={isCartOpen}
@@ -134,6 +135,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                         isactive={
                           pathname === link.path ? "active" : "inActive"
                         }
+                        data-testid={`AppLayout-link-${link.label}`}
                       >
                         {t(link.label)}
                       </StyledLink>
@@ -143,6 +145,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                     className="language-menu-btn"
                     onClick={handleLanguageMenuClick}
                     color="primary.main"
+                    data-testid="AppLayout-link-language"
                   >
                     {t("languages.language")}
                   </Typography>
@@ -152,6 +155,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                       <StyledLink
                         to="auth"
                         isactive={pathname === "/auth" ? "active" : "inActive"}
+                        data-testid="AppLayout-link-signout"
                       >
                         {t("auth.signout")}
                       </StyledLink>
@@ -161,6 +165,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                       <StyledLink
                         to="auth"
                         isactive={pathname === "/auth" ? "active" : "inActive"}
+                        data-testid="AppLayout-link-signin"
                       >
                         {t("auth.signin")}
                       </StyledLink>
@@ -179,6 +184,7 @@ const AppLayout = ({ links }: NavigationProps) => {
               className="shopping-cart-logo"
               onClick={(e) => dispatch(setShowCart(!isCartOpen))}
               ref={shoppingCartRef}
+              data-testid="AppLayout-link-shoppingCart"
             >
               <ShoppingCartLogo />
             </Box>

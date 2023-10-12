@@ -39,7 +39,7 @@ export const ShopCategoryCard = memo(({ catInfo }: ShopCategoryCardProps) => {
     [catInfo.categoryLabel, catInfo.imagePath]
   );
   return (
-    <Box className="shop-category-card" sx={{ color: "secondary.dark" }}>
+    <Box className="shop-category-card" sx={{ color: "secondary.dark" }} data-testid="ShopCategoryCard-div">
       <Box className="shop-category-images">
         <img src={imagePath} alt={`${catInfo.categoryLabel}`} loading="lazy" />
       </Box>

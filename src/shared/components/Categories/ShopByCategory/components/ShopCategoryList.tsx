@@ -3,6 +3,7 @@ import { Product } from "types";
 import _ from "lodash";
 import { ShopCategoryCard } from "../../../../../shared/components/ShopCategoryCard";
 import { useTranslation } from "react-i18next";
+import { NoItemsFound } from "shared/components/NoItemsFound";
 
 type ShopCategoryListProps = {
   subCategories: Array<Product>;
@@ -31,9 +32,7 @@ export const ShopCategoryList = ({
         ))}
       </Box>
       {subCategories.length === 0 && (
-        <Box className="no-items-panel">
-          <Typography color="primary.light">{t("search.no_items")}</Typography>
-        </Box>
+        <NoItemsFound/>
       )}
     </Box>
   );

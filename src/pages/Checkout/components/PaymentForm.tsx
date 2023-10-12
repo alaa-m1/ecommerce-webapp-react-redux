@@ -96,6 +96,7 @@ export const PaymentForm = () => {
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", justifyContent: "start" }}
+      data-testid="CheckoutDashboard-PaymentForm-div"
     >
       {currentUser ? (
         <>
@@ -127,6 +128,7 @@ export const PaymentForm = () => {
                 disabled={loading}
                 variant="outlined"
                 type="submit"
+                data-testid="CheckoutDashboard-PaymentForm-btn-payment"
               >
                 {t("checkout.process_your_payment")}
               </Button>
@@ -141,6 +143,7 @@ export const PaymentForm = () => {
             style={{
               backgroundColor: "#e65100",
             }}
+            data-testid="CheckoutDashboard-PaymentForm-alert-info"
           >
             {t("checkout.login_before_pay")}
           </Alert>
@@ -148,6 +151,7 @@ export const PaymentForm = () => {
             disabled
             variant="outlined"
             type="submit"
+            data-testid="CheckoutDashboard-PaymentForm-btn-payment"
           >
             {t("checkout.process_your_payment")}
           </Button>
