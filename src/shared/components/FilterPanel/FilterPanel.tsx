@@ -6,7 +6,7 @@ import { SortOptions } from "types";
 export const FilterPanel = ({ sortOptions }: FilterPanelProps) => {
     const theme=useTheme()
   return (
-    <Grid container columnSpacing={2} mt={1}>
+    <Grid container columnSpacing={2} mt={1} data-testid="FilterPanel-div">
       <Grid
         item
         xs={12}

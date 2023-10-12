@@ -96,6 +96,7 @@ export const SearchForProducts = () => {
           value={searchValue}
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
+          data-testid="FilterPanel-SearchForProducts-text-search"
         />
       </FormControl>
     </Box>

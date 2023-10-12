@@ -61,7 +61,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cy": "pnpm cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -87,6 +88,8 @@
     "@types/redux-persist": "^4.3.1",
     "@types/styled-components": "^5.1.26",
     "@types/validator": "^13.7.17",
-    "@types/zxcvbn": "^4.4.1"
+    "@types/zxcvbn": "^4.4.1",
+    "cypress": "^13.3.0",
+    "eslint-plugin-cypress": "^2.15.1"
   }
 }

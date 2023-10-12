@@ -237,6 +237,7 @@ const SignUp = () => {
           variant="outlined"
           type="submit"
           sx={{ width: "50%", margin: "0px auto" }}
+          data-testid="Auth-SignUp-btn-signup"
         >
           {t("auth.signup")}
         </LoadingButton>

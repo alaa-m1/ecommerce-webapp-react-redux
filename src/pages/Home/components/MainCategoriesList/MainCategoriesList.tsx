@@ -11,7 +11,7 @@ export const MainCategoriesList = ({
   categories,
 }: MainCategoriesListProps) => {
   return (
-    <Box className="main-category-container">
+    <Box className="main-category-container" data-testid="Home-div">
       {mainCategories.map((categoryLabel,index) => {
         const categoryDetails = categories.filter(
           (item) => item.categoryLabel === categoryLabel

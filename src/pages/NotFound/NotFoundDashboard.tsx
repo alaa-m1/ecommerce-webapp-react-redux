@@ -14,6 +14,7 @@ return (
         paddingBottom: "10px",
         color:"secondary.dark"
       }}
+      data-testid="NotFound-div"
     >
         <Typography fontSize="16px" color="primary.light">404</Typography>
         <Typography color="primary.light">PAGE NOT FOUND</Typography>

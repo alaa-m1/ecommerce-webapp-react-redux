@@ -129,7 +129,7 @@ const AuthDashboard = () => {
           >
             If you already have an account &nbsp;
           </Typography>
-          <LinkButton label={t('auth.signin')} sx={{color:"primary.light", fontSize:"15px"}}/>
+          <LinkButton label={t('auth.signin')} sx={{color:"primary.light", fontSize:"15px"}} data-testid="Auth-btn-signin"/>
         </Box>
       ) : (
         <Box sx={{ "button:hover": { backgroundColor: "transparent" } }}>
@@ -140,7 +140,7 @@ const AuthDashboard = () => {
           >
             If you do not have an account &nbsp;
           </Typography>
-        <LinkButton query="signup" label={t('auth.signup')} sx={{color:"primary.light", fontSize:"15px"}}/>
+        <LinkButton query="signup" label={t('auth.signup')} sx={{color:"primary.light", fontSize:"15px"}} data-testid="Auth-btn-signup"/>
         </Box>
       )}
     </Box>

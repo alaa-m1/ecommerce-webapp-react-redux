@@ -75,7 +75,7 @@ const SignIn = () => {
           getValues={getValues}
           errors={errors.email?.message}
           disabled={isSubmitting}
-        // autoComplete="off"
+          data-testid="Auth-SignIn-text-email"
         ></TextField>
         <TextField
           name="password"
@@ -87,8 +87,8 @@ const SignIn = () => {
           getValues={getValues}
           errors={errors.password?.message}
           disabled={isSubmitting}
-          // autoComplete="off"
           defaultValue=""
+          data-testid="Auth-SignIn-text-password"
         ></TextField>
         <LoadingButton
           loading={isSubmitting}
@@ -96,6 +96,7 @@ const SignIn = () => {
           variant="outlined"
           type="submit"
           sx={{ width: "50%", margin: "0px auto" }}
+          data-testid="Auth-SignIn-btn-signin"
         >
           {t('auth.signin')}
         </LoadingButton>

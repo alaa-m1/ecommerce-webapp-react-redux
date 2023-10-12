@@ -11,7 +11,7 @@ export const ShopByCategory = ({
   activeCategoryLabel,
 }: ShopByCategoryProps) => {
   return (
-    <Box className="shop-category-container">
+    <Box className="shop-category-container" data-testid="shop-ShopByCategory-div">
       <ShopCategoryList
         categoryLabel={activeCategoryLabel}
         subCategories={activeCategoryItems}
