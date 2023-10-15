@@ -2,7 +2,6 @@ import { Box, Typography } from "@mui/material";
 import { Product } from "types";
 import _ from "lodash";
 import { ShopCategoryCard } from "../../../../../shared/components/ShopCategoryCard";
-import { useTranslation } from "react-i18next";
 import { NoItemsFound } from "shared/components/NoItemsFound";
 
 type ShopCategoryListProps = {
@@ -13,7 +12,6 @@ export const ShopCategoryList = ({
   subCategories,
   categoryLabel,
 }: ShopCategoryListProps) => {
-  const { t } = useTranslation();
   return (
     <Box className="shop-category-section" sx={{ color: "secondary.dark" }}>
       <Box className="shop-category-section-title">

@@ -1,7 +1,6 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Product } from "types";
 import { ShopSubCategoryList } from "./components";
-import { useTranslation } from "react-i18next";
 import { NoItemsFound } from "shared/components/NoItemsFound";
 
 type ShopByAllCategoriesProps = {
@@ -12,7 +11,6 @@ export const ShopByAllCategories = ({
   mainCategoriesLabels,
   categories,
 }: ShopByAllCategoriesProps) => {
-  const { t } = useTranslation();
   return (
     <Box className="shop-category-container" data-testid="ShopByAllCategories-div">
       {mainCategoriesLabels.map((categoryLabel, index) => {
