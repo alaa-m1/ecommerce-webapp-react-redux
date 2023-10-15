@@ -41,5 +41,6 @@
     "default":"Standard",
     "ascending":"Niedrigster Preis zuerst",
     "descending":"Höchster Preis zuerst"
-  }
+  },
+  "terms":"Geschäftsbedingungen"
 }
