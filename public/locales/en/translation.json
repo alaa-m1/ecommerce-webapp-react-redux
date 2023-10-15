@@ -41,5 +41,6 @@
     "default":"Default",
     "ascending":"Lowest price first",
     "descending":"Highest price first"
-  }
+  },
+  "terms":"Terms and conditions"
 }

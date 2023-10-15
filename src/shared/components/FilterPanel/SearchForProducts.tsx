@@ -4,10 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { useCallback, useMemo, useState } from "react";
 import _ from "lodash";
-import { FormControl } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { Input } from "@mui/material";
-import { InputAdornment } from "@mui/material";
+import { Input,InputAdornment, InputLabel, FormControl } from "@mui/material";
 
 export const SearchForProducts = () => {
   const { t } = useTranslation();
