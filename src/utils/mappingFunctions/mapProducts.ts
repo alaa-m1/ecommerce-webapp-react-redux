@@ -1,5 +1,6 @@
 import { Products, ProductsResponse } from "types";
-
+import _ from "lodash";
+ 
 export declare type MapResponseFn<TDATA, RDATA = unknown> = (res: RDATA) => TDATA;
 export const mapProducts: MapResponseFn<Products, ProductsResponse> = (
   res: ProductsResponse
@@ -12,6 +13,7 @@ export const mapProducts: MapResponseFn<Products, ProductsResponse> = (
     categoryLabel: product.category,
     imagePath: product.image,
     rating: product.rating,
+    uId:_.uniqueId()
   }))
   return products
 };
