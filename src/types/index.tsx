@@ -24,6 +24,7 @@ export type Product = {
   description: string;
   imagePath: string;
   rating?: Rating;
+  uId: string;
 };
 
 export type CartCategory = Product & {

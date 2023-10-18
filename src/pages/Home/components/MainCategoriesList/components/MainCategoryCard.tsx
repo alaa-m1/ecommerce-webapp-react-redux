@@ -4,6 +4,7 @@ import { Product } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Link } from "react-router-dom";
+import withLoadingIndicator from "shared/HOC/withLoadingIndicator";
 
 type MainCategoryCardProps = {
   subCategories: Array<Product>;
@@ -32,10 +33,9 @@ export const MainCategoryCard = memo(
                 : `classic-collection?category=${currentCategoryLabel}`
             }
           >
-            <img
-              src={imagePath}
-              alt={`${currentCategoryLabel}`}
-              loading="lazy"
+            <CardImageWithLoader
+              imagePath={imagePath}
+              altInfo={currentCategoryLabel}
             />
           </Link>
         </Box>
@@ -88,3 +88,23 @@ export const MainCategoryCard = memo(
     );
   }
 );
+
+const CardImage = ({
+  imagePath,
+  altInfo,
+  onLoadingIsComplete,
+}: {
+  imagePath: string;
+  altInfo: string;
+  onLoadingIsComplete?: () => void;
+}) => {
+  return (
+    <img
+      src={imagePath}
+      alt={altInfo}
+      loading="lazy"
+      onLoad={() => onLoadingIsComplete?.()}
+    />
+  );
+};
+const CardImageWithLoader = withLoadingIndicator(CardImage, "loading");

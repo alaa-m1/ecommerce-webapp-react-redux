@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { removeFromCart } from "store/shoppingCart/shoppingCartActions";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
+import withLoadingIndicator from "shared/HOC/withLoadingIndicator";
 
 type CartCardProps = {
   cartItemInfo: CartCategory;
@@ -40,15 +41,14 @@ export const CartCard = memo(
         className="cart-card"
         ref={ref}
         sx={{
-          backgroundColor: changeColor && isUpdated ? "#ddd" : "info.light"
+          backgroundColor: changeColor && isUpdated ? "#ddd" : "info.light",
         }}
       >
         <Box className="cart-card-img">
           <Tooltip title={cartItemInfo.title}>
-            <img
-              src={imagePath}
-              alt={`${cartItemInfo.categoryLabel}`}
-              loading="lazy"
+            <CardImageWithLoader
+              imagePath={imagePath}
+              altInfo={cartItemInfo.categoryLabel}
             />
           </Tooltip>
         </Box>
@@ -74,3 +74,23 @@ export const CartCard = memo(
     );
   })
 );
+
+const CardImage = ({
+  imagePath,
+  altInfo,
+  onLoadingIsComplete,
+}: {
+  imagePath: string;
+  altInfo: string;
+  onLoadingIsComplete?: () => void;
+}) => {
+  return (
+    <img
+      src={imagePath}
+      alt={altInfo}
+      loading="lazy"
+      onLoad={() => onLoadingIsComplete?.()}
+    />
+  );
+};
+const CardImageWithLoader = withLoadingIndicator(CardImage, "");
