@@ -48,17 +48,19 @@ Cypress.Commands.add("signOut", () => {
   cy.get('[data-testid="Home-div"]').should("exist");
   // signout
   cy.getAllLocalStorage().then((result) => {
-    const res = JSON.parse(result[baseUrl]["persist:root"]);
-    const currentUser = JSON.parse(res.user).currentUser;
-    if (currentUser !== null) {
-      cy.wait("@initLookup", 50000).then(() =>
-        cy.getTestElement("AppLayout-div").then(($a) => {
-          if ($a.text().includes("Sign Out")) {
-            cy.get('[data-testid="AppLayout-link-signout"]').click();
-            cy.wait(500);
-          }
-        })
-      );
+    if (result[baseUrl]) {
+      const res = JSON.parse(result[baseUrl]["persist:root"]);
+      const currentUser = JSON.parse(res.user).currentUser;
+      if (currentUser !== null) {
+        cy.wait("@initLookup", 50000).then(() =>
+          cy.getTestElement("AppLayout-div").then(($a) => {
+            if ($a.text().includes("Sign Out")) {
+              cy.get('[data-testid="AppLayout-link-signout"]').click();
+              cy.wait(500);
+            }
+          })
+        );
+      }
     }
   });
 });
