@@ -112,11 +112,13 @@ const ModernCollectionDashboard = () => {
             <ShopByCategory
               activeCategoryLabel={activeCategoryLabel}
               activeCategoryItems={activeCategoryItems}
+              isLoading={loading}
             />
           ) : (
             <ShopByAllCategories
               mainCategoriesLabels={mainCategoriesLabels}
               categories={SortedCategories}
+              isLoading={loading}
             />
           )}
         </Grid>

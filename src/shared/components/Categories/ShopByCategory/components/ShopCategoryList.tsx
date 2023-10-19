@@ -7,10 +7,12 @@ import { NoItemsFound } from "shared/components/NoItemsFound";
 type ShopCategoryListProps = {
   subCategories: Array<Product>;
   categoryLabel: string;
+  isLoading: boolean;
 };
 export const ShopCategoryList = ({
   subCategories,
   categoryLabel,
+  isLoading
 }: ShopCategoryListProps) => {
   return (
     <Box className="shop-category-section" sx={{ color: "secondary.dark" }}>
@@ -29,7 +31,7 @@ export const ShopCategoryList = ({
           ></ShopCategoryCard>
         ))}
       </Box>
-      {subCategories.length === 0 && (
+      {subCategories.length === 0 && !isLoading &&(
         <NoItemsFound/>
       )}
     </Box>

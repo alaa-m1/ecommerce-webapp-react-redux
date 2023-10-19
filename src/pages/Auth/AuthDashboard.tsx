@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, useTheme, Button } from "@mui/material";
+import { Box, Grid, Typography, useTheme, Button, styled } from "@mui/material";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import { useSearchParams } from "react-router-dom";
@@ -17,7 +17,7 @@ import { getRedirectResult } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 
 const AuthDashboard = () => {
-  const {t}=useTranslation();
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("p");
   const theme = useTheme();
@@ -35,7 +35,7 @@ const AuthDashboard = () => {
     }
   };
   return (
-    <Box className="central-box" sx={{color:"secondary.dark"}}>
+    <Box className="central-box" sx={{ color: "secondary.dark" }}>
       <Box>{searchQuery === "signup" ? <SignUp /> : <SignIn />}</Box>
 
       <>
@@ -79,42 +79,42 @@ const AuthDashboard = () => {
         >
           <Grid
             item
-            xs={6}
-            md={3}
+            xs={12}
+            md={4}
             sx={{ button: { textTransform: "unset !important" } }}
           >
-            <Button
-              startIcon={<GoogleIcon sx={{ color: "#4285f4" }} />}
+            <AccountsButton
+              startIcon={<GoogleIcon />}
               onClick={() => signIn("google")}
             >
               Google
-            </Button>
+            </AccountsButton>
           </Grid>
           <Grid
             item
-            xs={6}
-            md={3}
+            xs={12}
+            md={4}
             sx={{ button: { textTransform: "unset !important" } }}
           >
-            <Button
-              startIcon={<GoogleIcon sx={{ color: "#4285f4" }} />}
+            <AccountsButton
+              startIcon={<GoogleIcon />}
               onClick={signInWithGoogleRedirect}
             >
               Google redirect
-            </Button>
+            </AccountsButton>
           </Grid>
           <Grid
             item
-            xs={6}
-            md={3}
+            xs={12}
+            md={4}
             sx={{ button: { textTransform: "unset !important" } }}
           >
-            <Button
-              startIcon={<FacebookIcon sx={{ color: "#4285f4" }} />}
+            <AccountsButton
+              startIcon={<FacebookIcon />}
               onClick={() => signIn("facebook")}
             >
               Facebook
-            </Button>
+            </AccountsButton>
           </Grid>
         </Grid>
       </>
@@ -129,22 +129,36 @@ const AuthDashboard = () => {
           >
             If you already have an account &nbsp;
           </Typography>
-          <LinkButton label={t('auth.signin')} sx={{color:"primary.light", fontSize:"15px"}} data-testid="Auth-btn-signin"/>
+          <LinkButton
+            label={t("auth.signin")}
+            sx={{ color: "primary.light", fontSize: "15px" }}
+            data-testid="Auth-btn-signin"
+          />
         </Box>
       ) : (
         <Box sx={{ "button:hover": { backgroundColor: "transparent" } }}>
           <Typography
             variant="caption"
             color={theme.palette.text.secondary}
-            fontSize={18}
           >
             If you do not have an account &nbsp;
           </Typography>
-        <LinkButton query="signup" label={t('auth.signup')} sx={{color:"primary.light", fontSize:"15px"}} data-testid="Auth-btn-signup"/>
+          <LinkButton
+            query="signup"
+            label={t("auth.signup")}
+            sx={{ color: "primary.light", fontSize: "15px" }}
+            data-testid="Auth-btn-signup"
+          />
         </Box>
       )}
     </Box>
   );
 };
 
+const AccountsButton = styled(Button)(({ theme }) => ({
+  minWidth: "140px",
+  "& svg path": {
+    color: theme.palette.primary.light,
+  },
+}));
 export default AuthDashboard;
