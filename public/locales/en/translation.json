@@ -1,7 +1,7 @@
 {
   "home": "Home",
-  "let_us_shopping": "Classic collection",
-  "online_shopping": "Modern collection",
+  "classic_collection": "Classic collection",
+  "modern_collection": "Modern collection",
   "settings": "Settings",
   "languages": {
     "language": "Language",
@@ -35,5 +35,13 @@
     "search_label":"Search",
     "no_items":"No items",
     "no_categories":"No categories"
-  }
+  },
+  "sort":{
+    "sort_by": "Sort by",
+    "default":"Default",
+    "ascending":"Lowest price first",
+    "descending":"Highest price first"
+  },
+  "terms":"Terms and conditions",
+  "loading":"Loading..."
 }

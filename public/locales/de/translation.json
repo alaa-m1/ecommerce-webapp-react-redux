@@ -1,7 +1,7 @@
 {
   "home": "Heim",
-  "let_us_shopping": "klassische Sammlung",
-  "online_shopping": "Moderne Kollektion",
+  "classic_collection": "klassische Sammlung",
+  "modern_collection": "Moderne Kollektion",
   "settings": "Einstellungen",
   "languages": {
     "language": "Sprache",
@@ -35,5 +35,13 @@
     "search_label":"Suchen",
     "no_items":"Keine Gegenstände",
     "no_categories":"Keine Gegenstände"
-  }
+  },
+  "sort":{
+    "sort_by": "Sortiere nach",
+    "default":"Standard",
+    "ascending":"Niedrigster Preis zuerst",
+    "descending":"Höchster Preis zuerst"
+  },
+  "terms":"Geschäftsbedingungen",
+  "loading":"Wird geladen..."
 }

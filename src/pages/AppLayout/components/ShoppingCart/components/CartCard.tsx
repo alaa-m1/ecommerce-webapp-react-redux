@@ -1,4 +1,4 @@
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { forwardRef, memo, useEffect, useMemo, useState } from "react";
 import { CartCategory } from "types";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { removeFromCart } from "store/shoppingCart/shoppingCartActions";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
+import withLoadingIndicator from "shared/HOC/withLoadingIndicator";
 
 type CartCardProps = {
   cartItemInfo: CartCategory;
@@ -39,25 +40,33 @@ export const CartCard = memo(
       <Box
         className="cart-card"
         ref={ref}
-        sx={{ backgroundColor: changeColor && isUpdated ? "#ddd" : "#fff" }}
+        sx={{
+          backgroundColor: changeColor && isUpdated ? "#ddd" : "info.light",
+        }}
       >
         <Box className="cart-card-img">
           <Tooltip title={cartItemInfo.title}>
-            <img
-              src={imagePath}
-              alt={`${cartItemInfo.categoryLabel}`}
-              loading="lazy"
+            <CardImageWithLoader
+              imagePath={imagePath}
+              altInfo={cartItemInfo.categoryLabel}
             />
           </Tooltip>
         </Box>
         <Box className="cart-card-info">
           <Box>
-            <div className="cart-card-title">{cartItemInfo.title}</div>
+            <div className="cart-card-title">
+              <Typography color="primary.light">
+                {cartItemInfo.title}
+              </Typography>
+            </div>
             <div className="cart-card-quantity">
-              {`${cartItemInfo.quantity} x €${cartItemInfo.price}`}
+              <Typography color="primary.light">{`${cartItemInfo.quantity} x €${cartItemInfo.price}`}</Typography>
             </div>
           </Box>
-          <IconButton onClick={handleDeleteItem} sx={{ width: "35px", height: "35px" }}>
+          <IconButton
+            onClick={handleDeleteItem}
+            sx={{ width: "35px", height: "35px" }}
+          >
             <ClearIcon />
           </IconButton>
         </Box>
@@ -65,3 +74,23 @@ export const CartCard = memo(
     );
   })
 );
+
+const CardImage = ({
+  imagePath,
+  altInfo,
+  onLoadingIsComplete,
+}: {
+  imagePath: string;
+  altInfo: string;
+  onLoadingIsComplete?: () => void;
+}) => {
+  return (
+    <img
+      src={imagePath}
+      alt={altInfo}
+      loading="lazy"
+      onLoad={() => onLoadingIsComplete?.()}
+    />
+  );
+};
+const CardImageWithLoader = withLoadingIndicator(CardImage, "");

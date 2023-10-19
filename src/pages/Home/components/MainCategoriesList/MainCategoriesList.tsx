@@ -1,22 +1,23 @@
 import { Box } from "@mui/material";
 import { Products } from "types";
 import { MainCategoryCard } from "./components";
+import _ from "lodash";
 
 type MainCategoriesListProps = {
-  mainCategories: Array<string>;
+  mainCategoriesLabels: Array<string>;
   categories: Products;
 };
 export const MainCategoriesList = ({
-  mainCategories,
+  mainCategoriesLabels,
   categories,
 }: MainCategoriesListProps) => {
   return (
-    <Box className="main-category-container">
-      {mainCategories.map((categoryLabel,index) => {
+    <Box className="main-category-container" data-testid="Home-div">
+      {mainCategoriesLabels.map((categoryLabel,index) => {
         const categoryDetails = categories.filter(
           (item) => item.categoryLabel === categoryLabel
         );
-        return <MainCategoryCard key={index} currentCategoryLabel={categoryLabel} subCategories={categoryDetails}></MainCategoryCard>;
+        return <MainCategoryCard key={_.uniqueId()} currentCategoryLabel={categoryLabel} subCategories={categoryDetails}></MainCategoryCard>;
       })}
     </Box>
   );

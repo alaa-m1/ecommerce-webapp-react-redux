@@ -10,7 +10,7 @@
     "@mui/lab": "^5.0.0-alpha.131",
     "@mui/material": "^5.13.1",
     "@mui/styled-engine-sc": "^5.12.0",
-    "@mui/x-data-grid-pro": "^6.5.0",
+    "@mui/x-data-grid": "^6.16.1",
     "@reduxjs/toolkit": "^1.9.6",
     "@stripe/react-stripe-js": "^2.3.0",
     "@stripe/stripe-js": "^2.1.6",
@@ -20,7 +20,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.32",
-    "@types/react": "^18.2.6",
+    "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.4",
     "axios": "^1.5.0",
     "clsx": "^2.0.0",
@@ -73,7 +73,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cy": "pnpm cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -99,6 +100,8 @@
     "@types/redux-persist": "^4.3.1",
     "@types/styled-components": "^5.1.26",
     "@types/validator": "^13.7.17",
-    "@types/zxcvbn": "^4.4.1"
+    "@types/zxcvbn": "^4.4.1",
+    "cypress": "^13.3.0",
+    "eslint-plugin-cypress": "^2.15.1"
   }
 }

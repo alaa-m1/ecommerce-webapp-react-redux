@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { memo, useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
+import withLoadingIndicator from "shared/HOC/withLoadingIndicator";
 import { addToCart, setShowCart } from "store/shoppingCart/shoppingCartActions";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import {
@@ -13,6 +14,7 @@ import { useAppSelector } from "utils/redux/hooks";
 type ShopCategoryCardProps = {
   catInfo: Product;
 };
+
 export const ShopCategoryCard = memo(({ catInfo }: ShopCategoryCardProps) => {
   const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
   const dispatch = useDispatch();
@@ -39,9 +41,16 @@ export const ShopCategoryCard = memo(({ catInfo }: ShopCategoryCardProps) => {
     [catInfo.categoryLabel, catInfo.imagePath]
   );
   return (
-    <Box className="shop-category-card" sx={{ color: "secondary.dark" }}>
+    <Box
+      className="shop-category-card"
+      sx={{ color: "secondary.dark" }}
+      data-testid="ShopCategoryCard-div"
+    >
       <Box className="shop-category-images">
-        <img src={imagePath} alt={`${catInfo.categoryLabel}`} loading="lazy" />
+        <CardImageWithLoader
+          imagePath={imagePath}
+          altInfo={catInfo.categoryLabel}
+        />
       </Box>
       <Box className="shopping-title">
         <Typography color="primary.light">{catInfo.title}</Typography>
@@ -61,3 +70,23 @@ export const ShopCategoryCard = memo(({ catInfo }: ShopCategoryCardProps) => {
     </Box>
   );
 });
+
+const CardImage = ({
+  imagePath,
+  altInfo,
+  onLoadingIsComplete,
+}: {
+  imagePath: string;
+  altInfo: string;
+  onLoadingIsComplete?: () => void;
+}) => {
+  return (
+    <img
+      src={imagePath}
+      alt={altInfo}
+      loading="lazy"
+      onLoad={() => onLoadingIsComplete?.()}
+    />
+  );
+};
+const CardImageWithLoader = withLoadingIndicator(CardImage, "loading");

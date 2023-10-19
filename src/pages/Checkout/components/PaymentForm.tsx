@@ -96,6 +96,7 @@ export const PaymentForm = () => {
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", justifyContent: "start" }}
+      data-testid="CheckoutDashboard-PaymentForm-div"
     >
       {currentUser ? (
         <>
@@ -123,22 +124,38 @@ export const PaymentForm = () => {
                 {t("checkout.use_test_card_number")}
               </Alert>
               <PaymentElement />
-              <Button disabled={loading} variant="outlined" type="submit">
+              <Button
+                disabled={loading}
+                variant="outlined"
+                type="submit"
+                data-testid="CheckoutDashboard-PaymentForm-btn-payment"
+              >
                 {t("checkout.process_your_payment")}
               </Button>
             </form>
           )}
         </>
       ) : (
-        <Alert
-          sx={{ mb: 1, width: "60%" }}
-          severity="info"
-          style={{
-            backgroundColor: "#e65100",
-          }}
-        >
-          {t("checkout.login_before_pay")}
-        </Alert>
+        <Box className="payment-container">
+          <Alert
+            sx={{ mb: 1, width: "60%" }}
+            severity="info"
+            style={{
+              backgroundColor: "#e65100",
+            }}
+            data-testid="CheckoutDashboard-PaymentForm-alert-info"
+          >
+            {t("checkout.login_before_pay")}
+          </Alert>
+          <Button
+            disabled
+            variant="outlined"
+            type="submit"
+            data-testid="CheckoutDashboard-PaymentForm-btn-payment"
+          >
+            {t("checkout.process_your_payment")}
+          </Button>
+        </Box>
       )}
       {errorMessage && (
         <Alert

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { GridLoader } from "react-spinners";
 
-const LoadingSpinner = ({ floatingOver }: { floatingOver?: boolean }) => {
+const LoadingSpinner = ({ floatingOver, size=20 }: { floatingOver?: boolean, size?: number }) => {
   const floatingOverStyle: React.CSSProperties = floatingOver
     ? {
         position: "fixed",
@@ -18,7 +18,7 @@ const LoadingSpinner = ({ floatingOver }: { floatingOver?: boolean }) => {
         justifyContent: "center",
       }}
     >
-      <GridLoader color="rgba(54, 126, 214, 1)" size={20} />
+      <GridLoader color="rgba(54, 126, 214, 1)" size={size} />
     </Box>
   );
 };

@@ -218,15 +218,18 @@ const SignUp = () => {
             <Typography component="span" sx={{ color: "primary.light" }}>
               I accept &nbsp;
             </Typography>
-            </label>
-            <Link href="/terms" sx={{ textDecoration: "none" }}>
-              <Typography component="span" sx={{ color: "primary.light" }}>
-                terms and conditions
-              </Typography>
-            </Link>
-          
+          </label>
+          <Link href="/terms" sx={{ textDecoration: "none" }}>
+            <Typography component="span" sx={{ color: "primary.light" }}>
+              terms and conditions
+            </Typography>
+          </Link>
+
           {errors.accept && (
-            <Alert severity="error" sx={{ marginTop: "2px" }}>
+            <Alert
+              severity="error"
+              sx={{ marginTop: "2px", backgroundColor: "#FDEDED" }}
+            >
               {errors.accept?.message}
             </Alert>
           )}
@@ -237,6 +240,7 @@ const SignUp = () => {
           variant="outlined"
           type="submit"
           sx={{ width: "50%", margin: "0px auto" }}
+          data-testid="Auth-SignUp-btn-signup"
         >
           {t("auth.signup")}
         </LoadingButton>

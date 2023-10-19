@@ -6,6 +6,7 @@
 /.pnp
 .pnp.js
 .env
+cypress.env.json
 .gitignore
 # testing
 /coverage

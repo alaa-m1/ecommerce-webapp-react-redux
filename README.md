@@ -7,7 +7,8 @@ In the project directory, you can run:
 ### `pnpm install`
 Install project dependencies.
 
-To run this project locally, you need to add .env file with the following parameters (From the firebase account):
+### `pnpm start`
+To run this project locally, you need to add .env file with the following variables (From the firebase account):
 ```
 REACT_APP_API_KEY=
 REACT_APP_AUTH_DOMAIN=
@@ -18,9 +19,21 @@ REACT_APP_APP_ID=
 REACT_APP_STRIPE_PUBLISHABLE_KEY=
 REACT_APP_STRIPE_SK=
 ```
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `pnpm start`
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
+### `pnpm cy`
+To run Cypress tests for this project locally, you need to add  cypress.env.json  file with the following values:
+```
+{
+  "user_email": "email_address@gmail.com",
+  "user_password": "password"
+}
+
+```
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
@@ -39,4 +52,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 
 ## Production Link
-Production link: [https://phoenix-ecommerce.netlify.app/](https://phoenix-ecommerce.netlify.app/).
+Production link: [https://phoenix-ecommerce.netlify.app/](https://phoenix-ecommerce.netlify.app/).\
+
+PWA Production link: [https://phoenix-ecommerce-pwa.netlify.app/](https://phoenix-ecommerce-pwa.netlify.app/).

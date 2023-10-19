@@ -1,10 +1,11 @@
-import { CssBaseline, Theme, ThemeProvider } from "@mui/material";
-import App from "App";
+import { Theme, ThemeProvider } from "@mui/material";
 import { useMemo } from "react";
 import { getTheme } from "theme/getTheme";
 import { useAppSelector } from "utils/redux/hooks";
+import { CssBaseline } from "@mui/material";
+import GlobalStyle from "assets/style/GlobalStyle";
 
-const ThemedApp = () => {
+const ThemedApp = ({ children }: ThemedAppProps) => {
   const currentThemeMode = useAppSelector((state) => state.user.themeMode);
   const theme = useMemo<Theme>(
     () => (currentThemeMode === "light" ? getTheme("light") : getTheme("dark")),
@@ -12,9 +13,14 @@ const ThemedApp = () => {
   );
   return (
     <ThemeProvider theme={theme}>
+      {" "}
       <CssBaseline />
-      <App />
+      <GlobalStyle />
+      {children}
     </ThemeProvider>
   );
 };
+
+type ThemedAppProps = { children: React.ReactNode };
+
 export default ThemedApp;

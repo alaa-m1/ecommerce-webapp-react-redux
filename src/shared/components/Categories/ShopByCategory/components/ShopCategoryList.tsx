@@ -2,17 +2,18 @@ import { Box, Typography } from "@mui/material";
 import { Product } from "types";
 import _ from "lodash";
 import { ShopCategoryCard } from "../../../../../shared/components/ShopCategoryCard";
-import { useTranslation } from "react-i18next";
+import { NoItemsFound } from "shared/components/NoItemsFound";
 
 type ShopCategoryListProps = {
   subCategories: Array<Product>;
   categoryLabel: string;
+  isLoading: boolean;
 };
 export const ShopCategoryList = ({
   subCategories,
   categoryLabel,
+  isLoading
 }: ShopCategoryListProps) => {
-  const { t } = useTranslation();
   return (
     <Box className="shop-category-section" sx={{ color: "secondary.dark" }}>
       <Box className="shop-category-section-title">
@@ -30,10 +31,8 @@ export const ShopCategoryList = ({
           ></ShopCategoryCard>
         ))}
       </Box>
-      {subCategories.length === 0 && (
-        <Box className="no-items-panel">
-          <Typography color="primary.light">{t("search.no_items")}</Typography>
-        </Box>
+      {subCategories.length === 0 && !isLoading &&(
+        <NoItemsFound/>
       )}
     </Box>
   );
