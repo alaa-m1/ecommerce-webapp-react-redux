@@ -6,10 +6,12 @@ import { NoItemsFound } from "shared/components/NoItemsFound";
 type ShopByAllCategoriesProps = {
   mainCategoriesLabels: Array<string>;
   categories: Array<Product>;
+  isLoading?: boolean
 };
 export const ShopByAllCategories = ({
   mainCategoriesLabels,
   categories,
+  isLoading=false
 }: ShopByAllCategoriesProps) => {
   return (
     <Box className="shop-category-container" data-testid="ShopByAllCategories-div">
@@ -27,7 +29,7 @@ export const ShopByAllCategories = ({
           </>
         );
       })}
-      {categories.length === 0 && (
+      {categories.length === 0 && !isLoading &&(
         <NoItemsFound/>
       )}
     </Box>
