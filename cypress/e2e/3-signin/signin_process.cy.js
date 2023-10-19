@@ -96,7 +96,14 @@ describe("Test signin process", () => {
     );
   });
 
-  it("Should verify signing in with valid credentials", () => {
+  /**
+ * To run this test, you should you need to add  cypress.env.json  file with the following values (a real user):
+ * {
+ * "user_email": "email_address@gmail.com",
+ * "user_password": "password"
+ * }
+ */
+  it.skip("Should verify signing in with valid credentials", () => {
     cy.intercept(
       "POST",
       "https://identitytoolkit.googleapis.com/v1/accounts*"
@@ -143,7 +150,7 @@ describe("Test signin process", () => {
 
     //Navigate to signin page
     cy.getTestElement("AppLayout-link-signin").click();
-    cy.get("@userCredentials").then((userCred) => {
+    // cy.get("@userCredentials").then((userCred) => {
       cy.getTestElement("Auth-SignIn-text-email").click();
       cy.getTestElement("Auth-SignIn-text-email").type("anyemail@gmail.ccom");
       cy.getTestElement("Auth-SignIn-text-password").type("12345");
@@ -151,6 +158,6 @@ describe("Test signin process", () => {
       cy.wait("@lookup").then(() =>
         cy.getTestElement("AppLayout-link-signout").should("exist")
       );
-    });
+    // });
   });
 });

@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe("Test login process", () => {
+describe("Test navigation logic", () => {
   beforeEach(() => {
     cy.visit("/");
     //Change the language to English
