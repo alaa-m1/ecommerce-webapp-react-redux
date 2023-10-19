@@ -52,4 +52,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 
 ## Production Link
-Production link: [https://phoenix-ecommerce.netlify.app/](https://phoenix-ecommerce.netlify.app/).
+Production link: [https://phoenix-ecommerce.netlify.app/](https://phoenix-ecommerce.netlify.app/).\
+
+PWA Production link: [https://phoenix-ecommerce-pwa.netlify.app/](https://phoenix-ecommerce-pwa.netlify.app/).
