@@ -43,7 +43,7 @@ export const ShopSubCategoryList = ({
       </Box>
       <Box ref={catRef} className="shop-sub-category-section-cards">
         {subCategories.map((item, index) => (
-          <ShopCategoryCard key={index} catInfo={item}></ShopCategoryCard>
+          <ShopCategoryCard key={index} cardInfo={item}></ShopCategoryCard>
         ))}
       </Box>
       <Box

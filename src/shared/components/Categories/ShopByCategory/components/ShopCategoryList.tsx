@@ -27,7 +27,7 @@ export const ShopCategoryList = ({
         {subCategories.map((item) => (
           <ShopCategoryCard
             key={_.uniqueId()}
-            catInfo={item}
+            cardInfo={item}
           ></ShopCategoryCard>
         ))}
       </Box>

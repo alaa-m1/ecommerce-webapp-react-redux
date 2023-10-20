@@ -12,33 +12,33 @@ import { Product } from "types";
 import { useAppSelector } from "utils/redux/hooks";
 
 type ShopCategoryCardProps = {
-  catInfo: Product;
+  cardInfo: Product;
 };
 
-export const ShopCategoryCard = memo(({ catInfo }: ShopCategoryCardProps) => {
+export const ShopCategoryCard = memo(({ cardInfo }: ShopCategoryCardProps) => {
   const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
   const dispatch = useDispatch();
 
   const handleAddToCart = useCallback(() => {
-    dispatch(addToCart(cartItems, catInfo));
+    dispatch(addToCart(cartItems, cardInfo));
     dispatch(setShowCart(true));
     const activeCartIndex = cartItems.findIndex(
-      (item) => item.id === catInfo.id
+      (item) => item.id === cardInfo.id
     );
     dispatch(
       setActiveCartIndex(
         activeCartIndex !== -1 ? activeCartIndex : cartItems.length
       )
     );
-    dispatch(setActiveCartId(catInfo.id));
-  }, [cartItems, catInfo]);
+    dispatch(setActiveCartId(cardInfo.id));
+  }, [cartItems, cardInfo]);
 
   const imagePath: string = useMemo(
     () =>
-      catInfo.imagePath.includes("https")
-        ? catInfo.imagePath
-        : `${window.location.origin}/images/categories/${catInfo.categoryLabel}/${catInfo.imagePath}`,
-    [catInfo.categoryLabel, catInfo.imagePath]
+      cardInfo.imagePath.includes("https")
+        ? cardInfo.imagePath
+        : `${window.location.origin}/images/categories/${cardInfo.categoryLabel}/${cardInfo.imagePath}`,
+    [cardInfo.categoryLabel, cardInfo.imagePath]
   );
   return (
     <Box
@@ -49,20 +49,21 @@ export const ShopCategoryCard = memo(({ catInfo }: ShopCategoryCardProps) => {
       <Box className="shop-category-images">
         <CardImageWithLoader
           imagePath={imagePath}
-          altInfo={catInfo.categoryLabel}
+          altInfo={cardInfo.categoryLabel}
         />
       </Box>
       <Box className="shopping-title">
-        <Typography color="primary.light">{catInfo.title}</Typography>
+        <Typography color="primary.light">{cardInfo.title}</Typography>
       </Box>
       <Box className="shop-category-info">
         <Typography fontSize="18px" color="primary.light">
-          {`€${catInfo.price}`}
+          {`€${cardInfo.price}`}
         </Typography>
         <Button
           id="shopping-add-btn"
           variant="contained"
           onClick={handleAddToCart}
+          data-testid="ShopCategoryCard-btn-addToCart"
         >
           Add to Cart
         </Button>
