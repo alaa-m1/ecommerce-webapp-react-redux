@@ -1,15 +1,14 @@
 import { Suspense } from "react";
-import "./assets/style/App.scss";
 import { LoadingSpinner } from "shared";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store, { persistor } from "store/store";
 import { PersistGate } from "redux-persist/integration/react";
-import "./i18n";
 import { Elements } from "@stripe/react-stripe-js";
+import { ReactQueryProvider } from "./reactQuery/ReactQueryProvider";
 import { stripeOptions, stripePromise } from "utils/stripe/stripe";
-import { ReactQueryProvider } from "utils/reactQuery/ReactQueryProvider";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ThemedApp from "ThemedApp";
 
 const AppRoot = ({ children }: AppRootType) => {

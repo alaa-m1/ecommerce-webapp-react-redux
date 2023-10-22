@@ -6,7 +6,6 @@ import AuthDashboard from "pages/Auth/AuthDashboard";
 import NotFoundDashboard from "pages/NotFound/NotFoundDashboard";
 import AppLayout from "pages/AppLayout/AppLayout";
 import { linksDetails } from "shared";
-import "react-toastify/dist/ReactToastify.css";
 import Checkout from "pages/Checkout/CheckoutDashboard";
 import { User, UserInfo, onAuthStateChanged } from "firebase/auth";
 import {

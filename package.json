@@ -63,7 +63,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cy": "pnpm cypress open",
-    "cy:run": "pnpm cypress run"
+    "cy:run": "pnpm cypress run",
+    "cy:run:test": "pnpm cypress run  --component --spec 'cypress/components/ShopCategoryCard.cy.jsx'"
   },
   "eslintConfig": {
     "extends": [
