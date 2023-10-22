@@ -1,10 +1,10 @@
 /// <reference types="Cypress" />
 import React from "react";
-import { ShopCategoryCard } from "./ShopCategoryCard";
 import { Provider } from "react-redux";
 import store from "store/store";
-import AppRoot from "AppRoot";
+import { AppRoot } from "shared";
 import _ from "lodash";
+import { ShopCategoryCard } from "shared/components/ShopCategoryCard";
 
 describe("<ShopCategoryCard />", () => {
   it("renders", () => {
