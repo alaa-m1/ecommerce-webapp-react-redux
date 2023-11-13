@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { Product } from "types";
 import { ShopSubCategoryList } from "./components";
 import { NoItemsFound } from "shared/components/NoItemsFound";
+import styles from "../../styles/ShopByAllCategories.module.css"
 
 type ShopByAllCategoriesProps = {
   mainCategoriesLabels: Array<string>;
@@ -14,7 +15,7 @@ export const ShopByAllCategories = ({
   isLoading=false
 }: ShopByAllCategoriesProps) => {
   return (
-    <Box className="shop-category-container" data-testid="ShopByAllCategories-div">
+    <Box className={styles.shop_category_container} data-testid="ShopByAllCategories-div">
       {mainCategoriesLabels.map((categoryLabel, index) => {
         const categoryDetails = categories.filter(
           (item) => item.categoryLabel === categoryLabel
