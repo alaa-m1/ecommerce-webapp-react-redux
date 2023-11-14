@@ -1,4 +1,3 @@
-import { Box, Grid } from "@mui/material";
 import { useCallback, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAppSelector } from "utils/redux/hooks";
@@ -7,20 +6,18 @@ import {
   selectProductsStatus,
 } from "store/products/productsSelector";
 import {
-  fetchProductsAsync,
   setProducts,
 } from "store/products/productsActions";
 import { useDispatch } from "react-redux";
-import { FullScreenSpinner, useSortOptions } from "shared";
+import { useSortOptions } from "shared";
 import {
   FilterPanel,
-  ShopByAllCategories,
-  ShopByCategory,
   ShopNav,
 } from "shared/components";
 import { useProducts } from "./hooks";
 import _ from "lodash";
 import { Product } from "types";
+import { CategoriesSection } from "./components";
 
 const ModernCollectionDashboard = () => {
   const [searchParams] = useSearchParams();
@@ -85,46 +82,29 @@ const ModernCollectionDashboard = () => {
 
   const activeCategoryItems = useMemo(
     () =>
-    SortedCategories.filter(
-        (cat, index) => cat.categoryLabel === activeCategoryLabel
+      SortedCategories.filter(
+        (cat) => cat.categoryLabel === activeCategoryLabel
       ),
     [SortedCategories, activeCategoryLabel]
   );
   const sortOptions = useSortOptions();
   return (
-    <Box>
+    <>
       <ShopNav
         mainCategoriesLabels={mainCategoriesLabels}
         activeCategoryLabel={activeCategoryLabel ?? ""}
       />
+
       <FilterPanel sortOptions={sortOptions} />
-      <Grid container sx={{ position: "relative" }}>
-        <Grid
-          item
-          sx={{
-            height: "inherit",
-            overflow: "auto",
-            width: "100%",
-            pr: 1,
-          }}
-        >
-          {activeCategoryLabel ? (
-            <ShopByCategory
-              activeCategoryLabel={activeCategoryLabel}
-              activeCategoryItems={activeCategoryItems}
-              isLoading={loading}
-            />
-          ) : (
-            <ShopByAllCategories
-              mainCategoriesLabels={mainCategoriesLabels}
-              categories={SortedCategories}
-              isLoading={loading}
-            />
-          )}
-        </Grid>
-        {loading && <FullScreenSpinner />}
-      </Grid>
-    </Box>
+
+      <CategoriesSection
+        activeCategoryLabel={activeCategoryLabel}
+        activeCategoryItems={activeCategoryItems}
+        loading={loading}
+        mainCategoriesLabels={mainCategoriesLabels}
+        SortedCategories={SortedCategories}
+      />
+    </>
   );
 };
 
