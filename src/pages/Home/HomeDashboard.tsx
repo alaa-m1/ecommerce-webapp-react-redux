@@ -1,9 +1,9 @@
-import { Alert, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { selectMappedCategories } from "store/localProducts/localProductsSelector";
 import { useAppSelector } from "utils/redux/hooks";
 import { LoadingSpinner } from "shared";
-import { MainCategoriesList } from "./components";
+import { InfoSection, MainCategoriesList } from "./components";
 import { useProducts } from "pages/ModernCollection/hooks";
 import {
   fetchProductsAsync,
@@ -15,12 +15,9 @@ import {
   selectMappedProducts,
   selectProductsStatus,
 } from "store/products/productsSelector";
-import { useTranslation } from "react-i18next";
 
 const HomeDashboard = () => {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
-  const currentThemeMode = useAppSelector((state) => state.user.themeMode);
   /// Using react-query to manage request state with caching (The other good solution to use with Redux is RTK Query)
   const { data, isLoading } = useProducts(100);
   useEffect(() => {
@@ -57,41 +54,13 @@ const HomeDashboard = () => {
     [allCategories]
   );
   return (
-    <Box className="mainContainer">
+    <Box>
       {loading && <LoadingSpinner />}
       <MainCategoriesList
         mainCategoriesLabels={mainCategoriesLabels}
         categories={allCategories}
       />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "left",
-        }}
-      >
-        <Alert
-          sx={{ mb: 1, width: "60%" }}
-          severity="info"
-          style={{
-            backgroundColor:
-              currentThemeMode === "dark" ? "#e65100" : "#0288d1",
-          }}
-        >
-          {t("home_api_info")}:&nbsp;
-          <a href="https://fakestoreapi.com/">fakestoreapi</a>
-        </Alert>
-        <Alert
-          sx={{ mb: 1, width: "60%" }}
-          severity="info"
-          style={{
-            backgroundColor:
-              currentThemeMode === "dark" ? "#e65100" : "#0288d1",
-          }}
-        >
-          {t("home_translation_info")}
-        </Alert>
-      </Box>
+      <InfoSection/>
     </Box>
   );
 };

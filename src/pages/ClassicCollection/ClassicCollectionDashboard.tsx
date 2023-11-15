@@ -1,17 +1,16 @@
-import { Box, Grid } from "@mui/material";
-import { useCallback, useEffect, useMemo } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { Box } from "@mui/material";
+import { useCallback, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { selectMappedCategories } from "store/localProducts/localProductsSelector";
 import { useAppSelector } from "utils/redux/hooks";
 import {
   FilterPanel,
-  ShopByAllCategories,
-  ShopByCategory,
   ShopNav,
 } from "shared/components";
 import _ from "lodash";
 import { useSortOptions } from "shared";
 import { Product } from "types";
+import { ClassicCategoriesSection } from "./components";
 
 const ClassicCollectionDashboard = () => {
   const categories = useAppSelector(selectMappedCategories);
@@ -70,29 +69,12 @@ const ClassicCollectionDashboard = () => {
         activeCategoryLabel={activeCategoryLabel ?? ""}
       />
       <FilterPanel sortOptions={sortOptions} />
-      <Grid container>
-        <Grid
-          item
-          sx={{
-            height: "inherit",
-            overflow: "auto",
-            width: "100%",
-            pr: 1,
-          }}
-        >
-          {activeCategoryLabel ? (
-            <ShopByCategory
-              activeCategoryLabel={activeCategoryLabel}
-              activeCategoryItems={activeCategoryItems}
-            />
-          ) : (
-            <ShopByAllCategories
-              mainCategoriesLabels={mainCategoriesLabels}
-              categories={SortedCategories}
-            />
-          )}
-        </Grid>
-      </Grid>
+      <ClassicCategoriesSection
+        activeCategoryLabel={activeCategoryLabel}
+        activeCategoryItems={activeCategoryItems}
+        mainCategoriesLabels={mainCategoriesLabels}
+        SortedCategories={SortedCategories}
+      />
     </Box>
   );
 };
