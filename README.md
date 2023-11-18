@@ -1,4 +1,4 @@
-ecommerce-website-react-reactquery-redux
+# E-commerce Web Application: React, Redux, React Query, MUI, Firebase, Cypress, SASS, Localization, Theming
 
 ## Available Scripts
 
