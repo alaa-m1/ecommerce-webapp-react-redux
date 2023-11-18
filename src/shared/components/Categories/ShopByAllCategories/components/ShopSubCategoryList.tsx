@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { Product } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { ShopCategoryCard } from "../../../../../shared/components/ShopCategoryCard";
+import { ShopCategoryCard } from "shared/components/ShopCategoryCard";
 
 type ShopSubCategoryListProps = {
   subCategories: Array<Product>;
