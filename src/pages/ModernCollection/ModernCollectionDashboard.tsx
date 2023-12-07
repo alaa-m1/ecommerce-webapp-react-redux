@@ -30,7 +30,7 @@ const ModernCollectionDashboard = () => {
   const { data, isLoading } = useProducts(100);
   useEffect(() => {
     if (!_.isUndefined(data)) dispatch(setProducts(data));
-  }, [data]);
+  }, [data, dispatch]);
 
   /// Using Redux to manage request status (Comment the last two commands and then uncomment the next two commands)
   // useEffect(() => {

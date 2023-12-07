@@ -31,7 +31,7 @@ export const ShopCategoryCard = memo(({ cardInfo }: ShopCategoryCardProps) => {
       )
     );
     dispatch(setActiveCartId(cardInfo.id));
-  }, [cartItems, cardInfo]);
+  }, [dispatch, cartItems, cardInfo]);
 
   const imagePath: string = useMemo(
     () =>

@@ -45,7 +45,7 @@ const AppLayout = ({ links }: NavigationProps) => {
 
   useEffect(() => {
     dispatch(setShowCart(false));
-  }, []);
+  }, [dispatch]);
 
   const handleClose = (event: Event) => {
     if (

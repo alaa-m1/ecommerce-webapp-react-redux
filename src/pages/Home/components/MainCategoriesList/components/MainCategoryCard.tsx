@@ -25,7 +25,7 @@ export const MainCategoryCard = memo(
 
     const showSliderImage = useMemo(
       () => ["left", "right"].includes(startMoving),
-      []
+      [startMoving]
     );
 
     useEffect(() => {
@@ -47,12 +47,7 @@ export const MainCategoryCard = memo(
         remoteContent
           ? subCategories[previousImgIndex.current - 1].imagePath
           : `${window.location.origin}/images/categories/${currentCategoryLabel}/${previousImgIndex.current}.jpeg`,
-      [
-        currentCategoryLabel,
-        previousImgIndex.current,
-        remoteContent,
-        subCategories,
-      ]
+      [currentCategoryLabel, remoteContent, subCategories]
     );
 
     return (

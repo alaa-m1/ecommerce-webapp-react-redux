@@ -26,7 +26,7 @@ export const PaymentForm = () => {
     setErrorMessage(error.message);
   };
 
-  const makePayment = async (clientSecret: string) => {
+  const makePayment = useCallback(async (clientSecret: string) => {
     if (!stripe || !elements) return;
     await stripe
       .confirmPayment({
@@ -51,7 +51,7 @@ export const PaymentForm = () => {
           console.log("Paymernt is successful");
         }
       });
-  };
+  },[currentUser?.displayName, currentUser?.email, elements, stripe]);
 
   const handlePayment = useCallback(
     async (e: any) => {
@@ -91,7 +91,7 @@ export const PaymentForm = () => {
 
       // }
     },
-    [cartTotal, elements, stripe]
+    [cartTotal, elements, makePayment, stripe]
   );
   return (
     <Box
