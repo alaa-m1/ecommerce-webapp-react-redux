@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { LoadingSpinner } from "shared";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";

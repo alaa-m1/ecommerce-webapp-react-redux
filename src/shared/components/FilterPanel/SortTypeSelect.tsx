@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import _ from "lodash";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { SortOptions } from "types";
 import { useSearchParams } from "react-router-dom";
 
@@ -11,7 +11,7 @@ export const SortTypeSelect = (props: SortTypeSelectProps) => {
 
   const SelectMenuItems = useMemo(
     () =>
-      props.options.map((item, index) => (
+      props.options.map((item) => (
         <MenuItem
           value={item.value}
           key={_.uniqueId()}

@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from "@mui/material";
 import { Products } from "types";
 import { MainCategoryCard } from "./components";
@@ -13,11 +14,17 @@ export const MainCategoriesList = ({
 }: MainCategoriesListProps) => {
   return (
     <Box className="main-category-container" data-testid="Home-div">
-      {mainCategoriesLabels.map((categoryLabel,index) => {
+      {mainCategoriesLabels.map((categoryLabel) => {
         const categoryDetails = categories.filter(
           (item) => item.categoryLabel === categoryLabel
         );
-        return <MainCategoryCard key={_.uniqueId()} currentCategoryLabel={categoryLabel} subCategories={categoryDetails}></MainCategoryCard>;
+        return (
+          <MainCategoryCard
+            key={_.uniqueId()}
+            currentCategoryLabel={categoryLabel}
+            subCategories={categoryDetails}
+          ></MainCategoryCard>
+        );
       })}
     </Box>
   );

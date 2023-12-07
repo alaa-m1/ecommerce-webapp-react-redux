@@ -1,5 +1,5 @@
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
-import { forwardRef, memo, useEffect, useMemo, useState } from "react";
+import React, { forwardRef, memo, useEffect, useMemo, useState } from "react";
 import { CartCategory } from "types";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch } from "react-redux";

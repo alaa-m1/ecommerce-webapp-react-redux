@@ -7,12 +7,11 @@ import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import {
   signInWithGooglePopup,
-  createUserDocFromAuth,
   signInWithGoogleRedirect,
   auth,
   signInWithFacebookPopup,
 } from "utils/firebase";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { getRedirectResult } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 

@@ -4,7 +4,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { LoadingSpinner } from "shared";
@@ -38,7 +38,7 @@ export const PaymentForm = () => {
           payment_method_data: {
             billing_details: {
               name: currentUser?.displayName ?? "Guest user",
-              email: currentUser?.email!,
+              email: currentUser?.email || "example@mail.com",
             },
           },
         },

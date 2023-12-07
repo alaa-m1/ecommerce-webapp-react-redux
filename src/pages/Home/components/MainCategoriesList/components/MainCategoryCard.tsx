@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import { Product } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -25,7 +25,7 @@ export const MainCategoryCard = memo(
 
     const showSliderImage = useMemo(
       () => ["left", "right"].includes(startMoving),
-      [startMoving]
+      []
     );
 
     useEffect(() => {
@@ -139,6 +139,8 @@ export const MainCategoryCard = memo(
     );
   }
 );
+
+MainCategoryCard.displayName = "MainCategoryCard";
 
 export const CardImage = ({
   imagePath,

@@ -9,14 +9,14 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
 import { TextField } from "shared";
 import {
   createAuthenticatedUserWithEmailAndPassword,
-  createUserDocFromAuth,
+  // createUserDocFromAuth,
 } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useTranslation } from "react-i18next";
@@ -78,16 +78,18 @@ const SignUp = () => {
   } = useForm<UserSchemaType>({ resolver: zodResolver(UserSchema) });
   const onSubmit: SubmitHandler<UserSchemaType> = async (formData) => {
     try {
-      const { email, password, firstName, lastName, address, mobile } =
+      const { email, password
+        // ,firstName, lastName, address, mobile 
+      } =
         formData;
       await createAuthenticatedUserWithEmailAndPassword(email, password)
-        .then((response) => {
-          const { user } = response;
-          const userDatatRef = createUserDocFromAuth(user, {
-            name: `${firstName} ${lastName}`,
-            mobile,
-            address,
-          });
+        .then(() => {
+          // const { user } = response;
+          // const userDatatRef = createUserDocFromAuth(user, {
+          //   name: `${firstName} ${lastName}`,
+          //   mobile,
+          //   address,
+          // });
           reset();
         })
         .catch((error) => {

@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { selectMappedCategories } from "store/localProducts/localProductsSelector";
 import { useAppSelector } from "utils/redux/hooks";
@@ -56,7 +56,7 @@ const ClassicCollectionDashboard = () => {
   const activeCategoryItems = useMemo(
     () =>
     SortedCategories.filter(
-        (cat, index) => cat.categoryLabel === activeCategoryLabel
+        (cat) => cat.categoryLabel === activeCategoryLabel
       ),
     [SortedCategories, activeCategoryLabel]
   );

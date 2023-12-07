@@ -1,3 +1,4 @@
+import React from "react";
 import { Grid } from "@mui/material";
 import { FullScreenSpinner, ShopByAllCategories, ShopByCategory } from "shared";
 import { Product } from "types";

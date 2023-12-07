@@ -1,5 +1,5 @@
 import { Menu, MenuItem, Typography } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {

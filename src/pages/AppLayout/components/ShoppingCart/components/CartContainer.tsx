@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from "@mui/material";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
@@ -7,13 +8,13 @@ import { selectShoopingActiveCartId } from "store/shoppingState/shoppingStateSel
 
 export const CartContainer = () => {
   const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
-const activateCartId=useAppSelector(selectShoopingActiveCartId);
+  const activateCartId = useAppSelector(selectShoopingActiveCartId);
   const { shoppingCartRefs } = useShoppingCartScroller({
     cartItems,
   });
 
   return (
-    <Box sx={{borderColor: "primary.light"}}>
+    <Box sx={{ borderColor: "primary.light" }}>
       {cartItems.map((cartItem) => (
         <CartCard
           key={cartItem.id}

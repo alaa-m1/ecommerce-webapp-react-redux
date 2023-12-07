@@ -1,5 +1,5 @@
 import { Alert, Box } from "@mui/material";
-import { DetailedHTMLProps, InputHTMLAttributes, useId, useState } from "react";
+import React, { DetailedHTMLProps, InputHTMLAttributes, useId, useState } from "react";
 import ErrorIcon from "@mui/icons-material/Error";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";

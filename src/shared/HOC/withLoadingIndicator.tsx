@@ -1,11 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LoadingSpinner } from "shared/components";
 import _ from "lodash";
 import styled from "styled-components";
 
 const withLoadingIndicator = (Element: any, loadingMessage: string) => {
+  // eslint-disable-next-line react/display-name
   return (props: any) => {
     const [loading, setLoading] = useState(true);
     const { t } = useTranslation();
@@ -41,7 +42,6 @@ const withLoadingIndicator = (Element: any, loadingMessage: string) => {
     );
   };
 };
-
 const MainContainer = styled(Box)`
   position: relative;
   display: flex;
