@@ -66,12 +66,6 @@
     "cy:run": "pnpm cypress run",
     "cy:run:test": "pnpm cypress run  --component --spec 'cypress/components/ShopCategoryCard.cy.jsx'"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -91,7 +85,6 @@
     "@types/styled-components": "^5.1.26",
     "@types/validator": "^13.7.17",
     "@types/zxcvbn": "^4.4.1",
-    "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
     "cypress": "^13.3.0",
     "eslint": "^8.55.0",
