@@ -12,7 +12,7 @@ import {
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useDispatch } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export const useCheckoutColumn = (): GridColDef[] => {

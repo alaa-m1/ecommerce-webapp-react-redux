@@ -54,7 +54,7 @@ export const getTheme = (themeMode: "light" | "dark"): Theme =>
       },
       MuiInputLabel: {
         styleOverrides: {
-          root: ({ ownerState, theme }) => ({
+          root: ({ theme }) => ({
             color: theme.palette.primary.light,
             "&.Mui-focused": {
               color: "#00f",

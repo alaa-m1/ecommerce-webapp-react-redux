@@ -1,4 +1,4 @@
-import { User, UserInfo } from "firebase/auth";
+import { UserInfo } from "firebase/auth";
 import { createAction } from "utils/redux/reduxUtils";
 import { userActionTypes } from "./userActionTypes";
 

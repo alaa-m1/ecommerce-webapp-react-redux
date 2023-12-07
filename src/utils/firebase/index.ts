@@ -18,8 +18,7 @@ import {
   getFirestore,
   doc,
   getDoc,
-  setDoc,
-  DocumentData,
+  setDoc
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -55,7 +54,7 @@ export const db = getFirestore(app);
 
 export const getUserDocFromAuth = async (
   userAuth: any,
-  aditionalInfo = {}
+  // aditionalInfo = {}
 ): Promise<any | null> => {
   if (userAuth) {
     const userDocRef = doc(db, "users", userAuth.uid);
