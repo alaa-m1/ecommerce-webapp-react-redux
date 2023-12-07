@@ -1,5 +1,5 @@
 import { Theme, ThemeProvider } from "@mui/material";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { getTheme } from "theme/getTheme";
 import { useAppSelector } from "utils/redux/hooks";
 import { CssBaseline } from "@mui/material";
@@ -13,7 +13,6 @@ const ThemedApp = ({ children }: ThemedAppProps) => {
   );
   return (
     <ThemeProvider theme={theme}>
-      {" "}
       <CssBaseline />
       <GlobalStyle />
       {children}

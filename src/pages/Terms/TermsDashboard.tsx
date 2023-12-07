@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Link, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { ColoredDevider } from "shared";

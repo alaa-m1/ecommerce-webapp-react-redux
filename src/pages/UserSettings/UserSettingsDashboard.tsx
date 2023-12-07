@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserDetails } from "types";
 import { getUserDocFromAuth } from "utils/firebase";
 import { mapUserDetails } from "utils/mappingFunctions/mapUserDetails";

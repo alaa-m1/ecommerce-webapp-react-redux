@@ -1,7 +1,7 @@
 import { Box, ClickAwayListener, Popper } from "@mui/material";
 // import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 // import { useAppSelector } from "utils/redux/hooks";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { CartContainer, CartFooter } from "./components";
 import _ from "lodash";
 import {

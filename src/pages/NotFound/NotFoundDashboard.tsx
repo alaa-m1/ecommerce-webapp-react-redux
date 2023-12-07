@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Link, Typography } from "@mui/material";
 import { Link as RouterDomLink } from "react-router-dom";
 import { ColoredDevider } from "shared";

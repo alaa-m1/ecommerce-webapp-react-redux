@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import { memo, useCallback, useMemo } from "react";
+import React, { memo, useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import withLoadingIndicator from "shared/HOC/withLoadingIndicator";
 import { addToCart, setShowCart } from "store/shoppingCart/shoppingCartActions";
@@ -31,7 +31,7 @@ export const ShopCategoryCard = memo(({ cardInfo }: ShopCategoryCardProps) => {
       )
     );
     dispatch(setActiveCartId(cardInfo.id));
-  }, [cartItems, cardInfo]);
+  }, [dispatch, cartItems, cardInfo]);
 
   const imagePath: string = useMemo(
     () =>
@@ -71,6 +71,8 @@ export const ShopCategoryCard = memo(({ cardInfo }: ShopCategoryCardProps) => {
     </Box>
   );
 });
+
+ShopCategoryCard.displayName = "ShopCategoryCard";
 
 const CardImage = ({
   imagePath,

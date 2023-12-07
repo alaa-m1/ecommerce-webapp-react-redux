@@ -4,17 +4,9 @@ import {
   Toolbar,
   useMediaQuery,
   useTheme,
-  Button,
-  FormControlLabel,
   Typography,
 } from "@mui/material";
-import {
-  MouseEvent,
-  MouseEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { MouseEvent, useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { LinkInfo } from "types";
@@ -26,7 +18,7 @@ import {
   ShoppingCart,
   ShoppingCartLogo,
   LanguageMenu,
-  ThemeSwitch
+  ThemeSwitch,
 } from "./components";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartStatus } from "store/shoppingCart/shoppingCartSelector";
@@ -39,7 +31,7 @@ type NavigationProps = {
 };
 
 const AppLayout = ({ links }: NavigationProps) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const { pathname } = useLocation();
   const theme = useTheme();
@@ -53,7 +45,7 @@ const AppLayout = ({ links }: NavigationProps) => {
 
   useEffect(() => {
     dispatch(setShowCart(false));
-  }, []);
+  }, [dispatch]);
 
   const handleClose = (event: Event) => {
     if (
@@ -107,7 +99,10 @@ const AppLayout = ({ links }: NavigationProps) => {
         anchorEl={anchorEl}
         handleClose={handleOnLnaguageMenuClose}
       />
-      <Box className="navigator-main-container" sx={{ flexGrow: 0,color: "secondary.dark" }}>
+      <Box
+        className="navigator-main-container"
+        sx={{ flexGrow: 0, color: "secondary.dark" }}
+      >
         <AppBar
           className="navigator-container"
           sx={{ position: "relative", paddingRight: "0px !important" }}
@@ -182,7 +177,7 @@ const AppLayout = ({ links }: NavigationProps) => {
             />
             <Box
               className="shopping-cart-logo"
-              onClick={(e) => dispatch(setShowCart(!isCartOpen))}
+              onClick={() => dispatch(setShowCart(!isCartOpen))}
               ref={shoppingCartRef}
               data-testid="AppLayout-link-shoppingCart"
             >

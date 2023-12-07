@@ -1,3 +1,4 @@
+import React from "react";
 import { Box } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { selectMappedCategories } from "store/localProducts/localProductsSelector";
@@ -6,7 +7,6 @@ import { LoadingSpinner } from "shared";
 import { InfoSection, MainCategoriesList } from "./components";
 import { useProducts } from "pages/ModernCollection/hooks";
 import {
-  fetchProductsAsync,
   setProducts,
 } from "store/products/productsActions";
 import { useDispatch } from "react-redux";
@@ -22,7 +22,7 @@ const HomeDashboard = () => {
   const { data, isLoading } = useProducts(100);
   useEffect(() => {
     if (!_.isUndefined(data)) dispatch(setProducts(data));
-  }, [data]);
+  }, [data, dispatch]);
 
   /// Using Redux to manage request status (Comment the last two commands and then uncomment the next two commands)
   // useEffect(() => {

@@ -1,3 +1,4 @@
+import React from "react";
 import { Grid, useTheme } from "@mui/material";
 import { SearchForProducts } from "./SearchForProducts";
 import { SortTypeSelect } from "./SortTypeSelect";

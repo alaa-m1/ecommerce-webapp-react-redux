@@ -1,10 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import { Product } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Link } from "react-router-dom";
 import withLoadingIndicator from "shared/HOC/withLoadingIndicator";
+import { useImagePath } from "../hooks";
 
 type MainCategoryCardProps = {
   subCategories: Array<Product>;
@@ -18,7 +19,7 @@ export const MainCategoryCard = memo(
       "stop"
     );
 
-    const previousImgIndex = useRef<number>(imageIndex);
+    const [previousImgIndex, setPreviousImgIndex] = useState(imageIndex);
 
     const subCatLength = subCategories.length;
     const remoteContent = subCategories[0].imagePath.includes("https");
@@ -34,25 +35,12 @@ export const MainCategoryCard = memo(
         return () => clearTimeout(timer);
       }
     }, [startMoving]);
-
-    const imagePath: string = useMemo(
-      () =>
-        remoteContent
-          ? subCategories[imageIndex - 1].imagePath
-          : `${window.location.origin}/images/categories/${currentCategoryLabel}/${imageIndex}.jpeg`,
-      [currentCategoryLabel, imageIndex, remoteContent, subCategories]
-    );
-    const sliderImagePath: string = useMemo(
-      () =>
-        remoteContent
-          ? subCategories[previousImgIndex.current - 1].imagePath
-          : `${window.location.origin}/images/categories/${currentCategoryLabel}/${previousImgIndex.current}.jpeg`,
-      [
-        currentCategoryLabel,
-        previousImgIndex.current,
-        remoteContent,
-        subCategories,
-      ]
+    const { imagePath, sliderImagePath } = useImagePath(
+      remoteContent,
+      subCategories,
+      imageIndex,
+      previousImgIndex,
+      currentCategoryLabel
     );
 
     return (
@@ -93,7 +81,7 @@ export const MainCategoryCard = memo(
           <ArrowForwardIosIcon
             onClick={() => {
               setStartMoving(showSliderImage ? "stop" : "right");
-              previousImgIndex.current = imageIndex;
+              setPreviousImgIndex(imageIndex);
               setImageIndex((p) => {
                 if (p < subCatLength) {
                   return p + 1;
@@ -111,7 +99,7 @@ export const MainCategoryCard = memo(
           <ArrowBackIosNewIcon
             onClick={() => {
               setStartMoving(showSliderImage ? "stop" : "left");
-              previousImgIndex.current = imageIndex;
+              setPreviousImgIndex(imageIndex);
               setImageIndex((p) => {
                 if (p > 1) {
                   return p - 1;
@@ -139,6 +127,8 @@ export const MainCategoryCard = memo(
     );
   }
 );
+
+MainCategoryCard.displayName = "MainCategoryCard";
 
 export const CardImage = ({
   imagePath,

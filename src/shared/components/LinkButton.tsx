@@ -1,8 +1,9 @@
-import { Button, ButtonTypeMap, ExtendButtonBase } from "@mui/material";
+import React from "react";
+import { Button, ButtonTypeMap } from "@mui/material";
 import { DefaultComponentProps } from "@mui/material/OverridableComponent";
 import { useLocation, useNavigate } from "react-router-dom";
 
-type LinkButtonProps = DefaultComponentProps<ButtonTypeMap<{}, "button">> & {
+type LinkButtonProps = DefaultComponentProps<ButtonTypeMap<object,"button">> & {
   to?: string;
   query?: string;
   label: string;

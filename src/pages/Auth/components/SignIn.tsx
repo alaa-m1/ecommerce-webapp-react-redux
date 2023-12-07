@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Typography } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
@@ -29,7 +30,7 @@ const SignIn = () => {
     register,
     getValues,
     handleSubmit,
-    watch,
+    // watch,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<UserSchemaType>({ resolver: zodResolver(UserSchema) });
@@ -37,7 +38,7 @@ const SignIn = () => {
     const { email, password } = formData;
 
     await signInAuthenticatedUserWithEmailAndPassword(email, password)
-      .then((response) => {
+      .then(() => {
         reset();
         const redirectTo = location.state?.from;
         navigate(redirectTo);
@@ -59,7 +60,7 @@ const SignIn = () => {
         }
       });
   };
-  const { password } = watch();
+  // const { password } = watch();
   return (
     <Box>
       <Typography fontSize="16px" color="primary.light">
