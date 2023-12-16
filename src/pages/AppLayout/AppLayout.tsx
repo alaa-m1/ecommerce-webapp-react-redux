@@ -105,7 +105,11 @@ const AppLayout = ({ links }: NavigationProps) => {
       >
         <AppBar
           className="navigator-container"
-          sx={{ position: "relative", paddingRight: "0px !important" }}
+          sx={{
+            position: "relative",
+            paddingRight: "0px !important",
+            overflowX: "hidden",
+          }}
         >
           <Toolbar>
             {isSmallScreen ? (
@@ -187,7 +191,7 @@ const AppLayout = ({ links }: NavigationProps) => {
           </Toolbar>
         </AppBar>
       </Box>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, overflowX: "auto" }}>
         <main>
           <Outlet />
         </main>
