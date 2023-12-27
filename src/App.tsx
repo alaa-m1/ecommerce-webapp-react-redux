@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomeDashboard from "pages/Home/HomeDashboard";
 import ClassicCollectionDashboard from "pages/ClassicCollection/ClassicCollectionDashboard";
 import AuthDashboard from "pages/Auth/AuthDashboard";
 import NotFoundDashboard from "pages/NotFound/NotFoundDashboard";
 import AppLayout from "pages/AppLayout/AppLayout";
-import { linksDetails } from "shared";
+import { CategoriesListSkeleton, linksDetails } from "shared";
 import Checkout from "pages/Checkout/CheckoutDashboard";
 import { User, UserInfo, onAuthStateChanged } from "firebase/auth";
 import {
@@ -59,7 +59,11 @@ function App() {
         />
         <Route
           path="modern-collection"
-          element={<ModernCollectionDashboard />}
+          element={
+            <Suspense fallback={<CategoriesListSkeleton />}>
+              <ModernCollectionDashboard />
+            </Suspense>
+          }
         />
         <Route
           path="auth"
