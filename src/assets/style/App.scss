@@ -21,6 +21,10 @@
 }
 .logo-container {
   flex-grow: 1;
+  svg > path {
+    @include soft-box-shadow;
+    color: #d32f2f;
+  }
 }
 .link-container {
   flex-grow: 2;
@@ -450,9 +454,6 @@
 }
 
 .footer-section {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   height: 50px;
   overflow-x: hidden;
 }
