@@ -55,3 +55,13 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 Production link: [https://phoenix-ecommerce.netlify.app/](https://phoenix-ecommerce.netlify.app/).
 
 PWA Production link: [https://phoenix-ecommerce-pwa.netlify.app/](https://phoenix-ecommerce-pwa.netlify.app/).
+
+
+## Docker Hub
+
+Pull the latest docker image : 
+```
+docker pull alaa0m1/ecommerce-website-react-reactquery-redux:latest
+```
+
+Docker Hub repository link: [https://hub.docker.com/r/alaa0m1/ecommerce-website-react-reactquery-redux/tags](https://hub.docker.com/r/alaa0m1/ecommerce-website-react-reactquery-redux/tags).
