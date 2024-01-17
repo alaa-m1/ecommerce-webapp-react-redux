@@ -44,11 +44,12 @@ const AuthDashboard = () => {
             justifyContent: "center",
             padding: "0px 10px",
             marginBottom: "10px",
+            width: "100%",
           }}
         >
           <Box
             sx={{
-              width: "30%",
+              flexGrow: 1,
               backgroundColor: "#ccc",
               height: "2px",
               margin: "7px 5px",
@@ -56,13 +57,13 @@ const AuthDashboard = () => {
           />
           <Box
             component="span"
-            sx={{ width: "30%", color: "#ccc", fontWeight: "bold" }}
+            sx={{ minWidth: "120px", color: "#ccc", fontWeight: "bold" }}
           >
             Or continue with
           </Box>
           <Box
             sx={{
-              width: "30%",
+              flexGrow: 1,
               backgroundColor: "#ccc",
               height: "2px",
               margin: "7px 5px",
@@ -136,10 +137,7 @@ const AuthDashboard = () => {
         </Box>
       ) : (
         <Box sx={{ "button:hover": { backgroundColor: "transparent" } }}>
-          <Typography
-            variant="caption"
-            color={theme.palette.text.secondary}
-          >
+          <Typography variant="caption" color={theme.palette.text.secondary}>
             If you do not have an account &nbsp;
           </Typography>
           <LinkButton
