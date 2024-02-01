@@ -24,7 +24,10 @@ export const CustomDrawer = ({
   handleCloseLnaguageMenu,
 }: CustomDrawerProps) => {
   const [open, setOpen] = useState(false);
-  const drawerLinks: Array<LinkInfo> = [...links, { path: "", label: "" }];
+  const drawerLinks: Array<LinkInfo> = [
+    ...links,
+    { path: "", label: "", protected: false },
+  ];
   const { t } = useTranslation();
   return (
     <>
@@ -55,7 +58,20 @@ export const CustomDrawer = ({
             >
               {drawerLinks.map((link, index) => {
                 if (link.label !== "")
-                  return (
+                  return link.protected ? (
+                    currentUser ? (
+                      <ListItemButton
+                        key={index}
+                        onClick={() => setOpen(false)}
+                      >
+                        <Link style={{ width: "100%" }} to={link.path}>
+                          <Typography sx={{ color: "primary.main" }}>
+                            {t(link.label)}
+                          </Typography>
+                        </Link>
+                      </ListItemButton>
+                    ) : null
+                  ) : (
                     <ListItemButton key={index} onClick={() => setOpen(false)}>
                       <Link style={{ width: "100%" }} to={link.path}>
                         <Typography sx={{ color: "primary.main" }}>
