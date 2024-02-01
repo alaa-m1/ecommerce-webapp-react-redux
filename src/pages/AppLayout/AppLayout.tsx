@@ -127,18 +127,33 @@ const AppLayout = ({ links }: NavigationProps) => {
                 </Box>
                 <Box className="link-container">
                   <Box>
-                    {links.map((link, index) => (
-                      <StyledLink
-                        key={index}
-                        to={link.path}
-                        isactive={
-                          pathname === link.path ? "active" : "inActive"
-                        }
-                        data-testid={`AppLayout-link-${link.label}`}
-                      >
-                        {t(link.label)}
-                      </StyledLink>
-                    ))}
+                    {links.map((link, index) =>
+                      link.protected ? (
+                        currentUser ? (
+                          <StyledLink
+                            key={index}
+                            to={link.path}
+                            isactive={
+                              pathname === link.path ? "active" : "inActive"
+                            }
+                            data-testid={`AppLayout-link-${link.label}`}
+                          >
+                            {t(link.label)}
+                          </StyledLink>
+                        ) : null
+                      ) : (
+                        <StyledLink
+                          key={index}
+                          to={link.path}
+                          isactive={
+                            pathname === link.path ? "active" : "inActive"
+                          }
+                          data-testid={`AppLayout-link-${link.label}`}
+                        >
+                          {t(link.label)}
+                        </StyledLink>
+                      )
+                    )}
                   </Box>
                   <Typography
                     className="language-menu-btn"

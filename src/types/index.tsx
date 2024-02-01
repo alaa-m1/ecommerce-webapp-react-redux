@@ -1,6 +1,7 @@
 export type LinkInfo = {
   label: string;
   path: string;
+  protected: boolean;
 };
 
 export type CategoriesResponse = Array<CategoryResponse>;
