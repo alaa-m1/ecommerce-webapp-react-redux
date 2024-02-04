@@ -484,3 +484,11 @@
   margin: 20px;
   @include soft-box-shadow;
 }
+
+//sidebar
+.sidebar-transform-active {
+  width: 180px;
+}
+.sidebar-transform-inactive {
+  width: 40px;
+}

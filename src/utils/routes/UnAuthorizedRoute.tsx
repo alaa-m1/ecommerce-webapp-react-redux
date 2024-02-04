@@ -9,7 +9,7 @@ const UnAuthorizedRoute = ({children}: {children: React.ReactElement | null}) =>
     if(!user.currentUser) {
         return children
     }
- return <Navigate to="/" state={{ from: location}} replace />
+ return <Navigate to="/" state={{ from: location}} />
 
 };
 

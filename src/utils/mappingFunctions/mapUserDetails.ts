@@ -11,6 +11,7 @@ export const mapUserDetails: MapResponseFn<UserDetails, any> = (
     phoneNumber: Object.entries(res?.mobile as Record<string, string> || { "": "" }).flat()[1],
     address: Object.entries(res?.address as Record<string, string> || { "": "" }).flat()[1],
     createdAt: Object.entries(res?.createdAt as Record<string, string> || { "": "" }).flat()[1],
+    image:Object.entries(res?.image as Record<string, string> || { "": "" }).flat()[1],
   }
   return userDetails
 };
