@@ -26,7 +26,7 @@ export function CustomFooterStatusComponent(
   );
 }
 
-const CheckoutDashboard = () => {
+const CheckoutPage = () => {
   const columns = useCheckoutColumn();
   const { t } = useTranslation();
   const { cartItems, cartTotal } = useAppSelector(
@@ -63,4 +63,4 @@ const CheckoutDashboard = () => {
     </>
   );
 };
-export default CheckoutDashboard;
+export default CheckoutPage;

@@ -15,7 +15,7 @@ import React, { useEffect } from "react";
 import { getRedirectResult } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 
-const AuthDashboard = () => {
+const AuthPage = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("p");
@@ -34,7 +34,7 @@ const AuthDashboard = () => {
     }
   };
   return (
-    <Box className="central-box" sx={{ color: "secondary.dark" }}>
+    <Box className="central-box" sx={{ color: "secondary.dark", width:"100%" }}>
       <Box>{searchQuery === "signup" ? <SignUp /> : <SignIn />}</Box>
 
       <>
@@ -158,4 +158,4 @@ const AccountsButton = styled(Button)(({ theme }) => ({
     color: theme.palette.primary.light,
   },
 }));
-export default AuthDashboard;
+export default AuthPage;

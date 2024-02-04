@@ -4,6 +4,11 @@ export type LinkInfo = {
   protected: boolean;
 };
 
+export type SideBarLinkInfo = Omit<LinkInfo, "protected"> & {
+  component?: string;
+};
+
+
 export type CategoriesResponse = Array<CategoryResponse>;
 export type CategoryResponse = {
   id: number;
@@ -56,6 +61,7 @@ export type UserDetails = {
   phoneNumber: string;
   address: string;
   createdAt: string;
+  image: string;
 };
 
 export type SortOptions = Array<{ value: string; label: string }>;

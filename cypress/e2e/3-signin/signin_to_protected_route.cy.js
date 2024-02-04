@@ -52,7 +52,7 @@ describe("Test signin to a protected route", () => {
     );
     cy.getTestElement("Auth-SignIn-btn-signin").click();
     cy.wait("@signInWithPassword").then(() =>
-      cy.location("pathname").should("eq", "/user-settings")
+      cy.location("pathname").should("eq", "/user-dashboard")
     );
     // });
   });

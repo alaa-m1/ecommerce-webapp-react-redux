@@ -1,4 +1,4 @@
-import { LinkInfo } from "types";
+import { LinkInfo, SideBarLinkInfo } from "types";
 
 export const linksDetails: Array<LinkInfo> = [
   { label: "home", path: "/", protected: false },
@@ -8,5 +8,11 @@ export const linksDetails: Array<LinkInfo> = [
     protected: false,
   },
   { label: "modern_collection", path: "/modern-collection", protected: false },
-  { label: "settings", path: "/user-settings", protected: true },
+  { label: "dashboard", path: "/user-dashboard", protected: true },
+];
+
+
+export const sideBarLinks: Array<SideBarLinkInfo> = [
+  { label: "Profile", path: "profile" },
+  { label: "settings", path: "settings" },
 ];

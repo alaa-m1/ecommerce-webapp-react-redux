@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ColoredDevider } from "shared";
 import { Link as RouterDomLink } from "react-router-dom";
 
-const TermsDashboard = () => {
+const TermsPage = () => {
   const { t } = useTranslation();
   return (
     <Box
@@ -34,4 +34,4 @@ const TermsDashboard = () => {
     </Box>
   );
 };
-export default TermsDashboard;
+export default TermsPage;
