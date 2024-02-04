@@ -1,6 +1,4 @@
-import React from "react";
-import { Box } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { selectMappedCategories } from "store/localProducts/localProductsSelector";
 import { useAppSelector } from "utils/redux/hooks";
 import { LoadingSpinner } from "shared";
@@ -16,7 +14,7 @@ import {
   selectProductsStatus,
 } from "store/products/productsSelector";
 
-const HomeDashboard = () => {
+const HomePage = () => {
   const dispatch = useDispatch();
   /// Using react-query to manage request state with caching (The other good solution to use with Redux is RTK Query)
   const { data, isLoading } = useProducts(100);
@@ -54,15 +52,15 @@ const HomeDashboard = () => {
     [allCategories]
   );
   return (
-    <Box>
+    <>
       {loading && <LoadingSpinner />}
       <MainCategoriesList
         mainCategoriesLabels={mainCategoriesLabels}
         categories={allCategories}
       />
       <InfoSection/>
-    </Box>
+    </>
   );
 };
 
-export default HomeDashboard;
+export default HomePage;

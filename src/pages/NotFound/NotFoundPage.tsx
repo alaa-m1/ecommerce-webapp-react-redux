@@ -3,7 +3,7 @@ import { Box, Link, Typography } from "@mui/material";
 import { Link as RouterDomLink } from "react-router-dom";
 import { ColoredDevider } from "shared";
 
-const NotFoundDashboard=()=>{
+const NotFoundPage=()=>{
 return (
     <Box
       sx={{
@@ -24,4 +24,4 @@ return (
     </Box>
 )
 }
-export default NotFoundDashboard;
+export default NotFoundPage;

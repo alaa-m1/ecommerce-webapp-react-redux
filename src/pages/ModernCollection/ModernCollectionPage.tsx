@@ -19,7 +19,7 @@ import _ from "lodash";
 import { Product } from "types";
 import { CategoriesSection } from "./components";
 
-const ModernCollectionDashboard = () => {
+const ModernCollectionPage = () => {
   const [searchParams] = useSearchParams();
   const activeCategoryLabel = searchParams.get("category");
   const searchBy = searchParams.get("search");
@@ -108,4 +108,4 @@ const ModernCollectionDashboard = () => {
   );
 };
 
-export default ModernCollectionDashboard;
+export default ModernCollectionPage;

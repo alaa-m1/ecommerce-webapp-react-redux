@@ -206,11 +206,11 @@ const AppLayout = ({ links }: NavigationProps) => {
           </Toolbar>
         </AppBar>
       </Box>
-      <Box sx={{ flexGrow: 1, overflowX: "auto" }}>
-        <main>
+      <main style={{ flexGrow: 1, overflowX: "auto", display: "flex" }}>
+        <Box sx={{ width: "100%" }}>
           <Outlet />
-        </main>
-      </Box>
+        </Box>
+      </main>
       <Box sx={{ flexGrow: 0 }}>
         <Footer />
       </Box>

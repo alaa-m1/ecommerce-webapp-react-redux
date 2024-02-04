@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import React, { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { selectMappedCategories } from "store/localProducts/localProductsSelector";
@@ -12,7 +11,7 @@ import { useSortOptions } from "shared";
 import { Product } from "types";
 import { ClassicCategoriesSection } from "./components";
 
-const ClassicCollectionDashboard = () => {
+const ClassicCollectionPage = () => {
   const categories = useAppSelector(selectMappedCategories);
   const [searchParams] = useSearchParams();
   const activeCategoryLabel = searchParams.get("category");
@@ -63,7 +62,7 @@ const ClassicCollectionDashboard = () => {
 
   const sortOptions = useSortOptions();
   return (
-    <Box>
+    <>
       <ShopNav
         mainCategoriesLabels={mainCategoriesLabels}
         activeCategoryLabel={activeCategoryLabel ?? ""}
@@ -75,8 +74,8 @@ const ClassicCollectionDashboard = () => {
         mainCategoriesLabels={mainCategoriesLabels}
         SortedCategories={SortedCategories}
       />
-    </Box>
+    </>
   );
 };
 
-export default ClassicCollectionDashboard;
+export default ClassicCollectionPage;

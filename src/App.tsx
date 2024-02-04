@@ -1,12 +1,12 @@
 import React, { Suspense, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import HomeDashboard from "pages/Home/HomeDashboard";
-import ClassicCollectionDashboard from "pages/ClassicCollection/ClassicCollectionDashboard";
-import AuthDashboard from "pages/Auth/AuthDashboard";
-import NotFoundDashboard from "pages/NotFound/NotFoundDashboard";
+import HomePage from "pages/Home/HomePage";
+import ClassicCollectionPage from "pages/ClassicCollection/ClassicCollectionPage";
+import AuthPage from "pages/Auth/AuthPage";
+import NotFoundPage from "pages/NotFound/NotFoundPage";
 import AppLayout from "pages/AppLayout/AppLayout";
 import { CategoriesListSkeleton, linksDetails } from "shared";
-import Checkout from "pages/Checkout/CheckoutDashboard";
+import Checkout from "pages/Checkout/CheckoutPage";
 import { User, UserInfo, onAuthStateChanged } from "firebase/auth";
 import {
   auth,
@@ -16,11 +16,11 @@ import {
 import { setCurrentUser } from "store/user/userActions";
 import { useDispatch } from "react-redux";
 import { fetchCategoriesAsync } from "store/localProducts/localProductsActions";
-import ModernCollectionDashboard from "pages/ModernCollection/ModernCollectionDashboard";
+import ModernCollectionPage from "pages/ModernCollection/ModernCollectionPage";
 import ProtectedRoute from "utils/routes/ProtectedRoute";
-import UserSettingsDashboard from "pages/UserSettings/UserSettingsDashboard";
+import UserDashboardPage from "pages/UserDashboard/UserDashboardPage";
 import UnAuthorizedRoute from "utils/routes/UnAuthorizedRoute";
-import TermsDashboard from "pages/Terms/TermsDashboard";
+import TermsPage from "pages/Terms/TermsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,16 +52,16 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<AppLayout links={linksDetails} />}>
-        <Route index element={<HomeDashboard />} />
+        <Route index element={<HomePage />} />
         <Route
           path="classic-collection"
-          element={<ClassicCollectionDashboard />}
+          element={<ClassicCollectionPage />}
         />
         <Route
           path="modern-collection"
           element={
             <Suspense fallback={<CategoriesListSkeleton />}>
-              <ModernCollectionDashboard />
+              <ModernCollectionPage />
             </Suspense>
           }
         />
@@ -69,21 +69,21 @@ function App() {
           path="auth"
           element={
             <UnAuthorizedRoute>
-              <AuthDashboard />
+              <AuthPage />
             </UnAuthorizedRoute>
           }
         />
         <Route path="checkout" element={<Checkout />} />
         <Route
-          path="user-settings"
+          path="user-dashboard"
           element={
             <ProtectedRoute>
-              <UserSettingsDashboard />
+              <UserDashboardPage />
             </ProtectedRoute>
           }
         />
-        <Route path="/404" element={<NotFoundDashboard />} />
-        <Route path="/terms" element={<TermsDashboard />} />
+        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="/terms" element={<TermsPage />} />
         <Route path="*" element={<Navigate replace to="/404" />} />
       </Route>
     </Routes>
