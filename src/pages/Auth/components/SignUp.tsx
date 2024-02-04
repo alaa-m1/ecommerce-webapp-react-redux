@@ -16,7 +16,7 @@ import { ScaleLoader } from "react-spinners";
 import { TextField } from "shared";
 import {
   createAuthenticatedUserWithEmailAndPassword,
-  // createUserDocFromAuth,
+  createUserDocFromAuth,
 } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useTranslation } from "react-i18next";
@@ -79,17 +79,17 @@ const SignUp = () => {
   const onSubmit: SubmitHandler<UserSchemaType> = async (formData) => {
     try {
       const { email, password
-        // ,firstName, lastName, address, mobile 
+        ,firstName, lastName, address, mobile 
       } =
         formData;
       await createAuthenticatedUserWithEmailAndPassword(email, password)
-        .then(() => {
-          // const { user } = response;
-          // const userDatatRef = createUserDocFromAuth(user, {
-          //   name: `${firstName} ${lastName}`,
-          //   mobile,
-          //   address,
-          // });
+        .then((response) => {
+          const { user } = response;
+          createUserDocFromAuth(user, {
+            name: `${firstName} ${lastName}`,
+            mobile,
+            address,
+          });
           reset();
         })
         .catch((error) => {
