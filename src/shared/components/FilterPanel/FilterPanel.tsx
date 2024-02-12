@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, useTheme } from "@mui/material";
-import { SearchForProducts } from "./SearchForProducts";
+import { ProductsSearch } from "./ProductsSearch";
 import { SortTypeSelect } from "./SortTypeSelect";
 import { SortOptions } from "types";
 
@@ -14,7 +14,7 @@ export const FilterPanel = ({ sortOptions }: FilterPanelProps) => {
         md={6}
         sx={{ display: "flex", justifyContent: "flex-end", [theme.breakpoints.down('md')]:{justifyContent: "center"}  }}
       >
-        <SearchForProducts />
+        <ProductsSearch />
       </Grid>
       <Grid
         item
