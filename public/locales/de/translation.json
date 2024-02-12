@@ -31,7 +31,7 @@
     "use_test_card_number":"Zum Testen können Sie die folgende Kartennummer verwenden: 4242 4242 4242 4242"
   },
   "search":{
-    "search_for_products": "Suche nach Produkten",
+    "products_search": "Suche nach Produkten",
     "search_label":"Suchen",
     "no_items":"Keine Gegenstände",
     "no_categories":"Keine Gegenstände"

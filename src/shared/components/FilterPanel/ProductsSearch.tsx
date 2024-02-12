@@ -1,14 +1,33 @@
-import { Box, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import React, { useCallback, useMemo, useState } from "react";
 import _ from "lodash";
-import { Input,InputAdornment, InputLabel, FormControl } from "@mui/material";
+import {
+  Input,
+  InputAdornment,
+  InputLabel,
+  FormControl,
+  Box,
+  IconButton,
+} from "@mui/material";
 
-export const SearchForProducts = () => {
+export const ProductsSearch = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const updateSearchParams = useCallback(
+    (newSearch: string, deleteOnly = false) => {
+      if (_.isEmpty(newSearch)) {
+        if (searchParams.has("search")) searchParams.delete("search");
+        setSearchParams(searchParams);
+      } else if (!deleteOnly) {
+        searchParams.set("search", newSearch);
+        setSearchParams(searchParams);
+      }
+    },
+    [searchParams, setSearchParams]
+  );
 
   const [searchValue, setSearchValue] = useState(() => {
     const searchValue = searchParams.get("search");
@@ -17,27 +36,15 @@ export const SearchForProducts = () => {
   });
 
   const handleApplySearch = useCallback(() => {
-    if (_.isEmpty(searchValue)) {
-      if (searchParams.has("search")) searchParams.delete("search");
-      setSearchParams(searchParams);
-    } else {
-      searchParams.set("search", searchValue);
-      setSearchParams(searchParams);
-    }
-  }, [searchParams, searchValue, setSearchParams]);
+    updateSearchParams(searchValue);
+  }, [updateSearchParams, searchValue]);
 
   const searchDebounceFn = useMemo(
     () =>
       _.debounce((searchValue: string) => {
-        if (_.isEmpty(searchValue)) {
-          if (searchParams.has("search")) searchParams.delete("search");
-          setSearchParams(searchParams);
-        } else {
-          searchParams.set("search", searchValue);
-          setSearchParams(searchParams);
-        }
+        updateSearchParams(searchValue);
       }, 1000),
-    [searchParams, setSearchParams]
+    [updateSearchParams]
   );
 
   const handleDebouncedSearchChange = useCallback(
@@ -49,35 +56,26 @@ export const SearchForProducts = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const newSearch = e.target.value;
       setSearchValue(newSearch);
-      if (_.isEmpty(newSearch)) {
-        if (searchParams.has("search")) searchParams.delete("search");
-        setSearchParams(searchParams);
-      }
+      updateSearchParams(newSearch, true);
       handleDebouncedSearchChange(newSearch);
     },
-    [handleDebouncedSearchChange, searchParams, setSearchParams]
+    [handleDebouncedSearchChange, updateSearchParams]
   );
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       const target = e.target as HTMLInputElement;
       if (e.key === "Enter") {
-        if (_.isEmpty(target.value)) {
-          if (searchParams.has("search")) searchParams.delete("search");
-          setSearchParams(searchParams);
-        } else {
-          searchParams.set("search", target.value);
-          setSearchParams(searchParams);
-        }
+        updateSearchParams(target.value);
       }
     },
-    [searchParams, setSearchParams]
+    [updateSearchParams]
   );
   return (
     <Box>
       <FormControl variant="standard" sx={{ m: 1, width: 210 }}>
         <InputLabel htmlFor="search_box_id">
-          {t("search.search_for_products")}:
+          {t("search.products_search")}:
         </InputLabel>
         <Input
           id="search_box_id"
@@ -93,7 +91,7 @@ export const SearchForProducts = () => {
           value={searchValue}
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
-          data-testid="FilterPanel-SearchForProducts-text-search"
+          data-testid="FilterPanel-ProductsSearch-text-search"
         />
       </FormControl>
     </Box>
