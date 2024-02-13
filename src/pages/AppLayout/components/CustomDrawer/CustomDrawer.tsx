@@ -4,14 +4,14 @@ import React, { MouseEvent, useState } from "react";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Link } from "react-router-dom";
 import Logo from "assets/images/logo";
-import { LinkInfo } from "types";
+import { MappedLinkInfo } from "types";
 import { signOutUser } from "utils/firebase";
 import { UserInfo } from "firebase/auth";
 import { StyledList } from "./components";
 import { useTranslation } from "react-i18next";
 
 type CustomDrawerProps = {
-  links: Array<LinkInfo>;
+  links: Array<MappedLinkInfo>;
   isSmallScreen: boolean;
   currentUser: null | UserInfo;
   handleCloseLnaguageMenu: (e: MouseEvent<HTMLDivElement>) => void;
@@ -24,9 +24,9 @@ export const CustomDrawer = ({
   handleCloseLnaguageMenu,
 }: CustomDrawerProps) => {
   const [open, setOpen] = useState(false);
-  const drawerLinks: Array<LinkInfo> = [
+  const drawerLinks: Array<MappedLinkInfo> = [
     ...links,
-    { path: "", label: "", protected: false },
+    { path: "", label: "", protected: false, id: "0" },
   ];
   const { t } = useTranslation();
   return (
@@ -56,12 +56,12 @@ export const CustomDrawer = ({
               sx={{ width: "100%", maxWidth: 360 }}
               aria-labelledby="nested-list-subheader"
             >
-              {drawerLinks.map((link, index) => {
+              {drawerLinks.map((link) => {
                 if (link.label !== "")
                   return link.protected ? (
-                    currentUser ? (
+                    currentUser && (
                       <ListItemButton
-                        key={index}
+                        key={link.id}
                         onClick={() => setOpen(false)}
                       >
                         <Link style={{ width: "100%" }} to={link.path}>
@@ -70,9 +70,12 @@ export const CustomDrawer = ({
                           </Typography>
                         </Link>
                       </ListItemButton>
-                    ) : null
+                    )
                   ) : (
-                    <ListItemButton key={index} onClick={() => setOpen(false)}>
+                    <ListItemButton
+                      key={link.id}
+                      onClick={() => setOpen(false)}
+                    >
                       <Link style={{ width: "100%" }} to={link.path}>
                         <Typography sx={{ color: "primary.main" }}>
                           {t(link.label)}
@@ -80,7 +83,7 @@ export const CustomDrawer = ({
                       </Link>
                     </ListItemButton>
                   );
-                return <div key={index}>&nbsp;</div>;
+                return <div key={link.id}>&nbsp;</div>;
               })}
               <ListItemButton
                 onClick={handleCloseLnaguageMenu}

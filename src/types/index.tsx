@@ -3,11 +3,10 @@ export type LinkInfo = {
   path: string;
   protected: boolean;
 };
-
+export type MappedLinkInfo = LinkInfo & { id: string };
 export type SideBarLinkInfo = Omit<LinkInfo, "protected"> & {
   component?: string;
 };
-
 
 export type CategoriesResponse = Array<CategoryResponse>;
 export type CategoryResponse = {

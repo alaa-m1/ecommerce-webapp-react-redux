@@ -1,17 +1,15 @@
-import {
-  Box,
-  AppBar,
-  Toolbar,
-  useMediaQuery,
-  useTheme,
-  Typography,
-} from "@mui/material";
-import React, { MouseEvent, useEffect, useRef, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Box, AppBar, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import React, {
+  MouseEvent,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { Link, Outlet } from "react-router-dom";
 import Logo from "assets/images/logo";
-import { LinkInfo } from "types";
-import { StyledLink } from "shared";
-import { signOutUser } from "utils/firebase";
+import { MappedLinkInfo } from "types";
+import { LoadingSpinner } from "shared";
 import {
   CustomDrawer,
   Footer,
@@ -19,25 +17,25 @@ import {
   ShoppingCartLogo,
   LanguageMenu,
   ThemeSwitch,
+  MenuBar,
 } from "./components";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartStatus } from "store/shoppingCart/shoppingCartSelector";
 import { setShowCart } from "store/shoppingCart/shoppingCartActions";
 import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { MenuBarSkeleton } from "shared/loadingSkeleton";
 
 type NavigationProps = {
-  links: Array<LinkInfo>;
+  links: Array<MappedLinkInfo>;
 };
 
 const AppLayout = ({ links }: NavigationProps) => {
-  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const { pathname } = useLocation();
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [isScrolling, setIsScrolling] = useState(false);
-  const currentUser = useAppSelector((state) => state.user.currentUser);
+  const currentUser = null;
   const isCartOpen = useAppSelector(selectShoopingCartStatus);
   const dispatch = useDispatch();
 
@@ -95,10 +93,12 @@ const AppLayout = ({ links }: NavigationProps) => {
         handleClose={handleClose}
         isScrolling={isScrolling}
       />
-      <LanguageMenu
-        anchorEl={anchorEl}
-        handleClose={handleOnLnaguageMenuClose}
-      />
+      <Suspense fallback={null}>
+        <LanguageMenu
+          anchorEl={anchorEl}
+          handleClose={handleOnLnaguageMenuClose}
+        />
+      </Suspense>
       <Box
         className="navigator-main-container"
         sx={{ flexGrow: 0, color: "secondary.dark" }}
@@ -125,75 +125,22 @@ const AppLayout = ({ links }: NavigationProps) => {
                     <Logo />
                   </Link>
                 </Box>
-                <Box className="link-container">
-                  <Box>
-                    {links.map((link, index) =>
-                      link.protected ? (
-                        currentUser ? (
-                          <StyledLink
-                            key={index}
-                            to={link.path}
-                            isactive={
-                              pathname === link.path ? "active" : "inActive"
-                            }
-                            data-testid={`AppLayout-link-${link.label}`}
-                          >
-                            {t(link.label)}
-                          </StyledLink>
-                        ) : null
-                      ) : (
-                        <StyledLink
-                          key={index}
-                          to={link.path}
-                          isactive={
-                            pathname === link.path ? "active" : "inActive"
-                          }
-                          data-testid={`AppLayout-link-${link.label}`}
-                        >
-                          {t(link.label)}
-                        </StyledLink>
-                      )
-                    )}
-                  </Box>
-                  <Typography
-                    className="language-menu-btn"
-                    onClick={handleLanguageMenuClick}
-                    color="primary.main"
-                    data-testid="AppLayout-link-language"
-                  >
-                    {t("languages.language")}
-                  </Typography>
-
-                  {currentUser ? (
-                    <Box onClick={() => signOutUser()}>
-                      <StyledLink
-                        to="auth"
-                        isactive={pathname === "/auth" ? "active" : "inActive"}
-                        data-testid="AppLayout-link-signout"
-                      >
-                        {t("auth.signout")}
-                      </StyledLink>
-                    </Box>
-                  ) : (
-                    <Box>
-                      <StyledLink
-                        to="auth"
-                        isactive={pathname === "/auth" ? "active" : "inActive"}
-                        data-testid="AppLayout-link-signin"
-                      >
-                        {t("auth.signin")}
-                      </StyledLink>
-                    </Box>
-                  )}
-                </Box>
+                <Suspense fallback={<MenuBarSkeleton />}>
+                  <MenuBar
+                    links={links}
+                    handleCloseLnaguageMenu={handleLanguageMenuClick}
+                  />
+                </Suspense>
               </>
             )}
-            <CustomDrawer
-              links={links}
-              isSmallScreen={isSmallScreen}
-              currentUser={currentUser}
-              handleCloseLnaguageMenu={handleLanguageMenuClick}
-            />
+            <Suspense fallback={null}>
+              <CustomDrawer
+                links={links}
+                isSmallScreen={isSmallScreen}
+                currentUser={currentUser}
+                handleCloseLnaguageMenu={handleLanguageMenuClick}
+              />
+            </Suspense>
             <Box
               className="shopping-cart-logo"
               onClick={() => dispatch(setShowCart(!isCartOpen))}
@@ -208,7 +155,9 @@ const AppLayout = ({ links }: NavigationProps) => {
       </Box>
       <main style={{ flexGrow: 1, overflowX: "auto", display: "flex" }}>
         <Box sx={{ width: "100%" }}>
-          <Outlet />
+          <Suspense fallback={<LoadingSpinner />}>
+            <Outlet />
+          </Suspense>
         </Box>
       </main>
       <Box sx={{ flexGrow: 0 }}>
