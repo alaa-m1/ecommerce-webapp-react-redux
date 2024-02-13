@@ -1,5 +1,4 @@
-import React, { Suspense } from "react";
-import { LoadingSpinner } from "shared";
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store, { persistor } from "store/store";
@@ -18,21 +17,19 @@ const AppRoot = ({ children }: AppRootType) => {
         <BrowserRouter>
           <ReactQueryProvider>
             <Elements stripe={stripePromise} options={stripeOptions}>
-              <Suspense fallback={<LoadingSpinner />}>
-                <ThemedApp>{children}</ThemedApp>
-                <ToastContainer
-                  position="bottom-left"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="colored"
-                />
-              </Suspense>
+              <ThemedApp>{children}</ThemedApp>
+              <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+              />
             </Elements>
           </ReactQueryProvider>
         </BrowserRouter>
