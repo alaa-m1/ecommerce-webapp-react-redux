@@ -4,206 +4,207 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-importers:
+dependencies:
+  '@emotion/react':
+    specifier: ^11.11.0
+    version: 11.11.0(@types/react@18.2.25)(react@18.2.0)
+  '@emotion/styled':
+    specifier: ^11.11.0
+    version: 11.11.0(@emotion/react@11.11.0)(@types/react@18.2.25)(react@18.2.0)
+  '@hookform/resolvers':
+    specifier: ^3.1.0
+    version: 3.1.0(react-hook-form@7.44.1)
+  '@mui/icons-material':
+    specifier: ^5.11.16
+    version: 5.11.16(@mui/material@5.13.1)(@types/react@18.2.25)(react@18.2.0)
+  '@mui/lab':
+    specifier: ^5.0.0-alpha.131
+    version: 5.0.0-alpha.131(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@mui/material@5.13.1)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
+  '@mui/material':
+    specifier: ^5.13.1
+    version: 5.13.1(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
+  '@mui/styled-engine-sc':
+    specifier: ^5.12.0
+    version: 5.12.0(@types/styled-components@5.1.26)(styled-components@5.3.10)
+  '@mui/x-data-grid':
+    specifier: ^6.16.1
+    version: 6.16.1(@mui/material@5.13.1)(@mui/system@5.14.10)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
+  '@reduxjs/toolkit':
+    specifier: ^1.9.6
+    version: 1.9.6(react-redux@8.0.7)(react@18.2.0)
+  '@stripe/react-stripe-js':
+    specifier: ^2.3.0
+    version: 2.3.0(@stripe/stripe-js@2.1.6)(react-dom@18.2.0)(react@18.2.0)
+  '@stripe/stripe-js':
+    specifier: ^2.1.6
+    version: 2.1.6
+  '@tanstack/react-query':
+    specifier: ^4.29.7
+    version: 4.29.7(react-dom@18.2.0)(react@18.2.0)
+  '@testing-library/jest-dom':
+    specifier: ^5.16.5
+    version: 5.16.5
+  '@testing-library/react':
+    specifier: ^13.4.0
+    version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
+  '@testing-library/user-event':
+    specifier: ^13.5.0
+    version: 13.5.0(@testing-library/dom@9.3.3)
+  '@types/jest':
+    specifier: ^27.5.2
+    version: 27.5.2
+  '@types/node':
+    specifier: ^16.18.32
+    version: 16.18.32
+  '@types/react':
+    specifier: ^18.2.25
+    version: 18.2.25
+  '@types/react-dom':
+    specifier: ^18.2.4
+    version: 18.2.4
+  axios:
+    specifier: ^1.5.0
+    version: 1.5.0
+  clsx:
+    specifier: ^2.0.0
+    version: 2.0.0
+  dotenv:
+    specifier: ^16.3.1
+    version: 16.3.1
+  firebase:
+    specifier: ^9.22.1
+    version: 9.22.1
+  html-react-parser:
+    specifier: ^5.1.5
+    version: 5.1.5(react@18.2.0)
+  i18next:
+    specifier: ^23.5.1
+    version: 23.5.1
+  i18next-browser-languagedetector:
+    specifier: ^7.1.0
+    version: 7.1.0
+  i18next-http-backend:
+    specifier: ^2.2.2
+    version: 2.2.2
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
+  react:
+    specifier: ^18.2.0
+    version: 18.2.0
+  react-dom:
+    specifier: ^18.2.0
+    version: 18.2.0(react@18.2.0)
+  react-error-boundary:
+    specifier: ^4.0.11
+    version: 4.0.11(react@18.2.0)
+  react-hook-form:
+    specifier: ^7.44.1
+    version: 7.44.1(react@18.2.0)
+  react-i18next:
+    specifier: ^13.2.2
+    version: 13.2.2(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0)
+  react-loading-skeleton:
+    specifier: ^3.3.1
+    version: 3.3.1(react@18.2.0)
+  react-query:
+    specifier: ^3.39.3
+    version: 3.39.3(react-dom@18.2.0)(react@18.2.0)
+  react-redux:
+    specifier: ^8.0.7
+    version: 8.0.7(@reduxjs/toolkit@1.9.6)(@types/react-dom@18.2.4)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
+  react-router-dom:
+    specifier: ^6.11.2
+    version: 6.11.2(react-dom@18.2.0)(react@18.2.0)
+  react-scripts:
+    specifier: 5.0.1
+    version: 5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.55.0)(react@18.2.0)(sass@1.62.1)(typescript@4.9.5)
+  react-spinners:
+    specifier: ^0.13.8
+    version: 0.13.8(react-dom@18.2.0)(react@18.2.0)
+  react-toastify:
+    specifier: ^9.1.3
+    version: 9.1.3(react-dom@18.2.0)(react@18.2.0)
+  redux:
+    specifier: ^4.2.1
+    version: 4.2.1
+  redux-logger:
+    specifier: ^3.0.6
+    version: 3.0.6
+  redux-persist:
+    specifier: ^6.0.0
+    version: 6.0.0(react@18.2.0)(redux@4.2.1)
+  redux-thunk:
+    specifier: ^2.4.2
+    version: 2.4.2(redux@4.2.1)
+  reselect:
+    specifier: ^4.1.8
+    version: 4.1.8
+  sass:
+    specifier: ^1.62.1
+    version: 1.62.1
+  selector:
+    specifier: ^2.1.1
+    version: 2.1.1
+  stripe:
+    specifier: ^13.7.0
+    version: 13.7.0
+  styled-components:
+    specifier: ^5.3.10
+    version: 5.3.10(@babel/core@7.22.20)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
+  typescript:
+    specifier: ^4.9.5
+    version: 4.9.5
+  validator:
+    specifier: ^13.9.0
+    version: 13.9.0
+  web-vitals:
+    specifier: ^2.1.4
+    version: 2.1.4
+  zod:
+    specifier: ^3.21.4
+    version: 3.21.4
+  zxcvbn:
+    specifier: ^4.4.2
+    version: 4.4.2
 
-  .:
-    dependencies:
-      '@emotion/react':
-        specifier: ^11.11.0
-        version: 11.11.0(@types/react@18.2.25)(react@18.2.0)
-      '@emotion/styled':
-        specifier: ^11.11.0
-        version: 11.11.0(@emotion/react@11.11.0)(@types/react@18.2.25)(react@18.2.0)
-      '@hookform/resolvers':
-        specifier: ^3.1.0
-        version: 3.1.0(react-hook-form@7.44.1)
-      '@mui/icons-material':
-        specifier: ^5.11.16
-        version: 5.11.16(@mui/material@5.13.1)(@types/react@18.2.25)(react@18.2.0)
-      '@mui/lab':
-        specifier: ^5.0.0-alpha.131
-        version: 5.0.0-alpha.131(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@mui/material@5.13.1)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
-      '@mui/material':
-        specifier: ^5.13.1
-        version: 5.13.1(@emotion/react@11.11.0)(@emotion/styled@11.11.0)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
-      '@mui/styled-engine-sc':
-        specifier: ^5.12.0
-        version: 5.12.0(@types/styled-components@5.1.26)(styled-components@5.3.10)
-      '@mui/x-data-grid':
-        specifier: ^6.16.1
-        version: 6.16.1(@mui/material@5.13.1)(@mui/system@5.14.10)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)
-      '@reduxjs/toolkit':
-        specifier: ^1.9.6
-        version: 1.9.6(react-redux@8.0.7)(react@18.2.0)
-      '@stripe/react-stripe-js':
-        specifier: ^2.3.0
-        version: 2.3.0(@stripe/stripe-js@2.1.6)(react-dom@18.2.0)(react@18.2.0)
-      '@stripe/stripe-js':
-        specifier: ^2.1.6
-        version: 2.1.6
-      '@tanstack/react-query':
-        specifier: ^4.29.7
-        version: 4.29.7(react-dom@18.2.0)(react@18.2.0)
-      '@testing-library/jest-dom':
-        specifier: ^5.16.5
-        version: 5.16.5
-      '@testing-library/react':
-        specifier: ^13.4.0
-        version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
-      '@testing-library/user-event':
-        specifier: ^13.5.0
-        version: 13.5.0(@testing-library/dom@9.3.3)
-      '@types/jest':
-        specifier: ^27.5.2
-        version: 27.5.2
-      '@types/node':
-        specifier: ^16.18.32
-        version: 16.18.32
-      '@types/react':
-        specifier: ^18.2.25
-        version: 18.2.25
-      '@types/react-dom':
-        specifier: ^18.2.4
-        version: 18.2.4
-      axios:
-        specifier: ^1.5.0
-        version: 1.5.0
-      clsx:
-        specifier: ^2.0.0
-        version: 2.0.0
-      dotenv:
-        specifier: ^16.3.1
-        version: 16.3.1
-      firebase:
-        specifier: ^9.22.1
-        version: 9.22.1
-      i18next:
-        specifier: ^23.5.1
-        version: 23.5.1
-      i18next-browser-languagedetector:
-        specifier: ^7.1.0
-        version: 7.1.0
-      i18next-http-backend:
-        specifier: ^2.2.2
-        version: 2.2.2
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
-      react-error-boundary:
-        specifier: ^4.0.11
-        version: 4.0.11(react@18.2.0)
-      react-hook-form:
-        specifier: ^7.44.1
-        version: 7.44.1(react@18.2.0)
-      react-i18next:
-        specifier: ^13.2.2
-        version: 13.2.2(i18next@23.5.1)(react-dom@18.2.0)(react@18.2.0)
-      react-loading-skeleton:
-        specifier: ^3.3.1
-        version: 3.3.1(react@18.2.0)
-      react-query:
-        specifier: ^3.39.3
-        version: 3.39.3(react-dom@18.2.0)(react@18.2.0)
-      react-redux:
-        specifier: ^8.0.7
-        version: 8.0.7(@reduxjs/toolkit@1.9.6)(@types/react-dom@18.2.4)(@types/react@18.2.25)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
-      react-router-dom:
-        specifier: ^6.11.2
-        version: 6.11.2(react-dom@18.2.0)(react@18.2.0)
-      react-scripts:
-        specifier: 5.0.1
-        version: 5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.55.0)(react@18.2.0)(sass@1.62.1)(typescript@4.9.5)
-      react-spinners:
-        specifier: ^0.13.8
-        version: 0.13.8(react-dom@18.2.0)(react@18.2.0)
-      react-toastify:
-        specifier: ^9.1.3
-        version: 9.1.3(react-dom@18.2.0)(react@18.2.0)
-      redux:
-        specifier: ^4.2.1
-        version: 4.2.1
-      redux-logger:
-        specifier: ^3.0.6
-        version: 3.0.6
-      redux-persist:
-        specifier: ^6.0.0
-        version: 6.0.0(react@18.2.0)(redux@4.2.1)
-      redux-thunk:
-        specifier: ^2.4.2
-        version: 2.4.2(redux@4.2.1)
-      reselect:
-        specifier: ^4.1.8
-        version: 4.1.8
-      sass:
-        specifier: ^1.62.1
-        version: 1.62.1
-      selector:
-        specifier: ^2.1.1
-        version: 2.1.1
-      stripe:
-        specifier: ^13.7.0
-        version: 13.7.0
-      styled-components:
-        specifier: ^5.3.10
-        version: 5.3.10(@babel/core@7.22.20)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
-      typescript:
-        specifier: ^4.9.5
-        version: 4.9.5
-      validator:
-        specifier: ^13.9.0
-        version: 13.9.0
-      web-vitals:
-        specifier: ^2.1.4
-        version: 2.1.4
-      zod:
-        specifier: ^3.21.4
-        version: 3.21.4
-      zxcvbn:
-        specifier: ^4.4.2
-        version: 4.4.2
-    devDependencies:
-      '@types/lodash':
-        specifier: ^4.14.198
-        version: 4.14.198
-      '@types/redux-logger':
-        specifier: ^3.0.9
-        version: 3.0.9
-      '@types/redux-persist':
-        specifier: ^4.3.1
-        version: 4.3.1(react@18.2.0)(redux@4.2.1)
-      '@types/styled-components':
-        specifier: ^5.1.26
-        version: 5.1.26
-      '@types/validator':
-        specifier: ^13.7.17
-        version: 13.7.17
-      '@types/zxcvbn':
-        specifier: ^4.4.1
-        version: 4.4.1
-      '@typescript-eslint/parser':
-        specifier: ^6.13.2
-        version: 6.13.2(eslint@8.55.0)(typescript@4.9.5)
-      cypress:
-        specifier: ^13.3.0
-        version: 13.3.0
-      eslint:
-        specifier: ^8.55.0
-        version: 8.55.0
-      eslint-plugin-cypress:
-        specifier: ^2.15.1
-        version: 2.15.1(eslint@8.55.0)
-      eslint-plugin-react:
-        specifier: ^7.33.2
-        version: 7.33.2(eslint@8.55.0)
-      eslint-plugin-react-hooks:
-        specifier: ^4.6.0
-        version: 4.6.0(eslint@8.55.0)
+devDependencies:
+  '@types/lodash':
+    specifier: ^4.14.198
+    version: 4.14.198
+  '@types/redux-logger':
+    specifier: ^3.0.9
+    version: 3.0.9
+  '@types/redux-persist':
+    specifier: ^4.3.1
+    version: 4.3.1(react@18.2.0)(redux@4.2.1)
+  '@types/styled-components':
+    specifier: ^5.1.26
+    version: 5.1.26
+  '@types/validator':
+    specifier: ^13.7.17
+    version: 13.7.17
+  '@types/zxcvbn':
+    specifier: ^4.4.1
+    version: 4.4.1
+  '@typescript-eslint/parser':
+    specifier: ^6.13.2
+    version: 6.13.2(eslint@8.55.0)(typescript@4.9.5)
+  cypress:
+    specifier: ^13.3.0
+    version: 13.3.0
+  eslint:
+    specifier: ^8.55.0
+    version: 8.55.0
+  eslint-plugin-cypress:
+    specifier: ^2.15.1
+    version: 2.15.1(eslint@8.55.0)
+  eslint-plugin-react:
+    specifier: ^7.33.2
+    version: 7.33.2(eslint@8.55.0)
+  eslint-plugin-react-hooks:
+    specifier: ^4.6.0
+    version: 4.6.0(eslint@8.55.0)
 
 packages:
 
@@ -3075,7 +3076,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.22.15
-      '@types/prop-types': 15.7.5
+      '@types/prop-types': 15.7.8
       '@types/react': 18.2.25
       prop-types: 15.8.1
       react: 18.2.0
@@ -3789,6 +3790,14 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
+
+  /@types/react@18.2.55:
+    resolution: {integrity: sha512-Y2Tz5P4yz23brwm2d7jNon39qoAtMMmalOQv6+fEFt1mT+FcM3D841wDpoUvFXhaYenuROCy3FZYqdTjM7qVyA==}
+    dependencies:
+      '@types/prop-types': 15.7.8
+      '@types/scheduler': 0.16.3
+      csstype: 3.1.2
+    dev: false
 
   /@types/redux-logger@3.0.9:
     resolution: {integrity: sha512-cwYhVbYNgH01aepeMwhd0ABX6fhVB2rcQ9m80u8Fl50ZODhsZ8RhQArnLTkE7/Zrfq4Sz/taNoF7DQy9pCZSKg==}
@@ -5945,6 +5954,14 @@ packages:
       entities: 2.2.0
     dev: false
 
+  /dom-serializer@2.0.0:
+    resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
+    dependencies:
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
+      entities: 4.5.0
+    dev: false
+
   /domelementtype@1.3.1:
     resolution: {integrity: sha512-BSKB+TSpMpFI/HOxCNr1O8aMOTZ8hT3pM3GQ0w/mWRmkhEDSFJkkyzz4XQsBV44BChwGkrDfMyjVD0eA2aFV3w==}
     dev: false
@@ -5967,6 +5984,13 @@ packages:
       domelementtype: 2.3.0
     dev: false
 
+  /domhandler@5.0.3:
+    resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
+    engines: {node: '>= 4'}
+    dependencies:
+      domelementtype: 2.3.0
+    dev: false
+
   /domutils@1.7.0:
     resolution: {integrity: sha512-Lgd2XcJ/NjEw+7tFvfKxOzCYKZsdct5lczQ2ZaQY8Djz7pfAD3Gbp8ySJWtreII/vDlMVmxwa6pHmdxIYgttDg==}
     dependencies:
@@ -5980,6 +6004,14 @@ packages:
       dom-serializer: 1.4.1
       domelementtype: 2.3.0
       domhandler: 4.3.1
+    dev: false
+
+  /domutils@3.1.0:
+    resolution: {integrity: sha512-H78uMmQtI2AhgDJjWeQmHwJJ2bLPD3GMmO7Zja/ZZh84wkm+4ut+IUnUdRa8uCGX88DiVx1j6FRe1XfxEgjEZA==}
+    dependencies:
+      dom-serializer: 2.0.0
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
     dev: false
 
   /dot-case@3.0.4:
@@ -6081,6 +6113,11 @@ packages:
 
   /entities@2.2.0:
     resolution: {integrity: sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==}
+    dev: false
+
+  /entities@4.5.0:
+    resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
+    engines: {node: '>=0.12'}
     dev: false
 
   /error-ex@1.3.2:
@@ -7289,6 +7326,13 @@ packages:
       wbuf: 1.7.3
     dev: false
 
+  /html-dom-parser@5.0.8:
+    resolution: {integrity: sha512-vuWiX9EXgu8CJ5m9EP5c7bvBmNSuQVnrY8tl0z0ZX96Uth1IPlYH/8W8VZ/hBajFf18EN+j2pukbCNd01HEd1w==}
+    dependencies:
+      domhandler: 5.0.3
+      htmlparser2: 9.1.0
+    dev: false
+
   /html-encoding-sniffer@2.0.1:
     resolution: {integrity: sha512-D5JbOMBIR/TVZkubHT+OyT2705QvogUW4IBn6nHd756OwieSF9aDYFj4dv6HHEVGYbHaLETa3WggZYWWMyy3ZQ==}
     engines: {node: '>=10'}
@@ -7324,6 +7368,19 @@ packages:
       void-elements: 3.1.0
     dev: false
 
+  /html-react-parser@5.1.5(react@18.2.0):
+    resolution: {integrity: sha512-lnRbY79VuhtTttVMTFPAO+q6mEgSE/A7FHO70rkbQRcNtwd/Vi5EqwD2WJ8VsyD//XcDAHVsvZ8HC8BAamTLRg==}
+    peerDependencies:
+      react: 0.14 || 15 || 16 || 17 || 18
+    dependencies:
+      '@types/react': 18.2.55
+      domhandler: 5.0.3
+      html-dom-parser: 5.0.8
+      react: 18.2.0
+      react-property: 2.0.2
+      style-to-js: 1.1.10
+    dev: false
+
   /html-webpack-plugin@5.5.3(webpack@5.88.2):
     resolution: {integrity: sha512-6YrDKTuqaP/TquFH7h4srYWsZx+x6k6+FbsTm0ziCwGHDP78Unr1r9F/H4+sGmMbX08GQcJ+K64x55b+7VM/jg==}
     engines: {node: '>=10.13.0'}
@@ -7345,6 +7402,15 @@ packages:
       domhandler: 4.3.1
       domutils: 2.8.0
       entities: 2.2.0
+    dev: false
+
+  /htmlparser2@9.1.0:
+    resolution: {integrity: sha512-5zfg6mHUoaer/97TxnGpxmbR7zJtPwIYFMZ/H5ucTlPZhKvtum05yiPK3Mgai3a0DyVxv7qYqoweaEd2nrYQzQ==}
+    dependencies:
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
+      domutils: 3.1.0
+      entities: 4.5.0
     dev: false
 
   /http-deceiver@1.2.7:
@@ -7565,6 +7631,10 @@ packages:
     resolution: {integrity: sha512-7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA==}
     engines: {node: '>=10'}
     dev: true
+
+  /inline-style-parser@0.2.2:
+    resolution: {integrity: sha512-EcKzdTHVe8wFVOGEYXiW9WmJXPjqi1T+234YpJr98RiFYKHV3cdy1+3mkTE+KHTHxFFLH51SfaGOoUdW+v7ViQ==}
+    dev: false
 
   /internal-slot@1.0.5:
     resolution: {integrity: sha512-Y+R5hJrzs52QCG2laLn4udYVnxsfny9CpOhNhUvk/SSSVyF6T27FzRbF0sroPidSu3X8oEAkOn2K804mjpt6UQ==}
@@ -10490,6 +10560,10 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-property@2.0.2:
+    resolution: {integrity: sha512-+PbtI3VuDV0l6CleQMsx2gtK0JZbZKbpdu5ynr+lbsuvtmgbNcS3VM0tuY2QjFNOcWxvXeHjDpy42RO+4U2rug==}
+    dev: false
+
   /react-query@3.39.3(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-nLfLz7GiohKTJDuT4us4X3h/8unOh+00MLb2yJoGTPjxKs2bc1iDhkNx2bd5MKklXnOD3NrVZ+J2UXujA5In4g==}
     peerDependencies:
@@ -11587,6 +11661,18 @@ packages:
       webpack: ^5.0.0
     dependencies:
       webpack: 5.88.2
+    dev: false
+
+  /style-to-js@1.1.10:
+    resolution: {integrity: sha512-VC7MBJa+y0RZhpnLKDPmVRLRswsASLmixkiZ5R8xZpNT9VyjeRzwnXd2pBzAWdgSGv/pCNNH01gPCCUsB9exYg==}
+    dependencies:
+      style-to-object: 1.0.5
+    dev: false
+
+  /style-to-object@1.0.5:
+    resolution: {integrity: sha512-rDRwHtoDD3UMMrmZ6BzOW0naTjMsVZLIjsGleSKS/0Oz+cgCfAPRspaqJuE8rDzpKha/nEvnM0IF4seEAZUTKQ==}
+    dependencies:
+      inline-style-parser: 0.2.2
     dev: false
 
   /styled-components@5.3.10(@babel/core@7.22.20)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0):

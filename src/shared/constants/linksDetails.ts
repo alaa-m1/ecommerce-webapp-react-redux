@@ -9,6 +9,7 @@ export const linksDetails: Array<LinkInfo> = [
   },
   { label: "modern_collection", path: "/modern-collection", protected: false },
   { label: "dashboard", path: "/user-dashboard", protected: true },
+  { label: "about", path: "/about", protected: false },
 ];
 
 
