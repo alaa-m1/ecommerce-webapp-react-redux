@@ -1,9 +1,10 @@
-import { Theme, ThemeProvider } from "@mui/material";
+import { Theme, ThemeProvider as MuiThemeProvider } from "@mui/material";
 import React, { useMemo } from "react";
 import { getTheme } from "theme/getTheme";
 import { useAppSelector } from "utils/redux/hooks";
 import { CssBaseline } from "@mui/material";
 import GlobalStyle from "assets/style/GlobalStyle";
+import { ThemeProvider } from "styled-components";
 
 const ThemedApp = ({ children }: ThemedAppProps) => {
   const currentThemeMode = useAppSelector((state) => state.user.themeMode);
@@ -11,12 +12,17 @@ const ThemedApp = ({ children }: ThemedAppProps) => {
     () => (currentThemeMode === "light" ? getTheme("light") : getTheme("dark")),
     [currentThemeMode]
   );
+  const styledTheme = {
+    main: currentThemeMode === "light" ? "#fff" : "#121212",
+  };
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <GlobalStyle />
-      {children}
-    </ThemeProvider>
+    <MuiThemeProvider theme={theme}>
+      <ThemeProvider theme={styledTheme}>
+        <CssBaseline />
+        <GlobalStyle />
+        {children}
+      </ThemeProvider>
+    </MuiThemeProvider>
   );
 };
 

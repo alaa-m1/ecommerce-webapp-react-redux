@@ -13,6 +13,7 @@ import UserDashboardPage from "pages/UserDashboard/UserDashboardPage";
 import UnAuthorizedRoute from "utils/routes/UnAuthorizedRoute";
 import TermsPage from "pages/Terms/TermsPage";
 import { mapLinks } from "utils/mappingFunctions/mapLinks";
+import AboutPage from "pages/About/AboutPage";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           }
         />
         <Route path="checkout" element={<Checkout />} />
+        <Route path="about" element={<AboutPage />} />
         <Route
           path="user-dashboard"
           element={
