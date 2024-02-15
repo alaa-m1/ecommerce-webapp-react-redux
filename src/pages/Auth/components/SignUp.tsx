@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
-import { TextField } from "shared";
+import { AcceptCheckBox, TextField } from "shared";
 import {
   createAuthenticatedUserWithEmailAndPassword,
   createUserDocFromAuth,
@@ -78,9 +78,7 @@ const SignUp = () => {
   } = useForm<UserSchemaType>({ resolver: zodResolver(UserSchema) });
   const onSubmit: SubmitHandler<UserSchemaType> = async (formData) => {
     try {
-      const { email, password
-        ,firstName, lastName, address, mobile 
-      } =
+      const { email, password, firstName, lastName, address, mobile } =
         formData;
       await createAuthenticatedUserWithEmailAndPassword(email, password)
         .then((response) => {
@@ -214,28 +212,12 @@ const SignUp = () => {
           autoComplete="off"
         ></TextField>
         <br />
-        <Box sx={{ textAlign: "left", marginBottom: "20px" }}>
-          <input type="checkbox" id="accept" {...register("accept")} />
-          <label htmlFor="accept" style={{ color: "primary.light" }}>
-            <Typography component="span" sx={{ color: "primary.light" }}>
-              I accept &nbsp;
-            </Typography>
-          </label>
-          <Link href="/terms" sx={{ textDecoration: "none" }}>
-            <Typography component="span" sx={{ color: "primary.light" }}>
-              terms and conditions
-            </Typography>
-          </Link>
-
-          {errors.accept && (
-            <Alert
-              severity="error"
-              sx={{ marginTop: "2px", backgroundColor: "#FDEDED" }}
-            >
-              {errors.accept?.message}
-            </Alert>
-          )}
-        </Box>
+        <AcceptCheckBox
+          label="I accept"
+          register={register("accept")}
+          errors={errors.accept}
+          link={{ to: "/terms", label: "terms and conditions" }}
+        />
         <LoadingButton
           loading={isSubmitting}
           loadingIndicator={<ScaleLoader color="#36d7b7" />}
