@@ -1,9 +1,15 @@
 import { Alert, Box } from "@mui/material";
-import React, { DetailedHTMLProps, InputHTMLAttributes, useId, useState } from "react";
+import React, {
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  useId,
+  useState,
+} from "react";
 import ErrorIcon from "@mui/icons-material/Error";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import {clsx} from "clsx";
+import { clsx } from "clsx";
+import styled from "styled-components";
 
 type TextFieldProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -59,7 +65,7 @@ export const TextField = ({
             },
           },
         }}
-        className={clsx({"error-border" :errors})}
+        className={clsx({ "error-border": errors })}
       >
         <Box
           sx={{
@@ -71,30 +77,22 @@ export const TextField = ({
         >
           {icon}
         </Box>
-        <input
+        <Input
           id={`input-${id}`}
           type={showPassword ? "text" : type}
           name={name}
           {...register(name)}
-          className="custom-input"
           {...props}
-          style={{
-            padding: "8px 5px 8px 30px",
-            margin: "5px",
-            borderWidth: "1px",
-            borderColor: errors ? "#d32f2f" : "#ccc",
-            borderRadius: "6px",
-            width: "100%",
-            boxSizing: "border-box",
-          }}
+          errors={errors}
           placeholder=""
         />
-        <label
+        <Label
+          errors={errors}
           htmlFor={`input-${id}`}
           style={{ position: "absolute", marginLeft: "5px", ...labelStyle }}
         >
           {label}
-        </label>
+        </Label>
         {(name === "password" || name === "confirmPassword") && (
           <Box
             sx={{
@@ -145,3 +143,17 @@ export const TextField = ({
     </Box>
   );
 };
+
+const Input = styled.input<{ errors: string }>`
+  padding: 8px 5px 8px 30px;
+  margin: 5px;
+  border-width: 1px;
+  border-color: ${(props) => (props.errors ? "#d32f2f" : "#ccc")};
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: "border-box";
+`;
+
+const Label = styled.label<{ errors: string }>`
+  color: ${(props) => (props.errors ? "#d32f2f" : "#000")};
+`;
