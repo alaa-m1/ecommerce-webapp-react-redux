@@ -1,7 +1,5 @@
 import { Alert, Box } from "@mui/material";
 import React, {
-  DetailedHTMLProps,
-  InputHTMLAttributes,
   useId,
   useState,
 } from "react";
@@ -11,10 +9,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { clsx } from "clsx";
 import styled from "styled-components";
 
-type TextFieldProps = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> & {
+type TextFieldProps = React.ComponentPropsWithoutRef<"input"> & {
   label: string;
   icon: JSX.Element;
   register: any;
