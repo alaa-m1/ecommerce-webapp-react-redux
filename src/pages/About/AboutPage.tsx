@@ -57,6 +57,7 @@ export const AboutPage = () => {
           title="Xing"
         />
         <ExternalLink url="https://github.com/alaa-m1" title="GitHub" />
+        <ExternalLink url="https://dev.to/alaa-m1" title="Dev.to" />
       </Box>
     </Box>
   );
