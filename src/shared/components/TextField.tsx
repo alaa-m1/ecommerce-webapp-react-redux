@@ -8,15 +8,17 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { clsx } from "clsx";
 import styled from "styled-components";
+import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 
-type TextFieldProps = React.ComponentPropsWithoutRef<"input"> & {
+type TextFieldProps<T extends FieldValues> = React.ComponentPropsWithoutRef<"input"> & {
   label: string;
+  name: Path<T>;
   icon: JSX.Element;
-  register: any;
+  register: UseFormRegister<T>;
   errors: any;
   getValues: any;
 };
-export const TextField = ({
+export const TextField =<T extends FieldValues,> ({
   name,
   label,
   icon,
@@ -25,7 +27,7 @@ export const TextField = ({
   errors,
   type,
   ...props
-}: TextFieldProps) => {
+}: TextFieldProps<T>) => {
   const id = useId();
   const [showPassword, setShowPassword] = useState(false);
   const handleOnShowIconClick = () => {
@@ -75,7 +77,6 @@ export const TextField = ({
         <Input
           id={`input-${id}`}
           type={showPassword ? "text" : type}
-          name={name}
           {...register(name)}
           {...props}
           errors={errors}
