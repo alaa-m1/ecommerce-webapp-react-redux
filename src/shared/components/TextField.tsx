@@ -1,24 +1,27 @@
 import { Alert, Box } from "@mui/material";
-import React, {
-  useId,
-  useState,
-} from "react";
+import React, { useId, useState } from "react";
 import ErrorIcon from "@mui/icons-material/Error";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { clsx } from "clsx";
 import styled from "styled-components";
-import { FieldValues, Path, UseFormRegister } from "react-hook-form";
+import {
+  FieldValues,
+  Path,
+  UseFormGetValues,
+  UseFormRegister,
+} from "react-hook-form";
 
-type TextFieldProps<T extends FieldValues> = React.ComponentPropsWithoutRef<"input"> & {
-  label: string;
-  name: Path<T>;
-  icon: JSX.Element;
-  register: UseFormRegister<T>;
-  errors: any;
-  getValues: any;
-};
-export const TextField =<T extends FieldValues,> ({
+type TextFieldProps<T extends FieldValues> =
+  React.ComponentPropsWithoutRef<"input"> & {
+    label: string;
+    name: Path<T>;
+    icon: JSX.Element;
+    register: UseFormRegister<T>;
+    errors: string | undefined;
+    getValues: UseFormGetValues<T>;
+  };
+export const TextField = <T extends FieldValues>({
   name,
   label,
   icon,
@@ -140,7 +143,7 @@ export const TextField =<T extends FieldValues,> ({
   );
 };
 
-const Input = styled.input<{ errors: string }>`
+const Input = styled.input<{ errors?: string }>`
   padding: 8px 5px 8px 30px;
   margin: 5px;
   border-width: 1px;
@@ -150,6 +153,6 @@ const Input = styled.input<{ errors: string }>`
   box-sizing: "border-box";
 `;
 
-const Label = styled.label<{ errors: string }>`
+const Label = styled.label<{ errors?: string }>`
   color: ${(props) => (props.errors ? "#d32f2f" : "#000")};
 `;

@@ -7,6 +7,17 @@ export type MappedLinkInfo = LinkInfo & { id: string };
 export type SideBarLinkInfo = Omit<LinkInfo, "protected"> & {
   component?: string;
 };
+export type UserSignInForm = { email: string; password: string };
+export type UserSignUpForm = {
+  firstName: string;
+  lastName: string;
+  address: string;
+  email: string;
+  mobile: string;
+  accept: boolean;
+  password: string;
+  confirmPassword: string;
+};
 
 export type CategoriesResponse = Array<CategoryResponse>;
 export type CategoryResponse = {
