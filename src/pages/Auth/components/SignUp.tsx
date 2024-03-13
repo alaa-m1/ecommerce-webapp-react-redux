@@ -20,48 +20,52 @@ import {
 } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useTranslation } from "react-i18next";
+import { UserSignUpForm } from "types";
+import { schemaForType } from "types/new-types.d";
 
-const UserSchema = z
-  .object({
-    firstName: z
-      .string()
-      .min(2, "The first name must be at least 2 characters")
-      .max(32, "The first name must be less than 32 characters")
-      .regex(
-        new RegExp("^[a-zA-Z]+$"),
-        "The first name must not contains any special characters"
-      ),
-    lastName: z
-      .string()
-      .min(2, "The last name must be at least 2 characters")
-      .max(32, "The last name must be less than 32 characters")
-      .regex(
-        new RegExp("^[a-zA-Z]+$"),
-        "The last name must not contains any special characters"
-      ),
-    address: z
-      .string()
-      .min(8, "The address must be at least 8 characters")
-      .max(100, "The address must be less than 100 characters"),
-    email: z.string().email("You must enter a valid Email"),
-    mobile: z.string().refine(validator.isMobilePhone, {
-      message: "Please enter a valid phone number",
-    }),
-    password: z
-      .string()
-      .min(8, "The password must be at least 8 characters")
-      .max(60, "The password must be less than 60 characters"),
-    confirmPassword: z.string(),
-    accept: z.literal(true, {
-      errorMap: () => ({
-        message: "You should accept terms and conditions before continuing",
+const UserSchema = schemaForType<UserSignUpForm>()(
+  z
+    .object({
+      firstName: z
+        .string()
+        .min(2, "The first name must be at least 2 characters")
+        .max(32, "The first name must be less than 32 characters")
+        .regex(
+          new RegExp("^[a-zA-Z]+$"),
+          "The first name must not contains any special characters"
+        ),
+      lastName: z
+        .string()
+        .min(2, "The last name must be at least 2 characters")
+        .max(32, "The last name must be less than 32 characters")
+        .regex(
+          new RegExp("^[a-zA-Z]+$"),
+          "The last name must not contains any special characters"
+        ),
+      address: z
+        .string()
+        .min(8, "The address must be at least 8 characters")
+        .max(100, "The address must be less than 100 characters"),
+      email: z.string().email("You must enter a valid Email"),
+      mobile: z.string().refine(validator.isMobilePhone, {
+        message: "Please enter a valid phone number",
       }),
-    }),
-  })
-  .refine((formData) => formData.password === formData.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+      password: z
+        .string()
+        .min(8, "The password must be at least 8 characters")
+        .max(60, "The password must be less than 60 characters"),
+      confirmPassword: z.string(),
+      accept: z.literal<boolean>(true, {
+        errorMap: () => ({
+          message: "You should accept terms and conditions before continuing",
+        }),
+      }),
+    })
+    .refine((formData) => formData.password === formData.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+    })
+);
 
 type UserSchemaType = z.infer<typeof UserSchema>;
 

@@ -13,24 +13,27 @@ import { signInAuthenticatedUserWithEmailAndPassword } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { schemaForType } from "types/new-types.d";
+import { UserSignInForm } from "types";
 
-const UserSchema = z.object({
-  email: z.string().email("You must enter a valid Email"),
+const UserSchema = schemaForType<UserSignInForm>()(
+  z.object({
+    email: z.string().email("You must enter a valid Email"),
 
-  password: z.string(),
-});
+    password: z.string(),
+  })
+);
 
 type UserSchemaType = z.infer<typeof UserSchema>;
 
 const SignIn = () => {
-  const { t }=useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const {
     register,
     getValues,
     handleSubmit,
-    // watch,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<UserSchemaType>({ resolver: zodResolver(UserSchema) });
@@ -60,11 +63,10 @@ const SignIn = () => {
         }
       });
   };
-  // const { password } = watch();
   return (
     <Box>
       <Typography fontSize="16px" color="primary.light">
-        {t('auth.signin')}
+        {t("auth.signin")}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>
         <TextField
@@ -99,7 +101,7 @@ const SignIn = () => {
           sx={{ width: "50%", margin: "0px auto" }}
           data-testid="Auth-SignIn-btn-signin"
         >
-          {t('auth.signin')}
+          {t("auth.signin")}
         </LoadingButton>
       </form>
     </Box>
