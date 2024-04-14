@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import EmailIcon from "@mui/icons-material/Email";
 
 export const Footer = () => {
+  const date = new Date();
+  const copyrights = `©${date.getFullYear()} Phoenix E-commerce`;
   return (
     <Grid
       container
@@ -13,7 +15,7 @@ export const Footer = () => {
     >
       <Grid item sm={6} xs={12} textAlign="center">
         <Link to={"/"}>
-          <Typography color="primary.main">E-commerce</Typography>
+          <Typography color="primary.main">{copyrights}</Typography>
         </Link>
       </Grid>
       <Grid
