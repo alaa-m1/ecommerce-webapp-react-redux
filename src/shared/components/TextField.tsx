@@ -8,8 +8,8 @@ import styled from "styled-components";
 import {
   FieldValues,
   Path,
-  UseFormGetValues,
   UseFormRegister,
+  UseFormWatch,
 } from "react-hook-form";
 
 type TextFieldProps<T extends FieldValues> =
@@ -19,14 +19,14 @@ type TextFieldProps<T extends FieldValues> =
     icon: JSX.Element;
     register: UseFormRegister<T>;
     errors: string | undefined;
-    getValues: UseFormGetValues<T>;
+    watch: UseFormWatch<T>;
   };
 export const TextField = <T extends FieldValues>({
   name,
   label,
   icon,
   register,
-  getValues,
+  watch,
   errors,
   type,
   ...props
@@ -38,9 +38,10 @@ export const TextField = <T extends FieldValues>({
   };
   const labelShrinkStyle: React.CSSProperties = { top: "-15px", left: "5px" };
   const labelStyle: React.CSSProperties =
-    getValues(name) && getValues(name).length > 0
+    watch(name) && watch(name).length > 0
       ? labelShrinkStyle
       : { top: "10px", left: "30px" };
+  console.log("labelStyl=", labelStyle);
   return (
     <Box
       sx={{

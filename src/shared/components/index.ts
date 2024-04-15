@@ -8,3 +8,5 @@ export * from "./Categories";
 export * from "./FilterPanel/FilterPanel";
 export * from "./ExternalLink";
 export * from "./AcceptCheckBox";
+export * from "./MUITextField";
+export * from "./GenderSelect";
