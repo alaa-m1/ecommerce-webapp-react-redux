@@ -16,13 +16,17 @@ export const InfoSection = () => {
       }}
     >
       <Alert
-        sx={{ mb: 1, width: "60%" }}
         severity="info"
-        style={{
+        sx={{
+          mb: 1,
+          width: "60%",
           backgroundColor:
             currentThemeMode === "dark"
               ? theme.palette.secondary.main
               : theme.palette.secondary.main,
+          "& path": {
+            color: "primary.light",
+          },
         }}
       >
         <Typography fontSize={16} color="primary.light">
@@ -31,13 +35,17 @@ export const InfoSection = () => {
         </Typography>
       </Alert>
       <Alert
-        sx={{ mb: 1, width: "60%" }}
         severity="info"
-        style={{
+        sx={{
+          mb: 1,
+          width: "60%",
           backgroundColor:
             currentThemeMode === "dark"
               ? theme.palette.secondary.main
               : theme.palette.secondary.main,
+          "& path": {
+            color: "primary.light",
+          },
         }}
       >
         <Typography fontSize={16} color="primary.light">
