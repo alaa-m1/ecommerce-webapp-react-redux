@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -9,11 +10,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
-import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
-import { AcceptCheckBox, TextField } from "shared";
+import { AcceptCheckBox, GenderSelect, MUITextField } from "shared";
 import {
   createAuthenticatedUserWithEmailAndPassword,
   createUserDocFromAuth,
@@ -22,6 +22,7 @@ import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import { UserSignUpForm } from "types";
 import { schemaForType } from "types/new-types.d";
+
 
 const UserSchema = schemaForType<UserSignUpForm>()(
   z
@@ -50,6 +51,7 @@ const UserSchema = schemaForType<UserSignUpForm>()(
       mobile: z.string().refine(validator.isMobilePhone, {
         message: "Please enter a valid phone number",
       }),
+      gender: z.optional(z.string()),
       password: z
         .string()
         .min(8, "The password must be at least 8 characters")
@@ -74,7 +76,6 @@ const SignUp = () => {
   const [passwordScore, setPasswordScore] = useState(0);
   const {
     register,
-    getValues,
     handleSubmit,
     watch,
     reset,
@@ -118,68 +119,97 @@ const SignUp = () => {
         {t("auth.signup")}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>
-        <TextField
+        <MUITextField
           name="firstName"
           label="First Name"
+          required={
+            !(UserSchema._def.schema.shape.firstName instanceof z.ZodOptional)
+          }
           // placeholder="First name"
           icon={<PersonIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.firstName?.message}
           disabled={isSubmitting}
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <MUITextField
           name="lastName"
           label="Last Name"
+          required={
+            !(UserSchema._def.schema.shape.lastName instanceof z.ZodOptional)
+          }
           // placeholder="Last name"
           icon={<PersonIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.lastName?.message}
           disabled={isSubmitting}
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <MUITextField
           name="address"
           label="Address"
+          required={
+            !(UserSchema._def.schema.shape.address instanceof z.ZodOptional)
+          }
           // placeholder="Address"
           icon={<BusinessIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.address?.message}
           disabled={isSubmitting}
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <MUITextField
           name="email"
           label="Email"
+          required={
+            !(UserSchema._def.schema.shape.email instanceof z.ZodOptional)
+          }
           // placeholder="Email"
           icon={<EmailIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.email?.message}
           disabled={isSubmitting}
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <MUITextField
           name="mobile"
           label="Mobile number"
+          required={
+            !(UserSchema._def.schema.shape.mobile instanceof z.ZodOptional)
+          }
           // placeholder="Mobile number"
           icon={<SmartphoneIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.mobile?.message}
           disabled={isSubmitting}
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <GenderSelect
+          name="gender"
+          required={
+            !(UserSchema._def.schema.shape.password instanceof z.ZodOptional)
+          }
+          label="Gender"
+          register={register}
+          watch={watch}
+          errors={errors.password?.message}
+          // disabled={isSubmitting}
+        />
+        <MUITextField
           name="password"
           label="Password"
+          required={
+            !(UserSchema._def.schema.shape.password instanceof z.ZodOptional)
+          }
           placeholder=""
           icon={<LockIcon />}
           type="password"
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.password?.message}
           disabled={isSubmitting}
-          autoComplete="off"
-        ></TextField>
+          autoComplete="current-password"
+        ></MUITextField>
         {watch().password && watch().password.length > 0 && (
           <Grid container sx={{ margin: "0px 0px 15px 10px" }}>
             {Array.from(Array(5).keys()).map((item, index) => (
@@ -203,18 +233,25 @@ const SignUp = () => {
             ))}
           </Grid>
         )}
-        <TextField
+
+        <MUITextField
           name="confirmPassword"
           label="Confirm Password"
+          required={
+            !(
+              UserSchema._def.schema.shape.confirmPassword instanceof
+              z.ZodOptional
+            )
+          }
           placeholder=""
           icon={<LockIcon />}
           type="password"
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.confirmPassword?.message}
           disabled={isSubmitting}
           autoComplete="off"
-        ></TextField>
+        ></MUITextField>
         <br />
         <AcceptCheckBox
           label="I accept"

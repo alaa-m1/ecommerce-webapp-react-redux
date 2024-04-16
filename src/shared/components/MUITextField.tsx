@@ -62,7 +62,7 @@ export const MUITextField = <T extends FieldValues>({
           fullWidth
           error={!!errors}
           InputLabelProps={{
-            shrink: true,
+            // shrink: true,
           }}
           label={label}
           helperText={errors}
@@ -92,11 +92,11 @@ export const MUITextField = <T extends FieldValues>({
 };
 
 const CustomTextField = styled(TextField)(({ theme }) => ({
+  "& .MuiInputBase-input": {
+    paddingLeft: "5px",
+  },
   "& .MuiFormHelperText-root": {
     fontSize: "medium",
-  },
-  "& label": {
-    fontSize: "larger",
   },
   "& label.Mui-focused": {
     color: theme.palette.primary.light,
