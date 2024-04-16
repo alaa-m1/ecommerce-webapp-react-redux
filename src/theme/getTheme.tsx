@@ -1,4 +1,4 @@
-import { Theme, createTheme } from "@mui/material";
+import { Theme, createTheme, darkScrollbar } from "@mui/material";
 import type {} from "@mui/x-data-grid/themeAugmentation";
 
 const fontFamily = ["Enriqueta", "Open Sans", "sans-serif", "Helvetica"];
@@ -47,12 +47,29 @@ export const getTheme = (themeMode: "light" | "dark"): Theme =>
       fontFamily: fontFamily.join(","),
     },
     components: {
+      MuiCssBaseline: {
+        styleOverrides: (themeParam) => ({
+          body: themeParam.palette.mode === 'dark' ? darkScrollbar() : null,
+        }),
+      },
       MuiTypography: {
         defaultProps: {
           fontSize: "15px",
         },
       },
+      MuiOutlinedInput: {
+        defaultProps: {
+          sx: {
+            fontSize: "20px",
+          }
+        }
+      },
       MuiInputLabel: {
+        defaultProps: {
+          sx: {
+            fontSize: "20px",
+          },
+        },
         styleOverrides: {
           root: ({ theme }) => ({
             color: theme.palette.primary.light,
