@@ -14,7 +14,6 @@ a {
 
 * {
   box-sizing: border-box;
-  color: #000;
 }
 
 main {
