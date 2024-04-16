@@ -18,7 +18,7 @@ const ThemedApp = ({ children }: ThemedAppProps) => {
   return (
     <MuiThemeProvider theme={theme}>
       <ThemeProvider theme={styledTheme}>
-        <CssBaseline />
+        <CssBaseline enableColorScheme/>
         <GlobalStyle />
         {children}
       </ThemeProvider>

@@ -15,6 +15,7 @@ export type UserSignUpForm = {
   email: string;
   mobile: string;
   accept: boolean;
+  gender?: string;
   password: string;
   confirmPassword: string;
 };

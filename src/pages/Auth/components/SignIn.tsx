@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import { TextField } from "shared";
+import { MUITextField } from "shared";
 import { signInAuthenticatedUserWithEmailAndPassword } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -32,7 +32,7 @@ const SignIn = () => {
   const location = useLocation();
   const {
     register,
-    getValues,
+    watch,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
@@ -69,30 +69,31 @@ const SignIn = () => {
         {t("auth.signin")}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>
-        <TextField
+        <MUITextField
           name="email"
           label="Email"
           // placeholder="Email"
           icon={<EmailIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.email?.message}
           disabled={isSubmitting}
           data-testid="Auth-SignIn-text-email"
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <MUITextField
           name="password"
           label="Password"
           placeholder=""
           icon={<LockIcon />}
           type="password"
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.password?.message}
           disabled={isSubmitting}
           defaultValue=""
           data-testid="Auth-SignIn-text-password"
-        ></TextField>
+          autoComplete="current-password"
+        ></MUITextField>
         <LoadingButton
           loading={isSubmitting}
           loadingIndicator={<ScaleLoader color="#36d7b7" />}
