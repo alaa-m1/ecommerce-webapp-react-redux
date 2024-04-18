@@ -25,7 +25,10 @@ const LinkComponent = ({
         pointerEvents: `${isEmpty(props.to) ? "none" : "auto"}`,
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ display: "flex", alignItems: "center", justifyContent:"end" }}>
+        {!hideIcon && icon && (
+          <Box sx={{ color: "primary.main" }}>{icon}</Box>
+        )}
         <Typography
           component="span"
           color="primary.main"
@@ -36,9 +39,6 @@ const LinkComponent = ({
         >
           {children}
         </Typography>
-        {!hideIcon && icon && (
-          <ListItemIcon sx={{ color: "primary.main" }}>{icon}</ListItemIcon>
-        )}
       </Box>
     </Link>
   );
