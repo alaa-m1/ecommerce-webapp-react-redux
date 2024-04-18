@@ -56,8 +56,18 @@ export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   return (
-    <Box className="link-container" sx={{ display: "flex" }}>
-      <Box>
+    <Box
+      className="link-container"
+      sx={{
+        display: "flex",
+        justifyContent: "space-around",
+        gap: 2,
+        flexGrow: 4,
+      }}
+    >
+      <Box
+        sx={{ display: "flex", justifyContent: "start", flexGrow: 1, gap: 2 }}
+      >
         {links.map((link) =>
           link.protected ? (
             currentUser && (
@@ -90,6 +100,7 @@ export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
       <Box
         onClick={handleCloseLnaguageMenu}
         data-testid="AppLayout-link-language"
+        style={{ cursor: "pointer" }}
       >
         <StyledLink
           to=""
