@@ -22,9 +22,8 @@ export const Sidebar = ({
 }: CustomDrawerProps) => {
   const drawerLinks: Array<SideBarLinkInfo> = [
     ...sideBarLinks,
-    { path: "", label: "" },
+    { path: "", label: "", icon: null },
   ];
-  const loading = userInfo === null;
   const [searchParams] = useSearchParams();
   return !isSmallScreen ? (
     <aside
@@ -37,7 +36,9 @@ export const Sidebar = ({
         boxShadow: "1px 1px 2px 2px #ddd",
         transition: "all 0.3s ease-in",
       }}
-      className={fullWidth ? "sidebar-transform-active" : "sidebar-transform-inactive"}
+      className={
+        fullWidth ? "sidebar-transform-active" : "sidebar-transform-inactive"
+      }
       // className={`shadow-sm transition-all duration-700 w-[20px] [&_span]:text-ellipsis [&_span]:text-nowrap`}
     >
       <Box
@@ -55,7 +56,7 @@ export const Sidebar = ({
             onClick={() => onCloseSideBar(!fullWidth)}
             sx={{ marginTop: "4px" }}
           >
-            {fullWidth ? <ArrowBackIosNew/> : <ArrowForwardIos/>}
+            {fullWidth ? <ArrowBackIosNew /> : <ArrowForwardIos />}
           </IconButton>
         </Box>
         {fullWidth && (
@@ -124,7 +125,7 @@ export const Sidebar = ({
           width: "100%",
           gap: "10px",
           margin: "4px",
-          padding:"0px 5px"
+          padding: "0px 5px",
         }}
       >
         {drawerLinks.map((link, index) => {
