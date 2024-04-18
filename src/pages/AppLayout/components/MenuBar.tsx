@@ -1,5 +1,5 @@
 import React, { MouseEvent, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { MappedLinkInfo } from "types";
@@ -15,12 +15,17 @@ import { setCurrentUser } from "store/user/userActions";
 import { fetchCategoriesAsync } from "store/localProducts/localProductsActions";
 import { StyledLink } from "shared";
 import { useAppSelector } from "utils/redux/hooks";
+import LanguageIcon from "@mui/icons-material/Language";
+import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 
 type MenuBarProps = {
   links: Array<MappedLinkInfo>;
   handleCloseLnaguageMenu: (e: MouseEvent<HTMLDivElement>) => void;
 };
 export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.down("lg"));
   const currentUser = useAppSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -51,7 +56,7 @@ export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   return (
-    <Box className="link-container">
+    <Box className="link-container" sx={{ display: "flex" }}>
       <Box>
         {links.map((link) =>
           link.protected ? (
@@ -61,6 +66,8 @@ export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
                 to={link.path}
                 isactive={pathname === link.path ? "active" : "inActive"}
                 data-testid={`AppLayout-link-${link.label}`}
+                icon={link.icon}
+                hideIcon={isLargeScreen}
               >
                 {t(link.label)}
               </StyledLink>
@@ -71,20 +78,29 @@ export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
               to={link.path}
               isactive={pathname === link.path ? "active" : "inActive"}
               data-testid={`AppLayout-link-${link.label}`}
+              icon={link.icon}
+              hideIcon={isLargeScreen}
             >
               {t(link.label)}
             </StyledLink>
           )
         )}
       </Box>
-      <Typography
-        className="language-menu-btn"
+
+      <Box
         onClick={handleCloseLnaguageMenu}
-        color="primary.main"
         data-testid="AppLayout-link-language"
       >
-        {t("languages.language")}
-      </Typography>
+        <StyledLink
+          to=""
+          isactive={"inActive"}
+          data-testid="AppLayout-link-signin"
+          icon={<LanguageIcon />}
+          hideIcon={isLargeScreen}
+        >
+          {t("languages.language")}
+        </StyledLink>
+      </Box>
 
       {currentUser ? (
         <Box onClick={() => signOutUser()}>
@@ -92,6 +108,8 @@ export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
             to="auth"
             isactive={pathname === "/auth" ? "active" : "inActive"}
             data-testid="AppLayout-link-signout"
+            icon={<LogoutIcon />}
+            hideIcon={isLargeScreen}
           >
             {t("auth.signout")}
           </StyledLink>
@@ -102,6 +120,8 @@ export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
             to="auth"
             isactive={pathname === "/auth" ? "active" : "inActive"}
             data-testid="AppLayout-link-signin"
+            icon={<LoginIcon />}
+            hideIcon={isLargeScreen}
           >
             {t("auth.signin")}
           </StyledLink>

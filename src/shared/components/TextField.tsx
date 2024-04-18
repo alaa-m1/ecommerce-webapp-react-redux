@@ -41,7 +41,6 @@ export const TextField = <T extends FieldValues>({
     watch(name) && watch(name).length > 0
       ? labelShrinkStyle
       : { top: "10px", left: "30px" };
-  console.log("labelStyl=", labelStyle);
   return (
     <Box
       sx={{

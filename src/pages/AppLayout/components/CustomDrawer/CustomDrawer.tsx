@@ -1,14 +1,26 @@
-import Drawer from "@mui/material/Drawer";
-import { IconButton, Box, Typography, ListItemButton } from "@mui/material";
 import React, { MouseEvent, useState } from "react";
+import Drawer from "@mui/material/Drawer";
+import {
+  IconButton,
+  Box,
+  Typography,
+  ListItemButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Link,
+} from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import { Link } from "react-router-dom";
+import { Link as ReactRouterLink } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { MappedLinkInfo } from "types";
 import { signOutUser } from "utils/firebase";
 import { UserInfo } from "firebase/auth";
 import { StyledList } from "./components";
 import { useTranslation } from "react-i18next";
+import LanguageIcon from "@mui/icons-material/Language";
+import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 
 type CustomDrawerProps = {
   links: Array<MappedLinkInfo>;
@@ -26,7 +38,7 @@ export const CustomDrawer = ({
   const [open, setOpen] = useState(false);
   const drawerLinks: Array<MappedLinkInfo> = [
     ...links,
-    { path: "", label: "", protected: false, id: "0" },
+    { path: "", label: "", protected: false, id: "0", icon: null },
   ];
   const { t } = useTranslation();
   return (
@@ -41,7 +53,13 @@ export const CustomDrawer = ({
           </IconButton>
 
           <Drawer
-            sx={{ width: "180px" }}
+            sx={{
+              width: "180px",
+              "& .MuiListItemIcon-root": {
+                minWidth: "auto",
+                marginRight: "5px",
+              },
+            }}
             open={open}
             anchor="left"
             onClose={() => setOpen(false)}
@@ -55,66 +73,105 @@ export const CustomDrawer = ({
             <StyledList
               sx={{ width: "100%", maxWidth: 360 }}
               aria-labelledby="nested-list-subheader"
+              disablePadding
             >
               {drawerLinks.map((link) => {
                 if (link.label !== "")
                   return link.protected ? (
                     currentUser && (
+                      <ListItem disablePadding alignItems="flex-start">
+                        <ListItemButton
+                          key={link.id}
+                          onClick={() => setOpen(false)}
+                          sx={{ color: "primary.main" }}
+                          disableGutters
+                        >
+                          <ListItemIcon sx={{ color: "inherit" }}>
+                            {link.icon}
+                          </ListItemIcon>
+                          <Link component={ReactRouterLink} to={link.path}>
+                            <ListItemText
+                              primary={t(link.label)}
+                              sx={{ color: "primary.main" }}
+                            />
+                          </Link>
+                        </ListItemButton>
+                      </ListItem>
+                    )
+                  ) : (
+                    <ListItem disablePadding alignItems="flex-start">
                       <ListItemButton
                         key={link.id}
                         onClick={() => setOpen(false)}
+                        sx={{ color: "primary.main" }}
+                        disableGutters
                       >
-                        <Link style={{ width: "100%" }} to={link.path}>
-                          <Typography sx={{ color: "primary.main" }}>
-                            {t(link.label)}
-                          </Typography>
+                        <ListItemIcon sx={{ color: "inherit" }}>
+                          {link.icon}
+                        </ListItemIcon>
+                        <Link component={ReactRouterLink} to={link.path}>
+                          <ListItemText
+                            primary={t(link.label)}
+                            sx={{ color: "primary.main" }}
+                          />
                         </Link>
                       </ListItemButton>
-                    )
-                  ) : (
-                    <ListItemButton
-                      key={link.id}
-                      onClick={() => setOpen(false)}
-                    >
-                      <Link style={{ width: "100%" }} to={link.path}>
-                        <Typography sx={{ color: "primary.main" }}>
-                          {t(link.label)}
-                        </Typography>
-                      </Link>
-                    </ListItemButton>
+                    </ListItem>
                   );
                 return <div key={link.id}>&nbsp;</div>;
               })}
-              <ListItemButton
-                onClick={handleCloseLnaguageMenu}
-                className="language-menu-btn"
-              >
-                <Typography sx={{ color: "primary.main" }}>
-                  {t("languages.language")}
-                </Typography>
-              </ListItemButton>
-
-              {currentUser ? (
+              <ListItem disablePadding>
                 <ListItemButton
-                  onClick={() => {
-                    signOutUser();
-                    setOpen(false);
-                  }}
+                  onClick={handleCloseLnaguageMenu}
+                  className="language-menu-btn"
+                  sx={{ color: "primary.main" }}
                 >
-                  <Link style={{ width: "100%" }} to={"/auth"}>
-                    <Typography sx={{ color: "primary.main" }}>
-                      {t("auth.signout")}
-                    </Typography>
-                  </Link>
+                  <ListItemIcon sx={{ color: "inherit" }}>
+                    <LanguageIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={t("languages.language")}
+                    sx={{ color: "primary.main" }}
+                  />
                 </ListItemButton>
+              </ListItem>
+              {currentUser ? (
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => {
+                      signOutUser();
+                      setOpen(false);
+                    }}
+                    sx={{ color: "primary.main" }}
+                  >
+                    <ListItemIcon sx={{ color: "inherit" }}>
+                      <LogoutIcon />
+                    </ListItemIcon>
+                    <Link component={ReactRouterLink} to={"/auth"}>
+                      <ListItemText
+                        primary={t("auth.signout")}
+                        sx={{ color: "primary.main" }}
+                      />
+                    </Link>
+                  </ListItemButton>
+                </ListItem>
               ) : (
-                <ListItemButton onClick={() => setOpen(false)}>
-                  <Link style={{ width: "100%" }} to={"/auth"}>
-                    <Typography sx={{ color: "primary.main" }}>
-                      {t("auth.signin")}
-                    </Typography>
-                  </Link>
-                </ListItemButton>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => setOpen(false)}
+                    sx={{ color: "primary.main" }}
+                  >
+                    <ListItemIcon sx={{ color: "inherit" }}>
+                      <LoginIcon />
+                    </ListItemIcon>
+                    <Link component={ReactRouterLink} to={"/auth"}>
+                      <ListItemText
+                        primary={t("auth.signin")}
+                        sx={{ color: "primary.main" }}
+                      />
+                    </Link>
+                  </ListItemButton>
+                </ListItem>
               )}
             </StyledList>
           </Drawer>

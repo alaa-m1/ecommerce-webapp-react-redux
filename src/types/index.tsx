@@ -2,6 +2,7 @@ export type LinkInfo = {
   label: string;
   path: string;
   protected: boolean;
+  icon: React.ReactNode;
 };
 export type MappedLinkInfo = LinkInfo & { id: string };
 export type SideBarLinkInfo = Omit<LinkInfo, "protected"> & {
