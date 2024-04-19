@@ -95,7 +95,7 @@ export const getTheme = (themeMode: "light" | "dark"): Theme =>
         defaultProps: {
           variant: "contained",
           disableElevation: true,
-          disableRipple: true,
+          // disableRipple: true,
           size: "medium",
           color: themeMode === "dark" ? "warning" : "info",
         },

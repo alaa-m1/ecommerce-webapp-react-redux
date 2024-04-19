@@ -5,7 +5,6 @@ import LockIcon from "@mui/icons-material/Lock";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { MUITextField } from "shared";
@@ -15,6 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { schemaForType } from "types/new-types.d";
 import { UserSignInForm } from "types";
+import { SubmitButton } from "shared/components/SubmitButton";
 
 const UserSchema = schemaForType<UserSignInForm>()(
   z.object({
@@ -94,16 +94,14 @@ const SignIn = () => {
           data-testid="Auth-SignIn-text-password"
           autoComplete="current-password"
         ></MUITextField>
-        <LoadingButton
-          loading={isSubmitting}
-          loadingIndicator={<ScaleLoader color="#36d7b7" />}
-          variant="outlined"
-          type="submit"
+        <SubmitButton
+          isLoading={isSubmitting}
+          loadingIndicator={<ScaleLoader color="#36d7b7" height="20" />}
           sx={{ width: "50%", margin: "0px auto" }}
           data-testid="Auth-SignIn-btn-signin"
         >
           {t("auth.signin")}
-        </LoadingButton>
+        </SubmitButton>
       </form>
     </Box>
   );

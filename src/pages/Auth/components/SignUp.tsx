@@ -11,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
 import { toast } from "react-toastify";
-import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
 import { AcceptCheckBox, GenderSelect, MUITextField } from "shared";
 import {
@@ -22,7 +21,7 @@ import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import { UserSignUpForm } from "types";
 import { schemaForType } from "types/new-types.d";
-
+import { SubmitButton } from "shared/components/SubmitButton";
 
 const UserSchema = schemaForType<UserSignUpForm>()(
   z
@@ -259,16 +258,14 @@ const SignUp = () => {
           errors={errors.accept}
           link={{ to: "/terms", label: "terms and conditions" }}
         />
-        <LoadingButton
-          loading={isSubmitting}
-          loadingIndicator={<ScaleLoader color="#36d7b7" />}
-          variant="outlined"
-          type="submit"
+        <SubmitButton
+          isLoading={isSubmitting}
+          loadingIndicator={<ScaleLoader color="#36d7b7" height="20" />}
           sx={{ width: "50%", margin: "0px auto" }}
           data-testid="Auth-SignUp-btn-signup"
         >
           {t("auth.signup")}
-        </LoadingButton>
+        </SubmitButton>
       </form>
     </Box>
   );
