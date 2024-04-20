@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { selectMappedCategories } from "store/localProducts/localProductsSelector";
 import { useAppSelector } from "utils/redux/hooks";
-import { FilterPanel, ShopNav } from "shared/components";
+import { FilterPanel, ScrollToTop, ShopNav } from "shared/components";
 import _ from "lodash";
 import { useSortOptions } from "shared";
 import { Product } from "types";
