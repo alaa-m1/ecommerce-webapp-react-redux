@@ -2,14 +2,12 @@ import React, { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { selectMappedCategories } from "store/localProducts/localProductsSelector";
 import { useAppSelector } from "utils/redux/hooks";
-import {
-  FilterPanel,
-  ShopNav,
-} from "shared/components";
+import { FilterPanel, ShopNav } from "shared/components";
 import _ from "lodash";
 import { useSortOptions } from "shared";
 import { Product } from "types";
 import { ClassicCategoriesSection } from "./components";
+import { Box } from "@mui/material";
 
 const ClassicCollectionPage = () => {
   const categories = useAppSelector(selectMappedCategories);
@@ -54,7 +52,7 @@ const ClassicCollectionPage = () => {
 
   const activeCategoryItems = useMemo(
     () =>
-    SortedCategories.filter(
+      SortedCategories.filter(
         (cat) => cat.categoryLabel === activeCategoryLabel
       ),
     [SortedCategories, activeCategoryLabel]
@@ -63,6 +61,7 @@ const ClassicCollectionPage = () => {
   const sortOptions = useSortOptions();
   return (
     <>
+      <Box id="top-div-anchor" />
       <ShopNav
         mainCategoriesLabels={mainCategoriesLabels}
         activeCategoryLabel={activeCategoryLabel ?? ""}
@@ -74,6 +73,7 @@ const ClassicCollectionPage = () => {
         mainCategoriesLabels={mainCategoriesLabels}
         SortedCategories={SortedCategories}
       />
+      <ScrollToTop targetId="top-div-anchor" />
     </>
   );
 };

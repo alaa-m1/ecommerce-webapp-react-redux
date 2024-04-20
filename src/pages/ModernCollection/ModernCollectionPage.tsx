@@ -12,12 +12,14 @@ import { useDispatch } from "react-redux";
 import { useSortOptions } from "shared";
 import {
   FilterPanel,
+  ScrollToTop,
   ShopNav,
 } from "shared/components";
 import { useProducts } from "./hooks";
 import _ from "lodash";
 import { Product } from "types";
 import { CategoriesSection } from "./components";
+import { Box } from "@mui/material";
 
 const ModernCollectionPage = () => {
   const [searchParams] = useSearchParams();
@@ -90,7 +92,9 @@ const ModernCollectionPage = () => {
   const sortOptions = useSortOptions();
   return (
     <>
+    <Box id="top-div-anchor"/>
       <ShopNav
+      
         mainCategoriesLabels={mainCategoriesLabels}
         activeCategoryLabel={activeCategoryLabel ?? ""}
       />
@@ -104,6 +108,7 @@ const ModernCollectionPage = () => {
         mainCategoriesLabels={mainCategoriesLabels}
         SortedCategories={SortedCategories}
       />
+      <ScrollToTop targetId="top-div-anchor"/>
     </>
   );
 };
