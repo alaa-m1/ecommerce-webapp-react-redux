@@ -11,3 +11,4 @@ export * from "./AcceptCheckBox";
 export * from "./MUITextField";
 export * from "./GenderSelect";
 export * from "./ConfirmationDialog";
+export * from "./ScrollToTop";
