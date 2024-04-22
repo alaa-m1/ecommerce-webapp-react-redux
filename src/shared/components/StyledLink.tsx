@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, ListItemIcon, Typography } from "@mui/material";
+import { Box, Link as MUILink, ListItemIcon, Typography } from "@mui/material";
 import { Link, LinkProps } from "react-router-dom";
 import styled from "styled-components";
 import { isEmpty } from "lodash";
@@ -18,17 +18,39 @@ const LinkComponent = ({
   ...props
 }: LinkComponentProps) => {
   return (
-    <Link
+    <MUILink
+      component={Link}
       {...props}
       style={{
         display: "inline-block",
-        pointerEvents: `${isEmpty(props.to) ? "none" : "auto"}`,
+      }}
+      onClick={(e) => {
+        if (isEmpty(props.to)) {
+          e.preventDefault();
+        }
+      }}
+      sx={{
+        "& span": {
+          margin: "0px 10px",
+          transition: "color 0.2s ease-in",
+        },
+        "& path": {
+          transition: "color 0.2s ease-in",
+        },
+        "&:hover": {
+          "& span": {
+            color: "#e76712",
+          },
+          "& path": {
+            color: "#e76712",
+          },
+        },
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", justifyContent:"end" }}>
-        {!hideIcon && icon && (
-          <Box sx={{ color: "primary.main" }}>{icon}</Box>
-        )}
+      <Box
+        sx={{ display: "flex", alignItems: "center", justifyContent: "end" }}
+      >
+        {!hideIcon && icon && <Box sx={{ color: "primary.main" }}>{icon}</Box>}
         <Typography
           component="span"
           color="primary.main"
@@ -40,7 +62,7 @@ const LinkComponent = ({
           {children}
         </Typography>
       </Box>
-    </Link>
+    </MUILink>
   );
 };
 const StyledLink = styled(LinkComponent)`
