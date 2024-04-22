@@ -31,13 +31,6 @@
   place-items: center;
   display: flex;
   justify-content: space-between;
-  span {
-    margin: 0px 10px;
-    transition: color 0.2s ease-in;
-    &:hover {
-      color: #e76712;
-    }
-  }
 }
 .language-menu-btn {
   display: inline;
