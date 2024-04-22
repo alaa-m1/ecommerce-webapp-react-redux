@@ -9,7 +9,8 @@
   "languages": {
     "language": "Sprache",
     "english": "Englisch",
-    "german": "Deutsch"
+    "german": "Deutsch",
+    "arabic": "Arabisch"
   },
   "auth": {
     "signin": "Anmelden",
@@ -18,7 +19,7 @@
   },
   "shopping_cart": { "checkout": "Kasse", "remove.all": "Alles entfernen" },
   "home_api_info": "Ich verwende fakestoreapi, um einige Produkte abzurufen",
-  "home_translation_info": "Die Website wurde teilweise ins Deutsche übersetzt",
+  "home_translation_info": "Die Website wurde teilweise in die Sprachen Deutsch und Arabisch übersetzt",
   "checkout": {
     "product_label": "Produktetikett",
     "title": "Titel",

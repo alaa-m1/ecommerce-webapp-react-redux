@@ -106,8 +106,10 @@ const AppLayout = ({ links }: NavigationProps) => {
         <AppBar
           className="navigator-container"
           sx={{
+            
             position: "relative",
             paddingRight: "0px !important",
+            paddingLeft: "0px !important",
             overflowX: "hidden",
           }}
         >
