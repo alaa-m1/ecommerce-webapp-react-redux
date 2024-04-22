@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 export const AboutPage = () => {
   const { t } = useTranslation();
   return (
-    <Box m={2}>
+    <Box m={2} style={{ direction: "ltr" }}>
       <Box mb={3}>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <ProfilePhoto />

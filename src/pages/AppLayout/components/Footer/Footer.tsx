@@ -12,6 +12,7 @@ export const Footer = () => {
       className="footer-section"
       sx={{ backgroundColor: "secondary.light" }}
       alignItems="center"
+      style={{ direction: "ltr" }}
     >
       <Grid item sm={6} xs={12} textAlign="center">
         <Link to={"/"}>

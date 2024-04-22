@@ -4,11 +4,11 @@ import { Provider } from "react-redux";
 import store, { persistor } from "store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Elements } from "@stripe/react-stripe-js";
-import { ReactQueryProvider } from "./reactQuery/ReactQueryProvider";
 import { stripeOptions, stripePromise } from "utils/stripe/stripe";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ThemedApp from "ThemedApp";
+import ThemedApp from "shared/appContainers/components/ThemedApp";
+import { ReactQueryProvider } from "./components/reactQuery/ReactQueryProvider";
 
 const AppRoot = ({ children }: AppRootType) => {
   return (
