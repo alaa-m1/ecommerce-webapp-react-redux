@@ -4,12 +4,11 @@ import { useSearchParams } from "react-router-dom";
 import React, { useCallback, useMemo, useState } from "react";
 import _ from "lodash";
 import {
-  Input,
   InputAdornment,
-  InputLabel,
   FormControl,
   Box,
   IconButton,
+  TextField,
 } from "@mui/material";
 
 export const ProductsSearch = () => {
@@ -74,20 +73,21 @@ export const ProductsSearch = () => {
   return (
     <Box>
       <FormControl variant="standard" sx={{ m: 1, width: 210 }}>
-        <InputLabel htmlFor="search_box_id">
-          {t("search.products_search")}:
-        </InputLabel>
-        <Input
+        <TextField
           id="search_box_id"
           type="search"
-          startAdornment={<InputAdornment position="end"></InputAdornment>}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton size="small" onClick={handleApplySearch}>
-                <SearchIcon sx={{ path: { color: "secondary.main" } }} />
-              </IconButton>
-            </InputAdornment>
-          }
+          variant="standard"
+          label={`${t("search.products_search")}:`}
+          InputProps={{
+            startAdornment: <InputAdornment position="end"></InputAdornment>,
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton size="small" onClick={handleApplySearch}>
+                  <SearchIcon sx={{ path: { color: "secondary.main" } }} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           value={searchValue}
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
