@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 import LanguageIcon from "@mui/icons-material/Language";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
+import { useAppSelector } from "utils/redux/hooks";
 
 type CustomDrawerProps = {
   links: Array<MappedLinkInfo>;
@@ -29,18 +30,22 @@ type CustomDrawerProps = {
   handleCloseLnaguageMenu: (e: MouseEvent<HTMLDivElement>) => void;
 };
 
+const drawerWidth = "180px";
+
 export const CustomDrawer = ({
   links,
   isSmallScreen,
   currentUser,
   handleCloseLnaguageMenu,
 }: CustomDrawerProps) => {
+
   const [open, setOpen] = useState(false);
   const drawerLinks: Array<MappedLinkInfo> = [
     ...links,
     { path: "", label: "", protected: false, id: "0", icon: null },
   ];
   const { t } = useTranslation();
+  const currentDocDirection = useAppSelector((state) => state.user.direction);
   return (
     <>
       {isSmallScreen ? (
@@ -54,11 +59,18 @@ export const CustomDrawer = ({
 
           <Drawer
             sx={{
-              width: "180px",
+              width: drawerWidth,
               "& .MuiListItemIcon-root": {
                 minWidth: "auto",
                 marginRight: "5px",
               },
+              "& .MuiDrawer-paper": {
+                width: drawerWidth,
+                boxSizing: "border-box",
+              },
+            }}
+            SlideProps={{
+              direction: currentDocDirection === "rtl" ? "left" : "right",
             }}
             open={open}
             anchor="left"
@@ -71,7 +83,7 @@ export const CustomDrawer = ({
               </Typography>
             </Box>
             <StyledList
-              sx={{ width: "100%", maxWidth: 360 }}
+              sx={{ width: "100%", maxWidth: 360, pl: 1 }}
               aria-labelledby="nested-list-subheader"
               disablePadding
             >
