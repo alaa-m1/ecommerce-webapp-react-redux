@@ -24,6 +24,7 @@ import { selectShoopingCartStatus } from "store/shoppingCart/shoppingCartSelecto
 import { setShowCart } from "store/shoppingCart/shoppingCartActions";
 import { useDispatch } from "react-redux";
 import { MenuBarSkeleton } from "shared/loadingSkeleton";
+import { LanguageMenu2 } from "./components/LanguageMenu/LanguageMenu2";
 
 type NavigationProps = {
   links: Array<MappedLinkInfo>;
@@ -94,7 +95,7 @@ const AppLayout = ({ links }: NavigationProps) => {
         isScrolling={isScrolling}
       />
       <Suspense fallback={null}>
-        <LanguageMenu
+        <LanguageMenu2
           anchorEl={anchorEl}
           handleClose={handleOnLnaguageMenuClose}
         />
