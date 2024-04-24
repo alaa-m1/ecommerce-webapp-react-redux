@@ -19,6 +19,7 @@ const LinkComponent = ({
 }: LinkComponentProps) => {
   return (
     <MUILink
+      underline="none"
       component={Link}
       {...props}
       style={{

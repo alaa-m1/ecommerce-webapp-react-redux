@@ -34,6 +34,34 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
       anchorEl={anchorEl}
       onClose={handleClose}
       sx={{ "& .MuiList-root": { backgroundColor: "secondary.light" } }}
+      anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+      transformOrigin={{ horizontal: "left", vertical: "top" }}
+      PaperProps={{
+        elevation: 0,
+        sx: {
+          overflow: "visible",
+          filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+          mt: 1.5,
+          "& .MuiAvatar-root": {
+            width: 32,
+            height: 32,
+            ml: -0.5,
+            mr: 1,
+          },
+          "&::before": {
+            content: '""',
+            display: "block",
+            position: "absolute",
+            top: 0,
+            right: 14,
+            width: 10,
+            height: 10,
+            bgcolor: "secondary.light",
+            transform: "translateY(-50%) rotate(45deg)",
+            zIndex: 0,
+          },
+        },
+      }}
     >
       <MenuItem
         selected={activatedLanguage === "en"}
