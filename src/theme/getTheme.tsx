@@ -1,27 +1,37 @@
-import { Theme, createTheme, darkScrollbar } from "@mui/material";
+import { Theme, createTheme, darkScrollbar, responsiveFontSizes } from "@mui/material";
 import type {} from "@mui/x-data-grid/themeAugmentation";
 
 const fontFamily = ["Enriqueta", "Open Sans", "sans-serif", "Helvetica"];
 
 declare module "@mui/material/styles" {
-  interface Palette {
-    Error: {
-      main: React.CSSProperties["color"];
-      dark: React.CSSProperties["color"];
-      light: React.CSSProperties["color"];
-    };
+    interface Palette {
+      custom: {
+        hover: React.CSSProperties["color"];
+      };
+    }
+    interface PaletteOptions {
+      custom: {
+        hover: React.CSSProperties["color"];
+      };
+    }
+  interface TypographyVariants {
+    mainTitle: React.CSSProperties;
   }
-  interface PaletteOptions {
-    Error: {
-      main: React.CSSProperties["color"];
-      dark: React.CSSProperties["color"];
-      light: React.CSSProperties["color"];
-    };
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    mainTitle?: React.CSSProperties;
+  }
+}
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    mainTitle: true;
   }
 }
 
-export const getTheme = (themeMode: "light" | "dark"): Theme =>
-  createTheme({
+
+export const getTheme = (themeMode: "light" | "dark"): Theme =>{
+  const theme=createTheme({
     palette: {
       mode: themeMode,
       primary: {
@@ -41,28 +51,63 @@ export const getTheme = (themeMode: "light" | "dark"): Theme =>
         light: themeMode === "dark" ? "#272727" : "#fff",
       },
       warning: { main: "#ed6c02", dark: "#e65100", light: "#ff9800" },
-      Error: { main: "#d32f2f", dark: "#c62828", light: "#ef5350" },
+      error: { main: "#d32f2f", dark: "#c62828", light: "#ef5350" },
+      custom:{hover:"#e76712"}
     },
+    spacing: 4,
     typography: {
       fontFamily: fontFamily.join(","),
+      mainTitle: {
+        fontSize: "2rem",
+        color: "blue",
+      },
+      subtitle1: {
+        // fontSize: 20,
+      },
+      body1: {
+        fontWeight: 500,
+      },
+      button: {
+        fontStyle: "italic",
+      },
     },
     components: {
       MuiCssBaseline: {
         styleOverrides: (themeParam) => ({
-          body: themeParam.palette.mode === 'dark' ? darkScrollbar() : null,
+          //   body: themeParam.palette.mode === "dark" ? darkScrollbar() : null,
+          //   h1: {
+          //     color: themeParam.palette.primary.main,
+          //   },
+          "@font-face": {
+            fontFamily: "Raleway",
+            fontStyle: "normal",
+            fontDisplay: "swap",
+            fontWeight: 400,
+            src: "local('Raleway'), local('Raleway-Regular'), url(${RalewayWoff2}) format('woff2')",
+            unicodeRange:
+              "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF",
+          },
         }),
       },
+      // MuiTypography: {
+      //   // defaultProps: {
+      //   //   fontSize: "14px",
+      //   // },
+      // },
       MuiTypography: {
         defaultProps: {
-          fontSize: "15px",
+          variantMapping: {
+            // Map the new variant to render a <h1> by default
+            mainTitle: "h1",
+          },
         },
       },
       MuiOutlinedInput: {
         defaultProps: {
           sx: {
             fontSize: "20px",
-          }
-        }
+          },
+        },
       },
       MuiInputLabel: {
         defaultProps: {
@@ -89,6 +134,16 @@ export const getTheme = (themeMode: "light" | "dark"): Theme =>
               color: themeMode === "dark" ? "#ff9800" : "#1976d2",
             },
           },
+        },
+      },
+      MuiSlider: {
+        styleOverrides: {
+          // valueLabel: ({ ownerState, theme }) => ({
+          //   ...(ownerState.orientation === 'vertical' && {
+          //     backgroundColor: 'transparent',
+          //     color: theme.palette.grey[500],
+          //   }),
+          // }),
         },
       },
       MuiButton: {
@@ -140,3 +195,15 @@ export const getTheme = (themeMode: "light" | "dark"): Theme =>
       },
     },
   });
+  theme.typography.h3 = {
+    fontSize: '1.2rem',
+    '@media (min-width:600px)': {
+      fontSize: '1.5rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '2.4rem',
+    },
+  };
+  // theme = responsiveFontSizes(theme);
+return theme
+};

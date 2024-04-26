@@ -21,9 +21,9 @@ import LoginIcon from "@mui/icons-material/Login";
 
 type MenuBarProps = {
   links: Array<MappedLinkInfo>;
-  handleCloseLnaguageMenu: (e: MouseEvent<HTMLDivElement>) => void;
+  handleToggleLanguageMenu: (e: MouseEvent<HTMLAnchorElement>) => void;
 };
-export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
+export const MenuBar = ({ links, handleToggleLanguageMenu }: MenuBarProps) => {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.down("lg"));
   const currentUser = useAppSelector((state) => state.user.currentUser);
@@ -74,7 +74,7 @@ export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
               <StyledLink
                 key={link.id}
                 to={link.path}
-                isactive={pathname === link.path ? "active" : "inActive"}
+                isActive={pathname === link.path}
                 data-testid={`AppLayout-link-${link.label}`}
                 icon={link.icon}
                 hideIcon={isLargeScreen}
@@ -86,7 +86,7 @@ export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
             <StyledLink
               key={link.id}
               to={link.path}
-              isactive={pathname === link.path ? "active" : "inActive"}
+              isActive={pathname === link.path}
               data-testid={`AppLayout-link-${link.label}`}
               icon={link.icon}
               hideIcon={isLargeScreen}
@@ -96,47 +96,38 @@ export const MenuBar = ({ links, handleCloseLnaguageMenu }: MenuBarProps) => {
           )
         )}
       </Box>
-
-      <Box
-        onClick={handleCloseLnaguageMenu}
-        data-testid="AppLayout-link-language"
+      <StyledLink
         style={{ cursor: "pointer" }}
+        to=""
+        onClick={handleToggleLanguageMenu}
+        data-testid="AppLayout-link-language"
+        icon={<LanguageIcon />}
+        hideIcon={isLargeScreen}
       >
-        <StyledLink
-          to=""
-          isactive={"inActive"}
-          data-testid="AppLayout-link-signin"
-          icon={<LanguageIcon />}
-          hideIcon={isLargeScreen}
-        >
-          {t("languages.language")}
-        </StyledLink>
-      </Box>
+        {t("languages.language")}
+      </StyledLink>
 
       {currentUser ? (
-        <Box onClick={() => signOutUser()}>
-          <StyledLink
-            to="auth"
-            isactive={pathname === "/auth" ? "active" : "inActive"}
-            data-testid="AppLayout-link-signout"
-            icon={<LogoutIcon />}
-            hideIcon={isLargeScreen}
-          >
-            {t("auth.signout")}
-          </StyledLink>
-        </Box>
+        <StyledLink
+          onClick={() => signOutUser()}
+          to="auth"
+          isActive={pathname === "/auth"}
+          data-testid="AppLayout-link-signout"
+          icon={<LogoutIcon />}
+          hideIcon={isLargeScreen}
+        >
+          {t("auth.signout")}
+        </StyledLink>
       ) : (
-        <Box>
-          <StyledLink
-            to="auth"
-            isactive={pathname === "/auth" ? "active" : "inActive"}
-            data-testid="AppLayout-link-signin"
-            icon={<LoginIcon />}
-            hideIcon={isLargeScreen}
-          >
-            {t("auth.signin")}
-          </StyledLink>
-        </Box>
+        <StyledLink
+          to="auth"
+          isActive={pathname === "/auth"}
+          data-testid="AppLayout-link-signin"
+          icon={<LoginIcon />}
+          hideIcon={isLargeScreen}
+        >
+          {t("auth.signin")}
+        </StyledLink>
       )}
     </Box>
   );

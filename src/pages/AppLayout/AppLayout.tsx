@@ -15,7 +15,6 @@ import {
   Footer,
   ShoppingCart,
   ShoppingCartLogo,
-  LanguageMenu,
   ThemeSwitch,
   MenuBar,
 } from "./components";
@@ -69,7 +68,7 @@ const AppLayout = ({ links }: NavigationProps) => {
   }, [isScrolling]);
 
   const handleLanguageMenuClick = (
-    e: MouseEvent<HTMLButtonElement | HTMLDivElement>
+    e: MouseEvent<HTMLAnchorElement>
   ) => {
     setAnchorEl(e.currentTarget);
   };
@@ -131,7 +130,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                 <Suspense fallback={<MenuBarSkeleton />}>
                   <MenuBar
                     links={links}
-                    handleCloseLnaguageMenu={handleLanguageMenuClick}
+                    handleToggleLanguageMenu={handleLanguageMenuClick}
                   />
                 </Suspense>
               </>
@@ -141,7 +140,7 @@ const AppLayout = ({ links }: NavigationProps) => {
                 links={links}
                 isSmallScreen={isSmallScreen}
                 currentUser={currentUser}
-                handleCloseLnaguageMenu={handleLanguageMenuClick}
+                handleToggleLanguageMenu={handleLanguageMenuClick}
               />
             </Suspense>
             <Box
