@@ -1,36 +1,40 @@
-import React from "react";
-import { Box, Link as MUILink, ListItemIcon, Typography } from "@mui/material";
+import React, { MouseEvent } from "react";
+import { Box, Link as MUILink, Typography } from "@mui/material";
 import { Link, LinkProps } from "react-router-dom";
-import styled from "styled-components";
 import { isEmpty } from "lodash";
 
-type LinkComponentProps = LinkProps &
+type StyledLinkProps = Omit<LinkProps, "onClick"> &
   React.RefAttributes<HTMLAnchorElement> & {
-    isactive: "active" | "inActive";
     children: React.ReactNode;
+    isActive?: boolean;
     icon?: React.ReactNode;
     hideIcon?: boolean;
+    onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
   };
-const LinkComponent = ({
+
+const StyledLink = ({
   children,
+  isActive = false,
   icon,
   hideIcon = false,
+  onClick,
   ...props
-}: LinkComponentProps) => {
+}: StyledLinkProps) => {
   return (
     <MUILink
-      underline="none"
       component={Link}
       {...props}
-      style={{
-        display: "inline-block",
-      }}
+      underline="none"
       onClick={(e) => {
         if (isEmpty(props.to)) {
           e.preventDefault();
         }
+        onClick?.(e as React.MouseEvent<HTMLAnchorElement>);
       }}
       sx={{
+        display: "inline-block",
+        fontWeight: isActive ? "bold" : "normal",
+        textDecoration: "none",
         "& span": {
           margin: "0px 10px",
           transition: "color 0.2s ease-in",
@@ -40,10 +44,10 @@ const LinkComponent = ({
         },
         "&:hover": {
           "& span": {
-            color: "#e76712",
+            color: "custom.hover",
           },
           "& path": {
-            color: "#e76712",
+            color: "custom.hover",
           },
         },
       }}
@@ -57,7 +61,7 @@ const LinkComponent = ({
           color="primary.main"
           sx={{
             fontSize: 14,
-            fontWeight: props.isactive === "active" ? "bold" : "normal",
+            fontWeight: isActive ? "bold" : "normal",
           }}
         >
           {children}
@@ -66,9 +70,4 @@ const LinkComponent = ({
     </MUILink>
   );
 };
-const StyledLink = styled(LinkComponent)`
-  font-weight: ${(p) => (p.isactive === "active" ? "bold" : "normal")};
-  text-decoration: none;
-`;
-
 export { StyledLink };

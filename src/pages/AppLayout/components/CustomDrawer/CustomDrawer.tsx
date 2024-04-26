@@ -4,14 +4,9 @@ import {
   IconButton,
   Box,
   Typography,
-  ListItemButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Link,
 } from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Logo from "assets/images/logo";
 import { MappedLinkInfo } from "types";
 import { signOutUser } from "utils/firebase";
@@ -22,12 +17,15 @@ import LanguageIcon from "@mui/icons-material/Language";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import { useAppSelector } from "utils/redux/hooks";
+import { ListLink } from "shared";
 
 type CustomDrawerProps = {
   links: Array<MappedLinkInfo>;
   isSmallScreen: boolean;
   currentUser: null | UserInfo;
-  handleCloseLnaguageMenu: (e: MouseEvent<HTMLDivElement>) => void;
+  handleToggleLanguageMenu: (
+    e: MouseEvent<HTMLAnchorElement>
+  ) => void;
 };
 
 const drawerWidth = "180px";
@@ -36,10 +34,10 @@ export const CustomDrawer = ({
   links,
   isSmallScreen,
   currentUser,
-  handleCloseLnaguageMenu,
+  handleToggleLanguageMenu,
 }: CustomDrawerProps) => {
-
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
   const drawerLinks: Array<MappedLinkInfo> = [
     ...links,
     { path: "", label: "", protected: false, id: "0", icon: null },
@@ -91,99 +89,61 @@ export const CustomDrawer = ({
                 if (link.label !== "")
                   return link.protected ? (
                     currentUser && (
-                      <ListItem disablePadding alignItems="flex-start">
-                        <ListItemButton
-                          key={link.id}
-                          onClick={() => setOpen(false)}
-                          sx={{ color: "primary.main" }}
-                          disableGutters
-                        >
-                          <ListItemIcon sx={{ color: "inherit" }}>
-                            {link.icon}
-                          </ListItemIcon>
-                          <Link component={ReactRouterLink} to={link.path}>
-                            <ListItemText
-                              primary={t(link.label)}
-                              sx={{ color: "primary.main" }}
-                            />
-                          </Link>
-                        </ListItemButton>
-                      </ListItem>
+                      <ListLink
+                        isActive={pathname === link.path}
+                        data-testid={`AppLayout-link-${link.label}`}
+                        key={link.id}
+                        to={link.path}
+                        onClick={() => setOpen(false)}
+                        label={t(link.label)}
+                        icon={link.icon}
+                        disableGutters
+                      />
                     )
                   ) : (
-                    <ListItem disablePadding alignItems="flex-start">
-                      <ListItemButton
-                        key={link.id}
-                        onClick={() => setOpen(false)}
-                        sx={{ color: "primary.main" }}
-                        disableGutters
-                      >
-                        <ListItemIcon sx={{ color: "inherit" }}>
-                          {link.icon}
-                        </ListItemIcon>
-                        <Link component={ReactRouterLink} to={link.path}>
-                          <ListItemText
-                            primary={t(link.label)}
-                            sx={{ color: "primary.main" }}
-                          />
-                        </Link>
-                      </ListItemButton>
-                    </ListItem>
+                    <ListLink
+                      isActive={pathname === link.path}
+                      data-testid={`AppLayout-link-${link.label}`}
+                      key={link.id}
+                      to={link.path}
+                      onClick={() => setOpen(false)}
+                      label={t(link.label)}
+                      icon={link.icon}
+                      disableGutters
+                    />
                   );
                 return <div key={link.id}>&nbsp;</div>;
               })}
-              <ListItem disablePadding>
-                <ListItemButton
-                  onClick={handleCloseLnaguageMenu}
-                  className="language-menu-btn"
-                  sx={{ color: "primary.main" }}
-                >
-                  <ListItemIcon sx={{ color: "inherit" }}>
-                    <LanguageIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={t("languages.language")}
-                    sx={{ color: "primary.main" }}
-                  />
-                </ListItemButton>
-              </ListItem>
+              <ListLink
+                isActive={false}
+                className="language-menu-btn"
+                data-testid={`AppLayout-link-language`}
+                to={""}
+                onClick={(e) => handleToggleLanguageMenu(e)}
+                label={t("languages.language")}
+                icon={<LanguageIcon />}
+              />
               {currentUser ? (
-                <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={() => {
-                      signOutUser();
-                      setOpen(false);
-                    }}
-                    sx={{ color: "primary.main" }}
-                  >
-                    <ListItemIcon sx={{ color: "inherit" }}>
-                      <LogoutIcon />
-                    </ListItemIcon>
-                    <Link component={ReactRouterLink} to={"/auth"}>
-                      <ListItemText
-                        primary={t("auth.signout")}
-                        sx={{ color: "primary.main" }}
-                      />
-                    </Link>
-                  </ListItemButton>
-                </ListItem>
+                <ListLink
+                  isActive={false}
+                  data-testid={`AppLayout-link-signout`}
+                  to={""}
+                  onClick={() => {
+                    signOutUser();
+                    setOpen(false);
+                  }}
+                  label={t("auth.signout")}
+                  icon={<LogoutIcon />}
+                />
               ) : (
-                <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={() => setOpen(false)}
-                    sx={{ color: "primary.main" }}
-                  >
-                    <ListItemIcon sx={{ color: "inherit" }}>
-                      <LoginIcon />
-                    </ListItemIcon>
-                    <Link component={ReactRouterLink} to={"/auth"}>
-                      <ListItemText
-                        primary={t("auth.signin")}
-                        sx={{ color: "primary.main" }}
-                      />
-                    </Link>
-                  </ListItemButton>
-                </ListItem>
+                <ListLink
+                  isActive={pathname === "/auth"}
+                  data-testid={`AppLayout-link-signin`}
+                  to={"/auth"}
+                  onClick={() => setOpen(false)}
+                  label={t("auth.signin")}
+                  icon={<LoginIcon />}
+                />
               )}
             </StyledList>
           </Drawer>
