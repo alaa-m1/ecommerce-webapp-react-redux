@@ -10,7 +10,7 @@ export * from "./ExternalLink";
 export * from "./AcceptCheckBox";
 export * from "./MUITextField";
 export * from "./GenderSelect";
-export * from "./ConfirmationDialog";
+export * from "./GenericDialog";
 export * from "./ScrollToTop";
 export * from "./LoadingFab";
 export * from "./ListLink";
