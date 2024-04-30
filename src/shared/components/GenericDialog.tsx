@@ -13,6 +13,7 @@ import {
   Box,
   DialogContentText,
   PaperProps,
+  Fade,
 } from "@mui/material";
 import Draggable from "react-draggable";
 
@@ -26,6 +27,7 @@ const GenericDialog = ({
 }: GenericDialogProps) => {
   const { title, hideTitleCloseBtn = false } = titleOptions;
   const { confirmBtn, cancelBtn } = actionOptions;
+  const { content, text, fadeTimeout = 0 } = contentOptions;
 
   const handleCancel = () => {
     onClose?.();
@@ -60,12 +62,12 @@ const GenericDialog = ({
           </IconButton>
         )}
       </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="dialog-description">
-          {contentOptions.text}
-        </DialogContentText>
-        {contentOptions.content}
-      </DialogContent>
+      <Fade in={props.open} timeout={fadeTimeout}>
+        <DialogContent>
+          <DialogContentText id="dialog-description">{text}</DialogContentText>
+          {content}
+        </DialogContent>
+      </Fade>
       {(cancelBtn || confirmBtn) && (
         <DialogActions>
           <Box
@@ -102,6 +104,7 @@ type GenericDialogProps = DialogProps & {
   contentOptions: {
     text?: string;
     content?: string | React.ReactNode;
+    fadeTimeout?: number;
   };
   actionOptions: {
     cancelBtn?: ButtonProps & { label?: string };
