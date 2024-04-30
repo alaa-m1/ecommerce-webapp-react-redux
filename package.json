@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/dayjs": "^3.0.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
@@ -12,6 +13,7 @@
     "@mui/material": "^5.13.1",
     "@mui/styled-engine-sc": "^5.12.0",
     "@mui/x-data-grid": "^6.16.1",
+    "@mui/x-date-pickers": "^7.3.1",
     "@reduxjs/toolkit": "^1.9.6",
     "@stripe/react-stripe-js": "^2.3.0",
     "@stripe/stripe-js": "^2.1.6",
@@ -25,6 +27,7 @@
     "@types/react-dom": "^18.2.4",
     "axios": "^1.5.0",
     "clsx": "^2.0.0",
+    "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
     "firebase": "^9.22.1",
     "html-react-parser": "^5.1.5",
@@ -86,6 +89,7 @@
     ]
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.28.11",
     "@types/lodash": "^4.14.198",
     "@types/react-swipeable-views": "^0.13.5",
     "@types/redux-logger": "^3.0.9",
