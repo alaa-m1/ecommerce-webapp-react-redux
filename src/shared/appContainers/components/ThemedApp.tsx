@@ -8,23 +8,23 @@ import { ThemeProvider } from "styled-components";
 import Rtl from "./Rtl";
 
 const ThemedApp = ({ children }: ThemedAppProps) => {
-  const currentThemeMode = useAppSelector((state) => state.user.themeMode);
-  const currentDocDirection = useAppSelector((state) => state.user.direction);
+  const themeMode = useAppSelector((state) => state.user.themeMode);
+  const direction = useAppSelector((state) => state.user.direction);
 
   useLayoutEffect(() => {
-    if (currentDocDirection) document.dir = currentDocDirection;
-  }, [currentDocDirection]);
+    if (direction) document.dir = direction;
+  }, [direction]);
 
   const theme = useMemo<Theme>(
-    () => (currentThemeMode === "light" ? getTheme("light") : getTheme("dark")),
-    [currentThemeMode]
+    () => getTheme({ themeMode, direction }),
+    [themeMode, direction]
   );
 
   const styledTheme = {
-    main: currentThemeMode === "light" ? "#fff" : "#121212",
+    main: themeMode === "light" ? "#fff" : "#121212",
   };
   return (
-    <Rtl docDirection={currentDocDirection}>
+    <Rtl docDirection={direction}>
       <MuiThemeProvider theme={theme}>
         <ThemeProvider theme={styledTheme}>
           <CssBaseline enableColorScheme />
