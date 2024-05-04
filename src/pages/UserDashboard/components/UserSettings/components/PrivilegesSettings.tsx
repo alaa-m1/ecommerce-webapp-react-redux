@@ -1,6 +1,7 @@
 import React from "react";
 import { TabPanelProps } from "../types";
 import { Box, Typography } from "@mui/material";
+import { PDFViewer } from "../../PDFViewer/PDFViewer";
 
 export const PrivilegesSettings = ({
   value,
@@ -17,10 +18,8 @@ export const PrivilegesSettings = ({
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>
-            Privileges
-            <div>User settings... under construction</div>
-          </Typography>
+          <Typography>Privileges</Typography>
+          <PDFViewer />
         </Box>
       )}
     </div>

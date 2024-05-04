@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
-import { DataGrid, GridSlotsComponentsProps } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridRowParams,
+  GridSlotsComponentsProps,
+} from "@mui/x-data-grid";
 import { useCheckoutColumn } from "./hooks";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useTranslation } from "react-i18next";
-import { PaymentForm } from "./components";
+import { PaymentForm, ProductCard } from "./components";
+import { GenericDialog } from "shared";
+import { Product } from "types";
+import { CheckCircle } from "@mui/icons-material";
+import { ProductCard2 } from "./components/ProductCard2";
 
 declare module "@mui/x-data-grid" {
   interface FooterPropsOverrides {
@@ -20,7 +28,10 @@ export function CustomFooterStatusComponent(
     <Box sx={{ p: 1, display: "flex" }}>
       <Typography color="primary.light">
         {t("checkout.total")}:{" "}
-        <Typography component="span" color="secondary.main">{`€${props.cartTotal}`}</Typography>
+        <Typography
+          component="span"
+          color="secondary.main"
+        >{`€${props.cartTotal}`}</Typography>
       </Typography>
     </Box>
   );
@@ -29,9 +40,16 @@ export function CustomFooterStatusComponent(
 const CheckoutPage = () => {
   const columns = useCheckoutColumn();
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
   const { cartItems, cartTotal } = useAppSelector(
     selectShoopingCartItemsDetails
   );
+  const [selectedProduct, setSelectedProduct] = useState<null | Product>(null);
+  const handleRowDoubleClick = (params: GridRowParams<Product>) => {
+    console.log("params=", params);
+    setSelectedProduct(params.row);
+    if (selectedProduct) setOpen(true);
+  };
   return (
     <>
       <h2
@@ -51,6 +69,7 @@ const CheckoutPage = () => {
           isRowSelectable={(params) => params.row !== undefined}
           autoHeight
           disableRowSelectionOnClick
+          onRowDoubleClick={handleRowDoubleClick}
           slots={{
             footer: CustomFooterStatusComponent,
           }}
@@ -59,7 +78,22 @@ const CheckoutPage = () => {
           }}
         />
       </Box>
-      <PaymentForm/>
+      <PaymentForm />
+      <GenericDialog
+        open={open}
+        titleOptions={{
+          title: "Product details",
+        }}
+        contentOptions={{
+          // text: text,
+          content: <ProductCard2 productDetails={selectedProduct} onRemove={()=>setOpen(false)}/>,
+        }}
+        actionOptions={{
+          confirmBtn: { label: "OK", startIcon: <CheckCircle /> },
+        }}
+        onConfirm={() => setOpen(false)}
+        onClose={() => setOpen(false)}
+      />
     </>
   );
 };

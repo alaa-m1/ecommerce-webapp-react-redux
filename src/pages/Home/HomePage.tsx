@@ -1,21 +1,25 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { selectMappedCategories } from "store/localProducts/localProductsSelector";
 import { useAppSelector } from "utils/redux/hooks";
-import { LoadingSpinner } from "shared";
+import { GenericDialog, LoadingSpinner } from "shared";
 import { InfoSection, MainCategoriesList } from "./components";
 import { useProducts } from "pages/ModernCollection/hooks";
-import {
-  setProducts,
-} from "store/products/productsActions";
+import { setProducts } from "store/products/productsActions";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
 import {
   selectMappedProducts,
   selectProductsStatus,
 } from "store/products/productsSelector";
+import { Typography } from "@mui/material";
+import { DatePicker  } from '@mui/x-date-pickers/DatePicker';
+import dayjs, { Dayjs } from 'dayjs';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 const HomePage = () => {
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
   const dispatch = useDispatch();
+  const [open, setOpen]=useState(false)
   /// Using react-query to manage request state with caching (The other good solution to use with Redux is RTK Query)
   const { data, isLoading } = useProducts(100);
   useEffect(() => {
@@ -53,12 +57,23 @@ const HomePage = () => {
   );
   return (
     <>
+    <DatePicker
+          label="DatePicker picker"
+          value={value}
+          onChange={(newValue) => setValue(newValue)}
+        />
+    <DesktopDatePicker
+          label="DesktopDatePicker picker"
+          value={value}
+          onChange={(newValue) => setValue(newValue)}
+        />
+
       {loading && <LoadingSpinner />}
       <MainCategoriesList
         mainCategoriesLabels={mainCategoriesLabels}
         categories={allCategories}
       />
-      <InfoSection/>
+      <InfoSection />
     </>
   );
 };

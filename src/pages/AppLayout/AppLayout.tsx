@@ -1,4 +1,4 @@
-import { Box, AppBar, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import { Box, AppBar, Toolbar, useMediaQuery, useTheme, Container } from "@mui/material";
 import React, {
   MouseEvent,
   Suspense,
@@ -156,11 +156,11 @@ const AppLayout = ({ links }: NavigationProps) => {
         </AppBar>
       </Box>
       <main style={{ flexGrow: 1, overflowX: "auto", display: "flex" }}>
-        <Box sx={{ width: "100%" }}>
+        <Container disableGutters maxWidth={false} >
           <Suspense fallback={<LoadingSpinner />}>
             <Outlet />
           </Suspense>
-        </Box>
+        </Container>
       </main>
       <Box sx={{ flexGrow: 0 }}>
         <Footer />

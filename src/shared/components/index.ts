@@ -14,3 +14,4 @@ export * from "./GenericDialog";
 export * from "./ScrollToTop";
 export * from "./LoadingFab";
 export * from "./ListLink";
+export * from "./SubmitButton";
