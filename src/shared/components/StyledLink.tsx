@@ -3,8 +3,7 @@ import { Box, Link as MUILink, Typography } from "@mui/material";
 import { Link, LinkProps } from "react-router-dom";
 import { isEmpty } from "lodash";
 
-type StyledLinkProps = Omit<LinkProps, "onClick"> &
-  React.RefAttributes<HTMLAnchorElement> & {
+type StyledLinkProps = Omit<LinkProps, "onClick"> & {
     children: React.ReactNode;
     isActive?: boolean;
     icon?: React.ReactNode;
