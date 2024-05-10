@@ -23,7 +23,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middlewares =
+const middlewares: any =
   process.env.MODE_ENV === "development"
     ? [logger, thunkMiddleware]
     : [thunkMiddleware];
