@@ -3,7 +3,7 @@ import type {} from "@mui/x-data-grid/themeAugmentation";
 import type {} from "@mui/x-date-pickers/themeAugmentation";
 import { arSD, enUS } from "@mui/x-data-grid/locales";
 
-const fontFamily = ["Cairo","Enriqueta", "Open Sans", "sans-serif", "Helvetica"];
+const fontFamily = ["Noto Kufi Arabic", "Open Sans", "sans-serif", "Helvetica"];
 
 declare module "@mui/material/styles" {
   interface Palette {
