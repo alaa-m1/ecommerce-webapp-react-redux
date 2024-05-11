@@ -9,14 +9,18 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ThemedApp from "shared/appContainers/components/ThemedApp";
 import { ReactQueryProvider } from "./components/reactQuery/ReactQueryProvider";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
 
 const AppRoot = ({ children }: AppRootType) => {
-  return (
+  return ( 
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
           <ReactQueryProvider>
             <Elements stripe={stripePromise} options={stripeOptions}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <ThemedApp>{children}</ThemedApp>
               <ToastContainer
                 position="bottom-left"
@@ -30,6 +34,7 @@ const AppRoot = ({ children }: AppRootType) => {
                 pauseOnHover
                 theme="colored"
               />
+              </LocalizationProvider>
             </Elements>
           </ReactQueryProvider>
         </BrowserRouter>
