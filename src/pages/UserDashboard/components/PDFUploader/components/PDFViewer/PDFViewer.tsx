@@ -1,9 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+import { PDFData } from "../../PDFUploader";
 
-export function PDFViewer({ pdf }: { pdf: any }) {
+type PDFViewerProps = {
+  pdfData: PDFData;
+};
+
+export function PDFViewer({ pdfData }: PDFViewerProps) {
   const [numPages, setNumPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -13,27 +18,33 @@ export function PDFViewer({ pdf }: { pdf: any }) {
   }
 
   pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.js";
-  console.log("pdfjs=", pdfjs.version);
+
   return (
     <Box>
       <Document
-        file={pdf}
+        file={pdfData.data}
         onLoadSuccess={onDocumentLoadSuccess}
         // options={{ workerSrc: "/pdf.worker.js" }}
+        onLoadError={() => {
+          console.log("error while loading the PDF file");
+        }}
+        // onLoadProgress
       >
         {Array.from(new Array(numPages), (el, index) => (
-          <Page
-            key={`page_${index + 1}`}
-            pageNumber={index + 1}
-            renderAnnotationLayer={false}
-            renderTextLayer={false}
-          />
+          <Fragment key={`page_${index + 1}`}>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            Page: {index + 1}
+            </Box>
+            <Page
+              pageNumber={index + 1}
+              renderAnnotationLayer={false}
+              renderTextLayer={false}
+            />
+          </Fragment>
         ))}
       </Document>
       <Box>
-        <Typography>
-          Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
-        </Typography>
+        <Typography>{`${pdfData.name} - (${numPages}) pages.`}</Typography>
       </Box>
     </Box>
   );
