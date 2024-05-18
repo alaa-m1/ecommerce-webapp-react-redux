@@ -26,8 +26,8 @@ const UserDashboardPage = () => {
       sx={{
         flexGrow: "1",
         display: "flex",
-        height:"100%",
-        flexDirection: isSmallScreen ? "column" : "row",
+        height: "100%",
+        flexDirection: isSmallScreen ? "row" : "column",
       }}
     >
       <Sidebar
