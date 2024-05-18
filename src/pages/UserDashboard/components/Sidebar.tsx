@@ -25,10 +25,10 @@ export const Sidebar = ({
     { path: "", label: "", icon: null },
   ];
   const [searchParams] = useSearchParams();
-  return !isSmallScreen ? (
+  return isSmallScreen ? (
     <aside
       style={{
-        flexGrow: "1",
+        flexGrow: fullWidth ? "1" : "0",
         display: "flex",
         marginRight: "4px",
         borderRadius: "5px",
@@ -39,7 +39,6 @@ export const Sidebar = ({
       className={
         fullWidth ? "sidebar-transform-active" : "sidebar-transform-inactive"
       }
-      // className={`shadow-sm transition-all duration-700 w-[20px] [&_span]:text-ellipsis [&_span]:text-nowrap`}
     >
       <Box
         sx={{
@@ -56,7 +55,7 @@ export const Sidebar = ({
             onClick={() => onCloseSideBar(!fullWidth)}
             sx={{ marginTop: "4px" }}
           >
-            {fullWidth ? <ArrowBackIosNew /> : <ArrowForwardIos />}
+            {fullWidth ? <ArrowForwardIos /> : <ArrowBackIosNew />}
           </IconButton>
         </Box>
         {fullWidth && (
