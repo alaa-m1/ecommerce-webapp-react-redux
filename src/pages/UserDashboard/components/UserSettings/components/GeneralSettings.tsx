@@ -1,6 +1,7 @@
 import React from "react";
 import { TabPanelProps } from "../types";
 import { Box, Typography } from "@mui/material";
+import { PDFUploader } from "../../PDFUploader/PDFUploader";
 
 export const GeneralSettings = ({ value, index, ...props }: TabPanelProps) => {
   return (
@@ -14,9 +15,10 @@ export const GeneralSettings = ({ value, index, ...props }: TabPanelProps) => {
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography>
-            General
-            <div>User settings... under construction</div>
+            General User settings... under construction
           </Typography>
+          <br />
+          <PDFUploader/>
         </Box>
       )}
     </div>
