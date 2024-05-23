@@ -5,7 +5,7 @@ import {AppRoot} from "shared";
 import "./assets/style/App.scss";
 import "./i18n";
 import App from "App";
-
+import "REO.js";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
