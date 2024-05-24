@@ -1,0 +1,51 @@
+{
+  "home": "الرئيسية",
+  "classic_collection": "مجموعة كلاسيكية",
+  "modern_collection": "مجموعة عصرية",
+  "dashboard": "لوحة التحكم",
+  "about": "حول المنتج",
+  "about_information":"<Strong>Hi, I'm Alaa Mohammad, I'm a senior frontend developer</Strong>.<br/>I have worked in frontend development fields over the last six years 💻. <br/>Before that I worked for over seven years as a software developer 🖥️.</br><Strong>My principles:</Strong> Work hard 👨‍💻, be kind, exercise regularly and enjoy live with my family 👨‍👩‍👧‍👦.<br/>I am self-motivated. I enjoy new challenges, collaborating with other developers and developing good software.",
+  "contact_me":"تواصل معي",
+  "languages": {
+    "language": "اللغة",
+    "english": "الانكليزية",
+    "german": "الألمانية",
+    "arabic": "العربية"
+  },
+  "auth": {
+    "signin": "تسجيل الدخول",
+    "signout": "تسجيل الخروج",
+    "signup": "انشاء مستخدم جديد"
+  },
+  "shopping_cart": { "checkout": "الدفع", "remove.all": "حذف الكل" },
+  "home_api_info": "أستخدم Fakestoreapi لجلب بيانات بعض المنتجات",
+  "home_translation_info": "تمت ترجمة الموقع جزئيًا إلى اللغتين الألمانية و العربية",
+  "checkout": {
+    "product_label": "ملصق المنتج",
+    "title": "العنوان",
+    "price": "السعر",
+    "quantity": "الكمية",
+    "remove": "حذف",
+    "description": "الوصف",
+    "total":"المجموع",
+    "check_your_order":"ادفع لطلبك",
+    "process_your_payment":"معالجة الدفع الخاص بك",
+    "successfully_payment":"اكتمل الدفع بنجاح",
+    "login_before_pay":"يجب عليك تسجيل الدخول قبل دفع ثمن مشترياتك",
+    "use_test_card_number":"يمكنك استخدام رقم البطاقة التالي للاختبار: 4242 4242 4242 4242"
+  },
+  "search":{
+    "products_search": "البحث عن المنتجات",
+    "search_label":"البحث",
+    "no_items":"لا توجد عناصر",
+    "no_categories":"لا توجد فئات"
+  },
+  "sort":{
+    "sort_by": "ترتيب حسب",
+    "default":"التلقائي",
+    "ascending":"أدنى سعر أولا",
+    "descending":"أعلى سعر أولا"
+  },
+  "terms":"الأحكام والشروط",
+  "loading":"يتم تحميل الصفحة..."
+}

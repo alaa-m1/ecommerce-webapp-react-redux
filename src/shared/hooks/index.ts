@@ -1,3 +1,3 @@
 export * from "./useUrlQuery";
-export * from "./useCheckOneDayPassed";
 export * from "./useSortOptions";
+export * from "./useConfirmationDialog";

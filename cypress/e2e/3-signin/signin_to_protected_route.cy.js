@@ -23,8 +23,15 @@ describe("Test signin to a protected route", () => {
     cy.location("pathname").should("eq", "/auth");
     cy.getTestElement("Auth-SignIn-btn-signin").should("exist");
   });
-
-  it("Should navigate back to setting page after signing in", () => {
+  
+/**
+ * To run this test, you should you need to add  cypress.env.json  file with the following values (a real user):
+ * {
+ * "user_email": "email_address@gmail.com",
+ * "user_password": "password"
+ * }
+ */
+  it.skip("Should navigate back to setting page after signing in", () => {
     cy.getTestElement("Home-div").should("exist");
 
     //Navigate to setting page
@@ -45,7 +52,7 @@ describe("Test signin to a protected route", () => {
     );
     cy.getTestElement("Auth-SignIn-btn-signin").click();
     cy.wait("@signInWithPassword").then(() =>
-      cy.location("pathname").should("eq", "/user-settings")
+      cy.location("pathname").should("eq", "/user-dashboard")
     );
     // });
   });

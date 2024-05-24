@@ -13,7 +13,7 @@ describe("Test filter functionality", () => {
   });
   it("should search for not existing product", () => {
     cy.getTestElement("FilterPanel-div").should("exist");
-    cy.getTestElement("FilterPanel-SearchForProducts-text-search").type(
+    cy.getTestElement("FilterPanel-ProductsSearch-text-search").type(
       "sss{enter}"
     );
     cy.getTestElement("NoItemsFound-div").should("exist");
@@ -22,7 +22,7 @@ describe("Test filter functionality", () => {
     const existingProductName = "pink dress";
 
     cy.getTestElement("FilterPanel-div").should("exist");
-    cy.getTestElement("FilterPanel-SearchForProducts-text-search").type(
+    cy.getTestElement("FilterPanel-ProductsSearch-text-search").type(
       `${existingProductName}{enter}`
     );
 
@@ -47,7 +47,7 @@ describe("Test filter functionality", () => {
     const existingProductName = "pink dress";
 
     cy.getTestElement("FilterPanel-div").should("exist");
-    cy.getTestElement("FilterPanel-SearchForProducts-text-search").type(
+    cy.getTestElement("FilterPanel-ProductsSearch-text-search").type(
       `${existingProductName}`
     );
     cy.clock();

@@ -4,48 +4,45 @@ import {
   Toolbar,
   useMediaQuery,
   useTheme,
-  Button,
-  FormControlLabel,
-  Typography,
+  Container,
 } from "@mui/material";
-import {
+import React, {
   MouseEvent,
-  MouseEventHandler,
+  Suspense,
   useEffect,
   useRef,
   useState,
 } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Logo from "assets/images/logo";
-import { LinkInfo } from "types";
-import { StyledLink } from "shared";
-import { signOutUser } from "utils/firebase";
+import { MappedLinkInfo } from "types";
+import { LoadingSpinner } from "shared";
 import {
   CustomDrawer,
   Footer,
   ShoppingCart,
   ShoppingCartLogo,
-  LanguageMenu,
-  ThemeSwitch
+  ThemeSwitch,
+  MenuBar,
 } from "./components";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartStatus } from "store/shoppingCart/shoppingCartSelector";
 import { setShowCart } from "store/shoppingCart/shoppingCartActions";
 import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { MenuBarSkeleton } from "shared/loadingSkeleton";
+import { LanguageMenu2 } from "./components/LanguageMenu/LanguageMenu2";
 
 type NavigationProps = {
-  links: Array<LinkInfo>;
+  links: Array<MappedLinkInfo>;
 };
 
 const AppLayout = ({ links }: NavigationProps) => {
-  const { t, i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const { pathname } = useLocation();
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [isScrolling, setIsScrolling] = useState(false);
-  const currentUser = useAppSelector((state) => state.user.currentUser);
+  const currentUser = null;
   const isCartOpen = useAppSelector(selectShoopingCartStatus);
   const dispatch = useDispatch();
 
@@ -53,7 +50,7 @@ const AppLayout = ({ links }: NavigationProps) => {
 
   useEffect(() => {
     dispatch(setShowCart(false));
-  }, []);
+  }, [dispatch]);
 
   const handleClose = (event: Event) => {
     if (
@@ -77,9 +74,7 @@ const AppLayout = ({ links }: NavigationProps) => {
     };
   }, [isScrolling]);
 
-  const handleLanguageMenuClick = (
-    e: MouseEvent<HTMLButtonElement | HTMLDivElement>
-  ) => {
+  const handleLanguageMenuClick = (e: MouseEvent<HTMLAnchorElement>) => {
     setAnchorEl(e.currentTarget);
   };
   const handleOnLnaguageMenuClose = () => {
@@ -103,14 +98,24 @@ const AppLayout = ({ links }: NavigationProps) => {
         handleClose={handleClose}
         isScrolling={isScrolling}
       />
-      <LanguageMenu
-        anchorEl={anchorEl}
-        handleClose={handleOnLnaguageMenuClose}
-      />
-      <Box className="navigator-main-container" sx={{ flexGrow: 0,color: "secondary.dark" }}>
+      <Suspense fallback={null}>
+        <LanguageMenu2
+          anchorEl={anchorEl}
+          handleClose={handleOnLnaguageMenuClose}
+        />
+      </Suspense>
+      <Box
+        className="navigator-main-container"
+        sx={{ flexGrow: 0, color: "secondary.dark" }}
+      >
         <AppBar
           className="navigator-container"
-          sx={{ position: "relative", paddingRight: "0px !important" }}
+          sx={{
+            position: "relative",
+            paddingRight: "0px !important",
+            paddingLeft: "0px !important",
+            overflowX: "hidden",
+          }}
         >
           <Toolbar>
             {isSmallScreen ? (
@@ -126,63 +131,25 @@ const AppLayout = ({ links }: NavigationProps) => {
                     <Logo />
                   </Link>
                 </Box>
-                <Box className="link-container">
-                  <Box>
-                    {links.map((link, index) => (
-                      <StyledLink
-                        key={index}
-                        to={link.path}
-                        isactive={
-                          pathname === link.path ? "active" : "inActive"
-                        }
-                        data-testid={`AppLayout-link-${link.label}`}
-                      >
-                        {t(link.label)}
-                      </StyledLink>
-                    ))}
-                  </Box>
-                  <Typography
-                    className="language-menu-btn"
-                    onClick={handleLanguageMenuClick}
-                    color="primary.main"
-                    data-testid="AppLayout-link-language"
-                  >
-                    {t("languages.language")}
-                  </Typography>
-
-                  {currentUser ? (
-                    <Box onClick={() => signOutUser()}>
-                      <StyledLink
-                        to="auth"
-                        isactive={pathname === "/auth" ? "active" : "inActive"}
-                        data-testid="AppLayout-link-signout"
-                      >
-                        {t("auth.signout")}
-                      </StyledLink>
-                    </Box>
-                  ) : (
-                    <Box>
-                      <StyledLink
-                        to="auth"
-                        isactive={pathname === "/auth" ? "active" : "inActive"}
-                        data-testid="AppLayout-link-signin"
-                      >
-                        {t("auth.signin")}
-                      </StyledLink>
-                    </Box>
-                  )}
-                </Box>
+                <Suspense fallback={<MenuBarSkeleton />}>
+                  <MenuBar
+                    links={links}
+                    handleToggleLanguageMenu={handleLanguageMenuClick}
+                  />
+                </Suspense>
               </>
             )}
-            <CustomDrawer
-              links={links}
-              isSmallScreen={isSmallScreen}
-              currentUser={currentUser}
-              handleCloseLnaguageMenu={handleLanguageMenuClick}
-            />
+            <Suspense fallback={null}>
+              <CustomDrawer
+                links={links}
+                isSmallScreen={isSmallScreen}
+                currentUser={currentUser}
+                handleToggleLanguageMenu={handleLanguageMenuClick}
+              />
+            </Suspense>
             <Box
               className="shopping-cart-logo"
-              onClick={(e) => dispatch(setShowCart(!isCartOpen))}
+              onClick={() => dispatch(setShowCart(!isCartOpen))}
               ref={shoppingCartRef}
               data-testid="AppLayout-link-shoppingCart"
             >
@@ -192,11 +159,13 @@ const AppLayout = ({ links }: NavigationProps) => {
           </Toolbar>
         </AppBar>
       </Box>
-      <Box sx={{ flexGrow: 1 }}>
-        <main>
-          <Outlet />
-        </main>
-      </Box>
+      <main style={{ flexGrow: 1, overflowX: "auto", display: "flex" }}>
+        <Container disableGutters maxWidth={false}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Outlet />
+          </Suspense>
+        </Container>
+      </main>
       <Box sx={{ flexGrow: 0 }}>
         <Footer />
       </Box>

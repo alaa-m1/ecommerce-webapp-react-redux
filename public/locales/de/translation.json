@@ -2,11 +2,15 @@
   "home": "Heim",
   "classic_collection": "klassische Sammlung",
   "modern_collection": "Moderne Kollektion",
-  "settings": "Einstellungen",
+  "Dashboard": "Armaturenbrett",
+  "about": "über mich",
+  "about_information":"<Strong>Hallo, ich bin Alaa Mohammad, ich bin ein leitender Frontend-Entwickler</Strong>.<br/>Ich habe in den letzten sechs Jahren in den Bereichen Frontend-Entwicklung gearbeitet💻. <br/>Davor habe ich für gearbeitet über sieben Jahre als Softwareentwickler 🖥️.</br><Strong>Meine Prinzipien:</Strong> Hart arbeiten 👨‍💻, freundlich sein, regelmäßig Sport treiben und das Leben mit meiner Familie genießen 👨‍👩‍👧‍👦.<br />Ich bin selbstmotiviert. Ich genieße neue Herausforderungen, die Zusammenarbeit mit anderen Entwicklern und die Entwicklung guter Software.",
+  "contact_me":"Kontaktiere mich",
   "languages": {
     "language": "Sprache",
     "english": "Englisch",
-    "german": "Deutsch"
+    "german": "Deutsch",
+    "arabic": "Arabisch"
   },
   "auth": {
     "signin": "Anmelden",
@@ -15,7 +19,7 @@
   },
   "shopping_cart": { "checkout": "Kasse", "remove.all": "Alles entfernen" },
   "home_api_info": "Ich verwende fakestoreapi, um einige Produkte abzurufen",
-  "home_translation_info": "Die Website wurde teilweise ins Deutsche übersetzt",
+  "home_translation_info": "Die Website wurde teilweise in die Sprachen Deutsch und Arabisch übersetzt",
   "checkout": {
     "product_label": "Produktetikett",
     "title": "Titel",
@@ -31,7 +35,7 @@
     "use_test_card_number":"Zum Testen können Sie die folgende Kartennummer verwenden: 4242 4242 4242 4242"
   },
   "search":{
-    "search_for_products": "Suche nach Produkten",
+    "products_search": "Suche nach Produkten",
     "search_label":"Suchen",
     "no_items":"Keine Gegenstände",
     "no_categories":"Keine Gegenstände"

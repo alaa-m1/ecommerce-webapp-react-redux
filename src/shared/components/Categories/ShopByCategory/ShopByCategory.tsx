@@ -1,6 +1,8 @@
+import React from "react";
 import { Box } from "@mui/material";
 import { Product } from "types";
 import { ShopCategoryList } from "./components";
+import styles from "../../styles/ShopByCategory.module.css"
 
 type ShopByCategoryProps = {
   activeCategoryItems: Array<Product>;
@@ -13,7 +15,7 @@ export const ShopByCategory = ({
   isLoading=false
 }: ShopByCategoryProps) => {
   return (
-    <Box className="shop-category-container" data-testid="shop-ShopByCategory-div">
+    <Box className={styles.shop_category_container} data-testid="shop-ShopByCategory-div">
       <ShopCategoryList
         categoryLabel={activeCategoryLabel}
         subCategories={activeCategoryItems}

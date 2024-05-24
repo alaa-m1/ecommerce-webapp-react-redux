@@ -1,5 +1,10 @@
+import { useTheme } from "@mui/material";
 import * as React from "react";
-const Logo = (props) => (
+import { useAppSelector } from "utils/redux/hooks";
+const Logo = (props) => {
+  const currentThemeMode = useAppSelector((state) => state.user.themeMode);
+  const theme = useTheme();
+  return(
   <svg
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
@@ -14,6 +19,8 @@ const Logo = (props) => (
     height={42}
     width={42}
     {...props}
+    color="secondary.dark"
+    filter={`drop-shadow(1px 1px 2px ${currentThemeMode === "dark" ? theme.palette.secondary.dark : theme.palette.secondary.light})`}
   >
     <rect x={240} y={358.988} width={32} height={77.528} />
     <polygon points="155.904,456.428 166.568,424.428 345.432,424.428 356.096,456.428 " />
@@ -58,5 +65,5 @@ const Logo = (props) => (
       />
     </g>
   </svg>
-);
+)};
 export default Logo;

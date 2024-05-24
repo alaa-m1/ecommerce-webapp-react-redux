@@ -1,6 +1,24 @@
 export type LinkInfo = {
   label: string;
   path: string;
+  protected: boolean;
+  icon: React.ReactNode;
+};
+export type MappedLinkInfo = LinkInfo & { id: string };
+export type SideBarLinkInfo = Omit<LinkInfo, "protected"> & {
+  component?: string;
+};
+export type UserSignInForm = { email: string; password: string };
+export type UserSignUpForm = {
+  firstName: string;
+  lastName: string;
+  address: string;
+  email: string;
+  mobile: string;
+  accept: boolean;
+  gender?: string;
+  password: string;
+  confirmPassword: string;
 };
 
 export type CategoriesResponse = Array<CategoryResponse>;
@@ -55,6 +73,7 @@ export type UserDetails = {
   phoneNumber: string;
   address: string;
   createdAt: string;
+  image: string;
 };
 
 export type SortOptions = Array<{ value: string; label: string }>;

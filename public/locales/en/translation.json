@@ -2,11 +2,15 @@
   "home": "Home",
   "classic_collection": "Classic collection",
   "modern_collection": "Modern collection",
-  "settings": "Settings",
+  "dashboard": "Dashboard",
+  "about": "About me",
+  "about_information":"<Strong>Hi, I'm Alaa Mohammad, I'm a senior frontend developer</Strong>.<br/>I have worked in frontend development fields over the last six years 💻. <br/>Before that I worked for over seven years as a software developer 🖥️.</br><Strong>My principles:</Strong> Work hard 👨‍💻, be kind, exercise regularly and enjoy live with my family 👨‍👩‍👧‍👦.<br/>I am self-motivated. I enjoy new challenges, collaborating with other developers and developing good software.",
+  "contact_me":"Contact me",
   "languages": {
     "language": "Language",
     "english": "English",
-    "german": "German"
+    "german": "German",
+    "arabic": "Arabic"
   },
   "auth": {
     "signin": "Sign In",
@@ -15,7 +19,7 @@
   },
   "shopping_cart": { "checkout": "Checkout", "remove.all": "Remove all" },
   "home_api_info": "I am using fakestoreapi to fetch some products",
-  "home_translation_info": "The website has been partially translated into German",
+  "home_translation_info": "The website has been partially translated into German and Arabic languages",
   "checkout": {
     "product_label": "Product Label",
     "title": "Title",
@@ -31,7 +35,7 @@
     "use_test_card_number":"You can use the following card number for testing: 4242 4242 4242 4242"
   },
   "search":{
-    "search_for_products": "Search for products",
+    "products_search": "Search for products",
     "search_label":"Search",
     "no_items":"No items",
     "no_categories":"No categories"

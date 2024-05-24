@@ -1,118 +1,54 @@
-import React, { useEffect } from "react";
+import React, { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import HomeDashboard from "pages/Home/HomeDashboard";
-import ClassicCollectionDashboard from "pages/ClassicCollection/ClassicCollectionDashboard";
-import AuthDashboard from "pages/Auth/AuthDashboard";
-import NotFoundDashboard from "pages/NotFound/NotFoundDashboard";
+import HomePage from "pages/Home/HomePage";
+import ClassicCollectionPage from "pages/ClassicCollection/ClassicCollectionPage";
+import AuthPage from "pages/Auth/AuthPage";
+import NotFoundPage from "pages/NotFound/NotFoundPage";
 import AppLayout from "pages/AppLayout/AppLayout";
-import { linksDetails,useCheckOneDayPassed } from "shared";
-import "react-toastify/dist/ReactToastify.css";
-import Checkout from "pages/Checkout/CheckoutDashboard";
-import { User, UserInfo, onAuthStateChanged } from "firebase/auth";
-import {
-  auth,
-  createUserDocFromAuth,
-  getUserDocFromAuth,
-} from "utils/firebase";
-import { setCurrentUser } from "store/user/userActions";
-import { useDispatch } from "react-redux";
-import { fetchCategoriesAsync } from "store/localProducts/localProductsActions";
-import ModernCollectionDashboard from "pages/ModernCollection/ModernCollectionDashboard";
+import { CategoriesListSkeleton, linksDetails } from "shared";
+import Checkout from "pages/Checkout/CheckoutPage";
+import ModernCollectionPage from "pages/ModernCollection/ModernCollectionPage";
 import ProtectedRoute from "utils/routes/ProtectedRoute";
-import UserSettingsDashboard from "pages/UserSettings/UserSettingsDashboard";
+import UserDashboardPage from "pages/UserDashboard/UserDashboardPage";
 import UnAuthorizedRoute from "utils/routes/UnAuthorizedRoute";
-import TermsDashboard from "pages/Terms/TermsDashboard";
+import TermsPage from "pages/Terms/TermsPage";
+import { mapLinks } from "utils/mappingFunctions/mapLinks";
+import AboutPage from "pages/About/AboutPage";
 
 function App() {
-  const dispatch = useDispatch();
-  const isOneDayPassed = useCheckOneDayPassed();
-
-  useEffect(() => {
-    if (Notification.permission !== "granted") Notification.requestPermission();
-  }, []);
-
-  useEffect(() => {
-    if (Notification.permission === "granted" && isOneDayPassed) {
-      navigator.serviceWorker
-        .getRegistration()
-        .then((reg: ServiceWorkerRegistration | undefined) => {
-          const options = {
-            body: "Shopping is a joy with Phoenixe E-commerce",
-            icon: `${window.location.origin}/favicon-32x32.png`,
-            vibrate: [100, 50, 100],
-            data: {
-              dateOfArrival: Date.now(),
-              primaryKey: 1,
-            },
-            actions: [
-              {
-                action: "close",
-                title: "Close notification",
-                icon: `${window.location.origin}/images/close.png`,
-              },
-            ],
-          };
-          reg?.showNotification("Phoenixe E-commerce", options);
-        });
-    }
-  }, [isOneDayPassed]);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user: any) => {
-      if (user) {
-        createUserDocFromAuth(user);
-        getUserDocFromAuth(user);
-      }
-      if (user) {
-        const userInfo: UserInfo = {
-          displayName: (user as User).displayName,
-          email: (user as User).email,
-          phoneNumber: (user as User).phoneNumber,
-          photoURL: (user as User).photoURL,
-          providerId: (user as User).providerId,
-          uid: (user as User).uid,
-        };
-        dispatch(setCurrentUser(userInfo));
-      } else dispatch(setCurrentUser(null));
-    });
-    return unsubscribe;
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchCategoriesAsync() as any);
-  }, [dispatch]);
-
   return (
     <Routes>
-      <Route path="/" element={<AppLayout links={linksDetails} />}>
-        <Route index element={<HomeDashboard />} />
-        <Route
-          path="classic-collection"
-          element={<ClassicCollectionDashboard />}
-        />
+      <Route path="/" element={<AppLayout links={mapLinks(linksDetails)} />}>
+        <Route index element={<HomePage />} />
+        <Route path="classic-collection" element={<ClassicCollectionPage />} />
         <Route
           path="modern-collection"
-          element={<ModernCollectionDashboard />}
+          element={
+            <Suspense fallback={<CategoriesListSkeleton />}>
+              <ModernCollectionPage />
+            </Suspense>
+          }
         />
         <Route
           path="auth"
           element={
             <UnAuthorizedRoute>
-              <AuthDashboard />
+              <AuthPage />
             </UnAuthorizedRoute>
           }
         />
         <Route path="checkout" element={<Checkout />} />
+        <Route path="about" element={<AboutPage />} />
         <Route
-          path="user-settings"
+          path="user-dashboard"
           element={
             <ProtectedRoute>
-              <UserSettingsDashboard />
+              <UserDashboardPage />
             </ProtectedRoute>
           }
         />
-        <Route path="/404" element={<NotFoundDashboard />} />
-        <Route path="/terms" element={<TermsDashboard />} />
+        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="/terms" element={<TermsPage />} />
         <Route path="*" element={<Navigate replace to="/404" />} />
       </Route>
     </Routes>

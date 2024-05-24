@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { Product } from "types";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { ShopCategoryCard } from "../../../../../shared/components/ShopCategoryCard";
+import { ShopCategoryCard } from "shared/components/ShopCategoryCard";
 
 type ShopSubCategoryListProps = {
   subCategories: Array<Product>;
@@ -43,7 +43,7 @@ export const ShopSubCategoryList = ({
       </Box>
       <Box ref={catRef} className="shop-sub-category-section-cards">
         {subCategories.map((item, index) => (
-          <ShopCategoryCard key={index} catInfo={item}></ShopCategoryCard>
+          <ShopCategoryCard key={index} cardInfo={item}></ShopCategoryCard>
         ))}
       </Box>
       <Box

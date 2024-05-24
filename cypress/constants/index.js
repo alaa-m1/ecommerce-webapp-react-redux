@@ -1,5 +1,5 @@
-export const baseUrl = "http://localhost:3000";
-// export const baseUrl = "https://phoenix-ecommerce.netlify.app/";
+// export const baseUrl = "http://localhost:3000";
+export const baseUrl = "https://phoenix-ecommerce.netlify.app/";
 
 /*
  *loginFakeResponse and lookupFakeResponse are using to

@@ -4,7 +4,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { LoadingSpinner } from "shared";
@@ -26,7 +26,7 @@ export const PaymentForm = () => {
     setErrorMessage(error.message);
   };
 
-  const makePayment = async (clientSecret: string) => {
+  const makePayment = useCallback(async (clientSecret: string) => {
     if (!stripe || !elements) return;
     await stripe
       .confirmPayment({
@@ -38,7 +38,7 @@ export const PaymentForm = () => {
           payment_method_data: {
             billing_details: {
               name: currentUser?.displayName ?? "Guest user",
-              email: currentUser?.email!,
+              email: currentUser?.email || "example@mail.com",
             },
           },
         },
@@ -51,7 +51,7 @@ export const PaymentForm = () => {
           console.log("Paymernt is successful");
         }
       });
-  };
+  },[currentUser?.displayName, currentUser?.email, elements, stripe]);
 
   const handlePayment = useCallback(
     async (e: any) => {
@@ -91,7 +91,7 @@ export const PaymentForm = () => {
 
       // }
     },
-    [cartTotal, elements, stripe]
+    [cartTotal, elements, makePayment, stripe]
   );
   return (
     <Box

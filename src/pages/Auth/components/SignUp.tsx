@@ -1,4 +1,5 @@
-import { Alert, Box, Grid, Typography, Link } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Grid, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import BusinessIcon from "@mui/icons-material/Business";
 import EmailIcon from "@mui/icons-material/Email";
@@ -9,59 +10,63 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import validator from "validator";
 import zxcvbn from "zxcvbn";
-import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
-import { TextField } from "shared";
+import { AcceptCheckBox, GenderSelect, MUITextField } from "shared";
 import {
   createAuthenticatedUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useTranslation } from "react-i18next";
+import { UserSignUpForm } from "types";
+import { schemaForType } from "types/new-types.d";
+import { SubmitButton } from "shared/components/SubmitButton";
 
-const UserSchema = z
-  .object({
-    firstName: z
-      .string()
-      .min(2, "The first name must be at least 2 characters")
-      .max(32, "The first name must be less than 32 characters")
-      .regex(
-        new RegExp("^[a-zA-Z]+$"),
-        "The first name must not contains any special characters"
-      ),
-    lastName: z
-      .string()
-      .min(2, "The last name must be at least 2 characters")
-      .max(32, "The last name must be less than 32 characters")
-      .regex(
-        new RegExp("^[a-zA-Z]+$"),
-        "The last name must not contains any special characters"
-      ),
-    address: z
-      .string()
-      .min(8, "The address must be at least 8 characters")
-      .max(100, "The address must be less than 100 characters"),
-    email: z.string().email("You must enter a valid Email"),
-    mobile: z.string().refine(validator.isMobilePhone, {
-      message: "Please enter a valid phone number",
-    }),
-    password: z
-      .string()
-      .min(8, "The password must be at least 8 characters")
-      .max(60, "The password must be less than 60 characters"),
-    confirmPassword: z.string(),
-    accept: z.literal(true, {
-      errorMap: () => ({
-        message: "You should accept terms and conditions before continuing",
+const UserSchema = schemaForType<UserSignUpForm>()(
+  z
+    .object({
+      firstName: z
+        .string()
+        .min(2, "The first name must be at least 2 characters")
+        .max(32, "The first name must be less than 32 characters")
+        .regex(
+          new RegExp("^[a-zA-Z]+$"),
+          "The first name must not contains any special characters"
+        ),
+      lastName: z
+        .string()
+        .min(2, "The last name must be at least 2 characters")
+        .max(32, "The last name must be less than 32 characters")
+        .regex(
+          new RegExp("^[a-zA-Z]+$"),
+          "The last name must not contains any special characters"
+        ),
+      address: z
+        .string()
+        .min(8, "The address must be at least 8 characters")
+        .max(100, "The address must be less than 100 characters"),
+      email: z.string().email("You must enter a valid Email"),
+      mobile: z.string().refine(validator.isMobilePhone, {
+        message: "Please enter a valid phone number",
       }),
-    }),
-  })
-  .refine((formData) => formData.password === formData.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+      gender: z.optional(z.string()),
+      password: z
+        .string()
+        .min(8, "The password must be at least 8 characters")
+        .max(60, "The password must be less than 60 characters"),
+      confirmPassword: z.string(),
+      accept: z.literal<boolean>(true, {
+        errorMap: () => ({
+          message: "You should accept terms and conditions before continuing",
+        }),
+      }),
+    })
+    .refine((formData) => formData.password === formData.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+    })
+);
 
 type UserSchemaType = z.infer<typeof UserSchema>;
 
@@ -70,7 +75,6 @@ const SignUp = () => {
   const [passwordScore, setPasswordScore] = useState(0);
   const {
     register,
-    getValues,
     handleSubmit,
     watch,
     reset,
@@ -83,7 +87,7 @@ const SignUp = () => {
       await createAuthenticatedUserWithEmailAndPassword(email, password)
         .then((response) => {
           const { user } = response;
-          const userDatatRef = createUserDocFromAuth(user, {
+          createUserDocFromAuth(user, {
             name: `${firstName} ${lastName}`,
             mobile,
             address,
@@ -114,68 +118,97 @@ const SignUp = () => {
         {t("auth.signup")}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>
-        <TextField
+        <MUITextField
           name="firstName"
           label="First Name"
+          required={
+            !(UserSchema._def.schema.shape.firstName instanceof z.ZodOptional)
+          }
           // placeholder="First name"
           icon={<PersonIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.firstName?.message}
           disabled={isSubmitting}
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <MUITextField
           name="lastName"
           label="Last Name"
+          required={
+            !(UserSchema._def.schema.shape.lastName instanceof z.ZodOptional)
+          }
           // placeholder="Last name"
           icon={<PersonIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.lastName?.message}
           disabled={isSubmitting}
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <MUITextField
           name="address"
           label="Address"
+          required={
+            !(UserSchema._def.schema.shape.address instanceof z.ZodOptional)
+          }
           // placeholder="Address"
           icon={<BusinessIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.address?.message}
           disabled={isSubmitting}
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <MUITextField
           name="email"
           label="Email"
+          required={
+            !(UserSchema._def.schema.shape.email instanceof z.ZodOptional)
+          }
           // placeholder="Email"
           icon={<EmailIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.email?.message}
           disabled={isSubmitting}
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <MUITextField
           name="mobile"
           label="Mobile number"
+          required={
+            !(UserSchema._def.schema.shape.mobile instanceof z.ZodOptional)
+          }
           // placeholder="Mobile number"
           icon={<SmartphoneIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.mobile?.message}
           disabled={isSubmitting}
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <GenderSelect
+          name="gender"
+          required={
+            !(UserSchema._def.schema.shape.password instanceof z.ZodOptional)
+          }
+          label="Gender"
+          register={register}
+          watch={watch}
+          errors={errors.password?.message}
+          // disabled={isSubmitting}
+        />
+        <MUITextField
           name="password"
           label="Password"
+          required={
+            !(UserSchema._def.schema.shape.password instanceof z.ZodOptional)
+          }
           placeholder=""
           icon={<LockIcon />}
           type="password"
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.password?.message}
           disabled={isSubmitting}
-          autoComplete="off"
-        ></TextField>
+          autoComplete="current-password"
+        ></MUITextField>
         {watch().password && watch().password.length > 0 && (
           <Grid container sx={{ margin: "0px 0px 15px 10px" }}>
             {Array.from(Array(5).keys()).map((item, index) => (
@@ -199,51 +232,40 @@ const SignUp = () => {
             ))}
           </Grid>
         )}
-        <TextField
+
+        <MUITextField
           name="confirmPassword"
           label="Confirm Password"
+          required={
+            !(
+              UserSchema._def.schema.shape.confirmPassword instanceof
+              z.ZodOptional
+            )
+          }
           placeholder=""
           icon={<LockIcon />}
           type="password"
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.confirmPassword?.message}
           disabled={isSubmitting}
           autoComplete="off"
-        ></TextField>
+        ></MUITextField>
         <br />
-        <Box sx={{ textAlign: "left", marginBottom: "20px" }}>
-          <input type="checkbox" id="accept" {...register("accept")} />
-          <label htmlFor="accept" style={{ color: "primary.light" }}>
-            <Typography component="span" sx={{ color: "primary.light" }}>
-              I accept &nbsp;
-            </Typography>
-          </label>
-          <Link href="/terms" sx={{ textDecoration: "none" }}>
-            <Typography component="span" sx={{ color: "primary.light" }}>
-              terms and conditions
-            </Typography>
-          </Link>
-
-          {errors.accept && (
-            <Alert
-              severity="error"
-              sx={{ marginTop: "2px", backgroundColor: "#FDEDED" }}
-            >
-              {errors.accept?.message}
-            </Alert>
-          )}
-        </Box>
-        <LoadingButton
-          loading={isSubmitting}
-          loadingIndicator={<ScaleLoader color="#36d7b7" />}
-          variant="outlined"
-          type="submit"
+        <AcceptCheckBox
+          label="I accept"
+          register={register("accept")}
+          errors={errors.accept}
+          link={{ to: "/terms", label: "terms and conditions" }}
+        />
+        <SubmitButton
+          isLoading={isSubmitting}
+          loadingIndicator={<ScaleLoader color="#36d7b7" height="20" />}
           sx={{ width: "50%", margin: "0px auto" }}
           data-testid="Auth-SignUp-btn-signup"
         >
           {t("auth.signup")}
-        </LoadingButton>
+        </SubmitButton>
       </form>
     </Box>
   );

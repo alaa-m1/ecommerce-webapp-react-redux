@@ -1,35 +1,39 @@
+import React from "react";
 import { Box, Typography } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import LoadingButton from "@mui/lab/LoadingButton";
 import { ScaleLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import { TextField } from "shared";
+import { MUITextField } from "shared";
 import { signInAuthenticatedUserWithEmailAndPassword } from "utils/firebase";
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { schemaForType } from "types/new-types.d";
+import { UserSignInForm } from "types";
+import { SubmitButton } from "shared/components/SubmitButton";
 
-const UserSchema = z.object({
-  email: z.string().email("You must enter a valid Email"),
+const UserSchema = schemaForType<UserSignInForm>()(
+  z.object({
+    email: z.string().email("You must enter a valid Email"),
 
-  password: z.string(),
-});
+    password: z.string(),
+  })
+);
 
 type UserSchemaType = z.infer<typeof UserSchema>;
 
 const SignIn = () => {
-  const { t }=useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const {
     register,
-    getValues,
-    handleSubmit,
     watch,
+    handleSubmit,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<UserSchemaType>({ resolver: zodResolver(UserSchema) });
@@ -37,7 +41,7 @@ const SignIn = () => {
     const { email, password } = formData;
 
     await signInAuthenticatedUserWithEmailAndPassword(email, password)
-      .then((response) => {
+      .then(() => {
         reset();
         const redirectTo = location.state?.from;
         navigate(redirectTo);
@@ -59,47 +63,45 @@ const SignIn = () => {
         }
       });
   };
-  const { password } = watch();
   return (
     <Box>
       <Typography fontSize="16px" color="primary.light">
-        {t('auth.signin')}
+        {t("auth.signin")}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>
-        <TextField
+        <MUITextField
           name="email"
           label="Email"
           // placeholder="Email"
           icon={<EmailIcon />}
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.email?.message}
           disabled={isSubmitting}
           data-testid="Auth-SignIn-text-email"
-        ></TextField>
-        <TextField
+        ></MUITextField>
+        <MUITextField
           name="password"
           label="Password"
           placeholder=""
           icon={<LockIcon />}
           type="password"
           register={register}
-          getValues={getValues}
+          watch={watch}
           errors={errors.password?.message}
           disabled={isSubmitting}
           defaultValue=""
           data-testid="Auth-SignIn-text-password"
-        ></TextField>
-        <LoadingButton
-          loading={isSubmitting}
-          loadingIndicator={<ScaleLoader color="#36d7b7" />}
-          variant="outlined"
-          type="submit"
+          autoComplete="current-password"
+        ></MUITextField>
+        <SubmitButton
+          isLoading={isSubmitting}
+          loadingIndicator={<ScaleLoader color="#36d7b7" height="20" />}
           sx={{ width: "50%", margin: "0px auto" }}
           data-testid="Auth-SignIn-btn-signin"
         >
-          {t('auth.signin')}
-        </LoadingButton>
+          {t("auth.signin")}
+        </SubmitButton>
       </form>
     </Box>
   );

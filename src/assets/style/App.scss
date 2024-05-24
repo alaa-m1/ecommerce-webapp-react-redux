@@ -21,19 +21,16 @@
 }
 .logo-container {
   flex-grow: 1;
+  svg > path {
+    @include soft-box-shadow;
+    color: #d32f2f;
+  }
 }
 .link-container {
   flex-grow: 2;
   place-items: center;
   display: flex;
   justify-content: space-between;
-  span {
-    margin: 0px 10px;
-    transition: color 0.2s ease-in;
-    &:hover {
-      color: #e76712;
-    }
-  }
 }
 .language-menu-btn {
   display: inline;
@@ -55,6 +52,7 @@
   width: 300px;
   height: 400px;
   margin: 20px;
+  overflow-x: hidden;
   .right-button {
     position: absolute;
     top: 50%;
@@ -86,6 +84,48 @@
   }
   :hover {
     @include category-images-hover(0.8, 1);
+  }
+}
+.slider-image {
+  flex-grow: 1;
+  position: absolute;
+  img {
+    width: 300px;
+    height: 350px;
+    aspect-ratio: 1;
+  }
+}
+.right-slider-image {
+  animation-name: slidToRight;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+.left-slider-image {
+  animation-name: slidToLeft;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+.stop-slider-image {
+  display: none;
+}
+@keyframes slidToLeft {
+  from {
+    left: 0;
+    display: block;
+  }
+  to {
+    left: -300px;
+    display: none;
+  }
+}
+@keyframes slidToRight {
+  from {
+    left: 0px;
+    display: block;
+  }
+  to {
+    left: 300px;
+    display: none;
   }
 }
 .main-category-info {
@@ -407,10 +447,14 @@
 }
 
 .footer-section {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   height: 50px;
+  overflow-x: hidden;
+}
+
+// Auth page
+.error-border {
+  border-color: #d32f2f;
+  outline-color: #d32f2f;
 }
 
 // Auth page
@@ -438,4 +482,12 @@
   padding: 10px;
   margin: 20px;
   @include soft-box-shadow;
+}
+
+//sidebar
+.sidebar-transform-active {
+  width: 180px;
+}
+.sidebar-transform-inactive {
+  width: 40px;
 }

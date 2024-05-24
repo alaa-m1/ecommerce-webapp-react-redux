@@ -8,9 +8,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import "./i18n";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripeOptions, stripePromise } from "utils/stripe/stripe";
-import { ReactQueryProvider } from "utils/reactQuery/ReactQueryProvider";
 import { ToastContainer } from "react-toastify";
-import ThemedApp from "ThemedApp";
+import { ReactQueryProvider } from "shared/appContainers/components/reactQuery/ReactQueryProvider";
+import ThemedApp from "shared/appContainers/components/ThemedApp";
 
 const AppRoot = ({ children }: AppRootType) => {
   return (

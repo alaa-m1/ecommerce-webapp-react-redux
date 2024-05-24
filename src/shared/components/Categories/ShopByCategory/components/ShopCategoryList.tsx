@@ -1,8 +1,9 @@
+import React from "react";
 import { Box, Typography } from "@mui/material";
 import { Product } from "types";
 import _ from "lodash";
-import { ShopCategoryCard } from "../../../../../shared/components/ShopCategoryCard";
 import { NoItemsFound } from "shared/components/NoItemsFound";
+import { ShopCategoryCard } from "shared/components/ShopCategoryCard";
 
 type ShopCategoryListProps = {
   subCategories: Array<Product>;
@@ -27,7 +28,7 @@ export const ShopCategoryList = ({
         {subCategories.map((item) => (
           <ShopCategoryCard
             key={_.uniqueId()}
-            catInfo={item}
+            cardInfo={item}
           ></ShopCategoryCard>
         ))}
       </Box>

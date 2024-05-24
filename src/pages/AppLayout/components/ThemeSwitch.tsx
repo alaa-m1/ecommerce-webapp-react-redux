@@ -5,16 +5,14 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "utils/redux/hooks";
 import { setCurrentThemeMode } from "store/user/userActions";
+import { styled, IconButtonProps } from "@mui/material";
 
 export const ThemeSwitch = () => {
   const currentThemeMode = useAppSelector((state) => state.user.themeMode);
   const dispatch = useDispatch();
   return (
-    <IconButton
-      sx={{
-        ml: 1,
-        "& path": { color: currentThemeMode === "dark" ? "#ff9800" : "#000" },
-      }}
+    <StyledIconButton
+      themeMode={currentThemeMode}
       onClick={() =>
         dispatch(
           setCurrentThemeMode(currentThemeMode === "dark" ? "light" : "dark")
@@ -26,6 +24,33 @@ export const ThemeSwitch = () => {
       ) : (
         <Brightness4Icon />
       )}
-    </IconButton>
+    </StyledIconButton>
   );
 };
+type StyledIconButtonType = IconButtonProps & {
+  themeMode: "light" | "dark";
+};
+
+const StyledIconButton = styled(IconButton, {
+  shouldForwardProp: (prop) => prop !== "docDirection" && prop !== "themeMode",
+})<StyledIconButtonType>(({ theme, themeMode }) => ({
+  cursor: "pointer",
+  "& path": {
+    color:
+      themeMode === "dark"
+        ? theme.palette.secondary.main
+        : theme.palette.primary.light,
+
+    transition: theme.transitions.create([" color", "transform"], {
+      duration: theme.transitions.duration.standard,
+    }),
+  },
+
+  ml: 1,
+  "&:hover": {
+    "& path": {
+      color: "#e76712",
+    },
+    transform: "scale(1.02)",
+  },
+}));

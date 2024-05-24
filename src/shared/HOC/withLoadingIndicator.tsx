@@ -1,12 +1,21 @@
 import { Box, Typography } from "@mui/material";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LoadingSpinner } from "shared/components";
 import _ from "lodash";
 import styled from "styled-components";
 
-const withLoadingIndicator = (Element: any, loadingMessage: string) => {
-  return (props: any) => {
+type withLoadingIndicatorProps = {
+  imagePath: string;
+  altInfo: string;
+  onLoadingIsComplete?: () => void;
+};
+
+const withLoadingIndicator = <T,>(
+  WrappedComponent: React.ComponentType<T>,
+  loadingMessage: string
+) => {
+  const HOC = (props: withLoadingIndicatorProps) => {
     const [loading, setLoading] = useState(true);
     const { t } = useTranslation();
     const handleLoadingIsComplete = useCallback(() => {
@@ -32,16 +41,16 @@ const withLoadingIndicator = (Element: any, loadingMessage: string) => {
             )}
           </SpinnerContainer>
         )}
-        <Element
-          {...props}
+        <WrappedComponent
+          {...(props as T)}
           onLoadingIsComplete={handleLoadingIsComplete}
           isLoading={loading}
         />
       </MainContainer>
     );
   };
+  return HOC;
 };
-
 const MainContainer = styled(Box)`
   position: relative;
   display: flex;

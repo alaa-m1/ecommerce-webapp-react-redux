@@ -18,8 +18,7 @@ import {
   getFirestore,
   doc,
   getDoc,
-  setDoc,
-  DocumentData,
+  setDoc
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -55,7 +54,7 @@ export const db = getFirestore(app);
 
 export const getUserDocFromAuth = async (
   userAuth: any,
-  aditionalInfo = {}
+  // aditionalInfo = {}
 ): Promise<any | null> => {
   if (userAuth) {
     const userDocRef = doc(db, "users", userAuth.uid);
@@ -74,7 +73,7 @@ export const createUserDocFromAuth = async (
   const userData = await getDoc(userDocRef);
 
   if (!userData.exists()) {
-    const { email, displayName } = userAuth;
+    const { email, displayName, photoURL } = userAuth;
     const createdAt = new Date();
 
     try {
@@ -82,6 +81,7 @@ export const createUserDocFromAuth = async (
         name: displayName,
         email,
         createdAt,
+        image:photoURL,
         ...aditionalInfo,
       });
     } catch (error: any) {

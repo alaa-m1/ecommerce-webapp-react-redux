@@ -4,18 +4,18 @@ import { userActionTypes } from "./userActionTypes"
 type UserState={
     currentUser: null | UserInfo;
     themeMode: "light" | "dark";
-    notificationDate: string | null
+    direction: "ltr" | "rtl";
 }
 
 interface UserAction {
     type: any,
-    payload: null | UserInfo | "light" | "dark"
+    payload: null | UserInfo | "light" | "dark" | "ltr" | "rtl"
 }
 
 const initailState: UserState = {
     currentUser: null,
     themeMode: "light",
-    notificationDate: null
+    direction: "ltr"
 }
 export const userReducer = (state = initailState, action: UserAction) => {
     const { type, payload } = action;
@@ -30,10 +30,10 @@ export const userReducer = (state = initailState, action: UserAction) => {
                 ...state,
                 themeMode: payload as "light" | "dark"
             }
-        case userActionTypes.SET_NOTIFICATION_DATE:
+        case userActionTypes.SET_DOCUMENT_DIRECTION:
             return {
                 ...state,
-                notificationDate: payload as string
+                direction: payload as "ltr" | "rtl"
             }
         default:
             return state

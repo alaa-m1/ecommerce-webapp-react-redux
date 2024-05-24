@@ -4,7 +4,6 @@ import {
   useMemo
 } from "react";
 import { CartCategories } from "types";
-import _ from "lodash";
 // import { useDispatch } from "react-redux";
 // import { setActiveCartElement } from "store/shoppingState/shoppingStateActions";
 
