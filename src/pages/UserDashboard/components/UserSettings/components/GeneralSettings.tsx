@@ -2,6 +2,7 @@ import React from "react";
 import { TabPanelProps } from "../types";
 import { Box, Typography } from "@mui/material";
 import { PDFUploader } from "../../PDFUploader/PDFUploader";
+import { UserPhotosManager } from "../../PhotosUploader/UserPhotosManager";
 
 export const GeneralSettings = ({ value, index, ...props }: TabPanelProps) => {
   return (
@@ -19,6 +20,8 @@ export const GeneralSettings = ({ value, index, ...props }: TabPanelProps) => {
           </Typography>
           <br />
           <PDFUploader/>
+          <br />
+          <UserPhotosManager />
         </Box>
       )}
     </div>
