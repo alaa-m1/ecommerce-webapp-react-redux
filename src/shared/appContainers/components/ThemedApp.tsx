@@ -21,7 +21,7 @@ const ThemedApp = ({ children }: ThemedAppProps) => {
   );
 
   const styledTheme = {
-    main: themeMode === "light" ? "#fff" : "#121212",
+    main: themeMode === "light" ? "#eee" : "#212121",
   };
   return (
     <Rtl docDirection={direction}>
