@@ -159,7 +159,7 @@ export const ImageCards = ({
           </Box>
         ))}
       </Box>
-      <Button onClick={() => reset({})}>
+      <Button onClick={() => reset()}>
         <MdClose />
         <Typography>Remove all photos</Typography>
       </Button>
