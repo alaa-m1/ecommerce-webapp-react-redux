@@ -3,6 +3,7 @@ import { TabPanelProps } from "../types";
 import { Box, Typography } from "@mui/material";
 import { PDFUploader } from "../../PDFUploader/PDFUploader";
 import { UserPhotosManager } from "../../PhotosUploader/UserPhotosManager";
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 
 export const GeneralSettings = ({ value, index, ...props }: TabPanelProps) => {
   return (
@@ -22,8 +23,28 @@ export const GeneralSettings = ({ value, index, ...props }: TabPanelProps) => {
           <PDFUploader/>
           <br />
           <UserPhotosManager />
+          < CustomGoogleMap/>
         </Box>
       )}
     </div>
+  );
+};
+
+
+const CustomGoogleMap = () => {
+  const position = { lat: 50.363226, lng: 7.603016 };
+
+  return (
+    <APIProvider apiKey={"AIzaSyARdttg1CmCBdTPymQoml2rquYOcXJ0otY"}>
+      <Map
+        style={{ width: "90vw", height: "600px" }}
+        defaultCenter={position}
+        defaultZoom={14}
+        gestureHandling={"greedy"}
+        disableDefaultUI={true}
+      >
+        <Marker position={position} />
+      </Map>
+    </APIProvider>
   );
 };
