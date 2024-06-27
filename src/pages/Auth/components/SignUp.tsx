@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import { UserSignUpForm } from "types";
 import { schemaForType } from "types/new-types.d";
 import { SubmitButton } from "shared/components/SubmitButton";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const UserSchema = schemaForType<UserSignUpForm>()(
   z
@@ -80,8 +81,15 @@ const SignUp = () => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<UserSchemaType>({ resolver: zodResolver(UserSchema) });
+  const recaptcha = useRef<any>(null);
   const onSubmit: SubmitHandler<UserSchemaType> = async (formData) => {
     try {
+      const captchaValue = recaptcha?.current?.getValue();
+      if (!captchaValue) {
+        alert("Please verify the reCAPTCHA!");
+        return;
+      }
+
       const { email, password, firstName, lastName, address, mobile } =
         formData;
       await createAuthenticatedUserWithEmailAndPassword(email, password)
@@ -112,6 +120,8 @@ const SignUp = () => {
     };
     setPasswordScore(calculatePasswordStrengthScore());
   }, [password]);
+
+  const siteSecreteKey = process.env.REACT_APP_RECAPTCHA_SK!;
   return (
     <Box>
       <Typography fontSize="16px" color="primary.light">
@@ -258,6 +268,7 @@ const SignUp = () => {
           errors={errors.accept}
           link={{ to: "/terms", label: "terms and conditions" }}
         />
+        <ReCAPTCHA ref={recaptcha} sitekey={siteSecreteKey}/>
         <SubmitButton
           isLoading={isSubmitting}
           loadingIndicator={<ScaleLoader color="#36d7b7" height="20" />}
