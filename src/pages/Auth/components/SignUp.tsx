@@ -82,6 +82,17 @@ const SignUp = () => {
     formState: { errors, isSubmitting },
   } = useForm<UserSchemaType>({ resolver: zodResolver(UserSchema) });
   const recaptcha = useRef<any>(null);
+  const siteSecreteKey = process.env.REACT_APP_SITE_KEY!;
+  const [load, setLoad] = useState(false);
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setLoad(true);
+    }, 2000);
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, []);
+
   const onSubmit: SubmitHandler<UserSchemaType> = async (formData) => {
     try {
       const captchaValue = recaptcha?.current?.getValue();
@@ -121,7 +132,6 @@ const SignUp = () => {
     setPasswordScore(calculatePasswordStrengthScore());
   }, [password]);
 
-  const siteSecreteKey = process.env.REACT_APP_RECAPTCHA_SK!;
   return (
     <Box>
       <Typography fontSize="16px" color="primary.light">
@@ -268,7 +278,7 @@ const SignUp = () => {
           errors={errors.accept}
           link={{ to: "/terms", label: "terms and conditions" }}
         />
-        <ReCAPTCHA ref={recaptcha} sitekey={siteSecreteKey}/>
+        {load && <ReCAPTCHA ref={recaptcha} sitekey={siteSecreteKey} />}
         <SubmitButton
           isLoading={isSubmitting}
           loadingIndicator={<ScaleLoader color="#36d7b7" height="20" />}
