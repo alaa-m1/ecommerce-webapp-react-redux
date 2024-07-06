@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import {
   GoogleAuthProvider,
   getAuth,
@@ -14,12 +15,7 @@ import {
   User,
   UserInfo,
 } from "firebase/auth";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc
-} from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -31,6 +27,50 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
+
+const setupNotifications = async () => {
+  try {
+    // Request permission for notifications
+    const permission = await Notification.requestPermission();
+
+    if (permission === "granted") {
+      // console.log("Notification permission granted...");
+      // const token = await getToken(messaging);
+      // console.log("FCM Token:", token);
+
+      getToken(messaging, {
+        vapidKey:
+          "BMETdi5oTm7hACz4ZZQ68KnluI0RjYL0JvsXZ7oqaMxLQQJtr_t5qvXvMDY5_aaSo7vReWaHjyVR723-EG9IaLE",
+      })
+        .then((currentToken) => {
+          if (currentToken) {
+            console.log("currentToken=", currentToken);
+          } else {
+            // Show permission request UI
+            console.log(
+              "No registration token available. Request permission to generate one."
+            );
+            // ...
+          }
+        })
+        .catch((err) => {
+          console.log("An error occurred while retrieving token. ", err);
+          // ...
+        });
+    } else {
+      console.log("Notification permission denied.");
+    }
+    // Handle foreground notifications
+    onMessage(messaging, (payload: any) => {
+      console.log("Foreground Message **************:", payload);
+      // Handle the notification or update your UI
+    });
+  } catch (error) {
+    console.error("Error setting up notifications:", error);
+  }
+};
+export { messaging, setupNotifications };
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
@@ -53,7 +93,7 @@ export const signInWithFacebookPopup = () =>
 export const db = getFirestore(app);
 
 export const getUserDocFromAuth = async (
-  userAuth: any,
+  userAuth: any
   // aditionalInfo = {}
 ): Promise<any | null> => {
   if (userAuth) {
@@ -81,7 +121,7 @@ export const createUserDocFromAuth = async (
         name: displayName,
         email,
         createdAt,
-        image:photoURL,
+        image: photoURL,
         ...aditionalInfo,
       });
     } catch (error: any) {

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "pages/Home/HomePage";
 import ClassicCollectionPage from "pages/ClassicCollection/ClassicCollectionPage";
@@ -14,8 +14,16 @@ import UnAuthorizedRoute from "utils/routes/UnAuthorizedRoute";
 import TermsPage from "pages/Terms/TermsPage";
 import { mapLinks } from "utils/mappingFunctions/mapLinks";
 import AboutPage from "pages/About/AboutPage";
+import { setupNotifications } from "utils/firebase";
+import { setupServiceWorker } from "utils/helpers";
 
-function App() {
+const App = () => {
+  setupServiceWorker();
+
+  useEffect(() => {
+    setupNotifications();
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<AppLayout links={mapLinks(linksDetails)} />}>
@@ -53,6 +61,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;
