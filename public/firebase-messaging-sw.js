@@ -23,18 +23,21 @@ const firebaseConfig = {
 };
 
 
-if (firebaseConfig.apiKey) {
+// if (firebaseConfig.apiKey) {
   console.log("firebaseConfig=", firebaseConfig);
   firebase.initializeApp(firebaseConfig);
+  // Retrieve an instance of Firebase Messaging so that it can handle background
+ // messages.
   const messaging = firebase.messaging();
 
- 
   messaging.onBackgroundMessage((payload) => {
     console.log("Background Notification:", payload);
     const notificationTitle = payload.notification.title;
     const notificationOptions = {
       body: payload.notification.body,
+      icon: 'images/notification-logo1.png'
     };
     self.registration.showNotification(notificationTitle, notificationOptions);
   });
-}
+  
+// }
