@@ -25,9 +25,8 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
 };
-
-const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
+export const firebaseApp = initializeApp(firebaseConfig);
+const messaging = getMessaging(firebaseApp);
 
 const setupNotifications = async () => {
   try {
@@ -40,8 +39,7 @@ const setupNotifications = async () => {
       // console.log("FCM Token:", token);
 
       getToken(messaging, {
-        vapidKey:
-          "BMETdi5oTm7hACz4ZZQ68KnluI0RjYL0JvsXZ7oqaMxLQQJtr_t5qvXvMDY5_aaSo7vReWaHjyVR723-EG9IaLE",
+        vapidKey: process.env.REACT_APP_MESSAGING_KEY,
       })
         .then((currentToken) => {
           if (currentToken) {
@@ -90,7 +88,7 @@ export const signInWithGoogleRedirect = () =>
 export const signInWithFacebookPopup = () =>
   signInWithPopup(auth, facebookProvider);
 
-export const db = getFirestore(app);
+export const db = getFirestore(firebaseApp);
 
 export const getUserDocFromAuth = async (
   userAuth: any
