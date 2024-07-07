@@ -18,9 +18,9 @@ import { setupNotifications } from "utils/firebase";
 import { setupServiceWorker } from "utils/helpers";
 
 const App = () => {
-  setupServiceWorker();
-
+  
   useEffect(() => {
+    setupServiceWorker();
     setupNotifications();
   }, []);
 
