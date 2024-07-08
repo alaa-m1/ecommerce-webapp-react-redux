@@ -6,9 +6,10 @@ import { CssBaseline } from "@mui/material";
 import GlobalStyle from "assets/style/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import Rtl from "./Rtl";
+import { useGetUIThemeMode } from "shared/hooks";
 
 const ThemedApp = ({ children }: ThemedAppProps) => {
-  const themeMode = useAppSelector((state) => state.user.themeMode);
+  const themeMode = useGetUIThemeMode();
   const direction = useAppSelector((state) => state.user.direction);
 
   useLayoutEffect(() => {

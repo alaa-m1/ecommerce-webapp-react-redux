@@ -1,41 +1,52 @@
+import { useDispatch } from "react-redux";
 import {
   ClickAwayListener,
   Grow,
-  Menu,
+  styled,
   MenuItem,
   MenuList,
   Paper,
   Popper,
   Typography,
-  styled,
 } from "@mui/material";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { setDocumentDirection } from "store/user/userActions";
+import {
+  setCurrentThemeMode
+} from "store/user/userActions";
+import { useAppSelector } from "utils/redux/hooks";
+import { ThemeMode } from "store/user/userReducer";
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 
-export const LanguageMenu2 = ({ anchorEl, handleClose }: LanguageMenuProps) => {
+export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
-  const { t, i18n } = useTranslation();
-  const [activatedLanguage, setActivatedLanguage] = useState(i18n.language);
+  const { t } = useTranslation();
+  const themeMode = useAppSelector((state) => state.user.themeMode);
+  const [activatedLanguage, setActivatedLanguage] =
+    useState<ThemeMode>(themeMode);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setActivatedLanguage(i18n.language);
-  }, [i18n.language]);
+    setActivatedLanguage(themeMode);
+  }, [themeMode]);
 
-  const handleChangeToRTL = useCallback(() => {
-    document.dir = "rtl";
-
-    dispatch(setDocumentDirection("rtl"));
+  const handleChangeToLight = useCallback(() => {
+    dispatch(setCurrentThemeMode("light"));
     handleClose();
   }, [dispatch, handleClose]);
 
-  const handleChangeToLTR = useCallback(() => {
-    document.dir = "ltr";
-    dispatch(setDocumentDirection("ltr"));
+  const handleChangeToDark = useCallback(() => {
+    dispatch(setCurrentThemeMode("dark"));
     handleClose();
   }, [dispatch, handleClose]);
+
+  const handleChangeToSystem = useCallback(() => {
+    dispatch(setCurrentThemeMode("system"));
+    handleClose();
+  }, [dispatch, handleClose]);
+
   function handleListKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Tab") {
       event.preventDefault();
@@ -46,7 +57,7 @@ export const LanguageMenu2 = ({ anchorEl, handleClose }: LanguageMenuProps) => {
   }
   return (
     <StyledPopper
-      id="language-menu-popper"
+      id="theme-menu-popper"
       open={open}
       anchorEl={anchorEl}
       role={undefined}
@@ -54,6 +65,7 @@ export const LanguageMenu2 = ({ anchorEl, handleClose }: LanguageMenuProps) => {
       // elevation= {0}
       transition
       disablePortal
+      sx={{ position: "fixed !important" }}
     >
       {({ TransitionProps, placement }) => (
         <Grow
@@ -67,44 +79,48 @@ export const LanguageMenu2 = ({ anchorEl, handleClose }: LanguageMenuProps) => {
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList
                 autoFocusItem={open}
-                id="language-menu"
-                aria-labelledby="language-button"
+                id="theme-menu"
+                aria-labelledby="theme-button"
                 onKeyDown={handleListKeyDown}
+                sx={{
+                  "& path": { color: "custom.sub1" },
+                  "& circle": { color: "custom.sub1" },
+                }}
               >
                 <MenuItem
-                  selected={activatedLanguage === "en"}
+                  selected={activatedLanguage === "light"}
                   onClick={() => {
-                    i18n.changeLanguage("en");
-                    handleChangeToLTR();
+                    handleChangeToLight();
                   }}
-                  data-testid="AppLayout-LanguageMenu-menuItem-en"
+                  data-testid="AppLayout-ThemeMenu-menuItem-en"
                 >
-                  <Typography color="primary.main">
-                    {t("languages.english")}
+                  <LightModeIcon />
+                  <Typography color="primary.main" sx={{ml:"5px"}}>
+                    {t("theme.light")}
                   </Typography>
                 </MenuItem>
                 <MenuItem
-                  selected={activatedLanguage === "de"}
+                  selected={activatedLanguage === "dark"}
                   onClick={() => {
-                    i18n.changeLanguage("de");
-                    handleChangeToLTR();
+                    handleChangeToDark();
                   }}
-                  data-testid="AppLayout-LanguageMenu-menuItem-de"
+                  data-testid="AppLayout-ThemeMenu-menuItem-de"
                 >
-                  <Typography color="primary.main">
-                    {t("languages.german")}
+                  <DarkModeIcon />
+                  <Typography color="primary.main" sx={{ml:"5px"}}>
+                    {t("theme.dark")}
                   </Typography>
                 </MenuItem>
                 <MenuItem
-                  selected={activatedLanguage === "ar"}
+                  selected={activatedLanguage === "system"}
                   onClick={() => {
-                    i18n.changeLanguage("ar");
-                    handleChangeToRTL();
+                    handleChangeToSystem();
                   }}
-                  data-testid="AppLayout-LanguageMenu-menuItem-ar"
+                  data-testid="AppLayout-ThemeMenu-menuItem-ar"
                 >
-                  <Typography color="primary.main">
-                    {t("languages.arabic")}
+                  <SettingsSuggestIcon />
+                  <Typography color="primary.main" sx={{ml:"5px"}}>
+                    {t("theme.system")}
                   </Typography>
                 </MenuItem>
               </MenuList>
@@ -116,7 +132,7 @@ export const LanguageMenu2 = ({ anchorEl, handleClose }: LanguageMenuProps) => {
   );
 };
 
-type LanguageMenuProps = {
+type ThemeMenuProps = {
   anchorEl: HTMLElement | null;
   handleClose: () => void;
 };

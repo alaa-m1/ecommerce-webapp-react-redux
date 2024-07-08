@@ -1,16 +1,15 @@
 import React, { useRef } from "react";
 import { Box, Typography } from "@mui/material";
-import { ColoredDevider, ExternalLink } from "shared";
+import { ColoredDevider, ExternalLink, useGetUIThemeMode } from "shared";
 import { ProfilePhoto } from "./components";
 import parse from "html-react-parser";
 import { useTranslation } from "react-i18next";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
-import { useAppSelector } from "utils/redux/hooks";
 
 export const AboutPage = () => {
   const { t } = useTranslation();
   const parallax = useRef<IParallax>(null);
-  const themeMode = useAppSelector((state) => state.user.themeMode);
+  const themeMode = useGetUIThemeMode();
   return (
     <Box
       style={{

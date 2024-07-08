@@ -17,6 +17,11 @@
     "signout": "Abmelden",
     "signup": "Benutzerkonto erstellen"
   },
+  "theme": {
+    "dark": "Dunkel",
+    "light": "Leicht",
+    "system": "System"
+  },
   "shopping_cart": { "checkout": "Kasse", "remove.all": "Alles entfernen" },
   "home_api_info": "Ich verwende fakestoreapi, um einige Produkte abzurufen",
   "home_translation_info": "Die Website wurde teilweise in die Sprachen Deutsch und Arabisch übersetzt",

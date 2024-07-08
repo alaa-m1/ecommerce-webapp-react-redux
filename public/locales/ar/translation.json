@@ -4,8 +4,8 @@
   "modern_collection": "مجموعة عصرية",
   "dashboard": "لوحة التحكم",
   "about": "حول المنتج",
-  "about_information":"<Strong>Hi, I'm Alaa Mohammad, I'm a senior frontend developer</Strong>.<br/>I have worked in frontend development fields over the last six years 💻. <br/>Before that I worked for over seven years as a software developer 🖥️.</br><Strong>My principles:</Strong> Work hard 👨‍💻, be kind, exercise regularly and enjoy live with my family 👨‍👩‍👧‍👦.<br/>I am self-motivated. I enjoy new challenges, collaborating with other developers and developing good software.",
-  "contact_me":"تواصل معي",
+  "about_information": "<Strong>Hi, I'm Alaa Mohammad, I'm a senior frontend developer</Strong>.<br/>I have worked in frontend development fields over the last six years 💻. <br/>Before that I worked for over seven years as a software developer 🖥️.</br><Strong>My principles:</Strong> Work hard 👨‍💻, be kind, exercise regularly and enjoy live with my family 👨‍👩‍👧‍👦.<br/>I am self-motivated. I enjoy new challenges, collaborating with other developers and developing good software.",
+  "contact_me": "تواصل معي",
   "languages": {
     "language": "اللغة",
     "english": "الانكليزية",
@@ -17,6 +17,11 @@
     "signout": "تسجيل الخروج",
     "signup": "انشاء مستخدم جديد"
   },
+  "theme": {
+    "dark": "ليلي",
+    "light": "نهاري",
+    "system": "نظام"
+  },
   "shopping_cart": { "checkout": "الدفع", "remove.all": "حذف الكل" },
   "home_api_info": "أستخدم Fakestoreapi لجلب بيانات بعض المنتجات",
   "home_translation_info": "تمت ترجمة الموقع جزئيًا إلى اللغتين الألمانية و العربية",
@@ -27,25 +32,25 @@
     "quantity": "الكمية",
     "remove": "حذف",
     "description": "الوصف",
-    "total":"المجموع",
-    "check_your_order":"ادفع لطلبك",
-    "process_your_payment":"معالجة الدفع الخاص بك",
-    "successfully_payment":"اكتمل الدفع بنجاح",
-    "login_before_pay":"يجب عليك تسجيل الدخول قبل دفع ثمن مشترياتك",
-    "use_test_card_number":"يمكنك استخدام رقم البطاقة التالي للاختبار: 4242 4242 4242 4242"
+    "total": "المجموع",
+    "check_your_order": "ادفع لطلبك",
+    "process_your_payment": "معالجة الدفع الخاص بك",
+    "successfully_payment": "اكتمل الدفع بنجاح",
+    "login_before_pay": "يجب عليك تسجيل الدخول قبل دفع ثمن مشترياتك",
+    "use_test_card_number": "يمكنك استخدام رقم البطاقة التالي للاختبار: 4242 4242 4242 4242"
   },
-  "search":{
+  "search": {
     "products_search": "البحث عن المنتجات",
-    "search_label":"البحث",
-    "no_items":"لا توجد عناصر",
-    "no_categories":"لا توجد فئات"
+    "search_label": "البحث",
+    "no_items": "لا توجد عناصر",
+    "no_categories": "لا توجد فئات"
   },
-  "sort":{
+  "sort": {
     "sort_by": "ترتيب حسب",
-    "default":"التلقائي",
-    "ascending":"أدنى سعر أولا",
-    "descending":"أعلى سعر أولا"
+    "default": "التلقائي",
+    "ascending": "أدنى سعر أولا",
+    "descending": "أعلى سعر أولا"
   },
-  "terms":"الأحكام والشروط",
-  "loading":"يتم تحميل الصفحة..."
+  "terms": "الأحكام والشروط",
+  "loading": "يتم تحميل الصفحة..."
 }

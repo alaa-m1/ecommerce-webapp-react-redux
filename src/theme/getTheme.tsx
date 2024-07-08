@@ -9,11 +9,13 @@ declare module "@mui/material/styles" {
   interface Palette {
     custom: {
       hover: React.CSSProperties["color"];
+      sub1: React.CSSProperties["color"];
     };
   }
   interface PaletteOptions {
     custom: {
       hover: React.CSSProperties["color"];
+      sub1: React.CSSProperties["color"];
     };
   }
   interface TypographyVariants {
@@ -61,7 +63,10 @@ export const getTheme = ({
         },
         warning: { main: "#ed6c02", dark: "#e65100", light: "#ff9800" },
         error: { main: "#d32f2f", dark: "#c62828", light: "#ef5350" },
-        custom: { hover: "#e76712" },
+        custom: {
+          hover: "#e76712",
+          sub1: themeMode === "dark" ? "#ff9800" : "#fff",
+        },
       },
       spacing: 4,
       typography: {
