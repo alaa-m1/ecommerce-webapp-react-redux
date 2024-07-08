@@ -114,7 +114,8 @@ const AppLayout = ({ links }: NavigationProps) => {
             position: "relative",
             paddingRight: "0px !important",
             paddingLeft: "0px !important",
-            overflowX: "hidden",
+            // overflowX: "hidden",
+            overflow: "visible",
           }}
         >
           <Toolbar>
@@ -155,7 +156,9 @@ const AppLayout = ({ links }: NavigationProps) => {
             >
               <ShoppingCartLogo />
             </Box>
-            <ThemeSwitch />
+            <Suspense fallback={null}>
+              <ThemeSwitch />
+            </Suspense>
           </Toolbar>
         </AppBar>
       </Box>

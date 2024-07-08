@@ -1,12 +1,12 @@
 import React from "react";
 import { Alert, Box, Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "utils/redux/hooks";
+import { useGetUIThemeMode } from "shared";
 
 export const InfoSection = () => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const currentThemeMode = useAppSelector((state) => state.user.themeMode);
+  const currentThemeMode = useGetUIThemeMode();
   return (
     <Box
       sx={{

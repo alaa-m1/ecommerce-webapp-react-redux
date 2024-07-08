@@ -1,8 +1,8 @@
 import { useTheme } from "@mui/material";
 import * as React from "react";
-import { useAppSelector } from "utils/redux/hooks";
+import { useGetUIThemeMode } from "shared";
 const Logo = (props) => {
-  const currentThemeMode = useAppSelector((state) => state.user.themeMode);
+  const currentThemeMode = useGetUIThemeMode();
   const theme = useTheme();
   return(
   <svg

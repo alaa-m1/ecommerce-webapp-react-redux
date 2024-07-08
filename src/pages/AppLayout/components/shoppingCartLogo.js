@@ -1,10 +1,11 @@
 import { Typography, useTheme } from "@mui/material";
 import * as React from "react";
+import { useGetUIThemeMode } from "shared";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useAppSelector } from "utils/redux/hooks";
 export const ShoppingCartLogo = (props) => {
   const { cartCounter } = useAppSelector(selectShoopingCartItemsDetails);
-  const currentThemeMode = useAppSelector((state) => state.user.themeMode);
+  const currentThemeMode = useGetUIThemeMode();
   const theme = useTheme();
   return (
     <>
