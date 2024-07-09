@@ -12,7 +12,7 @@ import { styled, IconButtonProps, Tooltip } from "@mui/material";
 import { ThemeMenu } from "./ThemeMenu";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import { useTranslation } from "react-i18next";
 
 type ThemeSwitchProps = {
@@ -44,7 +44,7 @@ export const ThemeSwitch = ({ showTooltip = false }: ThemeSwitchProps) => {
         ) : themeMode === "light" ? (
           <LightModeIcon />
         ) : (
-          <SettingsSuggestIcon />
+          <DisplaySettingsIcon />
         )}
       </StyledIconButton>
     ),

@@ -18,7 +18,7 @@ import { useAppSelector } from "utils/redux/hooks";
 import { ThemeMode } from "store/user/userReducer";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 
 export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
@@ -118,7 +118,7 @@ export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
                   }}
                   data-testid="AppLayout-ThemeMenu-menuItem-ar"
                 >
-                  <SettingsSuggestIcon />
+                  <DisplaySettingsIcon />
                   <Typography color="primary.main" sx={{ml:"5px"}}>
                     {t("theme.system")}
                   </Typography>
