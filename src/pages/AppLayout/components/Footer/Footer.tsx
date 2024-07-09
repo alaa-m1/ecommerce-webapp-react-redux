@@ -9,8 +9,13 @@ export const Footer = () => {
   return (
     <Grid
       container
-      className="footer-section"
-      sx={{ backgroundColor: "secondary.light" }}
+      sx={{
+        backgroundColor: "secondary.light",
+        height: "50px",
+        overflowX: "hidden",
+        position: "relative",
+        zIndex: "1002",
+      }}
       alignItems="center"
       style={{ direction: "ltr" }}
     >
