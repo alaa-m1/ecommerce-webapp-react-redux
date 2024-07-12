@@ -9,31 +9,36 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ThemedApp from "shared/appContainers/components/ThemedApp";
 import { ReactQueryProvider } from "./components/reactQuery/ReactQueryProvider";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { HelmetProvider } from "react-helmet-async";
+import { PrimeReactProvider } from "primereact/api";
 
 const AppRoot = ({ children }: AppRootType) => {
-  return ( 
+  return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
           <ReactQueryProvider>
             <Elements stripe={stripePromise} options={stripeOptions}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <ThemedApp>{children}</ThemedApp>
-              <ToastContainer
-                position="bottom-left"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <HelmetProvider>
+                  <ThemedApp>
+                    <PrimeReactProvider>{children}</PrimeReactProvider>
+                  </ThemedApp>
+                </HelmetProvider>
+                <ToastContainer
+                  position="bottom-left"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="colored"
+                />
               </LocalizationProvider>
             </Elements>
           </ReactQueryProvider>

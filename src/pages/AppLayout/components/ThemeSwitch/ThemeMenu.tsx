@@ -11,14 +11,12 @@ import {
 } from "@mui/material";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  setCurrentThemeMode
-} from "store/user/userActions";
+import { setCurrentThemeMode } from "store/user/userActions";
 import { useAppSelector } from "utils/redux/hooks";
 import { ThemeMode } from "store/user/userReducer";
-import LightModeIcon from '@mui/icons-material/LightMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import DisplaySettingsIcon from "@mui/icons-material/DisplaySettings";
 
 export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
@@ -95,7 +93,7 @@ export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
                   data-testid="AppLayout-ThemeMenu-menuItem-en"
                 >
                   <LightModeIcon />
-                  <Typography color="primary.main" sx={{ml:"5px"}}>
+                  <Typography color="primary.main" sx={{ ml: "5px" }}>
                     {t("theme.light")}
                   </Typography>
                 </MenuItem>
@@ -107,7 +105,7 @@ export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
                   data-testid="AppLayout-ThemeMenu-menuItem-de"
                 >
                   <DarkModeIcon />
-                  <Typography color="primary.main" sx={{ml:"5px"}}>
+                  <Typography color="primary.main" sx={{ ml: "5px" }}>
                     {t("theme.dark")}
                   </Typography>
                 </MenuItem>
@@ -119,7 +117,7 @@ export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
                   data-testid="AppLayout-ThemeMenu-menuItem-ar"
                 >
                   <DisplaySettingsIcon />
-                  <Typography color="primary.main" sx={{ml:"5px"}}>
+                  <Typography color="primary.main" sx={{ ml: "5px" }}>
                     {t("theme.system")}
                   </Typography>
                 </MenuItem>
