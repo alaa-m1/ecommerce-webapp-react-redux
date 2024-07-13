@@ -1,39 +1,65 @@
-import React, { Suspense, useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import HomePage from "pages/Home/HomePage";
-import ClassicCollectionPage from "pages/ClassicCollection/ClassicCollectionPage";
 import AuthPage from "pages/Auth/AuthPage";
 import NotFoundPage from "pages/NotFound/NotFoundPage";
 import AppLayout from "pages/AppLayout/AppLayout";
 import { CategoriesListSkeleton, linksDetails } from "shared";
-import Checkout from "pages/Checkout/CheckoutPage";
-import ModernCollectionPage from "pages/ModernCollection/ModernCollectionPage";
 import ProtectedRoute from "utils/routes/ProtectedRoute";
 import UserDashboardPage from "pages/UserDashboard/UserDashboardPage";
 import UnAuthorizedRoute from "utils/routes/UnAuthorizedRoute";
 import TermsPage from "pages/Terms/TermsPage";
 import { mapLinks } from "utils/mappingFunctions/mapLinks";
-import AboutPage from "pages/About/AboutPage";
-import { setupNotifications } from "utils/firebase";
+import { firebaseApp, setupNotifications } from "utils/firebase";
 import { setupServiceWorker } from "utils/helpers";
+import { getMessaging, onMessage } from "firebase/messaging";
+import { SuspensedPageView } from "utils/routes/SuspensedPageView";
+
+const HomePage = lazy(() => import("pages/Home/HomePage"));
+const ClassicCollectionPage = lazy(
+  () => import("pages/ClassicCollection/ClassicCollectionPage")
+);
+const ModernCollectionPage = lazy(
+  () => import("pages/ModernCollection/ModernCollectionPage")
+);
+const AboutPage = lazy(() => import("pages/About/AboutPage"));
+const CheckoutPage = lazy(() => import("pages/Checkout/CheckoutPage"));
 
 const App = () => {
-  
   useEffect(() => {
     setupServiceWorker();
     setupNotifications();
+    const messaging = getMessaging(firebaseApp);
+    onMessage(messaging, (payload) => {
+      console.log("Message received =", payload);
+      // ...
+    });
   }, []);
-
   return (
     <Routes>
       <Route path="/" element={<AppLayout links={mapLinks(linksDetails)} />}>
-        <Route index element={<HomePage />} />
-        <Route path="classic-collection" element={<ClassicCollectionPage />} />
+        <Route
+          index
+          element={
+            <SuspensedPageView>
+              <HomePage />
+            </SuspensedPageView>
+          }
+        />
+        <Route
+          path="classic-collection"
+          element={
+            <SuspensedPageView>
+              <ClassicCollectionPage />
+            </SuspensedPageView>
+          }
+        />
         <Route
           path="modern-collection"
           element={
             <Suspense fallback={<CategoriesListSkeleton />}>
-              <ModernCollectionPage />
+              <SuspensedPageView>
+                <ModernCollectionPage />
+              </SuspensedPageView>
             </Suspense>
           }
         />
@@ -45,8 +71,22 @@ const App = () => {
             </UnAuthorizedRoute>
           }
         />
-        <Route path="checkout" element={<Checkout />} />
-        <Route path="about" element={<AboutPage />} />
+        <Route
+          path="checkout"
+          element={
+            <SuspensedPageView>
+              <CheckoutPage />
+            </SuspensedPageView>
+          }
+        />
+        <Route
+          path="about"
+          element={
+            <SuspensedPageView>
+              <AboutPage />
+            </SuspensedPageView>
+          }
+        />
         <Route
           path="user-dashboard"
           element={
