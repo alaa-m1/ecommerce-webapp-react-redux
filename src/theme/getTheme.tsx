@@ -72,14 +72,14 @@ export const getTheme = ({
       typography: {
         fontFamily: fontFamily.join(","),
         mainTitle: {
-          fontSize: "2rem",
+          fontSize: "1.5rem",
           color: "blue",
         },
         subtitle1: {
           // fontSize: 20,
         },
         body1: {
-          fontWeight: 500,
+          fontWeight: 400,
         },
         button: {
           fontStyle: "italic",

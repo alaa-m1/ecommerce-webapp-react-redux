@@ -14,6 +14,7 @@ import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartS
 import { useDispatch } from "react-redux";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { formatCurrency } from "utils/helpers";
 
 export const useCheckoutColumn = (): GridColDef[] => {
   const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
@@ -32,6 +33,7 @@ export const useCheckoutColumn = (): GridColDef[] => {
   useEffect(() => {
     setDisabled(false);
   }, [cartCounter]);
+
   return [
     { field: "id", headerName: "ID", width: 90 },
     {
@@ -50,8 +52,8 @@ export const useCheckoutColumn = (): GridColDef[] => {
       width: 110,
       renderCell: (params: GridRenderCellParams<CartCategory>) => {
         return (
-          <Typography color="primary.light">{`${params.row.quantity || ""} * $${
-            params.row.price || ""
+          <Typography color="primary.light">{`${params.row.quantity || ""} * ${
+            formatCurrency(params.row.price) || ""
           }`}</Typography>
         );
       },

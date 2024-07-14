@@ -52,5 +52,13 @@
     "descending":"Highest price first"
   },
   "terms":"Terms and conditions",
-  "loading":"Loading..."
+  "loading":"Loading...",
+  "table":{
+    "no_items":"No items found",
+    "repeat_template":"Showing {first} to {last} of {totalRecords} entries",
+    "search_for":"Search For",
+    "general_search":"General search",
+    "category_picker":"Category picker",
+    "all":"All"
+  }
 }

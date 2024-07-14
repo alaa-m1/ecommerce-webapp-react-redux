@@ -52,5 +52,13 @@
     "descending":"Höchster Preis zuerst"
   },
   "terms":"Geschäftsbedingungen",
-  "loading":"Wird geladen..."
+  "loading":"Wird geladen...",
+  "table":{
+    "no_items":"Keine Elemente gefunden",
+    "repeat_template":"Es werden {first} bis {last} von {totalRecords} Einträgen angezeigt",
+    "search_for":"suchen nach",
+    "general_search":"Allgemeine Suche",
+    "category_picker":"Kategorieauswahl",
+    "all":"Alle"
+  }
 }

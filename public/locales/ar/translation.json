@@ -52,5 +52,13 @@
     "descending": "أعلى سعر أولا"
   },
   "terms": "الأحكام والشروط",
-  "loading": "يتم تحميل الصفحة..."
+  "loading": "يتم تحميل الصفحة...",
+  "table":{
+    "no_items":"لم يتم العثور على العناصر",
+    "repeat_template":"عرض {first} إلى {last} من إجمالي العناصر {totalRecords}.",
+    "search_for":"بحث عن",
+    "general_search":"بحث عام",
+    "category_picker":"فلتر الفئة",
+    "all":"الجميع"
+  }
 }
