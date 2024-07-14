@@ -1,3 +1,16 @@
+export const formatCurrency = (value: number) => {
+  return value.toLocaleString("en-US", { style: "currency", currency: "USD" });
+
+};
+
+export const formatDate = (value: any) => {
+  return value.toLocaleDateString("en-US", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+};
+
 export const sizeInMB = (sizeInBytes: number, decimalsNum = 2) => {
   const result = sizeInBytes / (1024 * 1024);
   return +result.toFixed(decimalsNum);
