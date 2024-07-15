@@ -4,8 +4,8 @@
   "modern_collection": "Modern collection",
   "dashboard": "Dashboard",
   "about": "About me",
-  "about_information":"<Strong>Hi, I'm Alaa Mohammad, I'm a senior frontend developer</Strong>.<br/>I have worked in frontend development fields over the last six years 💻. <br/>Before that I worked for over seven years as a software developer 🖥️.</br><Strong>My principles:</Strong> Work hard 👨‍💻, be kind, exercise regularly and enjoy live with my family 👨‍👩‍👧‍👦.<br/>I am self-motivated. I enjoy new challenges, collaborating with other developers and developing good software.",
-  "contact_me":"Contact me",
+  "about_information": "<Strong>Hi, I'm Alaa Mohammad, I'm a senior frontend developer</Strong>.<br/>I have worked in frontend development fields over the last six years 💻. <br/>Before that I worked for over seven years as a software developer 🖥️.</br><Strong>My principles:</Strong> Work hard 👨‍💻, be kind, exercise regularly and enjoy live with my family 👨‍👩‍👧‍👦.<br/>I am self-motivated. I enjoy new challenges, collaborating with other developers and developing good software.",
+  "contact_me": "Contact me",
   "languages": {
     "language": "Language",
     "english": "English",
@@ -32,33 +32,34 @@
     "quantity": "Quantity",
     "remove": "Remove",
     "description": "Description",
-    "total":"Total",
-    "check_your_order":"Checkout Your Order",
-    "process_your_payment":"Process your payment",
-    "successfully_payment":"Payment completed successfully",
-    "login_before_pay":"You must log in before paying for your purchases",
-    "use_test_card_number":"You can use the following card number for testing: 4242 4242 4242 4242"
+    "total": "Total",
+    "check_your_order": "Checkout Your Order",
+    "process_your_payment": "Process your payment",
+    "successfully_payment": "Payment completed successfully",
+    "login_before_pay": "You must log in before paying for your purchases",
+    "use_test_card_number": "You can use the following card number for testing: 4242 4242 4242 4242"
   },
-  "search":{
+  "search": {
     "products_search": "Search for products",
-    "search_label":"Search",
-    "no_items":"No items",
-    "no_categories":"No categories"
+    "search_label": "Search",
+    "no_items": "No items",
+    "no_categories": "No categories"
   },
-  "sort":{
+  "sort": {
     "sort_by": "Sort by",
-    "default":"Default",
-    "ascending":"Lowest price first",
-    "descending":"Highest price first"
+    "default": "Default",
+    "ascending": "Lowest price first",
+    "descending": "Highest price first"
   },
-  "terms":"Terms and conditions",
-  "loading":"Loading...",
-  "table":{
-    "no_items":"No items found",
-    "repeat_template":"Showing {first} to {last} of {totalRecords} entries",
-    "search_for":"Search For",
-    "general_search":"General search",
-    "category_picker":"Category picker",
-    "all":"All"
+  "terms": "Terms and conditions",
+  "loading": "Loading...",
+  "table": {
+    "no_items": "No items found",
+    "repeat_template": "Showing {first} to {last} of {totalRecords} entries",
+    "search_for": "Search For",
+    "general_search": "General search",
+    "category_picker": "Category picker",
+    "all": "All",
+    "actions": "Actions"
   }
 }
