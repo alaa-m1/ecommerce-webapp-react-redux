@@ -490,27 +490,37 @@
 .p-datatable-table {
   thead {
     transition: all 0.3s ease-in;
-    span[data-pc-section="sort"] {
-      transition: all 0.3s ease-in;
-      opacity: 0;
-      visibility: hidden;
-    }
-    .p-column-filter-menu-button:not(.p-column-filter-menu-button-active) {
-      transition: all 0.3s ease-in;
-      opacity: 0;
-      visibility: hidden;
-    }
-    &:hover {
+    th.p-sortable-column:not(.p-highlight) {
       span[data-pc-section="sort"] {
         transition: all 0.3s ease-in;
-        opacity: 1;
-        visibility: visible;
+        opacity: 0;
+        visibility: hidden;
       }
-      .p-column-filter-menu-button {
+      &:hover {
+        span[data-pc-section="sort"] {
+          transition: all 0.3s ease-in;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+    th.p-sortable-column {
+      .p-column-filter-menu-button:not(.p-column-filter-menu-button-active) {
         transition: all 0.3s ease-in;
-        opacity: 1;
-        visibility: visible;
+        opacity: 0;
+        visibility: hidden;
       }
+      &:hover {
+        .p-column-filter-menu-button {
+          transition: all 0.3s ease-in;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+    .p-column-filter {
+      display: flex;
+      justify-content: end;
     }
   }
   .p-datatable-tbody {
@@ -556,6 +566,6 @@
   }
 }
 
-.p-selection-column{
+.p-selection-column {
   text-align: center;
 }

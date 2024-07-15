@@ -11,10 +11,10 @@ import { MultiSelect } from "primereact/multiselect";
 import { Slider } from "primereact/slider";
 import { CartCategories, CartCategory } from "types";
 import { useTranslation } from "react-i18next";
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import { useCategoriesLables } from "pages/Home/hooks";
 import { formatCurrency } from "utils/helpers";
-
+import "./ItemsDataTable.scss";
 import {
   addToCart,
   decreaseCartItem,
@@ -23,6 +23,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
+import { Tag } from "primereact/tag";
 
 type CheckoutDataTableProps = {
   rows: CartCategories;
@@ -33,6 +34,7 @@ type MappedCartCategory = Omit<CartCategory, "categoryLabel"> & {
     name: string;
     image: string;
   };
+  status: "low" | "medium" | "high";
 };
 type Option = {
   name: string;
@@ -67,13 +69,10 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
       operator: FilterOperator.AND,
       constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
     },
-    status: {
-      operator: FilterOperator.OR,
-      constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
-    },
+    status: { value: null, matchMode: FilterMatchMode.EQUALS },
     activity: { value: null, matchMode: FilterMatchMode.BETWEEN },
   });
-  
+
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const [loading, setLoading] = useState(true);
   const { allCategories, mainCategoriesLabels } = useCategoriesLables();
@@ -86,14 +85,7 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
     [mainCategoriesLabels]
   );
 
-  const statuses = [
-    "unqualified",
-    "qualified",
-    "new",
-    "negotiation",
-    "renewal",
-    "proposal",
-  ];
+  const statuses = ["low", "medium", "high"];
 
   useEffect(() => {
     const mappedRows: MappedCartCategory[] = rows.map((item) => ({
@@ -102,6 +94,8 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
         name: item.categoryLabel,
         image: "amyelsner.png",
       },
+      status:
+        item.quantity > 10 ? "high" : item.quantity > 5 ? "medium" : "low",
     }));
     setCustomers(mappedRows);
     setLoading(false);
@@ -130,9 +124,24 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
 
   const renderHeader = () => {
     return (
-      <Box sx={{display:"flex", justifyContent:"start", alignItems:"center", gap:"10px" }} >
-        <Typography >{t("table.general_search")}</Typography>
-        <Box sx={{display:"flex", justifyContent:"start",alignItems:"center", gap:"5px"}}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "start",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "start",
+            alignItems: "center",
+            gap: "5px",
+          }}
+        >
+          <Typography>{t("table.general_search")}</Typography>
           <i className="pi pi-search" />
           <InputText
             value={globalFilterValue}
@@ -145,9 +154,7 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
   };
   const categoryLabelBodyTemplate = (rowData: MappedCartCategory) => {
     const categoryLabel = rowData.categoryLabel;
-    return (
-        <Typography>{categoryLabel.name}</Typography>
-    );
+    return <Typography>{categoryLabel.name}</Typography>;
   };
 
   const titleBodyTemplate = (rowData: MappedCartCategory) => {
@@ -201,7 +208,7 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
           width={32}
           style={{ verticalAlign: "middle" }}
         />
-        <span className="image-text">{option.name}</span>
+        <Typography className="image-text">{option.name}</Typography>
       </Box>
     );
   };
@@ -226,9 +233,9 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
 
   const priceBodyTemplate = (rowData: MappedCartCategory) => {
     return (
-      <Typography color="primary.light">{`${rowData.quantity || ""} * ${
-        formatCurrency(rowData.price) || ""
-      }`}</Typography>
+      <Typography color="primary.light" sx={{ textAlign: "center" }}>{`${
+        rowData.quantity || ""
+      } * ${formatCurrency(rowData.price) || ""}`}</Typography>
     );
   };
   const quentityBodyTemplate = (rowData: MappedCartCategory) => {
@@ -240,43 +247,44 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
           placeItems: "center",
         }}
       >
-        <Button
-          disabled={disabled}
-          icon="pi pi-minus"
-          rounded
-          text
-          aria-label="Decrease"
-          tooltip="Decrease"
-          severity="success"
-          onClick={() => {
-            if (rowData.quantity === 1) setDisabled(true);
-            setTimeout(
-              () => decreaseQuantity(rowData),
-              rowData.quantity > 1 ? 0 : 2000
-            );
-          }}
-        />
-
+        <Tooltip title="Decrease">
+          <Button
+            disabled={disabled}
+            icon="pi pi-minus"
+            rounded
+            text
+            aria-label="Decrease"
+            severity="success"
+            onClick={() => {
+              if (rowData.quantity === 1) setDisabled(true);
+              setTimeout(
+                () => decreaseQuantity(rowData),
+                rowData.quantity > 1 ? 0 : 2000
+              );
+            }}
+          />
+        </Tooltip>
         <Typography color="secondary.main">
           {` ${rowData.quantity} `}
         </Typography>
-        <Button
-          disabled={disabled}
-          icon="pi pi-plus"
-          rounded
-          text
-          aria-label="Increase"
-          tooltip="Increase"
-          severity="success"
-          onClick={() =>
-            dispatch(
-              addToCart(cartItems, {
-                ...rowData,
-                categoryLabel: rowData.categoryLabel.name,
-              })
-            )
-          }
-        />
+        <Tooltip title="Increase">
+          <Button
+            disabled={disabled}
+            icon="pi pi-plus"
+            rounded
+            text
+            aria-label="Increase"
+            severity="success"
+            onClick={() =>
+              dispatch(
+                addToCart(cartItems, {
+                  ...rowData,
+                  categoryLabel: rowData.categoryLabel.name,
+                })
+              )
+            }
+          />
+        </Tooltip>
       </Box>
     );
   };
@@ -302,32 +310,31 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
     );
   };
 
-  const statusBodyTemplate = (rowData: MappedCartCategory) => {
-    // return (
-    //   <span className={`customer-badge status-${rowData.status}`}>
-    //     {rowData.status}
-    //   </span>
-    // );
-    return "";
+  const getSeverity = (status: string) => {
+    switch (status) {
+      case "low":
+        return "warning";
+
+      case "medium":
+        return "info";
+
+      case "high":
+        return "success";
+    }
   };
 
-  const statusFilterTemplate = (options: any) => {
+  const statusBodyTemplate = (rowData: MappedCartCategory) => {
     return (
-      <Dropdown
-        value={options.value}
-        options={statuses}
-        onChange={(e: any) => options.filterCallback(e.value, options.index)}
-        itemTemplate={statusItemTemplate}
-        placeholder="Select a Status"
-        className="p-column-filter"
-        showClear
-      />
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Tag value={rowData.status} severity={getSeverity(rowData.status)} />
+      </Box>
     );
   };
 
-  const statusItemTemplate = (option: Option) => {
-    // return <span className={`customer-badge status-${option}`}>{option}</span>;
-    return "";
+  const statusItemTemplate = (item: string) => {
+    return <Tag value={item} severity={getSeverity(item)} />;
   };
 
   const activityBodyTemplate = (rowData: MappedCartCategory) => {
@@ -371,66 +378,86 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
 
   const statusRowFilterTemplate = (options: any) => {
     return (
-      <Dropdown
-        value={options.value}
-        options={statuses}
-        onChange={(e: any) => options.filterApplyCallback(e.value)}
-        itemTemplate={statusItemTemplate}
-        placeholder="Select a Status"
-        className="p-column-filter"
-        showClear
-      />
+      <React.Fragment>
+        <Box className="mb-3 font-bold">{t("table.category_picker")}</Box>
+        <Dropdown
+          value={options.value}
+          options={statuses}
+          onChange={(e: any) => options.filterApplyCallback(e.value)}
+          itemTemplate={statusItemTemplate}
+          placeholder="Select a Status"
+          className="p-column-filter"
+          showClear
+        />
+      </React.Fragment>
     );
   };
 
   const actionBodyTemplate = (rowData: MappedCartCategory) => {
     return (
-      <Button
-        disabled={disabled}
-        icon="pi pi-times"
-        rounded
-        tooltip="Remove"
-        text
-        aria-label="Decrease"
-        severity="success"
-        onClick={() =>
-          setTimeout(() =>
-            dispatch(
-              removeFromCart(cartItems, {
-                ...rowData,
-                categoryLabel: rowData.categoryLabel.name,
-              })
+      <Tooltip title="Remove">
+        <Button
+          disabled={disabled}
+          icon="pi pi-times"
+          rounded
+          text
+          aria-label="Decrease"
+          severity="success"
+          onClick={() =>
+            setTimeout(() =>
+              dispatch(
+                removeFromCart(cartItems, {
+                  ...rowData,
+                  categoryLabel: rowData.categoryLabel.name,
+                })
+              )
             )
-          )
-        }
-      />
+          }
+        />
+      </Tooltip>
     );
   };
 
   const header = renderHeader();
-
+  const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
+  const paginatorRight = <Button type="button" icon="pi pi-download" text />;
   return (
     <Box>
       <Box
         sx={{
           "& .p-datatable-table": {
-            thead: { th: { backgroundColor: "#eeeeee", color:"primary.light", "& path": {
+            thead: {
+              th: {
+                backgroundColor: "#eeeeee",
                 color: "primary.light",
-              }, } },
+                "& path": {
+                  color: "secondary.main",
+                },
+              },
+            },
           },
         }}
       >
         <DataTable
           value={customers}
-          paginator
           className="p-datatable-customers"
           header={header}
           showGridlines
           stripedRows
+          sortMode="multiple"
+          ////
+          sortField="price"
+          sortOrder={-1}
+          //
+          removableSort
+          paginator
           rows={10}
-          size="normal"
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-          rowsPerPageOptions={[10, 25, 50]}
+          rowsPerPageOptions={[2, 10, 25, 50]}
+          currentPageReportTemplate={t("table.repeat_template")}
+          paginatorLeft={paginatorLeft}
+          paginatorRight={paginatorRight}
+          size="normal"
           dataKey="id"
           rowHover
           selection={selectedCustomers}
@@ -447,7 +474,6 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
             "status",
           ]}
           emptyMessage={t("table.no_items")}
-          currentPageReportTemplate={t("table.repeat_template")}
         >
           <Column
             selectionMode="multiple"
@@ -503,21 +529,21 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
             header={t("checkout.quantity")}
             sortable
             dataType="numeric"
-            style={{ minWidth: "8rem" }}
+            style={{ maxWidth: "200px" }}
             body={quentityBodyTemplate}
             filter
             filterElement={quentityFilterTemplate}
           />
-          {/* <Column
+          <Column
             field="status"
             header="Status"
             sortable
             filterMenuStyle={{ width: "14rem" }}
-            style={{ minWidth: "10rem" }}
+            style={{ maxWidth: "150px" }}
             body={statusBodyTemplate}
             filter
-            filterElement={statusFilterTemplate}
-          /> */}
+            filterElement={statusRowFilterTemplate}
+          />
           {/* <Column
             field="activity"
             header="Activity"
@@ -528,12 +554,7 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
             filter
             filterElement={activityFilterTemplate}
           /> */}
-          <Column
-            header={t("checkout.remove")}
-            headerStyle={{ width: "4rem", textAlign: "center" }}
-            bodyStyle={{ textAlign: "center", overflow: "visible" }}
-            body={actionBodyTemplate}
-          />
+
           <Column
             field="description"
             header={t("checkout.description")}
@@ -544,6 +565,12 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
             filterPlaceholder="Search by product description"
             body={descriptionBodyTemplate}
             style={{ maxWidth: "100%", overflow: "hidden" }}
+          />
+          <Column
+            header={t("table.actions")}
+            headerStyle={{ width: "4rem", textAlign: "center" }}
+            bodyStyle={{ textAlign: "center", overflow: "visible" }}
+            body={actionBodyTemplate}
           />
         </DataTable>
       </Box>
