@@ -1,8 +1,15 @@
 import { Menu, MenuItem, Typography } from "@mui/material";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setDocumentDirection } from "store/user/userActions";
+import { useAppSelector } from "utils/redux/hooks";
 
 export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
@@ -26,6 +33,17 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
     dispatch(setDocumentDirection("ltr"));
     handleClose();
   }, [dispatch, handleClose]);
+
+  const docDirection = useAppSelector((state) => state.user.direction);
+  useLayoutEffect(() => {
+    if (docDirection) {
+      if (docDirection === "ltr") {
+        handleChangeToLTR();
+      } else {
+        handleChangeToRTL();
+      }
+    }
+  }, []);
 
   return (
     <Menu
