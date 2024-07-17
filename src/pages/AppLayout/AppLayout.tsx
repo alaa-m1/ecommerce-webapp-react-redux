@@ -31,6 +31,7 @@ import { setShowCart } from "store/shoppingCart/shoppingCartActions";
 import { useDispatch } from "react-redux";
 import { MenuBarSkeleton } from "shared/loadingSkeleton";
 import { LanguageMenu2 } from "./components/LanguageMenu/LanguageMenu2";
+import { ReactQueryErrorProvider } from "shared/appContainers/components/reactQuery/ReactQueryErrorProvider";
 
 type NavigationProps = {
   links: Array<MappedLinkInfo>;
@@ -165,7 +166,9 @@ const AppLayout = ({ links }: NavigationProps) => {
       <main style={{ flexGrow: 1, overflowX: "auto", display: "flex" }}>
         <Container disableGutters maxWidth={false}>
           <Suspense fallback={<LoadingSpinner />}>
-            <Outlet />
+            <ReactQueryErrorProvider>
+              <Outlet />
+            </ReactQueryErrorProvider>
           </Suspense>
         </Container>
       </main>

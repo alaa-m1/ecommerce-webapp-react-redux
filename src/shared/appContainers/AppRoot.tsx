@@ -13,6 +13,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { HelmetProvider } from "react-helmet-async";
 import { PrimeReactProvider } from "primereact/api";
+import { ReactQueryErrorProvider } from "./components/reactQuery/ReactQueryErrorProvider";
 
 const AppRoot = ({ children }: AppRootType) => {
   return (
@@ -20,27 +21,29 @@ const AppRoot = ({ children }: AppRootType) => {
       <PersistGate persistor={persistor}>
         <BrowserRouter>
           <ReactQueryProvider>
-            <Elements stripe={stripePromise} options={stripeOptions}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <HelmetProvider>
-                  <ThemedApp>
-                    <PrimeReactProvider>{children}</PrimeReactProvider>
-                  </ThemedApp>
-                </HelmetProvider>
-                <ToastContainer
-                  position="bottom-left"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="colored"
-                />
-              </LocalizationProvider>
-            </Elements>
+            <ReactQueryErrorProvider>
+              <Elements stripe={stripePromise} options={stripeOptions}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <HelmetProvider>
+                    <ThemedApp>
+                      <PrimeReactProvider>{children}</PrimeReactProvider>
+                    </ThemedApp>
+                  </HelmetProvider>
+                  <ToastContainer
+                    position="bottom-left"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                  />
+                </LocalizationProvider>
+              </Elements>
+            </ReactQueryErrorProvider>
           </ReactQueryProvider>
         </BrowserRouter>
       </PersistGate>
