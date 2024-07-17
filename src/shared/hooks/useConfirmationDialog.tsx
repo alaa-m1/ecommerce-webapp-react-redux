@@ -11,7 +11,7 @@ import CheckCircle from "@mui/icons-material/CheckCircle";
 export const useConfirmationDialog = (title: string, text: string) => {
   const [promise, setPromise] = useState<any>(null);
   const confirm = () =>
-    new Promise((resolve, reject) => setPromise({ resolve }));
+    new Promise((resolve) => setPromise({ resolve }));
   const handleOnConfirm = () => {
     promise?.resolve(true);
     setPromise(null);
