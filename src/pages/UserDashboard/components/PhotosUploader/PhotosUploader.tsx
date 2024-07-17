@@ -52,8 +52,9 @@ const PhotosUploader = () => {
     [profileImages]
   );
 
-  const onSubmit: SubmitHandler<UserSchemaType> = async (data) => {
-    const FilesList = data.profileImages;
+  // const onSubmit: SubmitHandler<UserSchemaType> = async (data) => {
+  const onSubmit: SubmitHandler<UserSchemaType> = async () => {
+    // const FilesList = data.profileImages;
 
     const formData = new FormData();
     for (const img of importedImages) {

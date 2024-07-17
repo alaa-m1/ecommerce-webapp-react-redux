@@ -82,6 +82,7 @@ const SignUp = () => {
     formState: { errors, isSubmitting },
   } = useForm<UserSchemaType>({ resolver: zodResolver(UserSchema) });
   const recaptcha = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const siteSecreteKey = process.env.REACT_APP_SITE_KEY!;
   const [load, setLoad] = useState(false);
   useEffect(() => {

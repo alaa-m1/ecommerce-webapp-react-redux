@@ -10,7 +10,7 @@ type PDFViewerProps = {
 
 export function PDFViewer({ pdfData }: PDFViewerProps) {
   const [numPages, setNumPages] = useState(0);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [, setPageNumber] = useState(1);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
