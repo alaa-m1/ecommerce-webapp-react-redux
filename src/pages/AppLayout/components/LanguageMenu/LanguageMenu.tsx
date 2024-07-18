@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { setDocumentDirection } from "store/user/userActions";
+import { setDocumentDirection, setUILanguage } from "store/user/userActions";
 import { useAppSelector } from "utils/redux/hooks";
 
 export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
@@ -35,13 +35,21 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
   }, [dispatch, handleClose]);
 
   const docDirection = useAppSelector((state) => state.user.direction);
+  const uiLanguage = useAppSelector((state) => state.user.uiLanguage);
+
   useLayoutEffect(() => {
-    if (docDirection) {
+    if (docDirection && uiLanguage) {
       if (docDirection === "ltr") {
+        i18n.changeLanguage(uiLanguage);
         handleChangeToLTR();
       } else {
-        handleChangeToRTL();
+        i18n.changeLanguage(uiLanguage);
+        handleChangeToLTR();
       }
+    } else {
+      i18n.changeLanguage("en");
+      dispatch(setUILanguage("en"));
+      handleChangeToLTR();
     }
   }, []);
 
@@ -85,6 +93,7 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
         selected={activatedLanguage === "en"}
         onClick={() => {
           i18n.changeLanguage("en");
+          dispatch(setUILanguage("en"));
           handleChangeToLTR();
         }}
         data-testid="AppLayout-LanguageMenu-menuItem-en"
@@ -95,6 +104,7 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
         selected={activatedLanguage === "de"}
         onClick={() => {
           i18n.changeLanguage("de");
+          dispatch(setUILanguage("de"));
           handleChangeToLTR();
         }}
         data-testid="AppLayout-LanguageMenu-menuItem-de"
@@ -105,6 +115,7 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
         selected={activatedLanguage === "ar"}
         onClick={() => {
           i18n.changeLanguage("ar");
+          dispatch(setUILanguage("ar"));
           handleChangeToRTL();
         }}
         data-testid="AppLayout-LanguageMenu-menuItem-ar"

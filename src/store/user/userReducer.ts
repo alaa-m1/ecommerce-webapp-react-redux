@@ -3,10 +3,13 @@ import { userActionTypes } from "./userActionTypes";
 
 export type ThemeMode = "light" | "dark" | "system";
 
+export type UILanguage="en" | "de" | "ar"
+
 type UserState = {
   currentUser: null | UserInfo;
   themeMode: ThemeMode;
   direction: "ltr" | "rtl";
+  uiLanguage: UILanguage;
 };
 
 interface UserAction {
@@ -18,6 +21,7 @@ const initailState: UserState = {
   currentUser: null,
   themeMode: "light",
   direction: "ltr",
+  uiLanguage: "en",
 };
 export const userReducer = (state = initailState, action: UserAction) => {
   const { type, payload } = action;
@@ -36,6 +40,11 @@ export const userReducer = (state = initailState, action: UserAction) => {
       return {
         ...state,
         direction: payload as "ltr" | "rtl",
+      };
+    case userActionTypes.SET_UI_LANGUAGE:
+      return {
+        ...state,
+        language: payload as UILanguage,
       };
     default:
       return state;

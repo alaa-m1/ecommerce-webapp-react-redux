@@ -61,5 +61,8 @@
     "category_picker": "فلتر الفئة",
     "all": "الجميع",
     "actions": "الأجراءات"
+  },
+  "requests": {
+    "request_error_message": "الخدمة غير متوفرة حالياً"
   }
 }
