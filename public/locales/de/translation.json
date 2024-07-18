@@ -61,5 +61,8 @@
     "category_picker": "Kategorieauswahl",
     "all": "Alle",
     "actions": "Aktionen"
+  },
+  "requests": {
+    "request_error_message": "Der Dienst ist derzeit nicht verfügbar"
   }
 }

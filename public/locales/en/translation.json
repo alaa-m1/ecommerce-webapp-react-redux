@@ -61,5 +61,8 @@
     "category_picker": "Category picker",
     "all": "All",
     "actions": "Actions"
+  },
+  "requests": {
+    "request_error_message": "The service is currently unavailable"
   }
 }

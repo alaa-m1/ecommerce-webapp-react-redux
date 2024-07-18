@@ -1,6 +1,7 @@
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { useTranslation } from "react-i18next";
 import { QueryErrorResetBoundary } from "react-query";
 
 export const ReactQueryErrorProvider = ({
@@ -27,13 +28,16 @@ export const ReactQueryErrorProvider = ({
 );
 
 export const FallbackBox = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   errorMessage,
   onClick,
 }: {
   errorMessage: string;
   onClick: () => void;
 }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -54,12 +58,18 @@ export const FallbackBox = ({
         padding: "5px",
       }}
     >
+      <img
+        src="/images/system-error.png"
+        alt="System error logo"
+        style={{ width: "auto", height: "250px" }}
+      />
       <Typography
         variant="h5"
-        sx={{ mb: 1, textAlign: "center" }}
+        sx={{ mb: 1, textAlign: "center", fontSize:"16px" }}
         color={theme.palette.error.main}
       >
-        {errorMessage}
+        {/* {errorMessage} */}
+        {t("requests.request_error_message")}
       </Typography>
       <Button onClick={onClick}>Try again</Button>
     </Box>
