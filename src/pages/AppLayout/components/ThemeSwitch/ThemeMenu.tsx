@@ -22,12 +22,12 @@ export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
   const { t } = useTranslation();
   const themeMode = useAppSelector((state) => state.user.themeMode);
-  const [activatedLanguage, setActivatedLanguage] =
+  const [activatedTheme, setActivatedTheme] =
     useState<ThemeMode>(themeMode);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setActivatedLanguage(themeMode);
+    setActivatedTheme(themeMode);
   }, [themeMode]);
 
   const handleChangeToLight = useCallback(() => {
@@ -86,7 +86,7 @@ export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
                 }}
               >
                 <MenuItem
-                  selected={activatedLanguage === "light"}
+                  selected={activatedTheme === "light"}
                   onClick={() => {
                     handleChangeToLight();
                   }}
@@ -98,7 +98,7 @@ export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
                   </Typography>
                 </MenuItem>
                 <MenuItem
-                  selected={activatedLanguage === "dark"}
+                  selected={activatedTheme === "dark"}
                   onClick={() => {
                     handleChangeToDark();
                   }}
@@ -110,7 +110,7 @@ export const ThemeMenu = ({ anchorEl, handleClose }: ThemeMenuProps) => {
                   </Typography>
                 </MenuItem>
                 <MenuItem
-                  selected={activatedLanguage === "system"}
+                  selected={activatedTheme === "system"}
                   onClick={() => {
                     handleChangeToSystem();
                   }}
