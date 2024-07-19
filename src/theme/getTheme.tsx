@@ -82,7 +82,7 @@ export const getTheme = ({
           fontWeight: 400,
         },
         button: {
-          fontStyle: "italic",
+          // fontStyle: "italic",
         },
       },
 

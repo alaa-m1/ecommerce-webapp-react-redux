@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
+import { Column, ColumnEditorOptions, ColumnEvent } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
-import { InputNumber } from "primereact/inputnumber";
+import {
+  InputNumber,
+  InputNumberValueChangeEvent,
+} from "primereact/inputnumber";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
 import { MultiSelect } from "primereact/multiselect";
@@ -40,7 +43,7 @@ type Option = {
   name: string;
   image: string;
 };
-export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
+export const CheckoutDataTableEditable = ({ rows }: CheckoutDataTableProps) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { cartItems } = useAppSelector(selectShoopingCartItemsDetails);
@@ -195,7 +198,6 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
   };
 
   const categoryLabelItemTemplate = (option: Option) => {
-    console.log("ooooooooo=", option);
     return (
       <Box>
         <img
@@ -214,7 +216,6 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
   };
 
   const dateBodyTemplate = (rowData: MappedCartCategory) => {
-    // console.log("formatDate(rowData.date)====", formatDate(rowData.date));
     // return formatDate(rowData.date);
     return "";
   };
@@ -421,6 +422,79 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
   const header = renderHeader();
   const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
   const paginatorRight = <Button type="button" icon="pi pi-download" text />;
+
+  const isPositiveInteger = (val: any) => {
+    let str = String(val);
+
+    str = str.trim();
+
+    if (!str) {
+      return false;
+    }
+
+    str = str.replace(/^0+/, "") || "0";
+    const n = Math.floor(Number(str));
+
+    return n !== Infinity && String(n) === str && n >= 0;
+  };
+
+  const onCellEditComplete = (e: ColumnEvent) => {
+    const { rowData, newValue, field, originalEvent: event } = e;
+
+    switch (field) {
+      case "Quentity":
+      case "price":
+        if (isPositiveInteger(newValue)) rowData[field] = newValue;
+        else event.preventDefault();
+        break;
+
+      default:
+        if (newValue.trim().length > 0) rowData[field] = newValue;
+        else event.preventDefault();
+        break;
+    }
+  };
+
+  const cellEditor = (options: ColumnEditorOptions) => {
+    if (options.field === "price" || options.field === "Quentity") return priceEditor(options);
+    else return textEditor(options);
+  };
+
+  const textEditor = (options: ColumnEditorOptions) => {
+    return (
+      <InputText
+        type="text"
+        value={options.value}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          options.editorCallback?.(e.target.value)
+        }
+        onKeyDown={(e) => e.stopPropagation()}
+        style={{width:"100%"}}
+      />
+    );
+  };
+
+  const priceEditor = (options: ColumnEditorOptions) => {
+    return (
+      <Box sx={{"input":{
+        width:"100%"
+      }}}>
+
+      <InputNumber
+        value={options.value}
+        onValueChange={(e: InputNumberValueChangeEvent) =>
+          options.editorCallback?.(e.value)
+        }
+        mode="currency"
+        currency="USD"
+        locale="en-US"
+        onKeyDown={(e) => e.stopPropagation()}
+        style={{width:"100%"}}
+      />
+      </Box>
+    );
+  };
+
   return (
     <Box>
       <Box
@@ -474,6 +548,7 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
             "status",
           ]}
           emptyMessage={t("table.no_items")}
+          editMode="cell"
         >
           <Column
             selectionMode="multiple"
@@ -501,6 +576,8 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
             filterPlaceholder="Search by product title"
             body={titleBodyTemplate}
             style={{ maxWidth: "200px", overflow: "hidden" }}
+            editor={(options) => cellEditor(options)}
+            onCellEditComplete={onCellEditComplete}
           />
 
           {/* <Column
@@ -523,6 +600,8 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
             body={priceBodyTemplate}
             filter
             filterElement={priceFilterTemplate}
+            editor={(options) => cellEditor(options)}
+            onCellEditComplete={onCellEditComplete}
           />
           <Column
             field="Quentity"
@@ -533,6 +612,8 @@ export const CheckoutDataTable = ({ rows }: CheckoutDataTableProps) => {
             body={quentityBodyTemplate}
             filter
             filterElement={quentityFilterTemplate}
+            editor={(options) => cellEditor(options)}
+            onCellEditComplete={onCellEditComplete}
           />
           <Column
             field="status"

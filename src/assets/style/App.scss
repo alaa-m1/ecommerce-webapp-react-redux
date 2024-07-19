@@ -521,6 +521,11 @@
     .p-column-filter {
       display: flex;
       justify-content: end;
+      width: 40px;
+    }
+    .p-column-title {
+      display: flex;
+      flex-grow: 1;
     }
   }
   .p-datatable-tbody {
@@ -568,4 +573,30 @@
 
 .p-selection-column {
   text-align: center;
+}
+
+.p-datatable-emptymessage {
+  td {
+    text-align: center;
+  }
+}
+
+.p-datatable .p-datatable-tbody > tr.p-highlight {
+  background-color: #b3bae5;
+}
+
+.p-datatable-frozen-tbody > tr {
+  background-color: #d9dcf0;
+}
+td[data-p-frozen-column="true"] {
+  background-color: #d9dcf0;
+}
+
+.p-datatable-scrollable .p-frozen-column {
+  right: 0px;
+}
+
+
+.p-datatable-wrapper {
+  direction: ltr;
 }
