@@ -9,6 +9,7 @@ import {
 import { InputText } from "primereact/inputtext";
 import React, { ComponentProps, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useAppSelector } from "utils/redux/hooks";
 
 type CustomDataTableProps = ComponentProps<typeof DataTable> & {
   columns: React.ReactNode[];
@@ -21,7 +22,7 @@ export const CustomDataTable = ({
 }: CustomDataTableProps) => {
   const { t } = useTranslation();
   const [globalFilterValue, setGlobalFilterValue] = useState<string>("");
-
+  const docDirection = useAppSelector((state) => state.user.direction);
   const [filters, setFilters] = useState<DataTableFilterMeta>(
     initFilters ?? {}
   );
@@ -64,32 +65,44 @@ export const CustomDataTable = ({
   const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
   const paginatorRight = <Button type="button" icon="pi pi-download" text />;
   return (
-    <DataTable
-      {...props}
-      header={header}
-      showGridlines
-      stripedRows
-      sortMode="multiple"
-      removableSort
-      scrollable
-      // scrollHeight="flex"
-      scrollHeight="200px"
-      paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-      rowsPerPageOptions={[2, 10, 25, 50]}
-      currentPageReportTemplate={t("table.repeat_template")}
-      paginatorLeft={paginatorLeft}
-      paginatorRight={paginatorRight}
-      size="normal"
-      // dataKey={props.dataKey ?? id}
-      rowHover
-      filters={filters}
-      filterDisplay="menu"
-      // responsiveLayout="scroll"
-      emptyMessage={t("table.no_items")}
-      dragSelection
-      // tableStyle={{ width: '500px',height: '500px' }}
+    <Box
+      sx={{
+        "& .p-datatable-table": {
+          direction: docDirection === "rtl" ? "ltr" : "rtl",
+          overflow: "auto",
+        },
+      }}
     >
-      {columns}
-    </DataTable>
+      <DataTable
+        {...props}
+        header={header}
+        showGridlines
+        stripedRows
+        sortMode="multiple"
+        removableSort
+        scrollable
+        resizableColumns
+        // tableStyle={{width:"100%"}}
+        columnResizeMode="expand"
+        // scrollHeight="flex"
+        // scrollHeight="200px"
+        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+        rowsPerPageOptions={[2, 10, 25, 50]}
+        currentPageReportTemplate={t("table.repeat_template")}
+        paginatorLeft={paginatorLeft}
+        paginatorRight={paginatorRight}
+        // size="normal"
+        // dataKey={props.dataKey ?? id}
+        rowHover
+        filters={filters}
+        filterDisplay="menu"
+        // responsiveLayout="scroll"
+        emptyMessage={t("table.no_items")}
+        dragSelection
+        // tableStyle={{ width: '500px',height: '500px' }}
+      >
+        {columns}
+      </DataTable>
+    </Box>
   );
 };
