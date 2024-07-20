@@ -43,6 +43,7 @@ export const getTheme = ({
   const localization = direction === "ltr" ? enUS : arSD;
   const theme = createTheme(
     {
+      direction,
       palette: {
         mode: themeMode,
         primary: {
