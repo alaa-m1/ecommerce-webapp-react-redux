@@ -27,11 +27,11 @@ import {
   DataTableValueArray,
 } from "primereact/datatable";
 import { ChevronRight, ChevronLeft } from "@mui/icons-material";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export const useCheckoutDataTableExpansionColumns = ({
+export const useCheckoutDataTable1ExpansionColumns = ({
   categoryLabels,
-  expandedRows
+  expandedRows,
 }: {
   categoryLabels: Option[];
   expandedRows: DataTableExpandedRows | DataTableValueArray | undefined;
@@ -60,12 +60,8 @@ export const useCheckoutDataTableExpansionColumns = ({
   const allowExpansion = (rowData: MappedCartCategory) => {
     return rowData?.orders?.length > 0;
   };
-  const categoryLabelBodyTemplate = (rowData: MappedCartCategory) => {
-    const categoryLabel = rowData.categoryLabel;
-    return <Typography>{categoryLabel.name}</Typography>;
-  };
 
-  const titleBodyTemplate = (rowData: MappedCartCategory) => {
+  const bodyTemplate = (field: string) => {
     return (
       <Typography
         sx={{
@@ -75,14 +71,12 @@ export const useCheckoutDataTableExpansionColumns = ({
           px: "5px",
         }}
       >
-        {rowData.title}
+        {field}
       </Typography>
     );
   };
-
-  const descriptionBodyTemplate = (rowData: MappedCartCategory) => {
-    const description = rowData.description;
-    return <Typography className="tow-lines">{description}</Typography>;
+  const twoLinesBodyTemplate = (field: string) => {
+    return <Typography className="tow-lines">{field}</Typography>;
   };
 
   const categoryLabelFilterTemplate = useCallback(
@@ -124,7 +118,6 @@ export const useCheckoutDataTableExpansionColumns = ({
   };
 
   const dateBodyTemplate = (rowData: MappedCartCategory) => {
-    
     // return formatDate(rowData.date);
     return "";
   };
@@ -339,29 +332,29 @@ export const useCheckoutDataTableExpansionColumns = ({
     },
     [cartItems, disabled, dispatch]
   );
-  
-  
-  const expansionBodyTemplate = useCallback((
-    rowData: MappedCartCategory,
-    options: ColumnBodyOptions
-  ) => {
-    const expandedRowsArr=Object.entries(expandedRows??{}).map((item)=>item[0])
-    return (
-      <Typography
-        onClick={options?.expander?.onClick}
-        className={options.expander?.className}
-      >
-        {expandedRowsArr.includes(rowData.id.toString())?
-         (
-          <ExpandMoreIcon sx={{ color: "custom.label" }} />
-        ):docDirection === "ltr" ? 
-        <ChevronRight sx={{ color: "custom.label" }} />
-        :(
-          <ChevronLeft sx={{ color: "custom.label" }} />
-        )}
-      </Typography>
-    );
-  },[docDirection, expandedRows]);
+
+  const expansionBodyTemplate = useCallback(
+    (rowData: MappedCartCategory, options: ColumnBodyOptions) => {
+      const expandedRowsArr = Object.entries(expandedRows ?? {}).map(
+        (item) => item[0]
+      );
+      return (
+        <Typography
+          onClick={options?.expander?.onClick}
+          className={options.expander?.className}
+        >
+          {expandedRowsArr.includes(rowData.id.toString()) ? (
+            <ExpandMoreIcon sx={{ color: "custom.label" }} />
+          ) : docDirection === "ltr" ? (
+            <ChevronRight sx={{ color: "custom.label" }} />
+          ) : (
+            <ChevronLeft sx={{ color: "custom.label" }} />
+          )}
+        </Typography>
+      );
+    },
+    [docDirection, expandedRows]
+  );
 
   return useMemo(
     () => [
@@ -388,7 +381,9 @@ export const useCheckoutDataTableExpansionColumns = ({
         style={{ width: "200px" }}
         filter
         filterElement={categoryLabelFilterTemplate}
-        // body={categoryLabelBodyTemplate}
+        body={(rowData: MappedCartCategory) =>
+          bodyTemplate(rowData.categoryLabel.name)
+        }
       />,
       <Column
         key="3"
@@ -398,7 +393,7 @@ export const useCheckoutDataTableExpansionColumns = ({
         filter
         filterField="title"
         filterPlaceholder="Search by product title"
-        // body={titleBodyTemplate}
+        body={(rowData: MappedCartCategory) => bodyTemplate(rowData.title)}
         style={{ maxWidth: "200px", overflow: "hidden" }}
       />,
 
@@ -468,8 +463,10 @@ export const useCheckoutDataTableExpansionColumns = ({
         filter
         filterField="description"
         filterPlaceholder="Search by product description"
-        body={descriptionBodyTemplate}
-        style={{ maxWidth: "100%", overflow: "hidden" }}
+        body={(rowData: MappedCartCategory) =>
+          twoLinesBodyTemplate(rowData.description)
+        }
+        style={{ maxWidth: "300px", overflow: "hidden" }}
       />,
       <Column
         key="8"
@@ -479,6 +476,15 @@ export const useCheckoutDataTableExpansionColumns = ({
         body={actionBodyTemplate}
       />,
     ],
-    [actionBodyTemplate, categoryLabelFilterTemplate, expansionBodyTemplate, priceBodyTemplate, quentityBodyTemplate, statusBodyTemplate, statusRowFilterTemplate, t]
+    [
+      actionBodyTemplate,
+      categoryLabelFilterTemplate,
+      expansionBodyTemplate,
+      priceBodyTemplate,
+      quentityBodyTemplate,
+      statusBodyTemplate,
+      statusRowFilterTemplate,
+      t,
+    ]
   );
 };

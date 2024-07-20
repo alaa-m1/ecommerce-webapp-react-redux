@@ -556,6 +556,7 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: wrap;
 }
 
 .three-lines {
@@ -564,6 +565,7 @@
   -webkit-line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: wrap;
 }
 
 .p-button {
