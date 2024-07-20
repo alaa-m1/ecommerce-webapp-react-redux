@@ -163,7 +163,7 @@ export const CustomDataTable = ({
         }
       }
     });
-  }, [docDirection]);
+  }, [docDirection, props.value]);
 
   return (
     <TableContainer>
@@ -210,5 +210,16 @@ const TableContainer = styled(Box)`
     /* @noflip */
     direction: ${({ theme }) => theme.direction};
     overflow: auto;
+  }
+  & .p-datatable-table {
+    thead {
+      th {
+        background-color: #eeeeee;
+        color: ${({ theme }) => theme.palette.primary.light};
+        & path {
+          color: ${({ theme }) => theme.palette.secondary.main};
+        }
+      }
+    }
   }
 `;

@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { DataTableFilterMeta, SortOrder } from "primereact/datatable";
-import { Box } from "@mui/material";
 import "./ItemsDataTable.scss";
-import { CustomDataTable } from "shared/components/CustomDataTable";
+import {
+  CustomDataTable,
+} from "shared/components/CustomDataTable";
 import { Post, useNewPosts } from "../utils/useNewPosts";
 import { useInitDataTableColumns } from "../hooks/useInitDataTableColumns";
 import { FilterMatchMode } from "primereact/api";
@@ -51,10 +52,10 @@ export const InitDataTable = () => {
     limit: lazyState.rows,
     start: lazyState.page,
   });
-  
+
   const [posts, setPosts] = useState<Post[]>([]);
   useEffect(() => {
-    if(postsData){
+    if (postsData) {
       setPosts(postsData);
     }
   }, [postsData, setPosts]);
@@ -162,59 +163,48 @@ export const InitDataTable = () => {
     //     setSelectedCustomers([]);
     // }
   };
+  // const cols: ColumnMeta[] = [
+  //   { field: "categoryLabel.name", header: "categoryLabel.name" },
+  //   { field: "title", header: "title" },
+  //   { field: "price", header: "price" },
+  //   { field: "Quentity", header: "Quentity" },
+  //   { field: "status", header: "status" },
+  //   { field: "description", header: "description" },
+  // ];
 
-  
   return (
-    <Box>
-      <Box
-        sx={{
-          "& .p-datatable-table": {
-            thead: {
-              th: {
-                backgroundColor: "#eeeeee",
-                color: "primary.light",
-                "& path": {
-                  color: "secondary.main",
-                },
-              },
-            },
-          },
-        }}
-      >
-        <CustomDataTable
-          frozenValue={lockedCustomers}
-          value={mappedPosts}
-          columns={columns}
-          columnResizeMode="fit"
-          dataKey="id"
-          // selectionMode="checkbox"
-          filterDisplay="menu"
-          // responsiveLayout="scroll"
-          globalFilterFields={["title", "body"]}
-          lazy
-          paginator
-          first={lazyState.first}
-          rows={lazyState.rows}
-          totalRecords={totalRecords}
-          onPage={onPage}
-          onSort={onSort}
-          sortField={lazyState.sortField}
-          sortOrder={lazyState.sortOrder as SortOrder}
-          onFilter={onFilter}
-          filters={{
-            global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-            title: { value: null, matchMode: FilterMatchMode.CONTAINS },
-          }}
-          loading={isLoading}
-          tableStyle={{ minWidth: "75rem" }}
-          selection={selectedPosts}
-          onSelectionChange={onSelectionChange}
-          selectAll={selectAll}
-          onSelectAllChange={onSelectAllChange}
-        >
-          {columns}
-        </CustomDataTable>
-      </Box>
-    </Box>
+    <CustomDataTable
+      frozenValue={lockedCustomers}
+      value={mappedPosts}
+      columns={columns}
+      columnResizeMode="fit"
+      dataKey="id"
+      // selectionMode="checkbox"
+      filterDisplay="menu"
+      // responsiveLayout="scroll"
+      globalFilterFields={["title", "body"]}
+      lazy
+      paginator
+      first={lazyState.first}
+      rows={lazyState.rows}
+      totalRecords={totalRecords}
+      onPage={onPage}
+      onSort={onSort}
+      sortField={lazyState.sortField}
+      sortOrder={lazyState.sortOrder as SortOrder}
+      onFilter={onFilter}
+      filters={{
+        global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        title: { value: null, matchMode: FilterMatchMode.CONTAINS },
+      }}
+      loading={isLoading}
+      tableStyle={{ minWidth: "75rem" }}
+      selection={selectedPosts}
+      onSelectionChange={onSelectionChange}
+      selectAll={selectAll}
+      onSelectAllChange={onSelectAllChange}
+    >
+      {columns}
+    </CustomDataTable>
   );
 };

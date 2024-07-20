@@ -12,9 +12,12 @@ import { CartCategories, CartCategory } from "types";
 import { Box } from "@mui/material";
 import { useCategoriesLables } from "pages/Home/hooks";
 import "./ItemsDataTable.scss";
-import { CustomDataTable } from "shared/components/CustomDataTable";
+import {
+  CustomDataTable,
+  ExportColumns,
+} from "shared/components/CustomDataTable";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
-import { useCheckoutDataTableExpansionColumns } from "../hooks/useCheckoutDataTableExpansionColumns";
+import { useCheckoutDataTable1ExpansionColumns } from "../hooks/useCheckoutDataTable1ExpansionColumns";
 
 type CheckoutDataTableProps = {
   rows: CartCategories;
@@ -34,7 +37,9 @@ export type Option = {
   name: string;
   image: string;
 };
-export const CheckoutDataTableExpansion = ({ rows }: CheckoutDataTableProps) => {
+export const CheckoutDataTableExpansion = ({
+  rows,
+}: CheckoutDataTableProps) => {
   const [expandedRows, setExpandedRows] = useState<
     DataTableExpandedRows | DataTableValueArray | undefined
   >(undefined);
@@ -155,7 +160,10 @@ export const CheckoutDataTableExpansion = ({ rows }: CheckoutDataTableProps) => 
     );
   };
 
-  const columns = useCheckoutDataTableExpansionColumns({ categoryLabels, expandedRows });
+  const columns = useCheckoutDataTable1ExpansionColumns({
+    categoryLabels,
+    expandedRows,
+  });
 
   const isSelectable = (data: MappedCartCategory) =>
     data.categoryLabel.name !== "men's clothing";
@@ -175,58 +183,53 @@ export const CheckoutDataTableExpansion = ({ rows }: CheckoutDataTableProps) => 
   const cellClassName = (data: any) =>
     data?.name === "men's clothing" ? "p-disabled" : "";
 
+  const exportColumns: ExportColumns[] = useMemo(
+    () => [
+      { title: "categoryLabel.name", dataKey: "categoryLabel.name" },
+      { title: "title", dataKey: "title" },
+      { title: "price", dataKey: "price" },
+      { title: "Quentity", dataKey: "Quentity" },
+      { title: "status", dataKey: "status" },
+      { title: "description", dataKey: "description" },
+    ],
+    []
+  );
+
   return (
-    <Box>
-      <Box
-        sx={{
-          "& .p-datatable-table": {
-            thead: {
-              th: {
-                backgroundColor: "#eeeeee",
-                color: "primary.light",
-                "& path": {
-                  color: "secondary.main",
-                },
-              },
-            },
-          },
-        }}
-      >
-        <CustomDataTable
-          cellSelection
-          value={customers}
-          columns={columns}
-          filters={initFilters}
-          isDataSelectable={isCellSelectable}
-          cellClassName={cellClassName}
-          // rowClassName={rowClassName}
-          ////
-          sortField="price"
-          sortOrder={-1}
-          //
-          paginator
-          rows={10}
-          dataKey="id"
-          loading={loading}
-          // responsiveLayout="scroll"
-          globalFilterFields={[
-            "categoryLabel",
-            "title",
-            "description",
-            "price",
-            "status",
-          ]}
-          expandedRows={expandedRows}
-          onRowToggle={(e) => setExpandedRows(e.data)}
-          onRowExpand={onRowExpand}
-          onRowCollapse={onRowCollapse}
-          rowExpansionTemplate={rowExpansionTemplate}
-          selectionMode="single"
-          // selectionMode="radiobutton"
-          selection={selectedItems}
-          onSelectionChange={(e: any) => setSelectedItems(e.value)}
-        />
-      </Box>
-    </Box>
+    <CustomDataTable
+      cellSelection
+      value={customers}
+      exportColumns={exportColumns}
+      columns={columns}
+      filters={initFilters}
+      isDataSelectable={isCellSelectable}
+      cellClassName={cellClassName}
+      // rowClassName={rowClassName}
+      ////
+      sortField="price"
+      sortOrder={-1}
+      //
+      paginator
+      rows={10}
+      dataKey="id"
+      loading={loading}
+      // responsiveLayout="scroll"
+      globalFilterFields={[
+        "categoryLabel",
+        "title",
+        "description",
+        "price",
+        "status",
+      ]}
+      expandedRows={expandedRows}
+      onRowToggle={(e) => setExpandedRows(e.data)}
+      onRowExpand={onRowExpand}
+      onRowCollapse={onRowCollapse}
+      rowExpansionTemplate={rowExpansionTemplate}
+      selectionMode="single"
+      // selectionMode="radiobutton"
+      selection={selectedItems}
+      onSelectionChange={(e: any) => setSelectedItems(e.value)}
+    />
   );
 };
