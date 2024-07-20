@@ -60,7 +60,9 @@
     "general_search": "بحث عام",
     "category_picker": "فلتر الفئة",
     "all": "الجميع",
-    "actions": "الأجراءات"
+    "actions": "الأجراءات",
+    "export_as_pdf":"تصدير كملف PDF",
+    "export_as_excel":"تصدير كملف EXCEL"
   },
   "requests": {
     "request_error_message": "الخدمة غير متوفرة حالياً"

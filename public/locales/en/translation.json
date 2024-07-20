@@ -60,7 +60,9 @@
     "general_search": "General search",
     "category_picker": "Category picker",
     "all": "All",
-    "actions": "Actions"
+    "actions": "Actions",
+    "export_as_pdf": "Export as PDF file",
+    "export_as_excel": "Export as Excel file"
   },
   "requests": {
     "request_error_message": "The service is currently unavailable"

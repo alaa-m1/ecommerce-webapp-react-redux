@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, styled, Tooltip, Typography } from "@mui/material";
 import { deepClone } from "@mui/x-data-grid/utils/utils";
 import { Button } from "primereact/button";
 import {
@@ -7,17 +7,29 @@ import {
   DataTableFilterMetaData,
 } from "primereact/datatable";
 import { InputText } from "primereact/inputtext";
-import React, { ComponentProps, useState } from "react";
+import React, {
+  ComponentProps,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "utils/redux/hooks";
 
+export type ExportColumns = {
+  title: string;
+  dataKey: string;
+};
+
 type CustomDataTableProps = ComponentProps<typeof DataTable> & {
   columns: React.ReactNode[];
+  exportColumns?: ExportColumns[];
 };
 
 export const CustomDataTable = ({
   columns,
   filters: initFilters,
+  exportColumns = [],
   ...props
 }: CustomDataTableProps) => {
   const { t } = useTranslation();
@@ -62,17 +74,99 @@ export const CustomDataTable = ({
     );
   };
   const header = renderHeader();
-  const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
-  const paginatorRight = <Button type="button" icon="pi pi-download" text />;
+  const tableRef = useRef<any>(null);
+
+  const exportCSV = (selectionOnly: any) => {
+    tableRef.current.exportCSV({ selectionOnly });
+  };
+
+  const exportPdf = () => {
+    import("jspdf").then((jsPDF) => {
+      import("jspdf-autotable").then(() => {
+        const doc = new jsPDF.default("portrait", "px");
+
+        (doc as any).autoTable(exportColumns, props.value);
+        doc.save("products.pdf");
+      });
+    });
+  };
+
+  const exportExcel = () => {
+    import("xlsx").then((xlsx) => {
+      const worksheet = xlsx.utils.json_to_sheet(props.value as any);
+      const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
+      const excelBuffer = xlsx.write(workbook, {
+        bookType: "xlsx",
+        type: "array",
+      });
+
+      saveAsExcelFile(excelBuffer, "products");
+    });
+  };
+
+  const saveAsExcelFile = (buffer: any, fileName: any) => {
+    import("file-saver").then((module) => {
+      if (module && module.default) {
+        const EXCEL_TYPE =
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+        const EXCEL_EXTENSION = ".xlsx";
+        const data = new Blob([buffer], {
+          type: EXCEL_TYPE,
+        });
+
+        module.default.saveAs(
+          data,
+          fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+        );
+      }
+    });
+  };
+
+  const paginatorRight = (
+    <Box sx={{ display: "flex", gap: "10px" }}>
+      {exportColumns.length > 0 ? (
+        <Tooltip title={t("table.export_as_pdf")}>
+          <Button
+            type="button"
+            icon="pi pi-file-pdf"
+            severity="success"
+            rounded
+            onClick={exportPdf}
+            data-pr-tooltip="PDF"
+          />
+        </Tooltip>
+      ) : null}
+      {exportColumns.length > 0 ? (
+        <Tooltip title={t("table.export_as_excel")}>
+          <Button
+            type="button"
+            icon="pi pi-file-excel"
+            severity="success"
+            rounded
+            onClick={exportExcel}
+            data-pr-tooltip="XLS"
+          />
+        </Tooltip>
+      ) : null}
+    </Box>
+  );
+  const paginatorLeft = null;
+
+  useLayoutEffect(() => {
+    const elements = document.querySelectorAll(".p-datatable-wrapper");
+    elements.forEach((element) => {
+      if (element) {
+        if (docDirection === "rtl") {
+          element.scrollLeft = element.scrollWidth;
+        } else {
+          element.scrollLeft = 0;
+        }
+      }
+    });
+  }, [docDirection]);
+
   return (
-    <Box
-      sx={{
-        "& .p-datatable-table": {
-          direction: docDirection === "rtl" ? "ltr" : "rtl",
-          overflow: "auto",
-        },
-      }}
-    >
+    <TableContainer>
       <DataTable
         {...props}
         header={header}
@@ -82,6 +176,7 @@ export const CustomDataTable = ({
         removableSort
         scrollable
         resizableColumns
+        ref={tableRef}
         // tableStyle={{width:"100%"}}
         columnResizeMode="expand"
         // scrollHeight="flex"
@@ -92,7 +187,6 @@ export const CustomDataTable = ({
         paginatorLeft={paginatorLeft}
         paginatorRight={paginatorRight}
         // size="normal"
-        // dataKey={props.dataKey ?? id}
         rowHover
         filters={filters}
         filterDisplay="menu"
@@ -103,6 +197,18 @@ export const CustomDataTable = ({
       >
         {columns}
       </DataTable>
-    </Box>
+    </TableContainer>
   );
 };
+
+const TableContainer = styled(Box)`
+  & .p-datatable-wrapper {
+    /* @noflip */
+    direction: ltr;
+  }
+  & .p-datatable-table {
+    /* @noflip */
+    direction: ${({ theme }) => theme.direction};
+    overflow: auto;
+  }
+`;
