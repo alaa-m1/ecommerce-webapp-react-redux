@@ -142,9 +142,9 @@ const SignUp = () => {
         <MUITextField
           name="firstName"
           label="First Name"
-          required={
-            !(UserSchema._def.schema.shape.firstName instanceof z.ZodOptional)
-          }
+          // required={
+          //   !(UserSchema._def.schema.shape.firstName instanceof z.ZodOptional)
+          // }
           // placeholder="First name"
           icon={<PersonIcon />}
           register={register}
@@ -155,9 +155,9 @@ const SignUp = () => {
         <MUITextField
           name="lastName"
           label="Last Name"
-          required={
-            !(UserSchema._def.schema.shape.lastName instanceof z.ZodOptional)
-          }
+          // required={
+          //   !(UserSchema._def.schema.shape.lastName instanceof z.ZodOptional)
+          // }
           // placeholder="Last name"
           icon={<PersonIcon />}
           register={register}
@@ -168,9 +168,9 @@ const SignUp = () => {
         <MUITextField
           name="address"
           label="Address"
-          required={
-            !(UserSchema._def.schema.shape.address instanceof z.ZodOptional)
-          }
+          // required={
+          //   !(UserSchema._def.schema.shape.address instanceof z.ZodOptional)
+          // }
           // placeholder="Address"
           icon={<BusinessIcon />}
           register={register}
@@ -181,9 +181,9 @@ const SignUp = () => {
         <MUITextField
           name="email"
           label="Email"
-          required={
-            !(UserSchema._def.schema.shape.email instanceof z.ZodOptional)
-          }
+          // required={
+          //   !(UserSchema._def.schema.shape.email instanceof z.ZodOptional)
+          // }
           // placeholder="Email"
           icon={<EmailIcon />}
           register={register}
@@ -194,9 +194,9 @@ const SignUp = () => {
         <MUITextField
           name="mobile"
           label="Mobile number"
-          required={
-            !(UserSchema._def.schema.shape.mobile instanceof z.ZodOptional)
-          }
+          // required={
+          //   !(UserSchema._def.schema.shape.mobile instanceof z.ZodOptional)
+          // }
           // placeholder="Mobile number"
           icon={<SmartphoneIcon />}
           register={register}
@@ -206,21 +206,21 @@ const SignUp = () => {
         ></MUITextField>
         <GenderSelect
           name="gender"
-          required={
-            !(UserSchema._def.schema.shape.password instanceof z.ZodOptional)
-          }
+          // required={
+          //   !(UserSchema._def.schema.shape.password instanceof z.ZodOptional)
+          // }
           label="Gender"
           register={register}
           watch={watch}
-          errors={errors.password?.message}
+          errors={errors.gender?.message}
           // disabled={isSubmitting}
         />
         <MUITextField
           name="password"
           label="Password"
-          required={
-            !(UserSchema._def.schema.shape.password instanceof z.ZodOptional)
-          }
+          // required={
+          //   !(UserSchema._def.schema.shape.password instanceof z.ZodOptional)
+          // }
           placeholder=""
           icon={<LockIcon />}
           type="password"
@@ -257,12 +257,12 @@ const SignUp = () => {
         <MUITextField
           name="confirmPassword"
           label="Confirm Password"
-          required={
-            !(
-              UserSchema._def.schema.shape.confirmPassword instanceof
-              z.ZodOptional
-            )
-          }
+          // required={
+          //   !(
+          //     UserSchema._def.schema.shape.confirmPassword instanceof
+          //     z.ZodOptional
+          //   )
+          // }
           placeholder=""
           icon={<LockIcon />}
           type="password"
