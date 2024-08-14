@@ -65,7 +65,7 @@ const SignIn = () => {
   };
   return (
     <Box>
-      <Typography fontSize="16px" color="primary.light">
+      <Typography fontSize="18px" fontWeight="bold" color="primary.light">
         {t("auth.signin")}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>

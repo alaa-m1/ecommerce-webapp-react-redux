@@ -150,14 +150,14 @@ export const getTheme = ({
         MuiOutlinedInput: {
           defaultProps: {
             sx: {
-              fontSize: "20px",
+              fontSize: "18px",
             },
           },
         },
         MuiInputLabel: {
           defaultProps: {
             sx: {
-              fontSize: "20px",
+              fontSize: "18px",
             },
           },
           styleOverrides: {
