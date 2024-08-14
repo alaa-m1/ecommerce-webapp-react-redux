@@ -135,7 +135,7 @@ const SignUp = () => {
 
   return (
     <Box>
-      <Typography fontSize="16px" color="primary.light">
+      <Typography fontSize="18px" fontWeight="bold" color="primary.light">
         {t("auth.signup")}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)} style={{ margin: "5px 10px" }}>
@@ -283,7 +283,7 @@ const SignUp = () => {
         <SubmitButton
           isLoading={isSubmitting}
           loadingIndicator={<ScaleLoader color="#36d7b7" height="20" />}
-          sx={{ width: "50%", margin: "0px auto" }}
+          sx={{ width: "50%", margin: "5px auto" }}
           data-testid="Auth-SignUp-btn-signup"
         >
           {t("auth.signup")}
