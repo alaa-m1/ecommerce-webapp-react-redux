@@ -56,7 +56,7 @@ export const AboutPage = () => {
               fontSize="18px"
               color="primary.light"
               mb="10px"
-              sx={{ "& strong": { color: "primary.light" } }}
+              sx={{ "& strong": { color: "secondary.main" } }}
             >
               {parse(t("about_information"))}
             </Typography>
