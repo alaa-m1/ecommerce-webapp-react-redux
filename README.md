@@ -1,4 +1,4 @@
-# E-commerce Web Application: React, Redux, React Query, MUI, React Hook Form, Zod schema validation, Firebase, Cypress, SASS, Localization, Theming
+# E-commerce Web Application: React, Redux, React Query, MUI, React Hook Form, Zod schema validation, Firebase, Cypress, SASS, Localization, Theming, Responsive web design
 
 ## Available Scripts
 
