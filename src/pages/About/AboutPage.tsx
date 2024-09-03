@@ -5,6 +5,7 @@ import { ProfilePhoto } from "./components";
 import parse from "html-react-parser";
 import { useTranslation } from "react-i18next";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
+import { AnimatedSection } from "./components/AnimatedSection";
 
 export const AboutPage = () => {
   const { t } = useTranslation();
@@ -52,16 +53,28 @@ export const AboutPage = () => {
             <Box sx={{ display: "flex", justifyContent: "center", m: 2, p: 2 }}>
               <ProfilePhoto />
             </Box>
-            <Typography
-              fontSize="18px"
-              color="primary.light"
-              mb="10px"
-              sx={{ "& strong": { color: "secondary.main" } }}
-            >
-              {parse(t("about_information"))}
-            </Typography>
+            <ColoredDevider />
+            <Box sx={{ position: "relative", height: "300px" }}>
+              <AnimatedSection />
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "30%",
+                  transform: "translate(-30%, -50%)",
+                }}
+              >
+                <Typography
+                  fontSize="18px"
+                  color="primary.light"
+                  mb="10px"
+                  sx={{ "& strong": { color: "custom.sub1" } }}
+                >
+                  {parse(t("about_information"))}
+                </Typography>
+              </Box>
+            </Box>
           </Box>
-          <ColoredDevider />
         </ParallaxLayer>
         <ParallaxLayer offset={1} speed={0.4}>
           <Typography
