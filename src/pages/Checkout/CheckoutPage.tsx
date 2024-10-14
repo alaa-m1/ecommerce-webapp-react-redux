@@ -9,11 +9,12 @@ import { useCheckoutColumn } from "./hooks";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useTranslation } from "react-i18next";
-import { PaymentForm, ProductCard } from "./components";
+import { PaymentForm } from "./components";
 import { GenericDialog } from "shared";
 import { Product } from "types";
 import { CheckCircle } from "@mui/icons-material";
 import { ProductCard2 } from "./components/ProductCard2";
+import { CheckoutDataTableExpansion } from "./components/CheckoutDataTableExpansion";
 
 declare module "@mui/x-data-grid" {
   interface FooterPropsOverrides {
@@ -46,7 +47,6 @@ const CheckoutPage = () => {
   );
   const [selectedProduct, setSelectedProduct] = useState<null | Product>(null);
   const handleRowDoubleClick = (params: GridRowParams<Product>) => {
-    console.log("params=", params);
     setSelectedProduct(params.row);
     if (selectedProduct) setOpen(true);
   };
@@ -63,6 +63,13 @@ const CheckoutPage = () => {
       </h2>
 
       <Box>
+        <CheckoutDataTableExpansion rows={cartItems} />
+        {/* <CheckoutDataTableExpandable rows={cartItems} /> */}
+        <br />
+        <br />
+        {/* <InitDataTable/> */}
+        <br />
+        <br />
         <DataGrid
           rows={cartItems}
           columns={columns}

@@ -176,7 +176,6 @@ export const InitDataTableInfinit = () => {
   const loadLazyTimeout: any = null;
 
   const loadCarsLazy = (event: VirtualScrollerLazyEvent) => {
-    console.log("loadCarsLazy event=", event);
     setlazyState((p) => ({
       ...p,
       first: event.first as number,
