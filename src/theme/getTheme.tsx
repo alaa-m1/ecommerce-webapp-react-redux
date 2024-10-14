@@ -3,7 +3,13 @@ import type {} from "@mui/x-data-grid/themeAugmentation";
 import type {} from "@mui/x-date-pickers/themeAugmentation";
 import { arSD, enUS } from "@mui/x-data-grid/locales";
 
-const fontFamily = ["Noto Kufi Arabic", "Open Sans", "sans-serif", "Helvetica"];
+const fontFamilyArabic = [
+  "NotoKufiArabic",
+  "Open Sans",
+  "sans-serif",
+  "Helvetica",
+];
+const fontFamilyLatin = ["Enriqueta", "Open Sans", "sans-serif", "Helvetica"];
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -71,7 +77,10 @@ export const getTheme = ({
       },
       spacing: 4,
       typography: {
-        fontFamily: fontFamily.join(","),
+        fontFamily:
+          direction === "rtl"
+            ? fontFamilyArabic.join(",")
+            : fontFamilyLatin.join(","),
         mainTitle: {
           fontSize: "1.5rem",
           color: "blue",
@@ -201,7 +210,10 @@ export const getTheme = ({
           },
           styleOverrides: {
             root: {
-              fontFamily: fontFamily,
+              fontFamily:
+                direction === "rtl"
+                  ? fontFamilyArabic.join(",")
+                  : fontFamilyLatin.join(","),
               padding: "5px 10px",
               fontSize: "12px",
               fontWeight: 600,
@@ -215,7 +227,10 @@ export const getTheme = ({
         MuiFormLabel: {
           styleOverrides: {
             root: {
-              fontFamily: fontFamily,
+              fontFamily:
+                direction === "rtl"
+                  ? fontFamilyArabic.join(",")
+                  : fontFamilyLatin.join(","),
             },
           },
         },

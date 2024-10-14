@@ -8,9 +8,11 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { setDocumentDirection, setUILanguage } from "store/user/userActions";
+import { setDocumentDirection } from "store/user/userActions";
 import { useAppSelector } from "utils/redux/hooks";
+import i18next from "i18next";
 
+type UILanguage = "en" | "de" | "ar";
 export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
   const { t, i18n } = useTranslation();
@@ -35,20 +37,23 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
   }, [dispatch, handleClose]);
 
   const docDirection = useAppSelector((state) => state.user.direction);
-  const uiLanguage = useAppSelector((state) => state.user.uiLanguage);
+  // const uiLanguage = useAppSelector((state) => state.user.uiLanguage);
+
+  // const [cookies, setCookie] = useCookies(["language"]);
+  const language = (i18next.language as UILanguage) || "en";
 
   useLayoutEffect(() => {
-    if (docDirection && uiLanguage) {
+    if (docDirection && language) {
       if (docDirection === "ltr") {
-        i18n.changeLanguage(uiLanguage);
+        i18n.changeLanguage(language);
         handleChangeToLTR();
       } else {
-        i18n.changeLanguage(uiLanguage);
-        handleChangeToLTR();
+        i18n.changeLanguage(language);
+        handleChangeToRTL();
       }
     } else {
       i18n.changeLanguage("en");
-      dispatch(setUILanguage("en"));
+      // setCookie("language", language, { path: "/", maxAge: 31536000 });
       handleChangeToLTR();
     }
   }, []);
@@ -93,7 +98,6 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
         selected={activatedLanguage === "en"}
         onClick={() => {
           i18n.changeLanguage("en");
-          dispatch(setUILanguage("en"));
           handleChangeToLTR();
         }}
         data-testid="AppLayout-LanguageMenu-menuItem-en"
@@ -104,7 +108,6 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
         selected={activatedLanguage === "de"}
         onClick={() => {
           i18n.changeLanguage("de");
-          dispatch(setUILanguage("de"));
           handleChangeToLTR();
         }}
         data-testid="AppLayout-LanguageMenu-menuItem-de"
@@ -115,7 +118,6 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
         selected={activatedLanguage === "ar"}
         onClick={() => {
           i18n.changeLanguage("ar");
-          dispatch(setUILanguage("ar"));
           handleChangeToRTL();
         }}
         data-testid="AppLayout-LanguageMenu-menuItem-ar"

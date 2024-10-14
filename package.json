@@ -43,12 +43,14 @@
     "i18next": "^23.5.1",
     "i18next-browser-languagedetector": "^7.1.0",
     "i18next-http-backend": "^2.2.2",
+    "js-cookie": "^3.0.5",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "lodash": "^4.17.21",
     "primeicons": "^7.0.0",
     "primereact": "^10.7.0",
     "react": "^18.2.0",
+    "react-cookie": "^7.2.1",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
     "react-error-boundary": "^4.0.11",
@@ -111,6 +113,7 @@
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.28.11",
     "@types/file-saver": "^2.0.7",
+    "@types/js-cookie": "^3.0.6",
     "@types/lodash": "^4.14.198",
     "@types/react-google-recaptcha": "^2.1.9",
     "@types/react-swipeable-views": "^0.13.5",
@@ -127,5 +130,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "hide-cra-error-overlay": "^1.0.23"
-  }
+  },
+  "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c"
 }

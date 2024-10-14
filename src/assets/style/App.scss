@@ -4,6 +4,20 @@
 .navigator-main-container {
   @include custom-box-shadow-with-border;
 }
+
+@font-face {
+  font-family: 'NotoKufiArabic';
+  src: url('./fonts/NotoKufiArabic-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Enriqueta';
+  src: url('./fonts/Enriqueta-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .navigator-container {
   display: flex;
   justify-content: space-between;
