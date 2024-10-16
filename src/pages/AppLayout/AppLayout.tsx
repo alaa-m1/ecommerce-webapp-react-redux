@@ -32,6 +32,7 @@ import { useDispatch } from "react-redux";
 import { MenuBarSkeleton } from "shared/loadingSkeleton";
 import { LanguageMenu2 } from "./components/LanguageMenu/LanguageMenu2";
 import { ReactQueryErrorProvider } from "shared/appContainers/components/reactQuery/ReactQueryErrorProvider";
+import CookiesConsent from "./components/CookiesConsent";
 
 type NavigationProps = {
   links: Array<MappedLinkInfo>;
@@ -168,6 +169,7 @@ const AppLayout = ({ links }: NavigationProps) => {
           <Suspense fallback={<LoadingSpinner />}>
             <ReactQueryErrorProvider>
               <Outlet />
+              <CookiesConsent />
             </ReactQueryErrorProvider>
           </Suspense>
         </Container>

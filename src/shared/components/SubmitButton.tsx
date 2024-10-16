@@ -32,7 +32,7 @@ export const SubmitButton = ({
   );
 };
 
-const StyledButton = styled(Button)<ButtonProps>(({ theme }) => ({
+export const StyledButton = styled(Button)<ButtonProps>(({ theme }) => ({
   width: "150px",
   maxWidth: "300px",
   height: "40px",

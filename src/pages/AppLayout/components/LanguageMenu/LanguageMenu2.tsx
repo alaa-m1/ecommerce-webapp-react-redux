@@ -17,6 +17,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useCookies } from "react-cookie";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setDocumentDirection } from "store/user/userActions";
@@ -56,20 +57,24 @@ export const LanguageMenu2 = ({ anchorEl, handleClose }: LanguageMenuProps) => {
 
   const docDirection = useAppSelector((state) => state.user.direction);
 
+  const [cookieConsent] = useCookies(["cookieConsent"]);
   const language = (i18next.language as UILanguage) || "en";
+  const canSaveCookies = !!cookieConsent.cookieConsent;
 
   useLayoutEffect(() => {
-    if (docDirection && language) {
-      if (docDirection === "ltr") {
-        i18n.changeLanguage(language);
-        handleChangeToLTR();
+    if (canSaveCookies) {
+      if (docDirection && language) {
+        if (docDirection === "ltr") {
+          i18n.changeLanguage(language);
+          handleChangeToLTR();
+        } else {
+          i18n.changeLanguage(language);
+          handleChangeToRTL();
+        }
       } else {
-        i18n.changeLanguage(language);
-        handleChangeToRTL();
+        i18n.changeLanguage("en");
+        handleChangeToLTR();
       }
-    } else {
-      i18n.changeLanguage("en");
-      handleChangeToLTR();
     }
   }, []);
 
