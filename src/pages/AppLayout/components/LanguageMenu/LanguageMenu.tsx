@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { setDocumentDirection } from "store/user/userActions";
 import { useAppSelector } from "utils/redux/hooks";
+import { useCookies } from "react-cookie";
 import i18next from "i18next";
 
 type UILanguage = "en" | "de" | "ar";
@@ -40,21 +41,25 @@ export const LanguageMenu = ({ anchorEl, handleClose }: LanguageMenuProps) => {
   // const uiLanguage = useAppSelector((state) => state.user.uiLanguage);
 
   // const [cookies, setCookie] = useCookies(["language"]);
+  const [cookieConsent] = useCookies(["cookieConsent"]);
   const language = (i18next.language as UILanguage) || "en";
+  const canSaveCookies = !!cookieConsent.cookieConsent;
 
   useLayoutEffect(() => {
-    if (docDirection && language) {
-      if (docDirection === "ltr") {
-        i18n.changeLanguage(language);
-        handleChangeToLTR();
+    if (canSaveCookies) {
+      if (docDirection && language) {
+        if (docDirection === "ltr") {
+          i18n.changeLanguage(language);
+          handleChangeToLTR();
+        } else {
+          i18n.changeLanguage(language);
+          handleChangeToRTL();
+        }
       } else {
-        i18n.changeLanguage(language);
-        handleChangeToRTL();
+        i18n.changeLanguage("en");
+        // setCookie("language", language, { path: "/", maxAge: 31536000 });
+        handleChangeToLTR();
       }
-    } else {
-      i18n.changeLanguage("en");
-      // setCookie("language", language, { path: "/", maxAge: 31536000 });
-      handleChangeToLTR();
     }
   }, []);
 

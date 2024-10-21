@@ -66,5 +66,10 @@
   },
   "requests": {
     "request_error_message": "The service is currently unavailable"
+  },
+  "utils": {
+    "accept": "Accept",
+    "decline": "Decline",
+    "cookies_consent_msg":"This website uses cookies to improve your experience. Do you accept to keep cookies?"
   }
 }
