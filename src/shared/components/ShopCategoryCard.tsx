@@ -10,6 +10,7 @@ import {
 } from "store/shoppingState/shoppingStateActions";
 import { Product } from "types";
 import { useAppSelector } from "utils/redux/hooks";
+import { motion } from "framer-motion";
 
 type ShopCategoryCardProps = {
   cardInfo: Product;
@@ -40,7 +41,7 @@ export const ShopCategoryCard = memo(({ cardInfo }: ShopCategoryCardProps) => {
         : `${window.location.origin}/images/categories/${cardInfo.categoryLabel}/${cardInfo.imagePath}`,
     [cardInfo.categoryLabel, cardInfo.imagePath]
   );
-  return (
+  const CatCard= (
     <Box
       className="shop-category-card"
       sx={{ color: "secondary.dark" }}
@@ -70,6 +71,16 @@ export const ShopCategoryCard = memo(({ cardInfo }: ShopCategoryCardProps) => {
       </Box>
     </Box>
   );
+
+  return (
+    <motion.div
+      className="box"
+      initial={{ opacity: 0.5, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      {CatCard}
+    </motion.div>)
 });
 
 ShopCategoryCard.displayName = "ShopCategoryCard";
