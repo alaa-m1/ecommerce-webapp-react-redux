@@ -647,3 +647,16 @@ td[data-p-frozen-column="true"] {
   left:0px;
   right:0px;
 }
+
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 5px;
+  background: #5e1f8b;
+  transform-origin: 0%;
+  z-index: 10;
+}

@@ -33,6 +33,7 @@ import { MenuBarSkeleton } from "shared/loadingSkeleton";
 import { LanguageMenu2 } from "./components/LanguageMenu/LanguageMenu2";
 import { ReactQueryErrorProvider } from "shared/appContainers/components/reactQuery/ReactQueryErrorProvider";
 import CookiesConsent from "./components/CookiesConsent";
+import { useScroll, useSpring, motion } from "framer-motion";
 
 type NavigationProps = {
   links: Array<MappedLinkInfo>;
@@ -83,101 +84,111 @@ const AppLayout = ({ links }: NavigationProps) => {
     setAnchorEl(null);
   };
 
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
   return (
-    <Box
-      sx={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-        justifyContent: "space-between",
-      }}
-      data-testid="AppLayout-div"
-    >
-      <ShoppingCart
-        open={isCartOpen}
-        anchorEl={shoppingCartRef.current}
-        handleClose={handleClose}
-        isScrolling={isScrolling}
-      />
-      <Suspense fallback={null}>
-        <LanguageMenu2
-          anchorEl={anchorEl}
-          handleClose={handleOnLnaguageMenuClose}
-        />
-      </Suspense>
+    <>
+      <motion.div className="progress-bar" style={{ scaleX }} />
+
       <Box
-        className="navigator-main-container"
-        sx={{ flexGrow: 0, color: "secondary.dark" }}
+        sx={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+          justifyContent: "space-between",
+        }}
+        data-testid="AppLayout-div"
       >
-        <AppBar
-          className="navigator-container"
-          sx={{
-            position: "relative",
-            paddingRight: "0px !important",
-            paddingLeft: "0px !important",
-            // overflowX: "hidden",
-            overflow: "visible",
-          }}
+        <ShoppingCart
+          open={isCartOpen}
+          anchorEl={shoppingCartRef.current}
+          handleClose={handleClose}
+          isScrolling={isScrolling}
+        />
+        <Suspense fallback={null}>
+          <LanguageMenu2
+            anchorEl={anchorEl}
+            handleClose={handleOnLnaguageMenuClose}
+          />
+        </Suspense>
+        <Box
+          className="navigator-main-container"
+          sx={{ flexGrow: 0, color: "secondary.dark" }}
         >
-          <Toolbar>
-            {isSmallScreen ? (
-              <Box className="logo-container">
-                <Link to="/">
-                  <Logo />
-                </Link>
-              </Box>
-            ) : (
-              <>
+          <AppBar
+            className="navigator-container"
+            sx={{
+              position: "relative",
+              paddingRight: "0px !important",
+              paddingLeft: "0px !important",
+              // overflowX: "hidden",
+              overflow: "visible",
+            }}
+          >
+            <Toolbar>
+              {isSmallScreen ? (
                 <Box className="logo-container">
                   <Link to="/">
                     <Logo />
                   </Link>
                 </Box>
-                <Suspense fallback={<MenuBarSkeleton />}>
-                  <MenuBar
-                    links={links}
-                    handleToggleLanguageMenu={handleLanguageMenuClick}
-                  />
-                </Suspense>
-              </>
-            )}
-            <Suspense fallback={null}>
-              <CustomDrawer
-                links={links}
-                isSmallScreen={isSmallScreen}
-                currentUser={currentUser}
-                handleToggleLanguageMenu={handleLanguageMenuClick}
-              />
+              ) : (
+                <>
+                  <Box className="logo-container">
+                    <Link to="/">
+                      <Logo />
+                    </Link>
+                  </Box>
+                  <Suspense fallback={<MenuBarSkeleton />}>
+                    <MenuBar
+                      links={links}
+                      handleToggleLanguageMenu={handleLanguageMenuClick}
+                    />
+                  </Suspense>
+                </>
+              )}
+              <Suspense fallback={null}>
+                <CustomDrawer
+                  links={links}
+                  isSmallScreen={isSmallScreen}
+                  currentUser={currentUser}
+                  handleToggleLanguageMenu={handleLanguageMenuClick}
+                />
+              </Suspense>
+              <Box
+                className="shopping-cart-logo"
+                onClick={() => dispatch(setShowCart(!isCartOpen))}
+                ref={shoppingCartRef}
+                data-testid="AppLayout-link-shoppingCart"
+              >
+                <ShoppingCartLogo />
+              </Box>
+              <Suspense fallback={null}>
+                <ThemeSwitch />
+              </Suspense>
+            </Toolbar>
+          </AppBar>
+        </Box>
+        <main style={{ flexGrow: 1, overflowX: "auto", display: "flex" }}>
+          <Container disableGutters maxWidth={false}>
+            <Suspense fallback={<LoadingSpinner />}>
+              <ReactQueryErrorProvider>
+                <Outlet />
+                <CookiesConsent />
+              </ReactQueryErrorProvider>
             </Suspense>
-            <Box
-              className="shopping-cart-logo"
-              onClick={() => dispatch(setShowCart(!isCartOpen))}
-              ref={shoppingCartRef}
-              data-testid="AppLayout-link-shoppingCart"
-            >
-              <ShoppingCartLogo />
-            </Box>
-            <Suspense fallback={null}>
-              <ThemeSwitch />
-            </Suspense>
-          </Toolbar>
-        </AppBar>
+          </Container>
+        </main>
+        <Box sx={{ flexGrow: 0 }}>
+          <Footer />
+        </Box>
       </Box>
-      <main style={{ flexGrow: 1, overflowX: "auto", display: "flex" }}>
-        <Container disableGutters maxWidth={false}>
-          <Suspense fallback={<LoadingSpinner />}>
-            <ReactQueryErrorProvider>
-              <Outlet />
-              <CookiesConsent />
-            </ReactQueryErrorProvider>
-          </Suspense>
-        </Container>
-      </main>
-      <Box sx={{ flexGrow: 0 }}>
-        <Footer />
-      </Box>
-    </Box>
+    </>
   );
 };
 
