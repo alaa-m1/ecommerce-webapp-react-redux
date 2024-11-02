@@ -1,6 +1,6 @@
-import CustomToolbarProgress from "pages/AppLayout/CustomToolbar";
 import React, { Suspense } from "react";
 import { LoadingSpinner } from "shared/components";
+import CustomToolbarProgress from "shared/components/Layout/CustomToolbar";
 
 type SuspensedPageViewProps = { children: React.ReactNode };
 

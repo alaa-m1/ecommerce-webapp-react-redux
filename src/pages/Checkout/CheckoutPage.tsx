@@ -5,7 +5,7 @@ import {
   GridRowParams,
   GridSlotsComponentsProps,
 } from "@mui/x-data-grid";
-import { useCheckoutColumn } from "./hooks";
+import { useCheckoutColumn, useGroupedCartItems } from "./hooks";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectShoopingCartItemsDetails } from "store/shoppingCart/shoppingCartSelector";
 import { useTranslation } from "react-i18next";
@@ -14,7 +14,7 @@ import { GenericDialog } from "shared";
 import { Product } from "types";
 import { CheckCircle } from "@mui/icons-material";
 import { ProductCard2 } from "./components/ProductCard2";
-import { CheckoutDataTableExpansion } from "./components/CheckoutDataTableExpansion";
+import { CheckoutDataTableExpandable } from "./components/CheckoutDataTableExpandable";
 
 declare module "@mui/x-data-grid" {
   interface FooterPropsOverrides {
@@ -45,6 +45,7 @@ const CheckoutPage = () => {
   const { cartItems, cartTotal } = useAppSelector(
     selectShoopingCartItemsDetails
   );
+  const groupedProducts=useGroupedCartItems(cartItems)
   const [selectedProduct, setSelectedProduct] = useState<null | Product>(null);
   const handleRowDoubleClick = (params: GridRowParams<Product>) => {
     setSelectedProduct(params.row);
@@ -63,15 +64,15 @@ const CheckoutPage = () => {
       </h2>
 
       <Box>
-        <CheckoutDataTableExpansion rows={cartItems} />
-        {/* <CheckoutDataTableExpandable rows={cartItems} /> */}
+        {/* <CheckoutDataTableExpansion rows={groupedProducts} /> */}
+        <CheckoutDataTableExpandable rows={groupedProducts} />
         <br />
         <br />
         {/* <InitDataTable/> */}
         <br />
         <br />
         <DataGrid
-          rows={cartItems}
+          rows={groupedProducts}
           columns={columns}
           isRowSelectable={(params) => params.row !== undefined}
           autoHeight
