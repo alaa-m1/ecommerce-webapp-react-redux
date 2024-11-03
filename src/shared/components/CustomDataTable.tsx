@@ -1,10 +1,8 @@
 import { Box, styled, Tooltip, Typography } from "@mui/material";
-import { deepClone } from "@mui/x-data-grid/utils/utils";
 import { Button } from "primereact/button";
 import {
   DataTable,
   DataTableFilterMeta,
-  DataTableFilterMetaData,
 } from "primereact/datatable";
 import { InputText } from "primereact/inputtext";
 import React, {
@@ -40,16 +38,12 @@ export const CustomDataTable = ({
   );
 
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target?.value ?? "";
-    const filtersCopy: DataTableFilterMeta = deepClone(filters);
-    if (
-      (filtersCopy?.["global"] as unknown as DataTableFilterMetaData)?.value
-    ) {
-      (filtersCopy["global"] as unknown as DataTableFilterMetaData).value =
-        value;
-    }
+    const value = e.target.value;
+    const _filters = { ...filters };
 
-    setFilters(filtersCopy);
+    (_filters['global'] as any).value = value;
+
+    setFilters(_filters);
     setGlobalFilterValue(value);
   };
 

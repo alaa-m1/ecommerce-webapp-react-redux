@@ -59,7 +59,10 @@ export const CheckoutDataTableExpandable = ({
   const initFilters: DataTableFilterMeta = useMemo(
     () => ({
       global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-      categoryLabel: { value: null, matchMode: FilterMatchMode.IN },
+      "categoryLabel.name": {
+        value: null,
+        matchMode: FilterMatchMode.STARTS_WITH,
+      },
       title: {
         operator: FilterOperator.AND,
         constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
@@ -235,7 +238,7 @@ export const CheckoutDataTableExpandable = ({
           loading={loading}
           // responsiveLayout="scroll"
           globalFilterFields={[
-            "categoryLabel",
+            "categoryLabel.name",
             "title",
             "description",
             "price",

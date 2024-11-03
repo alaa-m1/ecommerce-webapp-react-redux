@@ -348,7 +348,7 @@ export const useCheckoutDataTableExpandableColumns = ({
         sortable
         sortField="categoryLabel"
         field="categoryLabel.name"
-        filterField="categoryLabel"
+        filterField="categoryLabel.name"
         showFilterMatchModes={false}
         filterMenuStyle={{ width: "14rem" }}
         style={{ width: "200px" }}
@@ -367,18 +367,6 @@ export const useCheckoutDataTableExpandableColumns = ({
         body={titleBodyTemplate}
         style={{ maxWidth: "200px", overflow: "hidden" }}
       />,
-
-      //  <Column
-      //       field="date"
-      //       header="Date"
-      //       sortable
-      //       filterField="date"
-      //       dataType="date"
-      //       style={{ minWidth: "8rem" }}
-      //       body={dateBodyTemplate}
-      //       filter
-      //       filterElement={dateFilterTemplate}
-      //     />
 
       <Column
         key="4"
