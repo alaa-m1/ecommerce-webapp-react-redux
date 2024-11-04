@@ -26,32 +26,35 @@ export const PaymentForm = () => {
     setErrorMessage(error.message);
   };
 
-  const makePayment = useCallback(async (clientSecret: string) => {
-    if (!stripe || !elements) return;
-    await stripe
-      .confirmPayment({
-        clientSecret,
-        elements,
-        // redirect: 'if_required',
-        confirmParams: {
-          return_url: `${window.location.origin}/checkout?payment_status=success`,
-          payment_method_data: {
-            billing_details: {
-              name: currentUser?.displayName ?? "Guest user",
-              email: currentUser?.email || "example@mail.com",
+  const makePayment = useCallback(
+    async (clientSecret: string) => {
+      if (!stripe || !elements) return;
+      await stripe
+        .confirmPayment({
+          clientSecret,
+          elements,
+          // redirect: 'if_required',
+          confirmParams: {
+            return_url: `${window.location.origin}/checkout?payment_status=success`,
+            payment_method_data: {
+              billing_details: {
+                name: currentUser?.displayName ?? "Guest user",
+                email: currentUser?.email || "example@mail.com",
+              },
             },
           },
-        },
-      })
-      .then((res) => {
-        setLoading(false);
-        if (res?.error) {
-          console.log("Payment Error=", res.error);
-        } else {
-          console.log("Paymernt is successful");
-        }
-      });
-  },[currentUser?.displayName, currentUser?.email, elements, stripe]);
+        })
+        .then((res) => {
+          setLoading(false);
+          if (res?.error) {
+            console.log("Payment Error=", res.error);
+          } else {
+            console.log("Paymernt is successful");
+          }
+        });
+    },
+    [currentUser?.displayName, currentUser?.email, elements, stripe]
+  );
 
   const handlePayment = useCallback(
     async (e: any) => {
@@ -103,11 +106,17 @@ export const PaymentForm = () => {
           {searchParams.get("payment_status") === "success" &&
           searchParams.get("redirect_status") === "succeeded" ? (
             <Alert
-              sx={{ mb: 1, width: "60%" }}
-              severity="info"
-              style={{
+              sx={{
+                mb: 1,
+                width: "60%",
                 backgroundColor: "#2e7d32",
+                color: "#022f47",
+                fontWeight: "bold",
+                "& svg": {
+                  color: "#022f47",
+                },
               }}
+              severity="info"
             >
               {t("checkout.successfully_payment")}
             </Alert>
@@ -115,11 +124,17 @@ export const PaymentForm = () => {
             <form className="payment-container" onSubmit={handlePayment}>
               {loading && <LoadingSpinner />}
               <Alert
-                sx={{ mb: 1, width: "60%" }}
-                severity="info"
-                style={{
+                sx={{
+                  mb: 1,
+                  width: "60%",
                   backgroundColor: "#0288d1",
+                  color: "#034507",
+                  fontWeight: "bold",
+                  "& svg": {
+                    color: "#034507",
+                  },
                 }}
+                severity="info"
               >
                 {t("checkout.use_test_card_number")}
               </Alert>
@@ -138,11 +153,18 @@ export const PaymentForm = () => {
       ) : (
         <Box className="payment-container">
           <Alert
-            sx={{ mb: 1, width: "60%" }}
-            severity="info"
-            style={{
+            sx={{
+              mb: 1,
+              width: "60%",
               backgroundColor: "#e65100",
+              color: "#043752",
+              fontWeight: "bold",
+              "& svg": {
+                color: "#043752",
+              },
             }}
+            severity="info"
+            color="info"
             data-testid="CheckoutDashboard-PaymentForm-alert-info"
           >
             {t("checkout.login_before_pay")}
