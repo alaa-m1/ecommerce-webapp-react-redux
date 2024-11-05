@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import AuthPage from "pages/Auth/AuthPage";
-import NotFoundPage from "pages/NotFound/NotFoundPage";
 import AppLayout from "pages/AppLayout/AppLayout";
 import { CategoriesListSkeleton, linksDetails } from "shared";
 import ProtectedRoute from "utils/routes/ProtectedRoute";
@@ -10,6 +9,7 @@ import UnAuthorizedRoute from "utils/routes/UnAuthorizedRoute";
 import TermsPage from "pages/Terms/TermsPage";
 import { mapLinks } from "utils/mappingFunctions/mapLinks";
 import { SuspensedPageView } from "utils/routes/SuspensedPageView";
+import NotFoundPage from "pages/NotFound/NotFoundPage";
 
 const HomePage = lazy(() => import("pages/Home/HomePage"));
 const ClassicCollectionPage = lazy(
