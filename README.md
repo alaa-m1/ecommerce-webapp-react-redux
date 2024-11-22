@@ -1,4 +1,4 @@
-# E-commerce Web Application: React, Redux, React Query, MUI, React Hook Form, Zod schema validation, Firebase, Cypress, SASS, Localization, Theming, Responsive web design
+# E-commerce Web Application: React, Redux, React Query, MUI, PrimeReact,  React Hook Form, Zod schema validation, Firebase, Cypress, SASS, Localization, Theming, FramerMotion, Responsive web design
 
 ## Available Scripts
 
@@ -16,8 +16,19 @@ REACT_APP_PROJECT_ID=
 REACT_APP_STORAGE_BUCKET=
 REACT_APP_MESSAGING_SENDER_ID=
 REACT_APP_APP_ID=
+REACT_APP_MESSAGING_KEY=
 REACT_APP_STRIPE_PUBLISHABLE_KEY=
-REACT_APP_STRIPE_SK=
+REACT_APP_STRIPE_SK=SkbJ00Yh8x1DAG"
+REACT_APP_SITE_KEY = 
+REACT_APP_SECRET_KEY = 
+
+
+REACT_APP_PUBLIC_URL = 
+
+----------------------CLOUDINARY  CONFIG
+REACT_APP_CLOUDINARY_CLOUD_NAME=
+REACT_APP_CLOUDINARY_API_KEY=
+REACT_APP_CLOUDINARY_API_SECRET=
 ```
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
