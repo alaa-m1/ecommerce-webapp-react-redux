@@ -68,7 +68,7 @@ export const AboutPage = () => {
                   fontSize="18px"
                   color="primary.light"
                   mb="10px"
-                  sx={{ "& strong": { color: "custom.sub1" } }}
+                  sx={{ "& strong": { color: "custom.sub1", fontSize:"1.2rem" }, fontSize:"1.1rem" }}
                 >
                   {parse(t("about_information"))}
                 </Typography>
@@ -127,7 +127,7 @@ export const AboutPage = () => {
               style={{ width: "200px", aspectRatio: "1" }}
               alt="Phoenix Software Al-ankaa logo"
             />
-            <Typography color="secondary.main">
+            <Typography color="primary.light" fontSize="2rem">
               Phoenix Software&nbsp;&nbsp;Al-ankaa
             </Typography>
           </Box>
