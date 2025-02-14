@@ -84,7 +84,7 @@ export const AboutPage = () => {
             style={{ textAlign: "center" }}
           >
             Senior Frontend Developer | React - JavaScript - TypeScript -
-            Next.js - Test Automation | Software Developer
+            Next.js | Jest - RTL - Test Automation | Software Developer
           </Typography>
           <Typography
             fontSize="18px"
