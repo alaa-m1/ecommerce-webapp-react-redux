@@ -6,11 +6,13 @@ import parse from "html-react-parser";
 import { useTranslation } from "react-i18next";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { AnimatedSection } from "./components/AnimatedSection";
+import { motion, useAnimation } from "framer-motion";
 
 export const AboutPage = () => {
   const { t } = useTranslation();
   const parallax = useRef<IParallax>(null);
   const themeMode = useGetUIThemeMode();
+  const controls = useAnimation();
   return (
     <Box
       style={{
@@ -68,7 +70,10 @@ export const AboutPage = () => {
                   fontSize="18px"
                   color="primary.light"
                   mb="10px"
-                  sx={{ "& strong": { color: "custom.sub1", fontSize:"1.2rem" }, fontSize:"1.1rem" }}
+                  sx={{
+                    "& strong": { color: "custom.sub1", fontSize: "1.2rem" },
+                    fontSize: "1.1rem",
+                  }}
                 >
                   {parse(t("about_information"))}
                 </Typography>
@@ -127,9 +132,37 @@ export const AboutPage = () => {
               style={{ width: "200px", aspectRatio: "1" }}
               alt="Phoenix Software Al-ankaa logo"
             />
-            <Typography color="primary.light" fontSize="2rem">
-              Phoenix Software&nbsp;&nbsp;Al-ankaa
-            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "50px",
+              }}
+            >
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                animate={controls}
+                whileHover={{
+                  x: 20, // Move to the right by 100px
+                  transition: { type: "tween", duration: 0.5 }, // Smooth transition
+                }}
+                whileTap={{ scale: 1.1 }}
+                drag="x"
+                dragConstraints={{ left: 100, right: 100 }}
+                style={{
+                  fontSize: "2rem",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                }}
+              >
+                <Typography color="primary.light" fontSize="2rem">
+                  Phoenix Software&nbsp;&nbsp;Al-ankaa
+                </Typography>
+              </motion.div>
+            </Box>
           </Box>
         </ParallaxLayer>
       </Parallax>
