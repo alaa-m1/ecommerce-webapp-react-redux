@@ -1,7 +1,6 @@
 import {
   ClickAwayListener,
   Grow,
-  Menu,
   MenuItem,
   MenuList,
   Paper,
