@@ -5,6 +5,7 @@ import ChairIcon from "@mui/icons-material/Chair";
 import TravelxEploreIcon from "@mui/icons-material/TravelExplore";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import InfoIcon from "@mui/icons-material/Info";
+import HomeWorkIcon from "@mui/icons-material/HomeWork";
 
 import BadgeIcon from "@mui/icons-material/Badge";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
@@ -21,6 +22,12 @@ export const linksDetails: Array<LinkInfo> = [
     label: "modern_collection",
     path: "/modern-collection",
     icon: <TravelxEploreIcon />,
+    protected: false,
+  },
+  {
+    label: "real_estate",
+    path: "/real-estate",
+    icon: <HomeWorkIcon />,
     protected: false,
   },
   {
