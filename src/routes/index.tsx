@@ -20,6 +20,7 @@ const ModernCollectionPage = lazy(
 );
 const AboutPage = lazy(() => import("pages/About/AboutPage"));
 const CheckoutPage = lazy(() => import("pages/Checkout/CheckoutPage"));
+const RealEstatePage = lazy(() => import("pages/RealEstate/RealEstatePage"));
 
 const AppRoutes = () => {
   return (
@@ -49,6 +50,14 @@ const AppRoutes = () => {
                 <ModernCollectionPage />
               </SuspensedPageView>
             </Suspense>
+          }
+        />
+        <Route
+          path="real-estate"
+          element={
+            <SuspensedPageView>
+              <RealEstatePage />
+            </SuspensedPageView>
           }
         />
         <Route
