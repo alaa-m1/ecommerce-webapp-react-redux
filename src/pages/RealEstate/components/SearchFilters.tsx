@@ -1,103 +1,199 @@
-import React from 'react';
-import { FilterOptions } from '../types';
+import React, { useState, useCallback } from "react";
+import {
+  Box,
+  Paper,
+  Typography,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Button,
+  Grid,
+  InputAdornment,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import HomeIcon from "@mui/icons-material/Home";
+import BedIcon from "@mui/icons-material/Bed";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { FilterOptions } from "../types";
 
-interface SearchFiltersProps {
+type SearchFiltersProps = {
   onFilterChange: (filters: FilterOptions) => void;
-}
-
-const SearchFilters = ({ onFilterChange }: SearchFiltersProps) => {
-  const [filters, setFilters] = React.useState<FilterOptions>({
-    priceRange: '',
-    propertyType: '',
-    bedrooms: '',
-    location: '',
-  });
-
-  const handleFilterChange = (
-    key: keyof FilterOptions,
-    value: string
-  ) => {
-    const newFilters = { ...filters, [key]: value };
-    setFilters(newFilters);
-    onFilterChange(newFilters);
-  };
-
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-      <h2 className="text-xl font-semibold mb-4">Search Filters</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Price Range
-          </label>
-          <select
-            className="w-full p-2 border rounded-md"
-            value={filters.priceRange}
-            onChange={(e) => handleFilterChange('priceRange', e.target.value)}
-          >
-            <option value="">Any Price</option>
-            <option value="0-200000">$0 - $200,000</option>
-            <option value="200000-400000">$200,000 - $400,000</option>
-            <option value="400000-600000">$400,000 - $600,000</option>
-            <option value="600000+">$600,000+</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Property Type
-          </label>
-          <select
-            className="w-full p-2 border rounded-md"
-            value={filters.propertyType}
-            onChange={(e) => handleFilterChange('propertyType', e.target.value)}
-          >
-            <option value="">All Types</option>
-            <option value="house">House</option>
-            <option value="apartment">Apartment</option>
-            <option value="condo">Condo</option>
-            <option value="townhouse">Townhouse</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Bedrooms
-          </label>
-          <select
-            className="w-full p-2 border rounded-md"
-            value={filters.bedrooms}
-            onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
-          >
-            <option value="">Any</option>
-            <option value="1">1+</option>
-            <option value="2">2+</option>
-            <option value="3">3+</option>
-            <option value="4">4+</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Location
-          </label>
-          <input
-            type="text"
-            placeholder="Enter location"
-            className="w-full p-2 border rounded-md"
-            value={filters.location}
-            onChange={(e) => handleFilterChange('location', e.target.value)}
-          />
-        </div>
-      </div>
-      
-      <div className="mt-4 flex justify-end">
-        <button className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
-          Search
-        </button>
-      </div>
-    </div>
-  );
+  onSearch: (filters: FilterOptions) => void;
+  isLoading?: boolean;
 };
 
-export default SearchFilters; 
+export const SearchFilters = ({ onFilterChange, onSearch, isLoading = false }: SearchFiltersProps) => {
+  const [filters, setFilters] = useState<FilterOptions>({
+    location: "",
+    propertyType: "",
+    bedrooms: "",
+    minPrice: "",
+    maxPrice: "",
+  });
+
+  const handleFilterChange = useCallback(
+    (key: keyof FilterOptions, value: string) => {
+      const newFilters = { ...filters, [key]: value };
+      setFilters(newFilters);
+      onFilterChange(newFilters);
+    },
+    [filters, onFilterChange]
+  );
+
+  const handleSearch = useCallback(() => {
+    onSearch(filters);
+  }, [filters, onSearch]);
+
+  const handleKeyPress = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter") {
+        handleSearch();
+      }
+    },
+    [handleSearch]
+  );
+
+  return (
+    <Paper
+      elevation={3}
+      sx={{
+        p: 3,
+        mb: 4,
+        borderRadius: 2,
+        backgroundColor: "background.paper",
+      }}
+    >
+      <Typography
+        variant="h6"
+        color="primary.light"
+        sx={{ mb: 3, fontWeight: 600 }}
+      >
+        Search Properties
+      </Typography>
+
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} lg={3}>
+          <TextField
+            fullWidth
+            label="Location"
+            placeholder="Enter city or area"
+            value={filters.location}
+            onChange={(e) => handleFilterChange("location", e.target.value)}
+            onKeyPress={handleKeyPress}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LocationOnIcon color="action" />
+                </InputAdornment>
+              ),
+            }}
+            size="small"
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3} lg={2}>
+          <FormControl fullWidth size="small">
+            <InputLabel>Property Type</InputLabel>
+            <Select
+              value={filters.propertyType}
+              label="Property Type"
+              onChange={(e) => handleFilterChange("propertyType", e.target.value)}
+              startAdornment={
+                <InputAdornment position="start">
+                  <HomeIcon color="action" sx={{ ml: 1 }} />
+                </InputAdornment>
+              }
+            >
+              <MenuItem value="">All Types</MenuItem>
+              <MenuItem value="sale">For Sale</MenuItem>
+              <MenuItem value="rent">For Rent</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3} lg={2}>
+          <FormControl fullWidth size="small">
+            <InputLabel>Bedrooms</InputLabel>
+            <Select
+              value={filters.bedrooms}
+              label="Bedrooms"
+              onChange={(e) => handleFilterChange("bedrooms", e.target.value)}
+              startAdornment={
+                <InputAdornment position="start">
+                  <BedIcon color="action" sx={{ ml: 1 }} />
+                </InputAdornment>
+              }
+            >
+              <MenuItem value="">Any</MenuItem>
+              <MenuItem value="1">1+</MenuItem>
+              <MenuItem value="2">2+</MenuItem>
+              <MenuItem value="3">3+</MenuItem>
+              <MenuItem value="4">4+</MenuItem>
+              <MenuItem value="5">5+</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6} sm={6} md={3} lg={2}>
+          <TextField
+            fullWidth
+            label="Min Price"
+            placeholder="Min"
+            type="number"
+            value={filters.minPrice}
+            onChange={(e) => handleFilterChange("minPrice", e.target.value)}
+            onKeyPress={handleKeyPress}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AttachMoneyIcon color="action" />
+                </InputAdornment>
+              ),
+            }}
+            size="small"
+          />
+        </Grid>
+
+        <Grid item xs={6} sm={6} md={3} lg={2}>
+          <TextField
+            fullWidth
+            label="Max Price"
+            placeholder="Max"
+            type="number"
+            value={filters.maxPrice}
+            onChange={(e) => handleFilterChange("maxPrice", e.target.value)}
+            onKeyPress={handleKeyPress}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AttachMoneyIcon color="action" />
+                </InputAdornment>
+              ),
+            }}
+            size="small"
+          />
+        </Grid>
+
+        <Grid item xs={12} lg={1} sx={{ display: "flex", alignItems: "center" }}>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={handleSearch}
+            disabled={isLoading}
+            startIcon={<SearchIcon />}
+            sx={{
+              py: 1,
+              fontWeight: 600,
+              textTransform: "none",
+            }}
+          >
+            Search
+          </Button>
+        </Grid>
+      </Grid>
+    </Paper>
+  );
+};

@@ -1,93 +1,117 @@
-import React from 'react';
-import { LoadingSpinner } from 'shared';
-import { PropertyList, SearchFilters, FeaturedProperties } from './components';
-import { Property, FilterOptions } from './types';
+import React, { useState, useCallback, useMemo } from "react";
+import { Box, Container, Typography, Alert, AlertTitle } from "@mui/material";
+import { FullScreenSpinner } from "shared";
+import { PropertyList, SearchFilters, FeaturedProperties } from "./components";
+import { FilterOptions } from "./types";
+import { useRealEstateSearch, useFeaturedProperties } from "./hooks";
 
 const RealEstatePage = () => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [properties, setProperties] = React.useState<Property[]>([
-    {
-      id: '1',
-      title: 'Modern Downtown Apartment',
-      price: 450000,
-      location: 'Downtown',
-      bedrooms: 2,
-      bathrooms: 2,
-      area: 1200,
-      imageUrl: 'https://via.placeholder.com/300x200',
-    },
-    {
-      id: '2',
-      title: 'Luxury Waterfront Villa',
-      price: 1200000,
-      location: 'Waterfront',
-      bedrooms: 5,
-      bathrooms: 4,
-      area: 4500,
-      imageUrl: 'https://via.placeholder.com/600x400',
-      description: 'Stunning waterfront property with panoramic views and private dock.',
-      features: ['5 Bedrooms', '4 Bathrooms', 'Private Pool', 'Smart Home System'],
-      isFeatured: true,
-    },
-    {
-      id: '3',
-      title: 'Modern City Penthouse',
-      price: 850000,
-      location: 'City Center',
-      bedrooms: 3,
-      bathrooms: 3.5,
-      area: 2800,
-      imageUrl: 'https://via.placeholder.com/600x400',
-      description: 'Spectacular penthouse in the heart of the city with 360-degree views.',
-      features: ['3 Bedrooms', '3.5 Bathrooms', 'Rooftop Terrace', 'Concierge Service'],
-      isFeatured: true,
-    },
-  ]);
+  const [searchFilters, setSearchFilters] = useState<FilterOptions>({
+    location: "",
+    propertyType: "",
+    bedrooms: "",
+    minPrice: "",
+    maxPrice: "",
+  });
+  const [hasSearched, setHasSearched] = useState(false);
 
-  const handleFilterChange = (filters: FilterOptions) => {
-    setIsLoading(true);
-    // Here you would typically make an API call with the filters
-    // For now, we'll just simulate a loading state
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  };
+  const { data: featuredProperties = [], isLoading: featuredLoading } = useFeaturedProperties();
+  const { 
+    data: searchResults = [], 
+    isLoading: searchLoading,
+    refetch: refetchSearch,
+  } = useRealEstateSearch(searchFilters, hasSearched);
 
-  const handleViewDetails = (id: string) => {
-    // Here you would typically navigate to the property details page
+  const isLoading = featuredLoading || searchLoading;
+
+  const handleFilterChange = useCallback((filters: FilterOptions) => {
+    setSearchFilters(filters);
+  }, []);
+
+  const handleSearch = useCallback((filters: FilterOptions) => {
+    setSearchFilters(filters);
+    setHasSearched(true);
+  }, []);
+
+  const handleViewDetails = useCallback((id: string) => {
     console.log(`Viewing details for property ${id}`);
-  };
+    window.open(`https://www.google.com/search?q=property+${id}`, "_blank");
+  }, []);
 
-  const featuredProperties = properties.filter((property) => property.isFeatured);
-  const regularProperties = properties.filter((property) => !property.isFeatured);
+  const displayProperties = useMemo(() => {
+    if (hasSearched && searchResults.length > 0) {
+      return searchResults;
+    }
+    return featuredProperties;
+  }, [hasSearched, searchResults, featuredProperties]);
+
+  const regularProperties = useMemo(() => {
+    return displayProperties.filter((property) => !property.isFeatured);
+  }, [displayProperties]);
+
+  const featuredOnly = useMemo(() => {
+    return displayProperties.filter((property) => property.isFeatured);
+  }, [displayProperties]);
 
   return (
-    <div className="min-h-screen p-4">
-      {isLoading && <LoadingSpinner />}
+    <Box sx={{ minHeight: "100vh", py: 4, position: "relative" }}>
+      {isLoading && <FullScreenSpinner />}
       
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Real Estate Listings</h1>
+      <Container maxWidth="xl">
+        <Typography
+          variant="h4"
+          color="primary.light"
+          sx={{ fontWeight: 700, mb: 4 }}
+        >
+          Real Estate Listings
+        </Typography>
+
+        <Alert severity="info" sx={{ mb: 3 }}>
+          <AlertTitle>Demo Mode</AlertTitle>
+          This page displays demo property data. To use real API data, add your RapidAPI key 
+          as <code>REACT_APP_RAPIDAPI_KEY</code> in your environment variables.
+        </Alert>
         
-        <SearchFilters onFilterChange={handleFilterChange} />
+        <SearchFilters 
+          onFilterChange={handleFilterChange} 
+          onSearch={handleSearch}
+          isLoading={isLoading}
+        />
         
-        <div className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Featured Properties</h2>
-          <FeaturedProperties
-            properties={featuredProperties}
-            onViewDetails={handleViewDetails}
-          />
-        </div>
+        {featuredOnly.length > 0 && (
+          <Box sx={{ mb: 6 }}>
+            <Typography
+              variant="h5"
+              color="primary.light"
+              sx={{ fontWeight: 600, mb: 3 }}
+            >
+              Featured Properties
+            </Typography>
+            <FeaturedProperties
+              properties={featuredOnly}
+              onViewDetails={handleViewDetails}
+              isLoading={isLoading}
+            />
+          </Box>
+        )}
         
-        <div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">All Properties</h2>
+        <Box>
+          <Typography
+            variant="h5"
+            color="primary.light"
+            sx={{ fontWeight: 600, mb: 3 }}
+          >
+            {hasSearched ? "Search Results" : "All Properties"}
+          </Typography>
           <PropertyList
-            properties={regularProperties}
+            properties={regularProperties.length > 0 ? regularProperties : displayProperties}
             onViewDetails={handleViewDetails}
+            isLoading={isLoading}
           />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
-export default RealEstatePage; 
+export default RealEstatePage;

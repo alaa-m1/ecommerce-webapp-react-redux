@@ -1,7 +1,13 @@
-import React from 'react';
-import { PropertyCardProps } from '../types';
+import React, { memo, useCallback, useState } from "react";
+import { Box, Button, Typography, Chip, Skeleton } from "@mui/material";
+import { motion } from "framer-motion";
+import BedIcon from "@mui/icons-material/Bed";
+import BathtubIcon from "@mui/icons-material/Bathtub";
+import SquareFootIcon from "@mui/icons-material/SquareFoot";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { PropertyCardProps } from "../types";
 
-const PropertyCard = ({
+export const PropertyCard = memo(({
   property,
   isFeatured = false,
   onViewDetails,
@@ -15,83 +21,194 @@ const PropertyCard = ({
     bathrooms,
     area,
     imageUrl,
-    description,
-    features,
+    propertyType,
   } = property;
 
-  return (
-    <div
-      className={`bg-white rounded-${
-        isFeatured ? 'xl' : 'lg'
-      } shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300`}
+  const handleViewDetails = useCallback(() => {
+    onViewDetails(id);
+  }, [id, onViewDetails]);
+
+  const CardContent = (
+    <Box
+      className="property-card"
+      sx={{
+        color: 'secondary.dark',
+        backgroundColor: 'background.paper',
+        borderRadius: isFeatured ? 3 : 2,
+        overflow: 'hidden',
+        boxShadow: 3,
+        transition: 'all 0.3s ease',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        '&:hover': {
+          boxShadow: 6,
+          transform: 'translateY(-4px)',
+        },
+      }}
     >
-      <div className="relative">
-        <img
-          src={imageUrl}
-          alt={title}
-          className={`w-full ${isFeatured ? 'h-64' : 'h-48'} object-cover`}
+      <Box className="property-card-image" sx={{ position: 'relative', height: isFeatured ? 220 : 180 }}>
+        <CardImage
+          imagePath={imageUrl}
+          altInfo={title}
         />
         {isFeatured && (
-          <div className="absolute top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-full">
-            Featured
-          </div>
+          <Chip
+            label="Featured"
+            color="primary"
+            size="small"
+            sx={{
+              position: 'absolute',
+              top: 12,
+              right: 12,
+              fontWeight: 'bold',
+            }}
+          />
         )}
-      </div>
-
-      <div className="p-6">
-        <h3 className={`${isFeatured ? 'text-2xl' : 'text-xl'} font-bold text-gray-900`}>
-          {title}
-        </h3>
-        <p className={`${isFeatured ? 'text-3xl' : 'text-2xl'} font-bold text-blue-600 mt-2`}>
-          ${price.toLocaleString()}
-        </p>
-        <p className="text-gray-600 mt-2">{location}</p>
-
-        {description && (
-          <p className="text-gray-600 mt-3">{description}</p>
+        {propertyType && (
+          <Chip
+            label={propertyType}
+            variant="outlined"
+            size="small"
+            sx={{
+              position: 'absolute',
+              top: 12,
+              left: 12,
+              backgroundColor: 'rgba(255,255,255,0.9)',
+              fontWeight: 500,
+            }}
+          />
         )}
+      </Box>
 
-        {features ? (
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="flex items-center text-gray-600"
-              >
-                <svg
-                  className="w-5 h-5 text-blue-600 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                {feature}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="flex justify-between mt-4 text-gray-600">
-            <span>{bedrooms} beds</span>
-            <span>{bathrooms} baths</span>
-            <span>{area} sq ft</span>
-          </div>
-        )}
-
-        <button
-          onClick={() => onViewDetails(id)}
-          className="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
+      <Box sx={{ p: 2.5, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+        <Typography
+          variant={isFeatured ? 'h6' : 'subtitle1'}
+          color="primary.light"
+          sx={{
+            fontWeight: 600,
+            mb: 1,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            minHeight: isFeatured ? '64px' : '48px',
+          }}
         >
-          View Details
-        </button>
-      </div>
-    </div>
+          {title}
+        </Typography>
+
+        <Typography
+          variant={isFeatured ? 'h5' : 'h6'}
+          color="primary.main"
+          sx={{ fontWeight: 700, mb: 1 }}
+        >
+          ${price.toLocaleString()}
+        </Typography>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 0.5 }}>
+          <LocationOnIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {location}
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            py: 1.5,
+            px: 1,
+            backgroundColor: 'action.hover',
+            borderRadius: 1,
+            mb: 2,
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <BedIcon sx={{ fontSize: 20, color: 'primary.main' }} />
+            <Typography variant="body2" fontWeight={500}>
+              {bedrooms}
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <BathtubIcon sx={{ fontSize: 20, color: 'primary.main' }} />
+            <Typography variant="body2" fontWeight={500}>
+              {bathrooms}
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <SquareFootIcon sx={{ fontSize: 20, color: 'primary.main' }} />
+            <Typography variant="body2" fontWeight={500}>
+              {area} ft²
+            </Typography>
+          </Box>
+        </Box>
+
+        <Box sx={{ mt: 'auto' }}>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={handleViewDetails}
+            sx={{
+              py: 1.2,
+              fontWeight: 600,
+              textTransform: 'none',
+              fontSize: '0.95rem',
+            }}
+          >
+            View Details
+          </Button>
+        </Box>
+      </Box>
+    </Box>
+  );
+
+  return (
+    <motion.div
+      className="box"
+      initial={{ opacity: 0.5, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.4 }}
+      style={{ height: '100%' }}
+    >
+      {CardContent}
+    </motion.div>
+  );
+});
+
+PropertyCard.displayName = "PropertyCard";
+
+const CardImage = ({ imagePath, altInfo }: CardImageProps) => {
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <img
+      src={hasError ? "https://via.placeholder.com/400x300?text=No+Image" : imagePath}
+      alt={altInfo}
+      loading="lazy"
+      onError={() => setHasError(true)}
+      style={{
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+      }}
+    />
   );
 };
 
-export default PropertyCard; 
+type CardImageProps = {
+  imagePath: string;
+  altInfo: string;
+};
+
+export default PropertyCard;
