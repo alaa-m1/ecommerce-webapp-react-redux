@@ -1,24 +1,38 @@
-import React from 'react';
-import { Property } from '../types';
-import PropertyCard from './PropertyCard';
+import React from "react";
+import { Box, Grid } from "@mui/material";
+import { Property } from "../types";
+import { PropertyCard } from "./PropertyCard";
+import { NoItemsFound } from "shared/components/NoItemsFound";
 
-interface PropertyListProps {
-  properties: Property[];
-  onViewDetails: (id: string) => void;
-}
+export const PropertyList = ({
+  properties,
+  onViewDetails,
+  isLoading = false,
+}: PropertyListProps) => {
+  if (properties.length === 0 && !isLoading) {
+    return (
+      <Box sx={{ py: 4 }}>
+        <NoItemsFound />
+      </Box>
+    );
+  }
 
-const PropertyList = ({ properties, onViewDetails }: PropertyListProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <Grid container spacing={3}>
       {properties.map((property) => (
-        <PropertyCard
-          key={property.id}
-          property={property}
-          onViewDetails={onViewDetails}
-        />
+        <Grid item xs={12} sm={6} md={4} lg={3} key={property.id}>
+          <PropertyCard
+            property={property}
+            onViewDetails={onViewDetails}
+          />
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 };
 
-export default PropertyList; 
+type PropertyListProps = {
+  properties: Array<Property>;
+  onViewDetails: (id: string) => void;
+  isLoading?: boolean;
+};

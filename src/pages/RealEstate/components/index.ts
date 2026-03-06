@@ -1,4 +1,4 @@
-export { default as PropertyList } from './PropertyList';
-export { default as SearchFilters } from './SearchFilters';
-export { default as FeaturedProperties } from './FeaturedProperties';
-export { default as PropertyCard } from './PropertyCard'; 
+export { PropertyList } from "./PropertyList";
+export { SearchFilters } from "./SearchFilters";
+export { FeaturedProperties } from "./FeaturedProperties";
+export { PropertyCard } from "./PropertyCard";
