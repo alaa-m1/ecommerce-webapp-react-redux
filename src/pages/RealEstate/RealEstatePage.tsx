@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { Box, Container, Typography, Alert, AlertTitle } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { FullScreenSpinner } from "shared";
 import { PropertyList, SearchFilters, FeaturedProperties } from "./components";
 import { FilterOptions } from "./types";
@@ -66,12 +66,6 @@ const RealEstatePage = () => {
           Real Estate Listings
         </Typography>
 
-        <Alert severity="info" sx={{ mb: 3 }}>
-          <AlertTitle>Demo Mode</AlertTitle>
-          This page displays demo property data. To use real API data, add your RapidAPI key 
-          as <code>REACT_APP_RAPIDAPI_KEY</code> in your environment variables.
-        </Alert>
-        
         <SearchFilters 
           onFilterChange={handleFilterChange} 
           onSearch={handleSearch}
