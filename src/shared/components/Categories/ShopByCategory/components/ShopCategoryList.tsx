@@ -18,7 +18,7 @@ export const ShopCategoryList = ({
   return (
     <Box className="shop-category-section" sx={{ color: "secondary.dark" }}>
       <Box className="shop-category-section-title">
-        <Typography color="primary.light">
+        <Typography color="primary.light" fontWeight="bold">
           {`${categoryLabel} ${
             subCategories.length > 0 ? `(${subCategories.length})` : ""
           }`}
