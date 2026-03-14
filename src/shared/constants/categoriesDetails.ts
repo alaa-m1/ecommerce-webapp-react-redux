@@ -29,4 +29,11 @@ export const categoriesRes: CategoriesResponse = [
     { id: 123, categoryLabel: "shoes", categoryDetails: { title: "Whaing shoes", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ornare turpis non tortor aliquam,", imagePath: "1.jpeg", price: 300 } },
     { id: 124, categoryLabel: "shoes", categoryDetails: { title: "Classic shoes", description: "Lorem ipsum dolor sit amet. Nullam ornare turpis non tortor aliquam,", imagePath: "2.jpeg", price: 150 } },
     { id: 125, categoryLabel: "shoes", categoryDetails: { title: "shoes modern design", description: "Lorem ipsum dolor sit amet non tortor aliquam,", imagePath: "3.jpeg", price: 500 } },
-    { id: 126, categoryLabel: "shoes", categoryDetails: { title: "Sport shoes modern design", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit tortor aliquam,", imagePath: "4.jpeg", price: 600 } }]
+    { id: 126, categoryLabel: "shoes", categoryDetails: { title: "Sport shoes modern design", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit tortor aliquam,", imagePath: "4.jpeg", price: 600 } },
+
+    { id: 127, categoryLabel: "jeans", categoryDetails: { title: "Classic blue jeans", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ornare turpis non tortor aliquam,", imagePath: "1.jpeg", price: 450 } },
+    { id: 128, categoryLabel: "jeans", categoryDetails: { title: "Slim fit jeans", description: "Lorem ipsum dolor sit amet. Nullam ornare turpis non tortor aliquam,", imagePath: "2.jpeg", price: 380 } },
+    { id: 129, categoryLabel: "jeans", categoryDetails: { title: "Ripped jeans", description: "Lorem ipsum dolor sit amet non tortor aliquam,", imagePath: "3.jpeg", price: 520 } },
+    { id: 130, categoryLabel: "jeans", categoryDetails: { title: "Black skinny jeans", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit tortor aliquam,", imagePath: "4.jpeg", price: 490 } },
+    { id: 131, categoryLabel: "jeans", categoryDetails: { title: "Vintage jeans", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit tortor aliquam,", imagePath: "5.jpeg", price: 550 } },
+]
