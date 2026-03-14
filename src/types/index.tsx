@@ -24,7 +24,7 @@ export type UserSignUpForm = {
 export type CategoriesResponse = Array<CategoryResponse>;
 export type CategoryResponse = {
   id: number;
-  categoryLabel: "accessories" | "dresses" | "hats" | "jackets" | "shoes";
+  categoryLabel: "accessories" | "dresses" | "hats" | "jackets" | "shoes" | "jeans";
   categoryDetails: {
     title: string;
     price: number;
