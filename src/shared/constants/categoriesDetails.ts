@@ -36,4 +36,8 @@ export const categoriesRes: CategoriesResponse = [
     { id: 129, categoryLabel: "jeans", categoryDetails: { title: "Ripped jeans", description: "Lorem ipsum dolor sit amet non tortor aliquam,", imagePath: "3.jpeg", price: 520 } },
     { id: 130, categoryLabel: "jeans", categoryDetails: { title: "Black skinny jeans", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit tortor aliquam,", imagePath: "4.jpeg", price: 490 } },
     { id: 131, categoryLabel: "jeans", categoryDetails: { title: "Vintage jeans", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit tortor aliquam,", imagePath: "5.jpeg", price: 550 } },
-]
+
+    { id: 132, categoryLabel: "shorts", categoryDetails: { title: "Summer shorts", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ornare turpis non tortor aliquam,", imagePath: "1.jpeg", price: 250 } },
+    { id: 133, categoryLabel: "shorts", categoryDetails: { title: "Denim shorts", description: "Lorem ipsum dolor sit amet. Nullam ornare turpis non tortor aliquam,", imagePath: "2.jpeg", price: 280 } },
+    { id: 134, categoryLabel: "shorts", categoryDetails: { title: "Sport shorts", description: "Lorem ipsum dolor sit amet non tortor aliquam,", imagePath: "3.jpeg", price: 220 } },
+    { id: 135, categoryLabel: "shorts", categoryDetails: { title: "Cargo shorts", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit tortor aliquam,", imagePath: "4.jpeg", price: 320 } }]
