@@ -21,6 +21,7 @@ const ModernCollectionPage = lazy(
 const AboutPage = lazy(() => import("pages/About/AboutPage"));
 const CheckoutPage = lazy(() => import("pages/Checkout/CheckoutPage"));
 const RealEstatePage = lazy(() => import("pages/RealEstate/RealEstatePage"));
+const AiChatPage = lazy(() => import("pages/AiChat/AiChatPage"));
 
 const AppRoutes = () => {
   return (
@@ -81,6 +82,14 @@ const AppRoutes = () => {
           element={
             <SuspensedPageView>
               <AboutPage />
+            </SuspensedPageView>
+          }
+        />
+        <Route
+          path="ai-chat"
+          element={
+            <SuspensedPageView>
+              <AiChatPage />
             </SuspensedPageView>
           }
         />
