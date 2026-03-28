@@ -5,6 +5,7 @@
   "real_estate": "Real Estate",
   "dashboard": "Dashboard",
   "about": "About me",
+  "ai_chat": "AI Chat",
   "about_information": "<Strong>Hi, I'm Alaa Mohammad, I'm a senior frontend developer</Strong>.<br/>I have worked in frontend development fields over the last six years 💻. <br/>Before that I worked for over seven years as a software developer 🖥️.</br><Strong>My principles:</Strong> Work hard 👨‍💻, be kind, exercise regularly and enjoy live with my family 👨‍👩‍👧‍👦.<br/>I am self-motivated. I enjoy new challenges, collaborating with other developers and developing good software.",
   "contact_me": "Contact me",
   "languages": {
@@ -74,6 +75,26 @@
     "cookies_consent_msg":"This website uses cookies to improve your experience. Do you accept to keep cookies?"
   },
   "ai_chat_page": {
-    "title": "AI Chat"
+    "title": "AI Chat",
+    "subtitle": "Ask anything and get instant answers.",
+    "placeholder": "Type a message...",
+    "send": "Send",
+    "stop": "Stop",
+    "clear_chat": "Clear chat",
+    "new_chat": "New chat",
+    "select_model": "Select model",
+    "chat_history": "Chat history",
+    "no_history": "No conversations yet",
+    "delete_chat": "Delete chat",
+    "delete_all": "Delete all",
+    "confirm_delete": "Are you sure you want to delete?",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "error_message": "Something went wrong. Please try again.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "retry": "Retry",
+    "welcome_message": "Welcome!",
+    "welcome_subtitle": "Start by sending your first message."
   }
 }
