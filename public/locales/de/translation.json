@@ -5,6 +5,7 @@
   "real_estate": "Immobilien",
   "Dashboard": "Armaturenbrett",
   "about": "über mich",
+  "ai_chat": "KI-Chat",
   "about_information": "<Strong>Hallo, ich bin Alaa Mohammad, ich bin ein leitender Frontend-Entwickler</Strong>.<br/>Ich habe in den letzten sechs Jahren in den Bereichen Frontend-Entwicklung gearbeitet💻. <br/>Davor habe ich für gearbeitet über sieben Jahre als Softwareentwickler 🖥️.</br><Strong>Meine Prinzipien:</Strong> Hart arbeiten 👨‍💻, freundlich sein, regelmäßig Sport treiben und das Leben mit meiner Familie genießen 👨‍👩‍👧‍👦.<br />Ich bin selbstmotiviert. Ich genieße neue Herausforderungen, die Zusammenarbeit mit anderen Entwicklern und die Entwicklung guter Software.",
   "contact_me": "Kontaktiere mich",
   "languages": {
@@ -74,6 +75,26 @@
     "cookies_consent_msg":"Diese Website verwendet Cookies, um Ihre Erfahrung zu verbessern. Sind Sie damit einverstanden, dass Cookies verwendet werden?"
   },
   "ai_chat_page": {
-    "title": "KI-Chat"
+    "title": "KI-Chat",
+    "subtitle": "Stelle Fragen und erhalte sofort Antworten.",
+    "placeholder": "Nachricht eingeben...",
+    "send": "Senden",
+    "stop": "Stopp",
+    "clear_chat": "Chat leeren",
+    "new_chat": "Neuer Chat",
+    "select_model": "Modell auswählen",
+    "chat_history": "Chatverlauf",
+    "no_history": "Noch keine Unterhaltungen",
+    "delete_chat": "Chat löschen",
+    "delete_all": "Alle löschen",
+    "confirm_delete": "Möchtest du wirklich löschen?",
+    "cancel": "Abbrechen",
+    "loading": "Wird geladen...",
+    "error_message": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "retry": "Erneut versuchen",
+    "welcome_message": "Willkommen!",
+    "welcome_subtitle": "Beginne, indem du deine erste Nachricht sendest."
   }
 }

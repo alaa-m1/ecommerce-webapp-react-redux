@@ -6,6 +6,7 @@ import TravelxEploreIcon from "@mui/icons-material/TravelExplore";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import InfoIcon from "@mui/icons-material/Info";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
 
 import BadgeIcon from "@mui/icons-material/Badge";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
@@ -36,6 +37,7 @@ export const linksDetails: Array<LinkInfo> = [
     icon: <SpaceDashboardIcon />,
     protected: true,
   },
+  { label: "ai_chat", path: "/ai-chat", protected: false, icon: <SmartToyIcon /> },
   { label: "about", path: "/about", icon: <InfoIcon />, protected: false },
 ];
 

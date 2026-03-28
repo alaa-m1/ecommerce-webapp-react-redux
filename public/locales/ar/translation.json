@@ -5,6 +5,7 @@
   "real_estate": "العقارات",
   "dashboard": "لوحة التحكم",
   "about": "حول المنتج",
+  "ai_chat": "محادثة الذكاء الاصطناعي",
   "about_information": "<Strong>Hi, I'm Alaa Mohammad, I'm a senior frontend developer</Strong>.<br/>I have worked in frontend development fields over the last six years 💻. <br/>Before that I worked for over seven years as a software developer 🖥️.</br><Strong>My principles:</Strong> Work hard 👨‍💻, be kind, exercise regularly and enjoy live with my family 👨‍👩‍👧‍👦.<br/>I am self-motivated. I enjoy new challenges, collaborating with other developers and developing good software.",
   "contact_me": "تواصل معي",
   "languages": {
@@ -74,6 +75,26 @@
     "cookies_consent_msg":"يستخدم هذا الموقع ملفات تعريف الارتباط لتحسين تجربتك. هل توافق على الاحتفاظ بملفات تعريف الارتباط Cookies؟"
   },
   "ai_chat_page": {
-    "title": "محادثة الذكاء الاصطناعي"
+    "title": "محادثة الذكاء الاصطناعي",
+    "subtitle": "اسأل أي شيء واحصل على إجابات فورية.",
+    "placeholder": "اكتب رسالة...",
+    "send": "إرسال",
+    "stop": "إيقاف",
+    "clear_chat": "مسح المحادثة",
+    "new_chat": "محادثة جديدة",
+    "select_model": "اختر النموذج",
+    "chat_history": "سجل المحادثات",
+    "no_history": "لا توجد محادثات بعد",
+    "delete_chat": "حذف المحادثة",
+    "delete_all": "حذف الكل",
+    "confirm_delete": "هل أنت متأكد أنك تريد الحذف؟",
+    "cancel": "إلغاء",
+    "loading": "جارٍ التحميل...",
+    "error_message": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "retry": "إعادة المحاولة",
+    "welcome_message": "مرحباً!",
+    "welcome_subtitle": "ابدأ بإرسال رسالتك الأولى."
   }
 }
