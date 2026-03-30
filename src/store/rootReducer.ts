@@ -4,11 +4,13 @@ import { localProductsReducer } from "./localProducts/localProductsReducer";
 import { shoppingCartReducer } from "./shoppingCart/shoppingCartReducer";
 import { productsReducer } from "./products/productsReducer";
 import { shoppingStateReducer } from "./shoppingState/shoppingStateReducer";
+import { aiChatReducer } from "./aiChat/aiChatSlice";
 
 export const rootReducer = combineReducers({
     user: userReducer,
     categories: localProductsReducer,
     shoppingCart: shoppingCartReducer,
     products: productsReducer,
-    shoppingState: shoppingStateReducer
+    shoppingState: shoppingStateReducer,
+    aiChat: aiChatReducer
 })
