@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DEFAULT_SELECTED_MODEL } from "pages/AiChat/constants";
 import { ChatConversation, ChatMessage, ChatState } from "pages/AiChat/types";
+import { initializeChatFromStorage } from "./aiChatThunks";
 
 const initialState: ChatState = {
   conversations: [],
@@ -103,6 +104,14 @@ const aiChatSlice = createSlice({
     setSelectedModel: (state, action: PayloadAction<SetSelectedModelPayload>) => {
       state.selectedModel = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(initializeChatFromStorage.fulfilled, (state, action) => {
+      state.conversations = action.payload;
+      if (action.payload.length > 0 && !state.activeConversationId) {
+        state.activeConversationId = action.payload[0].id;
+      }
+    });
   },
 });
 
