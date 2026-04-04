@@ -14,6 +14,7 @@ import logger from "redux-logger";
 
 import { rootReducer } from "./rootReducer";
 import thunkMiddleware from "redux-thunk";
+import { aiChatMiddleware } from "./aiChat/aiChatMiddleware";
 
 const persistConfig = {
   key: "root",
@@ -43,7 +44,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(aiChatMiddleware),
 });
 export const persistor = persistStore(store);
 export default store;
