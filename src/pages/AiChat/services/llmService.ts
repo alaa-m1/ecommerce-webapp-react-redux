@@ -238,3 +238,201 @@ export const hasApiKey = (providerId: string): boolean => {
   const key = localStorage.getItem(storageKey);
   return key !== null && key.trim() !== "";
 };
+
+const supportsStreaming = (provider: LLMProvider): boolean => {
+  return ["openrouter", "groq", "cohere"].includes(provider.id);
+};
+
+const parseStreamChunk = (
+  provider: LLMProvider,
+  chunk: string
+): string | null => {
+  try {
+    if (chunk.startsWith("data: ")) {
+      const jsonStr = chunk.slice(6).trim();
+      
+      if (jsonStr === "[DONE]") {
+        return null;
+      }
+
+      const data = JSON.parse(jsonStr);
+
+      switch (provider.id) {
+        case "openrouter":
+        case "groq": {
+          if (
+            data.choices &&
+            data.choices.length > 0 &&
+            data.choices[0].delta?.content
+          ) {
+            return data.choices[0].delta.content;
+          }
+          return null;
+        }
+
+        case "cohere": {
+          if (data.text) {
+            return data.text;
+          }
+          if (data.event_type === "text-generation") {
+            return data.text || "";
+          }
+          return null;
+        }
+
+        default:
+          return null;
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error("Error parsing stream chunk:", error);
+    return null;
+  }
+};
+
+export const sendMessageStream = async (
+  provider: LLMProvider,
+  messages: ChatMessage[],
+  onChunk: (text: string) => void,
+  abortSignal?: AbortSignal
+): Promise<void> => {
+  if (!supportsStreaming(provider)) {
+    const response = await sendMessage(provider, messages);
+    onChunk(response);
+    return;
+  }
+
+  try {
+    const requestData = formatMessagesForProvider(provider, messages);
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+      Accept: "text/event-stream",
+    };
+
+    if (provider.requiresKey) {
+      const apiKey = getApiKey(provider);
+      if (!apiKey) {
+        throw new Error(
+          `API key required for ${provider.name}. Please set your API key in settings.`
+        );
+      }
+
+      switch (provider.id) {
+        case "openrouter":
+          headers["Authorization"] = `Bearer ${apiKey}`;
+          headers["HTTP-Referer"] = window.location.origin;
+          headers["X-Title"] = "E-commerce AI Chat";
+          break;
+        case "groq":
+          headers["Authorization"] = `Bearer ${apiKey}`;
+          break;
+        case "cohere":
+          headers["Authorization"] = `Bearer ${apiKey}`;
+          break;
+      }
+    }
+
+    let url = provider.apiUrl;
+    if (provider.id === "huggingface") {
+      url = `${provider.apiUrl}/${provider.modelName}`;
+    }
+
+    const requestBody =
+      typeof requestData === "string"
+        ? { inputs: requestData }
+        : { ...requestData, stream: true };
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(requestBody),
+      signal: abortSignal,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      const status = response.status;
+
+      if (status === 401 || status === 403) {
+        throw new Error(
+          `Authentication failed for ${provider.name}. Please check your API key.`
+        );
+      }
+
+      if (status === 429) {
+        throw new Error(
+          `Rate limit exceeded for ${provider.name}. Please try again later.`
+        );
+      }
+
+      if (status === 503) {
+        throw new Error(
+          `${provider.name} service is currently unavailable. Please try again later.`
+        );
+      }
+
+      const errorMessage =
+        (errorData as any)?.error?.message ||
+        (errorData as any)?.message ||
+        (errorData as any)?.error ||
+        "Unknown error";
+      throw new Error(`${provider.name} error: ${errorMessage}`);
+    }
+
+    const reader = response.body?.getReader();
+    if (!reader) {
+      throw new Error("Response body is not readable");
+    }
+
+    const decoder = new TextDecoder();
+    let buffer = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) {
+        break;
+      }
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split("\n");
+      buffer = lines.pop() || "";
+
+      for (const line of lines) {
+        const trimmedLine = line.trim();
+        if (trimmedLine === "" || trimmedLine === "data: [DONE]") {
+          continue;
+        }
+
+        const content = parseStreamChunk(provider, trimmedLine);
+        if (content) {
+          onChunk(content);
+        }
+      }
+    }
+
+    if (buffer.trim()) {
+      const content = parseStreamChunk(provider, buffer.trim());
+      if (content) {
+        onChunk(content);
+      }
+    }
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error("Request was cancelled");
+    }
+
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      throw new Error(
+        `Network error: Unable to reach ${provider.name}. Please check your internet connection.`
+      );
+    }
+
+    if (error instanceof Error) {
+      throw error;
+    }
+
+    throw new Error("An unexpected error occurred while streaming the message");
+  }
+};
