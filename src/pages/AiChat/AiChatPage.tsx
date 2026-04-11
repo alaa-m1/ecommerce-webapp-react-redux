@@ -11,6 +11,8 @@ import {
   Drawer,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { ChatSidebar } from "./components/ChatSidebar";
+import { useChatHistory } from "./hooks/useChatHistory";
 
 export const AiChatPage = () => {
   const { t } = useTranslation();
@@ -18,6 +20,15 @@ export const AiChatPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+
+  const {
+    conversations,
+    activeConversation,
+    createNewChat,
+    switchChat,
+    deleteChat,
+    deleteAllChats,
+  } = useChatHistory();
 
   useEffect(() => {
     dispatch(initializeChatFromStorage());
@@ -46,18 +57,14 @@ export const AiChatPage = () => {
         }`,
       }}
     >
-      <Box sx={{ p: 2 }}>
-        {/* Sidebar content will be added in Step 16 */}
-        <Box
-          sx={{
-            color: theme.palette.primary.light,
-            fontSize: "14px",
-            textAlign: "center",
-          }}
-        >
-          {t("ai_chat_page.chat_history")}
-        </Box>
-      </Box>
+      <ChatSidebar
+        conversations={conversations}
+        activeConversationId={activeConversation?.id || null}
+        onNewChat={createNewChat}
+        onSelectChat={switchChat}
+        onDeleteChat={deleteChat}
+        onDeleteAll={deleteAllChats}
+      />
     </Box>
   );
 
