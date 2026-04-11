@@ -2,7 +2,7 @@ import { Middleware } from "@reduxjs/toolkit";
 import { saveConversations } from "pages/AiChat/utils/chatStorage";
 import { RootState } from "../store";
 
-export const aiChatMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
+export const aiChatMiddleware: Middleware = (store) => (next) => (action) => {
   const result = next(action);
 
   if (action.type?.startsWith("aiChat/")) {
