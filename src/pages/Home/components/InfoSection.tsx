@@ -31,7 +31,7 @@ export const InfoSection = () => {
       >
         <Typography fontSize={16} color="primary.light">
           {t("home_api_info")}:&nbsp;
-          <a href="https://fakestoreapi.com/">fakestoreapi</a>
+          <a href="https://dummyjson.com/">DummyJSON</a>
         </Typography>
       </Alert>
       <Alert

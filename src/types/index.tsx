@@ -51,15 +51,24 @@ export type CartCategory = Product & {
 
 export type CartCategories = Array<CartCategory>;
 
-export type ProductsResponse = Array<ProductResponse>;
+export type ProductsResponse = {
+  products: Array<ProductResponse>;
+  total: number;
+  skip: number;
+  limit: number;
+};
+
 export type ProductResponse = {
   id: number;
   title: string;
   price: number;
   description: string;
   category: string;
-  image: string;
-  rating: Rating;
+  thumbnail: string;
+  images: string[];
+  rating: number;
+  stock: number;
+  brand?: string;
 };
 
 type Rating = {
