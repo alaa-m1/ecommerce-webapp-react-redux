@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "utils/redux/hooks";
 import { initializeChatFromStorage } from "store/aiChat/aiChatThunks";
 import {
   Box,
-  Paper,
   useTheme,
   useMediaQuery,
   IconButton,
@@ -12,10 +10,12 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { ChatSidebar } from "./components/ChatSidebar";
+import { ChatMessageList } from "./components/ChatMessageList";
 import { useChatHistory } from "./hooks/useChatHistory";
+import { useAppSelector } from "utils/redux/hooks";
+import { selectActiveMessages } from "store/aiChat/aiChatSelectors";
 
 export const AiChatPage = () => {
-  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -29,6 +29,8 @@ export const AiChatPage = () => {
     deleteChat,
     deleteAllChats,
   } = useChatHistory();
+
+  const messages = useAppSelector(selectActiveMessages);
 
   useEffect(() => {
     dispatch(initializeChatFromStorage());
@@ -101,19 +103,7 @@ export const AiChatPage = () => {
           overflow: "hidden",
         }}
       >
-        {/* Main chat area content will be added in later steps */}
-        <Box
-          sx={{
-            p: 3,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100%",
-            color: theme.palette.primary.light,
-          }}
-        >
-          {t("ai_chat_page.welcome_message")}
-        </Box>
+        <ChatMessageList messages={messages} />
       </Box>
     </Box>
   );
