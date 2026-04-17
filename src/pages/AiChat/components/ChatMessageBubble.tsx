@@ -1,92 +1,60 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Box,
-  Avatar,
-  Typography,
-  IconButton,
-  Tooltip,
-  useTheme,
-} from "@mui/material";
+import { Box, Typography, IconButton, Tooltip, Avatar, useTheme } from "@mui/material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import CheckIcon from "@mui/icons-material/Check";
 import PersonIcon from "@mui/icons-material/Person";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import parse from "html-react-parser";
 import { ChatMessage } from "../types";
 
 interface ChatMessageBubbleProps {
   message: ChatMessage;
-  isStreaming?: boolean;
 }
 
 const formatTimestamp = (timestamp: number): string => {
-  const date = new Date(timestamp);
-  return date.toLocaleTimeString([], {
+  return new Date(timestamp).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });
 };
 
-const formatMarkdown = (content: string): string => {
-  let formatted = content;
-
-  // Code blocks (```code```)
-  formatted = formatted.replace(
-    /```(\w+)?\n([\s\S]*?)```/g,
-    '<pre style="background-color: rgba(0,0,0,0.1); padding: 12px; border-radius: 8px; overflow-x: auto; font-family: monospace; font-size: 0.875rem; margin: 8px 0;"><code>$2</code></pre>'
-  );
-
-  // Inline code (`code`)
-  formatted = formatted.replace(
-    /`([^`]+)`/g,
-    '<code style="background-color: rgba(0,0,0,0.1); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.875rem;">$1</code>'
-  );
-
-  // Bold (**text**)
-  formatted = formatted.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-
-  // Italic (*text*)
-  formatted = formatted.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-
-  // Line breaks
-  formatted = formatted.replace(/\n/g, "<br/>");
-
-  return formatted;
+const markdownToHtml = (text: string): string => {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/```[\w]*\n?([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
+    .replace(/^### (.+)$/gm, "<h3>$1</h3>")
+    .replace(/^## (.+)$/gm, "<h2>$1</h2>")
+    .replace(/^# (.+)$/gm, "<h1>$1</h1>")
+    .replace(/^[-*] (.+)$/gm, "<li>$1</li>")
+    .replace(/(<li>.*<\/li>)/gs, "<ul>$1</ul>")
+    .replace(/\n\n/g, "<br/><br/>")
+    .replace(/\n(?!<)/g, "<br/>");
 };
 
-export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({
-  message,
-  isStreaming = false,
-}) => {
+export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [copied, setCopied] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   const isUser = message.role === "user";
 
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(message.content);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      console.error("Failed to copy text:", error);
-    }
+    await navigator.clipboard.writeText(message.content);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
-  const userBgColor =
+  const userBubbleBg =
     theme.palette.mode === "dark"
       ? theme.palette.primary.dark
       : theme.palette.primary.main;
 
-  const assistantBgColor =
-    theme.palette.mode === "dark"
-      ? "rgba(255, 255, 255, 0.08)"
-      : "rgba(0, 0, 0, 0.04)";
-
-  const userTextColor = theme.palette.primary.contrastText;
-  const assistantTextColor = theme.palette.text.primary;
+  const assistantBubbleBg =
+    theme.palette.mode === "dark" ? "#2a2a2a" : "#f0f0f0";
 
   return (
     <Box
@@ -96,138 +64,151 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({
         alignItems: "flex-start",
         gap: 1.5,
         mb: 2,
-        px: { xs: 1, sm: 2 },
+        px: 1,
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       <Avatar
         sx={{
-          width: 36,
-          height: 36,
-          bgcolor: isUser ? theme.palette.primary.main : theme.palette.grey[500],
+          width: 32,
+          height: 32,
           flexShrink: 0,
+          bgcolor: isUser
+            ? theme.palette.primary.main
+            : theme.palette.mode === "dark"
+            ? "#444"
+            : "#e0e0e0",
+          color: isUser
+            ? "#fff"
+            : theme.palette.mode === "dark"
+            ? "#90caf9"
+            : theme.palette.secondary.main,
         }}
       >
         {isUser ? (
-          <PersonIcon fontSize="small" />
+          <PersonIcon sx={{ fontSize: 18 }} />
         ) : (
-          <SmartToyIcon fontSize="small" />
+          <SmartToyIcon sx={{ fontSize: 18 }} />
         )}
       </Avatar>
 
       <Box
         sx={{
-          maxWidth: { xs: "85%", sm: "75%", md: "70%" },
+          maxWidth: "75%",
           display: "flex",
           flexDirection: "column",
           alignItems: isUser ? "flex-end" : "flex-start",
+          gap: 0.5,
+          position: "relative",
         }}
       >
         <Box
           sx={{
-            position: "relative",
-            backgroundColor: isUser ? userBgColor : assistantBgColor,
-            color: isUser ? userTextColor : assistantTextColor,
-            borderRadius: isUser
-              ? "18px 18px 4px 18px"
-              : "18px 18px 18px 4px",
             px: 2,
             py: 1.5,
+            borderRadius: isUser ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
+            backgroundColor: isUser ? userBubbleBg : assistantBubbleBg,
+            color: isUser
+              ? "#fff"
+              : theme.palette.text.primary,
+            boxShadow: theme.shadows[1],
             wordBreak: "break-word",
             "& pre": {
               backgroundColor:
-                theme.palette.mode === "dark"
-                  ? "rgba(0, 0, 0, 0.3)"
-                  : "rgba(0, 0, 0, 0.08)",
+                theme.palette.mode === "dark" ? "#1a1a1a" : "#e8e8e8",
+              borderRadius: 1,
+              p: 1.5,
+              overflowX: "auto",
+              fontSize: "0.85rem",
+              my: 1,
             },
             "& code": {
+              fontFamily: "monospace",
+              fontSize: "0.85rem",
               backgroundColor:
                 theme.palette.mode === "dark"
-                  ? "rgba(0, 0, 0, 0.3)"
-                  : "rgba(0, 0, 0, 0.08)",
+                  ? "rgba(255,255,255,0.1)"
+                  : "rgba(0,0,0,0.08)",
+              px: 0.5,
+              borderRadius: 0.5,
+            },
+            "& pre code": {
+              backgroundColor: "transparent",
+              px: 0,
+            },
+            "& h1, & h2, & h3": {
+              mt: 1,
+              mb: 0.5,
+            },
+            "& ul": {
+              pl: 2,
+              my: 0.5,
             },
           }}
         >
-          <Typography
-            component="div"
-            variant="body1"
-            sx={{
-              fontSize: "0.95rem",
-              lineHeight: 1.6,
-              "& br": {
-                display: "block",
-                content: '""',
-                marginTop: "0.25em",
-              },
-            }}
-          >
-            {isUser ? message.content : parse(formatMarkdown(message.content))}
-            {isStreaming && (
-              <Box
-                component="span"
-                sx={{
-                  display: "inline-block",
-                  width: "8px",
-                  height: "16px",
-                  backgroundColor: assistantTextColor,
-                  ml: 0.5,
-                  animation: "blink 1s step-end infinite",
-                  "@keyframes blink": {
-                    "0%, 100%": { opacity: 1 },
-                    "50%": { opacity: 0 },
-                  },
-                }}
-              />
-            )}
-          </Typography>
-
-          {!isUser && isHovered && !isStreaming && (
-            <Box
-              sx={{
-                position: "absolute",
-                top: 4,
-                right: 4,
-              }}
+          {isUser ? (
+            <Typography
+              variant="body2"
+              sx={{ whiteSpace: "pre-wrap", lineHeight: 1.6 }}
             >
-              <Tooltip
-                title={copied ? t("ai_chat_page.copied") : t("ai_chat_page.copy")}
-                placement="top"
-              >
-                <IconButton
-                  size="small"
-                  onClick={handleCopy}
-                  sx={{
-                    backgroundColor:
-                      theme.palette.mode === "dark"
-                        ? "rgba(255, 255, 255, 0.1)"
-                        : "rgba(0, 0, 0, 0.08)",
-                    "&:hover": {
-                      backgroundColor:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255, 255, 255, 0.2)"
-                          : "rgba(0, 0, 0, 0.12)",
-                    },
-                  }}
-                >
-                  <ContentCopyIcon sx={{ fontSize: 16 }} />
-                </IconButton>
-              </Tooltip>
-            </Box>
+              {message.content}
+            </Typography>
+          ) : (
+            <Typography
+              variant="body2"
+              component="div"
+              sx={{ lineHeight: 1.6 }}
+            >
+              {parse(markdownToHtml(message.content))}
+            </Typography>
           )}
         </Box>
 
-        <Typography
-          variant="caption"
+        <Box
           sx={{
-            color: theme.palette.text.secondary,
-            mt: 0.5,
-            px: 1,
-            fontSize: "0.7rem",
+            display: "flex",
+            alignItems: "center",
+            gap: 0.5,
+            flexDirection: isUser ? "row-reverse" : "row",
           }}
         >
-          {formatTimestamp(message.timestamp)}
-        </Typography>
+          <Typography
+            variant="caption"
+            sx={{
+              color: theme.palette.text.secondary,
+              fontSize: "0.7rem",
+            }}
+          >
+            {formatTimestamp(message.timestamp)}
+          </Typography>
+
+          {!isUser && (
+            <Tooltip
+              title={copied ? t("ai_chat_page.copied") : t("ai_chat_page.copy")}
+              placement="top"
+            >
+              <IconButton
+                size="small"
+                onClick={handleCopy}
+                sx={{
+                  opacity: hovered || copied ? 1 : 0,
+                  transition: "opacity 0.2s",
+                  p: 0.5,
+                  color: copied
+                    ? theme.palette.success.main
+                    : theme.palette.text.secondary,
+                }}
+              >
+                {copied ? (
+                  <CheckIcon sx={{ fontSize: 14 }} />
+                ) : (
+                  <ContentCopyIcon sx={{ fontSize: 14 }} />
+                )}
+              </IconButton>
+            </Tooltip>
+          )}
+        </Box>
       </Box>
     </Box>
   );
