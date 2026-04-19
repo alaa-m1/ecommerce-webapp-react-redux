@@ -11,7 +11,9 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { ChatSidebar } from "./components/ChatSidebar";
 import { ChatMessageList } from "./components/ChatMessageList";
+import { ChatInput } from "./components/ChatInput";
 import { useChatHistory } from "./hooks/useChatHistory";
+import { useChat } from "./hooks/useChat";
 import { useAppSelector } from "utils/redux/hooks";
 import { selectActiveMessages } from "store/aiChat/aiChatSelectors";
 
@@ -31,6 +33,8 @@ export const AiChatPage = () => {
   } = useChatHistory();
 
   const messages = useAppSelector(selectActiveMessages);
+
+  const { sendMessage, stopGeneration, isLoading } = useChat();
 
   useEffect(() => {
     dispatch(initializeChatFromStorage());
@@ -104,6 +108,12 @@ export const AiChatPage = () => {
         }}
       >
         <ChatMessageList messages={messages} />
+        <ChatInput
+          onSend={sendMessage}
+          onStop={stopGeneration}
+          isLoading={isLoading}
+          disabled={!activeConversation}
+        />
       </Box>
     </Box>
   );
