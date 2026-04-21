@@ -22,7 +22,7 @@ export const fetchProductsAsync = (): ThunkAction<void, RootState, unknown, any>
     try {
         dispatch(fetchProductsStart());
         const products=await getProducts()
-        return dispatch(fetchProductsSuccess(products ?? []))
+        return dispatch(fetchProductsSuccess(products ?? { products: [], total: 0, skip: 0, limit: 0 }))
 
     } catch (error: any) {
         return dispatch(fetchProductsFailed(error))

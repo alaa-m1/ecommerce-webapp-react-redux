@@ -10,7 +10,7 @@ export type productState = {
 
 
 const initailState: productState = {
-    products: [],
+    products: { products: [], total: 0, skip: 0, limit: 0 },
     loading: false,
     error: null
 }
