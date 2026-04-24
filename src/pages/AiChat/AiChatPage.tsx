@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { ChatSidebar } from "./components/ChatSidebar";
 import { ChatMessageList } from "./components/ChatMessageList";
 import { ChatInput } from "./components/ChatInput";
+import { ModelSelector } from "./components/ModelSelector";
 import { useChatHistory } from "./hooks/useChatHistory";
 import { useChat } from "./hooks/useChat";
 import { useAppSelector } from "utils/redux/hooks";
@@ -84,20 +85,30 @@ export const AiChatPage = () => {
         overflow: "hidden",
       }}
     >
-      {isMobile && (
-        <Box
-          sx={{
-            p: 1,
-            borderBottom: `1px solid ${
-              theme.palette.mode === "dark" ? "#333" : "#e0e0e0"
-            }`,
-          }}
-        >
-          <IconButton onClick={toggleSidebar} size="small">
-            <MenuIcon />
-          </IconButton>
+      <Box
+        sx={{
+          p: { xs: 1, sm: 2 },
+          borderBottom: `1px solid ${
+            theme.palette.mode === "dark" ? "#333" : "#e0e0e0"
+          }`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? theme.palette.background.paper
+              : "#fff",
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          {isMobile && (
+            <IconButton onClick={toggleSidebar} size="small">
+              <MenuIcon />
+            </IconButton>
+          )}
+          <ModelSelector />
         </Box>
-      )}
+      </Box>
 
       <Box
         sx={{
