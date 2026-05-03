@@ -3,6 +3,7 @@ export type ChatMessage = {
   content: string;
   timestamp: number;
   id: string;
+  isStreaming?: boolean;
 };
 
 export type ChatConversation = {

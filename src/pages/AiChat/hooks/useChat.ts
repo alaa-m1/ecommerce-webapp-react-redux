@@ -5,6 +5,7 @@ import {
   setLoading,
   setError,
   updateLastAssistantMessage,
+  setStreaming,
 } from "store/aiChat/aiChatSlice";
 import {
   selectActiveConversationId,
@@ -70,12 +71,20 @@ export const useChat = () => {
         role: "assistant",
         content: "",
         timestamp: Date.now(),
+        isStreaming: true,
       };
 
       dispatch(
         addMessage({
           conversationId: activeConversationId,
           message: assistantMsg,
+        })
+      );
+
+      dispatch(
+        setStreaming({
+          conversationId: activeConversationId,
+          isStreaming: true,
         })
       );
 
@@ -117,6 +126,12 @@ export const useChat = () => {
         );
       } finally {
         dispatch(setLoading(false));
+        dispatch(
+          setStreaming({
+            conversationId: activeConversationId,
+            isStreaming: false,
+          })
+        );
         abortControllerRef.current = null;
       }
     },
@@ -128,9 +143,17 @@ export const useChat = () => {
       abortControllerRef.current.abort();
       abortControllerRef.current = null;
       dispatch(setLoading(false));
+      if (activeConversationId) {
+        dispatch(
+          setStreaming({
+            conversationId: activeConversationId,
+            isStreaming: false,
+          })
+        );
+      }
       dispatch(setError("Generation stopped by user"));
     }
-  }, [dispatch]);
+  }, [dispatch, activeConversationId]);
 
   const retryLastMessage = useCallback(() => {
     if (lastUserMessageRef.current) {

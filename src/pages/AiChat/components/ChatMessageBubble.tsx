@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Box, Typography, IconButton, Tooltip, Avatar, useTheme } from "@mui/material";
+import { Box, Typography, IconButton, Tooltip, Avatar, useTheme, keyframes } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CheckIcon from "@mui/icons-material/Check";
 import PersonIcon from "@mui/icons-material/Person";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import parse from "html-react-parser";
+import { motion } from "framer-motion";
 import { ChatMessage } from "../types";
 
 interface ChatMessageBubbleProps {
@@ -29,18 +30,34 @@ const markdownToHtml = (text: string): string => {
     .replace(/^## (.+)$/gm, "<h2>$1</h2>")
     .replace(/^# (.+)$/gm, "<h1>$1</h1>")
     .replace(/^[-*] (.+)$/gm, "<li>$1</li>")
-    .replace(/(<li>.*<\/li>)/gs, "<ul>$1</ul>")
+    .replace(/<li>[\s\S]*?<\/li>/g, "<ul>$&</ul>")
     .replace(/\n\n/g, "<br/><br/>")
     .replace(/\n(?!<)/g, "<br/>");
 };
+
+const blinkCursor = keyframes`
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+`;
 
 export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [copied, setCopied] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [displayedContent, setDisplayedContent] = useState(message.content);
 
   const isUser = message.role === "user";
+  const isStreaming = message.isStreaming && !isUser;
+
+  // Update displayed content when message content changes (for streaming)
+  useEffect(() => {
+    if (isStreaming) {
+      setDisplayedContent(message.content);
+    } else {
+      setDisplayedContent(message.content);
+    }
+  }, [message.content, isStreaming]);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(message.content);
@@ -155,13 +172,33 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message })
               {message.content}
             </Typography>
           ) : (
-            <Typography
-              variant="body2"
-              component="div"
-              sx={{ lineHeight: 1.6 }}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
             >
-              {parse(markdownToHtml(message.content))}
-            </Typography>
+              <Typography
+                variant="body2"
+                component="div"
+                sx={{ lineHeight: 1.6 }}
+              >
+                {parse(markdownToHtml(displayedContent))}
+                {isStreaming && (
+                  <Box
+                    component="span"
+                    sx={{
+                      display: "inline-block",
+                      width: 2,
+                      height: "1.2em",
+                      backgroundColor: theme.palette.text.primary,
+                      ml: 0.5,
+                      verticalAlign: "text-bottom",
+                      animation: `${blinkCursor} 1s infinite`,
+                    }}
+                  />
+                )}
+              </Typography>
+            </motion.div>
           )}
         </Box>
 
