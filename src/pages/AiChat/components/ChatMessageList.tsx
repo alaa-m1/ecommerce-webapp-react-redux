@@ -31,6 +31,14 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages }) =>
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Also scroll when the last message's content changes during streaming
+  useEffect(() => {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage && lastMessage.role === "assistant" && lastMessage.isStreaming) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   if (messages.length === 0) {
     return (
       <Box

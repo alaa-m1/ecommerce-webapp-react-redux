@@ -27,6 +27,11 @@ type UpdateLastAssistantMessagePayload = {
   content: string;
 };
 
+type SetStreamingPayload = {
+  conversationId: string;
+  isStreaming: boolean;
+};
+
 type SetLoadingPayload = boolean;
 
 type SetErrorPayload = string | null;
@@ -93,6 +98,20 @@ const aiChatSlice = createSlice({
       }
     },
 
+    setStreaming: (state, action: PayloadAction<SetStreamingPayload>) => {
+      const { conversationId, isStreaming } = action.payload;
+      const conversation = state.conversations.find((c) => c.id === conversationId);
+      if (!conversation) return;
+
+      for (let i = conversation.messages.length - 1; i >= 0; i -= 1) {
+        const msg = conversation.messages[i];
+        if (msg.role === "assistant") {
+          msg.isStreaming = isStreaming;
+          return;
+        }
+      }
+    },
+
     setLoading: (state, action: PayloadAction<SetLoadingPayload>) => {
       state.isLoading = action.payload;
     },
@@ -122,6 +141,7 @@ export const {
   clearConversations,
   addMessage,
   updateLastAssistantMessage,
+  setStreaming,
   setLoading,
   setError,
   setSelectedModel,
