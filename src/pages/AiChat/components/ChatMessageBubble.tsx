@@ -5,12 +5,16 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CheckIcon from "@mui/icons-material/Check";
 import PersonIcon from "@mui/icons-material/Person";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import parse from "html-react-parser";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 import { ChatMessage } from "../types";
 
 interface ChatMessageBubbleProps {
   message: ChatMessage;
+  onRetry?: () => void;
+  isLastMessage?: boolean;
 }
 
 const formatTimestamp = (timestamp: number): string => {
@@ -40,7 +44,7 @@ const blinkCursor = keyframes`
   50% { opacity: 0; }
 `;
 
-export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message }) => {
+export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message, onRetry, isLastMessage }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [copied, setCopied] = useState(false);
@@ -49,6 +53,8 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message })
 
   const isUser = message.role === "user";
   const isStreaming = message.isStreaming && !isUser;
+  const isError = message.content.startsWith("Error:") || message.content.startsWith("error:");
+  const showRetry = !isUser && isError && isLastMessage && onRetry;
 
   // Update displayed content when message content changes (for streaming)
   useEffect(() => {
@@ -60,9 +66,22 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message })
   }, [message.content, isStreaming]);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(message.content);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(message.content);
+      setCopied(true);
+      toast.success(t("ai_chat_page.copied"), {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+      });
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      toast.error("Failed to copy to clipboard", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: true,
+      });
+    }
   };
 
   const userBubbleBg =
@@ -221,29 +240,54 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message })
           </Typography>
 
           {!isUser && (
-            <Tooltip
-              title={copied ? t("ai_chat_page.copied") : t("ai_chat_page.copy")}
-              placement="top"
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+              }}
             >
-              <IconButton
-                size="small"
-                onClick={handleCopy}
-                sx={{
-                  opacity: hovered || copied ? 1 : 0,
-                  transition: "opacity 0.2s",
-                  p: 0.5,
-                  color: copied
-                    ? theme.palette.success.main
-                    : theme.palette.text.secondary,
-                }}
+              <Tooltip
+                title={copied ? t("ai_chat_page.copied") : t("ai_chat_page.copy")}
+                placement="top"
               >
-                {copied ? (
-                  <CheckIcon sx={{ fontSize: 14 }} />
-                ) : (
-                  <ContentCopyIcon sx={{ fontSize: 14 }} />
-                )}
-              </IconButton>
-            </Tooltip>
+                <IconButton
+                  size="small"
+                  onClick={handleCopy}
+                  sx={{
+                    opacity: hovered || copied ? 1 : 0,
+                    transition: "opacity 0.2s",
+                    p: 0.5,
+                    color: copied
+                      ? theme.palette.success.main
+                      : theme.palette.text.secondary,
+                  }}
+                >
+                  {copied ? (
+                    <CheckIcon sx={{ fontSize: 14 }} />
+                  ) : (
+                    <ContentCopyIcon sx={{ fontSize: 14 }} />
+                  )}
+                </IconButton>
+              </Tooltip>
+
+              {showRetry && (
+                <Tooltip title={t("ai_chat_page.retry")} placement="top">
+                  <IconButton
+                    size="small"
+                    onClick={onRetry}
+                    sx={{
+                      opacity: hovered ? 1 : 0,
+                      transition: "opacity 0.2s",
+                      p: 0.5,
+                      color: theme.palette.warning.main,
+                    }}
+                  >
+                    <RefreshIcon sx={{ fontSize: 14 }} />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </Box>
           )}
         </Box>
       </Box>
