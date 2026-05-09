@@ -8,6 +8,7 @@ import { ChatMessageBubble } from "./ChatMessageBubble";
 
 interface ChatMessageListProps {
   messages: ChatMessage[];
+  onRetry?: () => void;
 }
 
 const messageVariants = {
@@ -21,7 +22,7 @@ const messageVariants = {
   exit: { opacity: 0, transition: { duration: 0.15 } },
 };
 
-export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages }) => {
+export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages, onRetry }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -144,7 +145,7 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages }) =>
       }}
     >
       <AnimatePresence initial={false}>
-        {messages.map((message) => (
+        {messages.map((message, index) => (
           <motion.div
             key={message.id}
             variants={messageVariants}
@@ -153,7 +154,11 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages }) =>
             exit="exit"
             layout
           >
-            <ChatMessageBubble message={message} />
+            <ChatMessageBubble
+              message={message}
+              onRetry={onRetry}
+              isLastMessage={index === messages.length - 1}
+            />
           </motion.div>
         ))}
       </AnimatePresence>

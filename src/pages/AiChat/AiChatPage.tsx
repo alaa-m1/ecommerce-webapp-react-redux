@@ -35,7 +35,7 @@ export const AiChatPage = () => {
 
   const messages = useAppSelector(selectActiveMessages);
 
-  const { sendMessage, stopGeneration, isLoading } = useChat();
+  const { sendMessage, stopGeneration, isLoading, retryLastMessage } = useChat();
 
   useEffect(() => {
     dispatch(initializeChatFromStorage());
@@ -118,7 +118,7 @@ export const AiChatPage = () => {
           overflow: "hidden",
         }}
       >
-        <ChatMessageList messages={messages} />
+        <ChatMessageList messages={messages} onRetry={retryLastMessage} />
         <ChatInput
           onSend={sendMessage}
           onStop={stopGeneration}
