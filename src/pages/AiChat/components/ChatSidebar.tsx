@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Box,
@@ -15,6 +15,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import { ChatConversation } from "../types";
+import { GenericDialog } from "shared/components/GenericDialog";
 
 interface ChatSidebarProps {
   conversations: ChatConversation[];
@@ -35,6 +36,32 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [deleteAllDialogOpen, setDeleteAllDialogOpen] = useState(false);
+  const [conversationToDelete, setConversationToDelete] = useState<string | null>(null);
+
+  const handleDeleteClick = (conversationId: string) => {
+    setConversationToDelete(conversationId);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (conversationToDelete) {
+      onDeleteChat(conversationToDelete);
+      setConversationToDelete(null);
+    }
+    setDeleteDialogOpen(false);
+  };
+
+  const handleDeleteAllClick = () => {
+    setDeleteAllDialogOpen(true);
+  };
+
+  const handleConfirmDeleteAll = () => {
+    onDeleteAll();
+    setDeleteAllDialogOpen(false);
+  };
 
   const formatDate = (timestamp: number): string => {
     const date = new Date(timestamp);
@@ -109,7 +136,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
                     aria-label={t("ai_chat_page.delete_chat")}
                     onClick={(e) => {
                       e.stopPropagation();
-                      onDeleteChat(conversation.id);
+                      handleDeleteClick(conversation.id);
                     }}
                     size="small"
                     sx={{
@@ -187,7 +214,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
             variant="outlined"
             fullWidth
             startIcon={<DeleteSweepIcon />}
-            onClick={onDeleteAll}
+            onClick={handleDeleteAllClick}
             color="error"
             sx={{
               textTransform: "none",
@@ -198,6 +225,54 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
           </Button>
         </Box>
       )}
+
+      {/* Single conversation delete confirmation dialog */}
+      <GenericDialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+        onConfirm={handleConfirmDelete}
+        titleOptions={{
+          title: t("ai_chat_page.confirm_delete"),
+        }}
+        contentOptions={{
+          text: t("ai_chat_page.delete_chat"),
+        }}
+        actionOptions={{
+          confirmBtn: {
+            label: t("ai_chat_page.confirm"),
+            color: "error",
+            variant: "contained",
+          },
+          cancelBtn: {
+            label: t("ai_chat_page.cancel"),
+            variant: "outlined",
+          },
+        }}
+      />
+
+      {/* Delete all conversations confirmation dialog */}
+      <GenericDialog
+        open={deleteAllDialogOpen}
+        onClose={() => setDeleteAllDialogOpen(false)}
+        onConfirm={handleConfirmDeleteAll}
+        titleOptions={{
+          title: t("ai_chat_page.confirm_delete"),
+        }}
+        contentOptions={{
+          text: t("ai_chat_page.delete_all"),
+        }}
+        actionOptions={{
+          confirmBtn: {
+            label: t("ai_chat_page.confirm"),
+            color: "error",
+            variant: "contained",
+          },
+          cancelBtn: {
+            label: t("ai_chat_page.cancel"),
+            variant: "outlined",
+          },
+        }}
+      />
     </Box>
   );
 };
