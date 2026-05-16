@@ -23,6 +23,7 @@ export const AiChatPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+  const currentDocDirection = useAppSelector((state) => state.user.direction);
 
   const {
     conversations,
@@ -144,6 +145,9 @@ export const AiChatPage = () => {
           anchor="left"
           open={sidebarOpen}
           onClose={toggleSidebar}
+          SlideProps={{
+            direction: currentDocDirection === "rtl" ? "left" : "right",
+          }}
           sx={{
             "& .MuiDrawer-paper": {
               width: sidebarWidth,

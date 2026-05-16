@@ -131,7 +131,7 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message, o
 
       <Box
         sx={{
-          maxWidth: "75%",
+          maxWidth: { xs: "85%", sm: "75%" },
           display: "flex",
           flexDirection: "column",
           alignItems: isUser ? "flex-end" : "flex-start",
