@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "utils/redux/hooks";
 import { initializeChatFromStorage } from "store/aiChat/aiChatThunks";
+import { setError } from "store/aiChat/aiChatSlice";
 import {
   Box,
   useTheme,
   useMediaQuery,
   IconButton,
   Drawer,
+  Alert,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { ChatSidebar } from "./components/ChatSidebar";
 import { ChatMessageList } from "./components/ChatMessageList";
 import { ChatInput } from "./components/ChatInput";
 import { ModelSelector } from "./components/ModelSelector";
+import { ErrorBanner } from "./components/ErrorBanner";
 import { useChatHistory } from "./hooks/useChatHistory";
 import { useChat } from "./hooks/useChat";
 import { useAppSelector } from "utils/redux/hooks";
-import { selectActiveMessages } from "store/aiChat/aiChatSelectors";
+import { selectActiveMessages, selectError } from "store/aiChat/aiChatSelectors";
 
 export const AiChatPage = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [showNetworkBanner, setShowNetworkBanner] = useState(false);
   const currentDocDirection = useAppSelector((state) => state.user.direction);
 
   const {
@@ -35,6 +42,7 @@ export const AiChatPage = () => {
   } = useChatHistory();
 
   const messages = useAppSelector(selectActiveMessages);
+  const error = useAppSelector(selectError);
 
   const { sendMessage, stopGeneration, isLoading, retryLastMessage } = useChat();
 
@@ -45,6 +53,28 @@ export const AiChatPage = () => {
   useEffect(() => {
     setSidebarOpen(!isMobile);
   }, [isMobile]);
+
+  // Network online/offline detection
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+      setShowNetworkBanner(true);
+      setTimeout(() => setShowNetworkBanner(false), 5000);
+    };
+
+    const handleOffline = () => {
+      setIsOnline(false);
+      setShowNetworkBanner(true);
+    };
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -119,12 +149,26 @@ export const AiChatPage = () => {
           overflow: "hidden",
         }}
       >
+        {showNetworkBanner && (
+          <Alert
+            severity={isOnline ? "success" : "warning"}
+            sx={{
+              mx: { xs: 1, sm: 2 },
+              mt: 2,
+              borderRadius: 1,
+            }}
+            onClose={() => setShowNetworkBanner(false)}
+          >
+            {isOnline ? t("ai_chat_page.network_online") : t("ai_chat_page.network_offline")}
+          </Alert>
+        )}
+        <ErrorBanner error={error} onClose={() => dispatch(setError(null))} />
         <ChatMessageList messages={messages} onRetry={retryLastMessage} />
         <ChatInput
           onSend={sendMessage}
           onStop={stopGeneration}
           isLoading={isLoading}
-          disabled={!activeConversation}
+          disabled={!activeConversation || !isOnline}
         />
       </Box>
     </Box>
