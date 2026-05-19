@@ -95,6 +95,15 @@
     "copied": "Kopiert",
     "retry": "Erneut versuchen",
     "welcome_message": "Willkommen!",
-    "welcome_subtitle": "Beginne, indem du deine erste Nachricht sendest."
+    "welcome_subtitle": "Beginne, indem du deine erste Nachricht sendest.",
+    "network_offline": "Sie sind offline. Bitte überprüfen Sie Ihre Internetverbindung.",
+    "network_online": "Sie sind wieder online.",
+    "rate_limit_error": "Rate-Limit überschritten. Bitte warten Sie einen Moment, bevor Sie es erneut versuchen.",
+    "empty_message_error": "Bitte geben Sie eine Nachricht ein, bevor Sie senden.",
+    "api_error": "API-Fehler",
+    "network_error": "Netzwerkfehler",
+    "dismiss": "Schließen",
+    "empty_response_error": "Die KI hat eine leere Antwort zurückgegeben. Bitte versuchen Sie es erneut.",
+    "stopped_by_user": "Generierung wurde vom Benutzer gestoppt."
   }
 }

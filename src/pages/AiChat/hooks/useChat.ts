@@ -1,4 +1,5 @@
 import { useCallback, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addMessage,
@@ -19,6 +20,7 @@ import { LLM_PROVIDERS } from "../constants";
 import { ChatMessage } from "../types";
 
 export const useChat = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const activeConversationId = useSelector(selectActiveConversationId);
   const messages = useSelector(selectActiveMessages);
@@ -32,18 +34,18 @@ export const useChat = () => {
   const sendMessage = useCallback(
     async (userMessage: string) => {
       if (!activeConversationId) {
-        dispatch(setError("No active conversation"));
+        dispatch(setError(t("ai_chat_page.error_message")));
         return;
       }
 
       if (!userMessage.trim()) {
-        dispatch(setError("Message cannot be empty"));
+        dispatch(setError(t("ai_chat_page.empty_message_error")));
         return;
       }
 
       const provider = LLM_PROVIDERS.find((p) => p.id === selectedModelId);
       if (!provider) {
-        dispatch(setError("Invalid model selected"));
+        dispatch(setError(t("ai_chat_page.error_message")));
         return;
       }
 

@@ -95,6 +95,15 @@
     "copied": "Copied",
     "retry": "Retry",
     "welcome_message": "Welcome!",
-    "welcome_subtitle": "Start by sending your first message."
+    "welcome_subtitle": "Start by sending your first message.",
+    "network_offline": "You are offline. Please check your internet connection.",
+    "network_online": "You are back online.",
+    "rate_limit_error": "Rate limit exceeded. Please wait a moment before trying again.",
+    "empty_message_error": "Please enter a message before sending.",
+    "api_error": "API Error",
+    "network_error": "Network Error",
+    "dismiss": "Dismiss",
+    "empty_response_error": "The AI returned an empty response. Please try again.",
+    "stopped_by_user": "Generation was stopped by user."
   }
 }
