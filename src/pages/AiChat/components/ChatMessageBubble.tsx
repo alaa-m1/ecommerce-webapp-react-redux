@@ -150,6 +150,8 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message, o
               : theme.palette.text.primary,
             boxShadow: theme.shadows[1],
             wordBreak: "break-word",
+            maxHeight: 400,
+            overflowY: "auto",
             "& pre": {
               backgroundColor:
                 theme.palette.mode === "dark" ? "#1a1a1a" : "#e8e8e8",
@@ -180,6 +182,25 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message, o
             "& ul": {
               pl: 2,
               my: 0.5,
+            },
+            "&::-webkit-scrollbar": {
+              width: 6,
+            },
+            "&::-webkit-scrollbar-track": {
+              background: "transparent",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor:
+                theme.palette.mode === "dark"
+                  ? "rgba(255,255,255,0.2)"
+                  : "rgba(0,0,0,0.2)",
+              borderRadius: 3,
+              "&:hover": {
+                backgroundColor:
+                  theme.palette.mode === "dark"
+                    ? "rgba(255,255,255,0.3)"
+                    : "rgba(0,0,0,0.3)",
+              },
             },
           }}
         >
