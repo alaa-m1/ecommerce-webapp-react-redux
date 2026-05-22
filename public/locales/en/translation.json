@@ -104,6 +104,6 @@
     "network_error": "Network Error",
     "dismiss": "Dismiss",
     "empty_response_error": "The AI returned an empty response. Please try again.",
-    "stopped_by_user": "Generation was stopped by user."
+    "stopped_by_user": "Generation stopped by user."
   }
 }

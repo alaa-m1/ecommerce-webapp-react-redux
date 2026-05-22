@@ -104,6 +104,6 @@
     "network_error": "Netzwerkfehler",
     "dismiss": "Schließen",
     "empty_response_error": "Die KI hat eine leere Antwort zurückgegeben. Bitte versuchen Sie es erneut.",
-    "stopped_by_user": "Generierung wurde vom Benutzer gestoppt."
+    "stopped_by_user": "Generierung vom Benutzer gestoppt."
   }
 }

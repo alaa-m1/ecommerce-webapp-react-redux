@@ -12,6 +12,7 @@ import {
   Alert,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import { ChatSidebar } from "./components/ChatSidebar";
 import { ChatMessageList } from "./components/ChatMessageList";
 import { ChatInput } from "./components/ChatInput";
@@ -149,12 +150,33 @@ export const AiChatPage = () => {
           overflow: "hidden",
         }}
       >
+        {showNetworkBanner && (
+          <Alert
+            severity={isOnline ? "success" : "warning"}
+            sx={{ mx: { xs: 1, sm: 2 }, mt: 2, borderRadius: 1 }}
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => setShowNetworkBanner(false)}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            {isOnline
+              ? t("ai_chat_page.network_online")
+              : t("ai_chat_page.network_offline")}
+          </Alert>
+        )}
+        <ErrorBanner error={error} onClose={() => dispatch(setError(null))} />
         <ChatMessageList messages={messages} onRetry={retryLastMessage} />
         <ChatInput
           onSend={sendMessage}
           onStop={stopGeneration}
           isLoading={isLoading}
-          disabled={!activeConversation}
+          disabled={!activeConversation || !isOnline}
         />
       </Box>
     </Box>
