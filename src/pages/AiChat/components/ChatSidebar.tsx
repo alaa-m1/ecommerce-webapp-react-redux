@@ -11,6 +11,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { motion } from "framer-motion";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
@@ -101,6 +102,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
           fullWidth
           startIcon={<AddIcon />}
           onClick={onNewChat}
+          aria-label={t("ai_chat_page.new_chat")}
           sx={{
             textTransform: "none",
             fontWeight: 600,
@@ -126,78 +128,95 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
           </Box>
         ) : (
           <List disablePadding>
-            {conversations.map((conversation) => (
-              <ListItem
+            {conversations.map((conversation, index) => (
+              <motion.div
                 key={conversation.id}
-                disablePadding
-                secondaryAction={
-                  <IconButton
-                    edge="end"
-                    aria-label={t("ai_chat_page.delete_chat")}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteClick(conversation.id);
-                    }}
-                    size="small"
-                    sx={{
-                      opacity: 0.6,
-                      "&:hover": {
-                        opacity: 1,
-                        color: theme.palette.error.main,
-                      },
-                    }}
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
-                }
-                sx={{
-                  mb: 0.5,
-                  px: 1,
-                }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.2, delay: index * 0.05 }}
               >
-                <ListItemButton
-                  selected={conversation.id === activeConversationId}
-                  onClick={() => onSelectChat(conversation.id)}
+                <ListItem
+                  disablePadding
+                  secondaryAction={
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <IconButton
+                        edge="end"
+                        aria-label={`${t("ai_chat_page.delete_chat")}: ${conversation.title}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteClick(conversation.id);
+                        }}
+                        size="small"
+                        sx={{
+                          opacity: 0.6,
+                          "&:hover": {
+                            opacity: 1,
+                            color: theme.palette.error.main,
+                          },
+                        }}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </motion.div>
+                  }
                   sx={{
-                    borderRadius: 1,
-                    py: 1.5,
-                    px: 2,
-                    "&.Mui-selected": {
-                      backgroundColor:
-                        theme.palette.mode === "dark"
-                          ? "rgba(144, 202, 249, 0.16)"
-                          : "rgba(25, 118, 210, 0.12)",
+                    mb: 0.5,
+                    px: 1,
+                  }}
+                >
+                  <ListItemButton
+                    selected={conversation.id === activeConversationId}
+                    onClick={() => onSelectChat(conversation.id)}
+                    component={motion.div}
+                    aria-label={`${conversation.title}, ${formatDate(conversation.updatedAt)}`}
+                    aria-current={conversation.id === activeConversationId ? "page" : undefined}
+                    whileHover={{ scale: 1.02, x: 4 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ duration: 0.15 }}
+                    sx={{
+                      borderRadius: 1,
+                      py: 1.5,
+                      px: 2,
+                      "&.Mui-selected": {
+                        backgroundColor:
+                          theme.palette.mode === "dark"
+                            ? "rgba(144, 202, 249, 0.16)"
+                            : "rgba(25, 118, 210, 0.12)",
+                        "&:hover": {
+                          backgroundColor:
+                            theme.palette.mode === "dark"
+                              ? "rgba(144, 202, 249, 0.24)"
+                              : "rgba(25, 118, 210, 0.18)",
+                        },
+                      },
                       "&:hover": {
                         backgroundColor:
                           theme.palette.mode === "dark"
-                            ? "rgba(144, 202, 249, 0.24)"
-                            : "rgba(25, 118, 210, 0.18)",
+                            ? "rgba(255, 255, 255, 0.08)"
+                            : "rgba(0, 0, 0, 0.04)",
                       },
-                    },
-                    "&:hover": {
-                      backgroundColor:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255, 255, 255, 0.08)"
-                          : "rgba(0, 0, 0, 0.04)",
-                    },
-                  }}
-                >
-                  <ListItemText
-                    primary={conversation.title}
-                    secondary={formatDate(conversation.updatedAt)}
-                    primaryTypographyProps={{
-                      noWrap: true,
-                      fontSize: "0.9rem",
-                      fontWeight:
-                        conversation.id === activeConversationId ? 600 : 400,
                     }}
-                    secondaryTypographyProps={{
-                      fontSize: "0.75rem",
-                      noWrap: true,
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
+                  >
+                    <ListItemText
+                      primary={conversation.title}
+                      secondary={formatDate(conversation.updatedAt)}
+                      primaryTypographyProps={{
+                        noWrap: true,
+                        fontSize: "0.9rem",
+                        fontWeight:
+                          conversation.id === activeConversationId ? 600 : 400,
+                      }}
+                      secondaryTypographyProps={{
+                        fontSize: "0.75rem",
+                        noWrap: true,
+                      }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              </motion.div>
             ))}
           </List>
         )}
@@ -216,6 +235,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
             startIcon={<DeleteSweepIcon />}
             onClick={handleDeleteAllClick}
             color="error"
+            aria-label={t("ai_chat_page.delete_all")}
             sx={{
               textTransform: "none",
               py: 1,

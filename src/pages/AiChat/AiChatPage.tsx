@@ -11,6 +11,7 @@ import {
   Drawer,
   Alert,
 } from "@mui/material";
+import { motion } from "framer-motion";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { ChatSidebar } from "./components/ChatSidebar";
@@ -77,6 +78,29 @@ export const AiChatPage = () => {
     };
   }, []);
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl+Shift+N / Cmd+Shift+N to start new chat
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "n") {
+        e.preventDefault();
+        createNewChat();
+      }
+
+      // Escape to stop generation
+      if (e.key === "Escape" && isLoading) {
+        e.preventDefault();
+        stopGeneration();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isLoading, createNewChat, stopGeneration]);
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -126,10 +150,9 @@ export const AiChatPage = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          backgroundColor:
-            theme.palette.mode === "dark"
-              ? theme.palette.background.paper
-              : "#fff",
+          background: theme.palette.mode === "dark"
+            ? `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.background.default} 100%)`
+            : `linear-gradient(180deg, #fff 0%, #f8f9fa 100%)`,
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -171,20 +194,34 @@ export const AiChatPage = () => {
           </Alert>
         )}
         <ErrorBanner error={error} onClose={() => dispatch(setError(null))} />
+        {/* Screen reader live region for loading state */}
+        <Box
+          id="chat-loading-status"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          sx={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0, 0, 0, 0)" }}
+        >
+          {isLoading ? t("ai_chat_page.loading") : ""}
+        </Box>
         <ChatMessageList messages={messages} onRetry={retryLastMessage} />
         <ChatInput
           onSend={sendMessage}
           onStop={stopGeneration}
           isLoading={isLoading}
           disabled={!activeConversation || !isOnline}
+          autoFocusAfterSend={true}
         />
       </Box>
     </Box>
   );
 
   return (
-    <Box
-      sx={{
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      style={{
         display: "flex",
         height: "calc(100vh - 120px)",
         width: "100%",
@@ -200,6 +237,7 @@ export const AiChatPage = () => {
           SlideProps={{
             direction: currentDocDirection === "rtl" ? "left" : "right",
           }}
+          transitionDuration={{ enter: 300, exit: 250 }}
           sx={{
             "& .MuiDrawer-paper": {
               width: sidebarWidth,
@@ -210,11 +248,21 @@ export const AiChatPage = () => {
           {sidebarContent}
         </Drawer>
       ) : (
-        sidebarOpen && sidebarContent
+        <motion.div
+          initial={false}
+          animate={{
+            width: sidebarOpen ? sidebarWidth : 0,
+            opacity: sidebarOpen ? 1 : 0,
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          style={{ overflow: "hidden" }}
+        >
+          {sidebarOpen && sidebarContent}
+        </motion.div>
       )}
 
       {mainContent}
-    </Box>
+    </motion.div>
   );
 };
 

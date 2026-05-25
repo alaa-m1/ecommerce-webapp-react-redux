@@ -90,7 +90,7 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message, o
       : theme.palette.primary.main;
 
   const assistantBubbleBg =
-    theme.palette.mode === "dark" ? "#2a2a2a" : "#f0f0f0";
+    theme.palette.mode === "dark" ? "#2d2d2d" : "#f5f5f5";
 
   return (
     <Box
@@ -141,14 +141,16 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message, o
       >
         <Box
           sx={{
-            px: 2,
-            py: 1.5,
-            borderRadius: isUser ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
+            px: 2.5,
+            py: 1.75,
+            borderRadius: isUser ? "20px 20px 6px 20px" : "20px 20px 20px 6px",
             backgroundColor: isUser ? userBubbleBg : assistantBubbleBg,
             color: isUser
               ? "#fff"
               : theme.palette.text.primary,
-            boxShadow: theme.shadows[1],
+            boxShadow: theme.palette.mode === "dark"
+              ? "0 2px 8px rgba(0,0,0,0.3)"
+              : "0 2px 8px rgba(0,0,0,0.1)",
             wordBreak: "break-word",
             maxHeight: 400,
             overflowY: "auto",
