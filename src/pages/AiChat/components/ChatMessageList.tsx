@@ -49,7 +49,7 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages, onRe
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 2,
+          gap: 3,
           p: 4,
           textAlign: "center",
         }}
@@ -61,22 +61,24 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages, onRe
         >
           <Box
             sx={{
-              width: 72,
-              height: 72,
+              width: 96,
+              height: 96,
               borderRadius: "50%",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor:
-                theme.palette.mode === "dark"
-                  ? "rgba(144, 202, 249, 0.12)"
-                  : "rgba(25, 118, 210, 0.1)",
+              background: theme.palette.mode === "dark"
+                ? `linear-gradient(135deg, rgba(144, 202, 249, 0.2) 0%, rgba(144, 202, 249, 0.05) 100%)`
+                : `linear-gradient(135deg, rgba(25, 118, 210, 0.15) 0%, rgba(25, 118, 210, 0.05) 100%)`,
+              boxShadow: theme.palette.mode === "dark"
+                ? "0 8px 32px rgba(144, 202, 249, 0.15)"
+                : "0 8px 32px rgba(25, 118, 210, 0.1)",
               mb: 1,
             }}
           >
             <SmartToyIcon
               sx={{
-                fontSize: 38,
+                fontSize: 48,
                 color: theme.palette.primary.main,
               }}
             />
@@ -89,11 +91,12 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages, onRe
           transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
         >
           <Typography
-            variant="h5"
+            variant="h4"
             sx={{
               fontWeight: 700,
               color: theme.palette.text.primary,
-              mb: 0.5,
+              mb: 1,
+              letterSpacing: -0.5,
             }}
           >
             {t("ai_chat_page.welcome_message")}
@@ -109,7 +112,8 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages, onRe
             variant="body1"
             sx={{
               color: theme.palette.text.secondary,
-              maxWidth: 340,
+              maxWidth: 400,
+              lineHeight: 1.6,
             }}
           >
             {t("ai_chat_page.welcome_subtitle")}
@@ -143,7 +147,22 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages, onRe
           borderRadius: 3,
         },
       }}
+      role="log"
+      aria-live="polite"
+      aria-atomic="false"
     >
+      {/* Screen reader announcement for new messages */}
+      {messages.length > 0 && (
+        <Box
+          sx={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0, 0, 0, 0)" }}
+          role="status"
+          aria-live="polite"
+        >
+          {messages[messages.length - 1].role === "assistant" 
+            ? `New ${messages[messages.length - 1].role} message: ${messages[messages.length - 1].content.substring(0, 100)}`
+            : ""}
+        </Box>
+      )}
       <AnimatePresence initial={false}>
         {messages.map((message, index) => (
           <motion.div
