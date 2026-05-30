@@ -88,6 +88,7 @@
     "delete_chat": "Delete chat",
     "delete_all": "Delete all",
     "confirm_delete": "Are you sure you want to delete?",
+    "confirm": "Confirm",
     "cancel": "Cancel",
     "loading": "Loading...",
     "error_message": "Something went wrong. Please try again.",

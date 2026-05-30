@@ -88,6 +88,7 @@
     "delete_chat": "Chat löschen",
     "delete_all": "Alle löschen",
     "confirm_delete": "Möchtest du wirklich löschen?",
+    "confirm": "Bestätigen",
     "cancel": "Abbrechen",
     "loading": "Wird geladen...",
     "error_message": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
