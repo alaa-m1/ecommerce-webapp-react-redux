@@ -12,6 +12,7 @@ export const aiChatMiddleware: Middleware = (store) => (next) => (action) => {
       "aiChat/clearConversations",
       "aiChat/addMessage",
       "aiChat/updateLastAssistantMessage",
+      "aiChat/updateConversationTitle",
     ];
 
     if (mutatingActions.some((type) => action.type === type)) {
