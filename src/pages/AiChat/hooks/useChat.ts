@@ -7,6 +7,7 @@ import {
   setError,
   updateLastAssistantMessage,
   setStreaming,
+  updateConversationTitle,
 } from "store/aiChat/aiChatSlice";
 import {
   selectActiveConversationId,
@@ -67,6 +68,21 @@ export const useChat = () => {
           message: userMsg,
         })
       );
+
+      // Auto-generate conversation title from first message
+      if (messages.length === 0) {
+        const maxLength = 50;
+        const trimmed = userMessage.trim();
+        const title = trimmed.length <= maxLength
+          ? trimmed
+          : trimmed.substring(0, maxLength) + "...";
+        dispatch(
+          updateConversationTitle({
+            conversationId: activeConversationId,
+            title,
+          })
+        );
+      }
 
       const assistantMsg: ChatMessage = {
         id: `${Date.now()}-assistant`,

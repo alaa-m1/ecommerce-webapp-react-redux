@@ -38,6 +38,11 @@ type SetErrorPayload = string | null;
 
 type SetSelectedModelPayload = string;
 
+type UpdateConversationTitlePayload = {
+  conversationId: string;
+  title: string;
+};
+
 const aiChatSlice = createSlice({
   name: "aiChat",
   initialState,
@@ -123,6 +128,18 @@ const aiChatSlice = createSlice({
     setSelectedModel: (state, action: PayloadAction<SetSelectedModelPayload>) => {
       state.selectedModel = action.payload;
     },
+
+    updateConversationTitle: (
+      state,
+      action: PayloadAction<UpdateConversationTitlePayload>
+    ) => {
+      const { conversationId, title } = action.payload;
+      const conversation = state.conversations.find((c) => c.id === conversationId);
+      if (conversation) {
+        conversation.title = title;
+        conversation.updatedAt = Date.now();
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(initializeChatFromStorage.fulfilled, (state, action) => {
@@ -145,6 +162,7 @@ export const {
   setLoading,
   setError,
   setSelectedModel,
+  updateConversationTitle,
 } = aiChatSlice.actions;
 
 export const aiChatReducer = aiChatSlice.reducer;
