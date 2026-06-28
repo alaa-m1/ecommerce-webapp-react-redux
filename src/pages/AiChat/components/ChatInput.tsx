@@ -89,7 +89,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         inputProps={{
           "aria-label": t("ai_chat_page.placeholder"),
           "aria-describedby": isLoading ? "chat-loading-status" : undefined,
+          maxLength: 4000,
         }}
+        helperText={
+          value.length > 0 ? `${value.length} / 4000 ${t("ai_chat_page.characters")}` : ""
+        }
         sx={{
           "& .MuiOutlinedInput-root": {
             borderRadius: 3,
@@ -114,6 +118,10 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                   ? "rgba(255,255,255,0.02)"
                   : "rgba(0,0,0,0.01)",
             },
+          },
+          "& .MuiFormHelperText-root": {
+            fontSize: "0.7rem",
+            color: value.length > 3500 ? theme.palette.warning.main : theme.palette.text.secondary,
           },
         }}
       />

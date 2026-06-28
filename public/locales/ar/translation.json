@@ -104,6 +104,12 @@
     "api_error": "خطأ في API",
     "network_error": "خطأ في الشبكة",
     "dismiss": "إغلاق",
+    "characters": "حرف",
+    "suggested_prompts": "اقتراحات",
+    "prompt_explain": "شرح مفهوم",
+    "prompt_code": "مساعدة في كتابة الكود",
+    "prompt_translate": "ترجمة نص",
+    "prompt_summarize": "تلخيص موضوع",
     "empty_response_error": "أرجع الذكاء الاصطناعي ردًا فارغًا. يرجى المحاولة مرة أخرى.",
     "stopped_by_user": "تم إيقاف التوليد بواسطة المستخدم."
   }

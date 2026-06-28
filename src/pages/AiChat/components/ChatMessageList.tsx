@@ -22,7 +22,7 @@ const messageVariants = {
   exit: { opacity: 0, transition: { duration: 0.15 } },
 };
 
-export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages, onRetry }) => {
+export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages, onRetry, onPromptClick }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -42,84 +42,10 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({ messages, onRe
 
   if (messages.length === 0) {
     return (
-      <Box
-        sx={{
-          flexGrow: 1,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 3,
-          p: 4,
-          textAlign: "center",
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        >
-          <Box
-            sx={{
-              width: 96,
-              height: 96,
-              borderRadius: "50%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: theme.palette.mode === "dark"
-                ? `linear-gradient(135deg, rgba(144, 202, 249, 0.2) 0%, rgba(144, 202, 249, 0.05) 100%)`
-                : `linear-gradient(135deg, rgba(25, 118, 210, 0.15) 0%, rgba(25, 118, 210, 0.05) 100%)`,
-              boxShadow: theme.palette.mode === "dark"
-                ? "0 8px 32px rgba(144, 202, 249, 0.15)"
-                : "0 8px 32px rgba(25, 118, 210, 0.1)",
-              mb: 1,
-            }}
-          >
-            <SmartToyIcon
-              sx={{
-                fontSize: 48,
-                color: theme.palette.primary.main,
-              }}
-            />
-          </Box>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-        >
-          <Typography
-            variant="h4"
-            sx={{
-              fontWeight: 700,
-              color: theme.palette.text.primary,
-              mb: 1,
-              letterSpacing: -0.5,
-            }}
-          >
-            {t("ai_chat_page.welcome_message")}
-          </Typography>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-        >
-          <Typography
-            variant="body1"
-            sx={{
-              color: theme.palette.text.secondary,
-              maxWidth: 400,
-              lineHeight: 1.6,
-            }}
-          >
-            {t("ai_chat_page.welcome_subtitle")}
-          </Typography>
-        </motion.div>
-      </Box>
+      <AiChatPlaceholder
+        title={t("ai_chat_page.welcome_message")}
+        onPromptClick={onPromptClick}
+      />
     );
   }
 
