@@ -104,6 +104,12 @@
     "api_error": "API Error",
     "network_error": "Network Error",
     "dismiss": "Dismiss",
+    "characters": "characters",
+    "suggested_prompts": "Suggested prompts",
+    "prompt_explain": "Explain a concept",
+    "prompt_code": "Help me write code",
+    "prompt_translate": "Translate text",
+    "prompt_summarize": "Summarize a topic",
     "empty_response_error": "The AI returned an empty response. Please try again.",
     "stopped_by_user": "Generation stopped by user."
   }

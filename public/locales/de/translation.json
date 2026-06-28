@@ -104,6 +104,12 @@
     "api_error": "API-Fehler",
     "network_error": "Netzwerkfehler",
     "dismiss": "Schließen",
+    "characters": "Zeichen",
+    "suggested_prompts": "Vorgeschlagene Prompts",
+    "prompt_explain": "Ein Konzept erklären",
+    "prompt_code": "Beim Schreiben von Code helfen",
+    "prompt_translate": "Text übersetzen",
+    "prompt_summarize": "Ein Thema zusammenfassen",
     "empty_response_error": "Die KI hat eine leere Antwort zurückgegeben. Bitte versuchen Sie es erneut.",
     "stopped_by_user": "Generierung vom Benutzer gestoppt."
   }

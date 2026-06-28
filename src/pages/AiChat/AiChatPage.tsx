@@ -10,10 +10,12 @@ import {
   IconButton,
   Drawer,
   Alert,
+  Tooltip,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import ClearIcon from "@mui/icons-material/Clear";
 import { ChatSidebar } from "./components/ChatSidebar";
 import { ChatMessageList } from "./components/ChatMessageList";
 import { ChatInput } from "./components/ChatInput";
@@ -47,6 +49,19 @@ export const AiChatPage = () => {
   const error = useAppSelector(selectError);
 
   const { sendMessage, stopGeneration, isLoading, retryLastMessage } = useChat();
+
+  const handleClearChat = () => {
+    if (activeConversation) {
+      deleteChat(activeConversation.id);
+    }
+  };
+
+  const handlePromptClick = (prompt: string) => {
+    if (!activeConversation) {
+      createNewChat();
+    }
+    sendMessage(prompt);
+  };
 
   useEffect(() => {
     dispatch(initializeChatFromStorage());
@@ -162,6 +177,23 @@ export const AiChatPage = () => {
             </IconButton>
           )}
           <ModelSelector />
+          {activeConversation && messages.length > 0 && (
+            <Tooltip title={t("ai_chat_page.clear_chat")}>
+              <IconButton
+                onClick={handleClearChat}
+                size="small"
+                aria-label={t("ai_chat_page.clear_chat")}
+                sx={{
+                  color: theme.palette.text.secondary,
+                  "&:hover": {
+                    color: theme.palette.error.main,
+                  },
+                }}
+              >
+                <ClearIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
         </Box>
       </Box>
 
@@ -204,7 +236,7 @@ export const AiChatPage = () => {
         >
           {isLoading ? t("ai_chat_page.loading") : ""}
         </Box>
-        <ChatMessageList messages={messages} onRetry={retryLastMessage} />
+        <ChatMessageList messages={messages} onRetry={retryLastMessage} onPromptClick={handlePromptClick} />
         <ChatInput
           onSend={sendMessage}
           onStop={stopGeneration}
