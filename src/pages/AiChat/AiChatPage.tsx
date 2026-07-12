@@ -166,8 +166,19 @@ export const AiChatPage = () => {
           alignItems: "center",
           justifyContent: "space-between",
           background: theme.palette.mode === "dark"
-            ? `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.background.default} 100%)`
-            : `linear-gradient(180deg, #fff 0%, #f8f9fa 100%)`,
+            ? `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${theme.palette.primary.dark}15 50%, ${theme.palette.background.default} 100%)`
+            : `linear-gradient(135deg, #fff 0%, ${theme.palette.primary.light}20 50%, #f8f9fa 100%)`,
+          position: "relative",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "3px",
+            background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+            opacity: 0.8,
+          },
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
