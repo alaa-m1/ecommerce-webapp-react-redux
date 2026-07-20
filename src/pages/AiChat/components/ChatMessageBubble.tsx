@@ -139,21 +139,29 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message, o
           position: "relative",
         }}
       >
-        <Box
-          sx={{
-            px: 2.5,
-            py: 1.75,
-            borderRadius: isUser ? "20px 20px 6px 20px" : "20px 20px 20px 6px",
-            backgroundColor: isUser ? userBubbleBg : assistantBubbleBg,
-            color: isUser
-              ? "#fff"
-              : theme.palette.text.primary,
-            boxShadow: theme.palette.mode === "dark"
-              ? "0 2px 8px rgba(0,0,0,0.3)"
-              : "0 2px 8px rgba(0,0,0,0.1)",
-            wordBreak: "break-word",
-            maxHeight: 400,
-            overflowY: "auto",
+        <motion.div
+          initial={{ scale: 1 }}
+          whileHover={{ 
+            scale: 1.02,
+            transition: { duration: 0.2 }
+          }}
+        >
+          <Box
+            sx={{
+              px: 2.5,
+              py: 1.75,
+              borderRadius: isUser ? "20px 20px 6px 20px" : "20px 20px 20px 6px",
+              backgroundColor: isUser ? userBubbleBg : assistantBubbleBg,
+              color: isUser
+                ? "#fff"
+                : theme.palette.text.primary,
+              boxShadow: theme.palette.mode === "dark"
+                ? "0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.2)"
+                : "0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.1)",
+              wordBreak: "break-word",
+              maxHeight: 400,
+              overflowY: "auto",
+              transition: "box-shadow 0.3s ease, transform 0.2s ease",
             "& pre": {
               backgroundColor:
                 theme.palette.mode === "dark" ? "#1a1a1a" : "#e8e8e8",
@@ -243,6 +251,7 @@ export const ChatMessageBubble: React.FC<ChatMessageBubbleProps> = ({ message, o
             </motion.div>
           )}
         </Box>
+        </motion.div>
 
         <Box
           sx={{
